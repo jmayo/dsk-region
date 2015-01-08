@@ -13,6 +13,15 @@
 	<script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
 	<script src="js/jquery-ui-1.11.2.custom/jquery-ui.js" type="text/javascript"></script>
 	<script src="js/index.js" type="text/javascript"> </script>
+	 <script type="text/javascript" src="lib/underscore.js"></script>
+  <script type="text/javascript" src="lib/handlebars-v1.3.0.js"></script>
+  <script type="text/javascript" src="lib/backbone.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/models/personal.js"></script>
+     <script type="text/javascript" src="js/collections/personas.js"></script>
+  
+
+
 </head>
 <body>
 	<header>
@@ -32,13 +41,13 @@
 	</nav>
 	<div class="caja_acciones">
 		<ul class="menu_acciones">
-			<li><a href="#" class="nuevo"></a></li>
+			<li class="aa"><a href="#" class="nuevo"></a></li>
 			<li><a href="#" class="eliminar"></a></li>
 			<li><a href="#" class="guardar"></a></li>
 			<li><input type="text" placeholder="Buscar" class="buscar"/></li>
 		</ul>
 		<div class="divResultados">
-			<div class="resultado_ind">
+			<!-- <div class="resultado_ind">
 				<img  src=images/foto.png />
 				<span class="name">Raul Enrique Torres Reyes</span>
 				<p>23333</p>
@@ -47,8 +56,10 @@
 				<img  src=images/foto.png />
 				<span class="name">Diana Torres Reyes</span>
 				<p>23333</p>
-			</div>
+			</div> -->
+
 		</div>
+
 	</div>
 	<section class="contenido">
 		<article class="bloque">
@@ -242,6 +253,10 @@
 			</div>
 		</article>
 	</section>
+  <script id="resultados-busqueda-template" type="text/x-handlebars-template">
+		<span >{{paterno}}</span>
+		<p>{{matricula}}</p>
+  </script>
 	<footer>
 		<ul class="redes_sociales">
 			<li><a class="twitter" href="#"></a></li>
@@ -249,5 +264,10 @@
 			<li><a class="e-mail" href="#"></a></li>
 		</ul>
 	</footer>
+	<script type="text/javascript" src="js/views/cajaBusqueda.js"></script>
+  <script type="text/javascript" src="js/views/personalBusqueda.js"></script>
+  <script type="text/javascript" src="js/views/personalBusquedas.js"></script>
+  <script type="text/javascript" src="js/routers/router.js"></script>
+  <script type="text/javascript" src="js/main.js"></script> 
 </body>
 </html>

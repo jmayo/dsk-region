@@ -295,7 +295,7 @@ nav .cerrar_sesion li a.cerrar_sesion:before {
   margin-right: 6px;
 }
 .caja_acciones .divResultados .resultado_ind:hover {
-  background: #3bb998;
+  background: #696868;
   color: #fff;
   cursor: pointer;
 }
