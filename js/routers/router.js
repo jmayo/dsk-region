@@ -2,7 +2,7 @@ Personal.Router = Backbone.Router.extend({
   routes: {
     "": "index",
     "Personal": "personal",
-    "Personal/:valor_buscado": "PersonalDetalle",
+    "Personal/:valor_buscado": "personalMatricula",
   },
 
 initialize: function () {
@@ -10,9 +10,17 @@ initialize: function () {
     this.current = {};
     this.jsonData = {};
     this.Perso = new Personal.Collections.Personas();
-    this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso});
     this.PersonalBusquedaVista = new Personal.Views.PersonalBusqueda();
     this.PersonalBusquedasVista = new Personal.Views.PersonalBusquedas({collection: this.Perso});
+    this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso});
+    this.PersoModelo = new Personal.Models.personal();
+    this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo});
+  
+     this.PersonalCatalogos = new Personal.Collections.Catalogos();
+     this.PersonalCatalogos.claves ="15";
+     this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
+     this.PersonalCatalogos.reset();
+     this.PersonalCatalogos.fetch();
     Backbone.history.start();
   },
 
@@ -27,6 +35,10 @@ initialize: function () {
     console.log("Estas en la lista de personal");
   },
 
+ personalMatricula: function (valor_buscado) {
+    this.PersoModelo.valor = valor_buscado;
+    this.PersoModelo.fetch();
+  },
 
 
 

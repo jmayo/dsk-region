@@ -1,18 +1,13 @@
 Personal.Views.PersonalBusqueda = Backbone.View.extend({
   events : {
      "click .nuevo":   "createArticle",
+     "mousedown ": "seleccionado",
    },
-
-
-  el: $('.caja_accioness'),
   tagName: 'div',
   className: 'resultado_ind',
   template: Handlebars.compile($("#resultados-busqueda-template").html()),
 
-  //el: $('.caja_acciones'),
   initialize: function () {
-    //  this.listenTo(this.model, "change", this.render, this);
-  //  this.listenTo(this.collection, "add", this.addOne, this);
   },
 
   createArticle : function (e) {
@@ -27,6 +22,10 @@ Personal.Views.PersonalBusqueda = Backbone.View.extend({
     this.$el.html(html);
     return this;
   },
+  seleccionado: function(){
+    console.log(this.model.get('nombre'));
+    Personal.app.navigate("Personal/" + this.model.get('matricula'), {trigger: true, replace: true});
+  }
 });
 
 

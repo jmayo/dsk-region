@@ -17,9 +17,11 @@
   <script type="text/javascript" src="lib/handlebars-v1.3.0.js"></script>
   <script type="text/javascript" src="lib/backbone.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/models/personal.js"></script>
-     <script type="text/javascript" src="js/collections/personas.js"></script>
-  
+   <script type="text/javascript" src="js/models/personal.js"></script>
+   <script type="text/javascript" src="js/models/catalogo.js"></script>
+   
+   <script type="text/javascript" src="js/collections/personas.js"></script>
+  <script type="text/javascript" src="js/collections/catalogos.js"></script>
 
 
 </head>
@@ -46,7 +48,7 @@
 			<li><a href="#" class="guardar"></a></li>
 			<li><input type="text" placeholder="Buscar" class="buscar"/></li>
 		</ul>
-		<div class="divResultados">
+		<div hidden class="divResultados">
 			<!-- <div class="resultado_ind">
 				<img  src=images/foto.png />
 				<span class="name">Raul Enrique Torres Reyes</span>
@@ -65,13 +67,16 @@
 		<article class="bloque">
 			<div class="titulo_bloque">
 				Básicos
+				</select>
 			</div>
 			<div class="caja_bloque">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="id_empleado">Id Empleado</label>
-							<input class="inputs_bloque" type="text" placeholder="Id Empleado" />
+				<div class="campos_bloque" id="personal_basicos">
+					<!--<ul class="ul_bloque"> -->
+					<!-- Plantilla de detalle del personal -->
+
+					<!-- 	<li class="li_bloque">
+							<label class="etiquetas_bloque"  for="id_empleado">Id Empleado</label>
+							<input id="persona_id" class="inputs_bloque" type="text" placeholder="Id Empleado" />
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="paterno">Paterno</label>
@@ -89,75 +94,7 @@
 							<label class="etiquetas_bloque" for="rfc">RFC</label>
 							<input class="inputs_bloque" type="text" placeholder="RFC" />
 						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="curp">CURP</label>
-							<input class="inputs_bloque" type="text" placeholder="CURP" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="cuip">CUIP</label>
-							<input class="inputs_bloque" type="text" placeholder="CUIP" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="fecha_nacimiento">Fecha de Nacimiento</label>
-							<input id="cal_fec_nac" class="inputs_bloque" type="text" placeholder="Fecha de Nacimiento" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="lugar_nacimiento_estado">Lugar de Nacimiento</label>
-							<select name="estado" class="select_bloque">
-								<option value="estado_de_mexico">Estado de México</option>
-								<option value="distrito_federal">Distrito Federal</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="lugar_nacimiento_municipio"></label>
-							<select name="municipio" class="select_bloque">
-								<option value="tlalnepantla">Tlalnepantla</option>
-								<option value="naucalpan">Naucalpan</option>
-								<option value="miguel_hidalgo">Miguel Hidalgo</option>
-								<option value="azcapotzalco">Azcapotzalco</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="estado_civil">Estado Civil</label>
-							<select name="estado_civil" class="select_bloque">
-								<option value="soltero">Soltero</option>
-								<option value="casado">Casado</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="escolaridad">Escolaridad</label>
-							<select name="escolaridad" class="select_bloque">
-								<option value="primaria">Primaria</option>
-								<option value="secundaria">Secundaria</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="religion">Religión</label>
-							<select name="religion" class="select_bloque">
-								<option value="budaismo">Budaismo</option>
-								<option value="cristianismo">Cristianismo</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="portacion">Portación</label>
-							<input class="radio_bloque" type="radio" name="portacion" value="si">
-							<label for="portacion"><span><span></span></span>Si</label>
-							<input class="radio_bloque" type="radio" name="portacion" value="no" checked="checked">
-							<label for="portacion"><span><span></span></span>No</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="seguridad_social">Seguridad Social</label>
-							<select name="seguridad_social" class="select_bloque">
-								<option value="imss">IMSS</option>
-								<option value="issste">ISSSTE</option>
-								<option value="issemym">ISSEMYM</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="id_seguridad_social">Id. Seguridad Social</label>
-							<input class="inputs_bloque" type="text" placeholder="Id. Seguridad Social" />
-						</li>
-					</ul>
+					</ul> -->
 				</div>
 			</div>
 		</article>
@@ -253,10 +190,118 @@
 			</div>
 		</article>
 	</section>
+
+<script type="text/javascript">
+     Handlebars.registerHelper(
+     'input_label',
+      function(contenido, options){
+        desc = options.hash.desc;
+        return '<label for="'+ desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
+      });
+   </script> 
+
   <script id="resultados-busqueda-template" type="text/x-handlebars-template">
-		<span >{{paterno}}</span>
+		<img  src=images/foto.png />
+		<span>{{paterno}} {{materno}} {{nombre}}</span>
 		<p>{{matricula}}</p>
   </script>
+
+<script id="personal-catalogos-template" type="text/x-handlebars-template">{{descripcion1}}</script>
+
+<script id="personal-detalle-template" type="text/x-handlebars-template">
+   <ul class="ul_bloque"> 
+	<li class="li_bloque">
+		{{{input_label 'Id Empleado' desc='id_empleado'}}}
+		<input id="persona_id" class="inputs_bloque" type="text" placeholder="Id Empleado" value={{matricula}} />
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="paterno">Paterno</label>
+		<input class="inputs_bloque" type="text" placeholder="Paterno" value={{paterno}} />
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="materno">Materno</label>
+		<input class="inputs_bloque" type="text" placeholder="Materno" value={{materno}} />
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="nombres">Nombre(s)</label>
+		<input class="inputs_bloque" type="text" placeholder="Nombre(s)" value={{nombre}} />
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="rfc">RFC</label>
+		<input class="inputs_bloque" type="text" placeholder="RFC" value={{rfc}} />
+	</li>
+		<li class="li_bloque">
+		<label class="etiquetas_bloque" for="curp">CURP</label>
+		<input class="inputs_bloque" type="text" placeholder="CURP" />
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="cuip">CUIP</label>
+		<input class="inputs_bloque" type="text" placeholder="CUIP" />
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="fecha_nacimiento">Fecha de Nacimiento</label>
+		<input id="cal_fec_nac" class="inputs_bloque" type="text" placeholder="Fecha de Nacimiento" />
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="lugar_nacimiento_estado">Lugar de Nacimiento</label>
+		<select name="estado" class="select_bloque">
+			<option value="estado_de_mexico">Estado de México</option>
+			<option value="distrito_federal">Distrito Federal</option>
+		</select>
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="lugar_nacimiento_municipio"></label>
+		<select name="municipio" class="select_bloque">
+			<option value="tlalnepantla">Tlalnepantla</option>
+			<option value="naucalpan">Naucalpan</option>
+			<option value="miguel_hidalgo">Miguel Hidalgo</option>
+			<option value="azcapotzalco">Azcapotzalco</option>
+		</select>
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="estado_civil">Estado Civil</label>
+		<select name="estado_civil" class="select_bloque">
+			<option value="soltero">Soltero</option>
+			<option value="casado">Casado</option>
+		</select>
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="escolaridad">Escolaridad</label>
+		<select name="escolaridad" class="select_bloque">
+			<option value="primaria">Primaria</option>
+			<option value="secundaria">Secundaria</option>
+		</select>
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="religion">Religión</label>
+		<select name="religion" class="select_bloque">
+			<option value="budaismo">Budaismo</option>
+			<option value="cristianismo">Cristianismo</option>
+		</select>
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="portacion">Portación</label>
+		<input class="radio_bloque" type="radio" name="portacion" value="si">
+		<label for="portacion"><span><span></span></span>Si</label>
+		<input class="radio_bloque" type="radio" name="portacion" value="no" checked="checked">
+		<label for="portacion"><span><span></span></span>No</label>
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="seguridad_social">Seguridad Social</label>
+		<select name="seguridad_social" class="select_bloque">
+			<option value="imss">IMSS</option>
+			<option value="issste">ISSSTE</option>
+			<option value="issemym">ISSEMYM</option>
+		</select>
+	</li>
+	<li class="li_bloque">
+		<label class="etiquetas_bloque" for="id_seguridad_social">Id. Seguridad Social</label>
+		<input class="inputs_bloque" type="text" placeholder="Id. Seguridad Social" />
+	</li>
+	</ul>
+ </script>
+
+
 	<footer>
 		<ul class="redes_sociales">
 			<li><a class="twitter" href="#"></a></li>
@@ -267,6 +312,10 @@
 	<script type="text/javascript" src="js/views/cajaBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusquedas.js"></script>
+  <script type="text/javascript" src="js/views/personalDetalle.js"></script>
+  <script type="text/javascript" src="js/views/personalCatalogo.js"></script>
+ <script type="text/javascript" src="js/views/personalCatalogos.js"></script> 
+
   <script type="text/javascript" src="js/routers/router.js"></script>
   <script type="text/javascript" src="js/main.js"></script> 
 </body>
