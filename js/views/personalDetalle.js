@@ -15,13 +15,14 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
    // $("#persona_id").val(this.model.get("matricula"));
   }, 
   render: function () {
-  
-
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
+    
+   
    var html = this.template(detalle);
-   this.$el.html(html);
-   return this;
+  
+   this.$el.html(html);   
+   $("#cal_fec_nac, #cal_fec_alt").datepicker({dateFormat:"dd/mm/yy"});
   }
 });
 //$("#persona_id").val("444")

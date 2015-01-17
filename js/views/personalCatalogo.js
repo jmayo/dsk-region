@@ -1,9 +1,8 @@
 Personal.Views.PersonalCatalogo = Backbone.View.extend({
-  
   tagName: 'option',
- // className: 'resultado_ind',
+ // el: $('#personal_basicos'),
   template: Handlebars.compile($("#personal-catalogos-template").html()),
-
+  
   initialize: function () {
   },
 

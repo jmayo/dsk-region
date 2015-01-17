@@ -13,12 +13,11 @@ Personal.Views.PersonalBusqueda = Backbone.View.extend({
   createArticle : function (e) {
     e.preventDefault();
     console.log("nuevo");
-  },
-  
+  },  
 
   render: function () {
     var busqueda = this.model.toJSON();
-    var html = this.template(busqueda);
+    var html = this.template( busqueda);
     this.$el.html(html);
     return this;
   },

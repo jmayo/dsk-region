@@ -10,17 +10,22 @@ initialize: function () {
     this.current = {};
     this.jsonData = {};
     this.Perso = new Personal.Collections.Personas();
+    this.PersonalCatalogos = new Personal.Collections.Catalogos();
+    this.PersonalCatalogos.claves ="1";
+    //this.PersonalCatalogos.fetch();
+
+    this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
     this.PersonalBusquedaVista = new Personal.Views.PersonalBusqueda();
     this.PersonalBusquedasVista = new Personal.Views.PersonalBusquedas({collection: this.Perso});
+    
     this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso});
     this.PersoModelo = new Personal.Models.personal();
-    this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo});
+    this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo,collection: this.PersonalCatalogos});
   
-     this.PersonalCatalogos = new Personal.Collections.Catalogos();
-     this.PersonalCatalogos.claves ="15";
-     this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
-     this.PersonalCatalogos.reset();
-     this.PersonalCatalogos.fetch();
+     //this.PersonalCatalogos.reset();
+     //this.PersonalCatalogos.fetch();
+      //<select name="estado" class="select_bloque" id="personal_basicos">
+    //</select>
     Backbone.history.start();
   },
 
@@ -37,7 +42,24 @@ initialize: function () {
 
  personalMatricula: function (valor_buscado) {
     this.PersoModelo.valor = valor_buscado;
-    this.PersoModelo.fetch();
+    this.PersoModelo.fetch(
+       {
+        success: function(){
+            this.PersonalCatalogos = new Personal.Collections.Catalogos();
+            this.PersonalCatalogos.claves ="1,2";
+            this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
+            this.PersonalCatalogos.reset();
+            this.PersonalCatalogos.fetch();
+            // this.PersonalCatalogos2 = new Personal.Collections.Catalogos();
+            // this.PersonalCatalogos2.claves ="2";
+            // this.PersonalCatalogosVista2= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos2,el: $("#perso_escolaridad")});
+            // this.PersonalCatalogos2.fetch();
+            
+        }
+      });
+    // this.model.fetch({ // call fetch() with the following options
+    //    success: this.render // $.ajax 'success' callback
+    //  });
   },
 
 

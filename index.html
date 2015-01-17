@@ -12,7 +12,6 @@
 	<!--js-->
 	<script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
 	<script src="js/jquery-ui-1.11.2.custom/jquery-ui.js" type="text/javascript"></script>
-	<script src="js/index.js" type="text/javascript"> </script>
 	 <script type="text/javascript" src="lib/underscore.js"></script>
   <script type="text/javascript" src="lib/handlebars-v1.3.0.js"></script>
   <script type="text/javascript" src="lib/backbone.js"></script>
@@ -23,6 +22,7 @@
    <script type="text/javascript" src="js/collections/personas.js"></script>
   <script type="text/javascript" src="js/collections/catalogos.js"></script>
 
+	
 
 </head>
 <body>
@@ -65,41 +65,18 @@
 	</div>
 	<section class="contenido">
 		<article class="bloque">
-			<div class="titulo_bloque">
+			<div class="titulo_bloque" >
 				Básicos
-				</select>
 			</div>
 			<div class="caja_bloque">
 				<div class="campos_bloque" id="personal_basicos">
 					<!--<ul class="ul_bloque"> -->
 					<!-- Plantilla de detalle del personal -->
-
-					<!-- 	<li class="li_bloque">
-							<label class="etiquetas_bloque"  for="id_empleado">Id Empleado</label>
-							<input id="persona_id" class="inputs_bloque" type="text" placeholder="Id Empleado" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="paterno">Paterno</label>
-							<input class="inputs_bloque" type="text" placeholder="Paterno" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="materno">Materno</label>
-							<input class="inputs_bloque" type="text" placeholder="Materno" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="nombres">Nombre(s)</label>
-							<input class="inputs_bloque" type="text" placeholder="Nombre(s)" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="rfc">RFC</label>
-							<input class="inputs_bloque" type="text" placeholder="RFC" />
-						</li>
-					</ul> -->
 				</div>
 			</div>
 		</article>
 		<article class="bloque">
-			<div class="titulo_bloque">
+			<div  id="titulo" class="titulo_bloque">
 				Administración
 			</div>
 			<div class="caja_bloque">
@@ -191,14 +168,64 @@
 		</article>
 	</section>
 
+
+
 <script type="text/javascript">
-     Handlebars.registerHelper(
-     'input_label',
-      function(contenido, options){
-        desc = options.hash.desc;
-        return '<label for="'+ desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
+   
+	Handlebars.registerHelper('if', function(conditional, options) {
+		  if(conditional) {
+		    return options.fn(this);
+		  }
+		});
+
+     Handlebars.registerHelper('titulos_caja',function(contenido, options){
+        label_desc = options.hash.label_desc;
+        return '<label for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
       });
-   </script> 
+
+
+      Handlebars.registerHelper('valores_caja', function(options){
+        input_id = '';
+        valor = '';
+        input_desc = options.hash.input_desc;
+        
+         if (options.hash.input_id !== undefined){
+        	input_id = 'id="'+ options.hash.input_id + '"';
+         }
+
+         if (options.hash.valor !== undefined){
+        	valor = 'value="'+ options.hash.valor + '"';
+         }
+
+        return '<input '+ input_id + ' class="inputs_bloque" type="text" placeholder="'+ input_desc + '" ' +valor + ' />';
+      });
+
+    Handlebars.registerHelper('selectores_combo',function(options){
+        select_id = ''; 
+        select_name = options.hash.select_name;
+        if (options.hash.select_id !== undefined){
+        	select_id = 'id="'+ options.hash.select_id + '"';
+         }
+        return '<select name="' + select_name + '" class="select_bloque" ' + select_id + '> </select>'
+      });
+
+
+	 //Helper de agrupacion
+    Handlebars.registerHelper('grp_perdet',function(contenido, options){
+		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
+		var res2 =Handlebars.helpers.valores_caja(options)
+		return '<li class="li_bloque">' + res1 + res2 + '</li>';
+		}
+    );
+	Handlebars.registerHelper('grp_combo',function(contenido, options){
+		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
+		var res2 =Handlebars.helpers.selectores_combo(options)
+		return '<li class="li_bloque">' + res1 + res2 + '</li>';
+		}
+    );
+      
+</script>
+
 
   <script id="resultados-busqueda-template" type="text/x-handlebars-template">
 		<img  src=images/foto.png />
@@ -206,49 +233,35 @@
 		<p>{{matricula}}</p>
   </script>
 
-<script id="personal-catalogos-template" type="text/x-handlebars-template">{{descripcion1}}</script>
+<script id="personal-catalogos-template" type="text/x-handlebars-template">
+	{{descripcion1}} 
+</script>
 
 <script id="personal-detalle-template" type="text/x-handlebars-template">
+  
    <ul class="ul_bloque"> 
-	<li class="li_bloque">
-		{{{input_label 'Id Empleado' desc='id_empleado'}}}
-		<input id="persona_id" class="inputs_bloque" type="text" placeholder="Id Empleado" value={{matricula}} />
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="paterno">Paterno</label>
-		<input class="inputs_bloque" type="text" placeholder="Paterno" value={{paterno}} />
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="materno">Materno</label>
-		<input class="inputs_bloque" type="text" placeholder="Materno" value={{materno}} />
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="nombres">Nombre(s)</label>
-		<input class="inputs_bloque" type="text" placeholder="Nombre(s)" value={{nombre}} />
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="rfc">RFC</label>
-		<input class="inputs_bloque" type="text" placeholder="RFC" value={{rfc}} />
-	</li>
-		<li class="li_bloque">
-		<label class="etiquetas_bloque" for="curp">CURP</label>
-		<input class="inputs_bloque" type="text" placeholder="CURP" />
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="cuip">CUIP</label>
-		<input class="inputs_bloque" type="text" placeholder="CUIP" />
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="fecha_nacimiento">Fecha de Nacimiento</label>
-		<input id="cal_fec_nac" class="inputs_bloque" type="text" placeholder="Fecha de Nacimiento" />
-	</li>
+   
+  {{{grp_perdet "Id Empleado" valor=matricula input_id='persona_id' label_desc='id_empleado' input_desc='Id Empleado'}}}
+  {{{grp_perdet "Paterno" valor=paterno  label_desc='paterno' input_desc='Paterno'}}}
+  {{{grp_perdet "Materno" valor=materno  label_desc='materno' input_desc='Materno'}}}
+  {{{grp_perdet "Nombre(s)" valor=nombre  label_desc='nombres' input_desc='Nombre(s)'}}}
+  {{{grp_perdet "RFC" valor=rfc  label_desc='rfc' input_desc='RFC'}}}
+  {{{grp_perdet "CURP" valor=""  label_desc='curp' input_desc='CURP'}}}
+  {{{grp_perdet "CUIP"   label_desc='cuip' input_desc='CUIP'}}}
+  {{{grp_perdet "Fecha de Nacimiento"  input_id="cal_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
+            
+
+            
+
 	<li class="li_bloque">
 		<label class="etiquetas_bloque" for="lugar_nacimiento_estado">Lugar de Nacimiento</label>
 		<select name="estado" class="select_bloque">
 			<option value="estado_de_mexico">Estado de México</option>
-			<option value="distrito_federal">Distrito Federal</option>
+			<option value="distrito_federal" selected>Distrito Federal</option>
 		</select>
 	</li>
+
+
 	<li class="li_bloque">
 		<label class="etiquetas_bloque" for="lugar_nacimiento_municipio"></label>
 		<select name="municipio" class="select_bloque">
@@ -258,20 +271,10 @@
 			<option value="azcapotzalco">Azcapotzalco</option>
 		</select>
 	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="estado_civil">Estado Civil</label>
-		<select name="estado_civil" class="select_bloque">
-			<option value="soltero">Soltero</option>
-			<option value="casado">Casado</option>
-		</select>
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="escolaridad">Escolaridad</label>
-		<select name="escolaridad" class="select_bloque">
-			<option value="primaria">Primaria</option>
-			<option value="secundaria">Secundaria</option>
-		</select>
-	</li>
+    {{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
+ 
+    {{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
+ 
 	<li class="li_bloque">
 		<label class="etiquetas_bloque" for="religion">Religión</label>
 		<select name="religion" class="select_bloque">
@@ -315,7 +318,6 @@
   <script type="text/javascript" src="js/views/personalDetalle.js"></script>
   <script type="text/javascript" src="js/views/personalCatalogo.js"></script>
  <script type="text/javascript" src="js/views/personalCatalogos.js"></script> 
-
   <script type="text/javascript" src="js/routers/router.js"></script>
   <script type="text/javascript" src="js/main.js"></script> 
 </body>
