@@ -3,7 +3,8 @@ Personal.Views.PersonalCatalogo = Backbone.View.extend({
  // el: $('#personal_basicos'),
   template: Handlebars.compile($("#personal-catalogos-template").html()),
   
-  initialize: function () {
+  initialize: function (attrs) {
+    this.options = attrs;
   },
 
   render: function () {
@@ -11,6 +12,11 @@ Personal.Views.PersonalCatalogo = Backbone.View.extend({
     var html = this.template(catalogo);
     this.$el.html(html);
     this.el.value = this.model.get('cdu_catalogo');
+    if(this.model.get('cdu_catalogo')=== this.options.seleccionado)
+    {
+      $(this.el).attr("selected","selected");
+    }
+
     return this;
   }
 });

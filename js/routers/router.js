@@ -45,16 +45,11 @@ initialize: function () {
     this.PersoModelo.fetch(
        {
         success: function(){
-            this.PersonalCatalogos = new Personal.Collections.Catalogos();
-            this.PersonalCatalogos.claves ="1,2";
-            this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
-            this.PersonalCatalogos.reset();
-            this.PersonalCatalogos.fetch();
-            // this.PersonalCatalogos2 = new Personal.Collections.Catalogos();
-            // this.PersonalCatalogos2.claves ="2";
-            // this.PersonalCatalogosVista2= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos2,el: $("#perso_escolaridad")});
-            // this.PersonalCatalogos2.fetch();
-            
+           console.log("exito");
+           // this.PersonalCatalogos = new Personal.Collections.Catalogos();
+            //this.PersonalCatalogos.claves ="1,2";
+            //this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
+            //this.PersonalCatalogos.fetch();            
         }
       });
     // this.model.fetch({ // call fetch() with the following options

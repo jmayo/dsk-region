@@ -7,4 +7,30 @@ Personal.Collections.Catalogos = Backbone.Collection.extend({
   },
   
   model: Personal.Models.catalogo,
+
+  EstadoCivil: function () {
+		return this.where({catalogos: 1});
+	},
+  Escolaridad: function () {
+		return this.where({catalogos: 2});
+	},
+  Sexo: function () {
+		return this.where({catalogos: 3});
+	},
+  Pais: function () {
+		return this.where({catalogos: 13});
+	},
+  Estados: function () {
+		return this.where({catalogos: 14});
+	},
+  Municipios: function () {
+		return this.where({catalogos: 15});
+	},
+  Religion: function () {
+		return this.where({catalogos: 16});
+	},
+  SeguridadSocial: function () {
+		return this.where({catalogos: 17});
+	},
+
 });
