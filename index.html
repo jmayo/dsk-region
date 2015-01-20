@@ -178,6 +178,13 @@
 		  }
 		});
 
+	Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+  		if(v1 === v2) {
+    		return options.fn(this);
+  		}
+  		return options.inverse(this);
+	});
+
      Handlebars.registerHelper('titulos_caja',function(contenido, options){
         label_desc = options.hash.label_desc;
         return '<label for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
@@ -200,6 +207,7 @@
         return '<input '+ input_id + ' class="inputs_bloque" type="text" placeholder="'+ input_desc + '" ' +valor + ' />';
       });
 
+
     Handlebars.registerHelper('selectores_combo',function(options){
         select_id = ''; 
         select_name = options.hash.select_name;
@@ -208,6 +216,21 @@
          }
         return '<select name="' + select_name + '" class="select_bloque" ' + select_id + '> </select>'
       });
+
+	
+	  Handlebars.registerHelper('valores_radio', function(options){
+	        valor = '';
+	        checado = '';
+	        input_name = options.hash.input_name;
+	        valor = 'value="'+ options.hash.valor + '" ';
+	        
+	         if (options.hash.input_booleano === options.hash.input_condicion){
+	        	checado = 'checked="checked"';
+	         }
+
+	        label = '<label for="' + input_name + '"><span><span></span></span>"' + options.hash.valor + '"</label>';
+	        return '<input  class="radio_bloque" type="radio" name="' +  input_name + '" ' + valor + checado + '/>' + label
+	      });
 
 
 	 //Helper de agrupacion
@@ -250,17 +273,8 @@
   {{{grp_perdet "CUIP"   label_desc='cuip' input_desc='CUIP'}}}
   {{{grp_perdet "Fecha de Nacimiento"  input_id="cal_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
             
-
-            
-
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="lugar_nacimiento_estado">Lugar de Nacimiento</label>
-		<select name="estado" class="select_bloque">
-			<option value="estado_de_mexico">Estado de México</option>
-			<option value="distrito_federal" selected>Distrito Federal</option>
-		</select>
-	</li>
-
+  {{{grp_combo "Lugar de Nacimiento"   label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}}
+ 
 
 	<li class="li_bloque">
 		<label class="etiquetas_bloque" for="lugar_nacimiento_municipio"></label>
@@ -271,6 +285,7 @@
 			<option value="azcapotzalco">Azcapotzalco</option>
 		</select>
 	</li>
+
     {{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
  
     {{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
@@ -279,26 +294,17 @@
 
 
 
-
 	<li class="li_bloque">
 		<label class="etiquetas_bloque" for="portacion">Portación</label>
-		<input class="radio_bloque" type="radio" name="portacion" value="si">
-		<label for="portacion"><span><span></span></span>Si</label>
-		<input class="radio_bloque" type="radio" name="portacion" value="no" checked="checked">
-		<label for="portacion"><span><span></span></span>No</label>
+		 {{{valores_radio valor="Si" input_name="portacion" input_booleano=portacion input_condicion=true}}}
+         {{{valores_radio valor="No" input_name="portacion" input_booleano=portacion input_condicion=false}}}     
 	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="seguridad_social">Seguridad Social</label>
-		<select name="seguridad_social" class="select_bloque">
-			<option value="imss">IMSS</option>
-			<option value="issste">ISSSTE</option>
-			<option value="issemym">ISSEMYM</option>
-		</select>
-	</li>
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="id_seguridad_social">Id. Seguridad Social</label>
-		<input class="inputs_bloque" type="text" placeholder="Id. Seguridad Social" />
-	</li>
+
+     
+     {{{grp_combo "Seguridad Social"   label_desc='seguridad_social' select_name='seguridad_social' select_id='perso_segsoc'}}}
+
+	{{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
+
 	</ul>
  </script>
 
