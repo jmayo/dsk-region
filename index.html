@@ -233,6 +233,7 @@
 	      });
 
 
+
 	 //Helper de agrupacion
     Handlebars.registerHelper('grp_perdet',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
@@ -246,7 +247,29 @@
 		return '<li class="li_bloque">' + res1 + res2 + '</li>';
 		}
     );
-      
+
+	Handlebars.registerHelper('grp_options',function(contenido, options){
+		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
+		var op1_val=options.hash.op1_val;
+		var op1_cond =options.hash.op1_cond;
+		options.hash.valor = op1_val;
+		options.hash.input_condicion = op1_cond;
+		
+		var res2 =Handlebars.helpers.valores_radio(options)
+
+		var op2_val=options.hash.op2_val
+		var op2_cond =options.hash.op2_cond
+		
+		options.hash.valor = op2_val;
+		options.hash.input_condicion = op2_cond;
+		
+		var res3 =Handlebars.helpers.valores_radio(options)
+		return '<li class="li_bloque">' + res1 + res2 +  res3 + '</li>';
+		}
+    );
+ 
+
+
 </script>
 
 
@@ -261,9 +284,7 @@
 </script>
 
 <script id="personal-detalle-template" type="text/x-handlebars-template">
-  
    <ul class="ul_bloque"> 
-   
   {{{grp_perdet "Id Empleado" valor=matricula input_id='persona_id' label_desc='id_empleado' input_desc='Id Empleado'}}}
   {{{grp_perdet "Paterno" valor=paterno  label_desc='paterno' input_desc='Paterno'}}}
   {{{grp_perdet "Materno" valor=materno  label_desc='materno' input_desc='Materno'}}}
@@ -272,39 +293,14 @@
   {{{grp_perdet "CURP" valor=""  label_desc='curp' input_desc='CURP'}}}
   {{{grp_perdet "CUIP"   label_desc='cuip' input_desc='CUIP'}}}
   {{{grp_perdet "Fecha de Nacimiento"  input_id="cal_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
-            
-  {{{grp_combo "Lugar de Nacimiento"   label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}}
- 
-
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="lugar_nacimiento_municipio"></label>
-		<select name="municipio" class="select_bloque">
-			<option value="tlalnepantla">Tlalnepantla</option>
-			<option value="naucalpan">Naucalpan</option>
-			<option value="miguel_hidalgo">Miguel Hidalgo</option>
-			<option value="azcapotzalco">Azcapotzalco</option>
-		</select>
-	</li>
-
-    {{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
- 
-    {{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
- 
-    {{{grp_combo "Religión"   label_desc='religion' select_name='religion' select_id='perso_religion'}}}
-
-
-
-	<li class="li_bloque">
-		<label class="etiquetas_bloque" for="portacion">Portación</label>
-		 {{{valores_radio valor="Si" input_name="portacion" input_booleano=portacion input_condicion=true}}}
-         {{{valores_radio valor="No" input_name="portacion" input_booleano=portacion input_condicion=false}}}     
-	</li>
-
-     
-     {{{grp_combo "Seguridad Social"   label_desc='seguridad_social' select_name='seguridad_social' select_id='perso_segsoc'}}}
-
-	{{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
-
+  {{{grp_combo "Lugar de Nacimiento"   label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
+  {{{grp_combo "Municipio"   label_desc='lugar_nacimiento_municipio' select_name='municipio' select_id='perso_mpionac'}}}
+  {{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
+  {{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
+  {{{grp_combo "Religión"   label_desc='religion' select_name='religion' select_id='perso_religion'}}}
+  {{{grp_options "Portación" label_desc='portacion' op1_val='Si' op2_val='No' op1_cond=true op2_cond=false input_name='portacion' input_booleano=portacion}}}   
+  {{{grp_combo "Seguridad Social"   label_desc='seguridad_social' select_name='seguridad_social' select_id='perso_segsoc'}}}
+  {{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
 	</ul>
  </script>
 

@@ -1,5 +1,8 @@
 Personal.Views.PersonalDetalle = Backbone.View.extend({
- 
+  events : {
+     "change #perso_edonac": "edonacSelected"
+   },
+
   el: $('#personal_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
@@ -12,6 +15,9 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
     console.log("llenando el formulario");
     this.render();
   }, 
+  edonacSelected: function(){
+    console.log("se selecciono un estado");
+  },
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
@@ -21,8 +27,8 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
 
    
     var PersonalCatalogos = new Personal.Collections.Catalogos();
-    PersonalCatalogos.claves ="1,2,14,15,16,17,18";
-  
+    PersonalCatalogos.claves ="1,2,14,16,17,18";
+    //PersonalCatalogos.cdu_default ="";
     PersonalCatalogos.fetch(
       {
         success: function(){
@@ -41,9 +47,10 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
             collection: catEdoNac,cdu_seleccionado: detalle["cdu_estado_nac"] ,id_select: "#perso_edonac" });
           visEdoNac.render();
 
+
           var catSegSoc = new Backbone.Collection(PersonalCatalogos.SeguridadSocial());
           var visSegSoc = new Personal.Views.PersonalCatalogos({
-            collection: catSegSoc,cdu_seleccionado: detalle["cdu_seguridad_social"] ,id_select: "#perso_segsoc" });
+          collection: catSegSoc,cdu_seleccionado: detalle["cdu_seguridad_social"] ,id_select: "#perso_segsoc" });
           visSegSoc.render();
         
           var catEdoCiv = new Backbone.Collection(PersonalCatalogos.EstadoCivil());
@@ -52,6 +59,16 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
           visEdoCiv.render();
         }
     });
+          var catMunicipioNac = new Personal.Collections.Catalogos();
+          catMunicipioNac.claves ='15';
+          catMunicipioNac.cdu_default = detalle["cdu_estado_nac"];
+          catMunicipioNac.fetch({
+              success: function(){
+                  var visMunicipioNac = new Personal.Views.PersonalCatalogos({
+                   collection: catMunicipioNac,cdu_seleccionado: detalle["cdu_municipio_nac"] ,id_select: "#perso_mpionac" });
+                  visMunicipioNac.render();
+                }
+          });
   }
 });
 
