@@ -19,6 +19,7 @@ ico_twitter="\e60c"
 ico_nuevo="\e60a"
 ico_eliminar="\e604"
 ico_guardar="\e608"
+ico_flecha="\e602"
 
 @font-face
 	font-family "iconos"
@@ -126,6 +127,34 @@ nav
 
 .contenido
 	padding 0.5em
+	.bloque_links
+		display inline-block
+		width 30%
+		vertical-align top
+		margin-right 2%
+		.ul_links
+			width 200px
+			list-style-type none
+			margin 0
+			padding 0.1em
+			.li_links
+				margin-bottom 5px
+				background rosa
+				border-radius 90px
+				color white
+				font-family arial-regular
+				font-style italic
+				font-size 18px
+				text-align left
+				.a_links
+					margin-left 5%
+					text-decoration none
+					color white
+					&:after
+						margin-left 2em
+						font-family ico_font_family
+						font-style normal
+						content ico_flecha
 	.bloque
 		display inline-block
 		width 30%
