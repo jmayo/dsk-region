@@ -8,6 +8,8 @@ Personal.Views.PersonalCatalogos = Backbone.View.extend({
   },
 
   render: function () {
+       var id_select = this.options.id_select;
+        $(id_select).empty();
        this.collection.forEach(this.addOne, this);
   },
  

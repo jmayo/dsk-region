@@ -1,23 +1,24 @@
 Personal.Views.PersonalDetalle = Backbone.View.extend({
   events : {
-     "change #perso_edonac": "edonacSelected"
+     "change #perso_edonac": "edonacSelected",
    },
 
   el: $('#personal_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
   template: Handlebars.compile($("#personal-detalle-template").html()),
+ 
 
   initialize: function () {
+    this.catMunicipioNac = new Personal.Collections.Catalogos();
     this.listenTo(this.model, "change", this.llenado, this);
+
+
   },
   llenado: function(){
     console.log("llenando el formulario");
     this.render();
   }, 
-  edonacSelected: function(){
-    console.log("se selecciono un estado");
-  },
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
@@ -59,16 +60,32 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
           visEdoCiv.render();
         }
     });
-          var catMunicipioNac = new Personal.Collections.Catalogos();
-          catMunicipioNac.claves ='15';
-          catMunicipioNac.cdu_default = detalle["cdu_estado_nac"];
-          catMunicipioNac.fetch({
+          //this.catMunicipioNac = new Personal.Collections.Catalogos();
+          this.catMunicipioNac.claves ='15';
+          this.catMunicipioNac.cdu_default = detalle["cdu_estado_nac"];
+          cat = this.catMunicipioNac;
+          this.catMunicipioNac.fetch({
               success: function(){
                   var visMunicipioNac = new Personal.Views.PersonalCatalogos({
-                   collection: catMunicipioNac,cdu_seleccionado: detalle["cdu_municipio_nac"] ,id_select: "#perso_mpionac" });
+                   collection: cat,cdu_seleccionado: detalle["cdu_municipio_nac"] ,id_select: "#perso_mpionac" });
                   visMunicipioNac.render();
                 }
           });
-  }
+  },
+  edonacSelected: function(){
+    //var seleccion_descripcion=$( "#perso_edonac option:selected" ).text();
+    var cdu_seleccion = $( "#perso_edonac").val();
+    //var catMunicipioNac = new Personal.Collections.Catalogos();
+    this.catMunicipioNac.claves ='15';
+    this.catMunicipioNac.cdu_default = cdu_seleccion;
+    cat = this.catMunicipioNac;
+    this.catMunicipioNac.fetch({
+              success: function(){
+                  var visMunicipioNac = new Personal.Views.PersonalCatalogos({
+                   collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: "#perso_mpionac" });
+                  visMunicipioNac.render();
+                }
+              });
+  },
 });
 

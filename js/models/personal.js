@@ -3,6 +3,10 @@ Personal.Models.personal = Backbone.Model.extend({
       this.valor  = valor;
   },
   url : function(){
-   return 'http://192.168.0.14:8000/personal/' + this.valor + '/';
+   var direccion = 'http://192.168.0.14:8000/personal/';
+   if(this.valor!== undefined){
+   	  direccion = direccion + this.valor + '/';
+   } 
+   return direccion;
   },
 });

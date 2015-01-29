@@ -5,6 +5,7 @@ Personal.Views.PersonalCatalogo = Backbone.View.extend({
   
   initialize: function (attrs) {
     this.options = attrs;
+    this.listenTo(this.model, "remove", this.remover, this);
   },
 
   render: function () {
@@ -18,6 +19,9 @@ Personal.Views.PersonalCatalogo = Backbone.View.extend({
     }
 
     return this;
+  },
+  remover: function(){
+    console.log("se elimino")
   }
 });
 
