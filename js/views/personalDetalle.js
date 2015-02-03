@@ -56,7 +56,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
         
           var catEdoCiv = new Backbone.Collection(PersonalCatalogos.EstadoCivil());
           var visEdoCiv = new Personal.Views.PersonalCatalogos({
-            collection: catEdoCiv,cdu_seleccionado: "" ,id_select: "#perso_estado_civil" });
+            collection: catEdoCiv,cdu_seleccionado:  detalle["cdu_estado_civil"]  ,id_select: "#perso_estado_civil" });
           visEdoCiv.render();
         }
     });

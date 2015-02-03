@@ -186,8 +186,12 @@
 	});
 
      Handlebars.registerHelper('titulos_caja',function(contenido, options){
+        label_id = '';
         label_desc = options.hash.label_desc;
-        return '<label for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
+        if (options.hash.label_id !== undefined){
+        	label_id = 'id="'+ options.hash.label_id + '"';
+         }
+        return '<label ' + label_id + ' for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
       });
 
 
@@ -219,17 +223,25 @@
 
 	
 	  Handlebars.registerHelper('valores_radio', function(options){
+	        radio_id = ''; 
 	        valor = '';
 	        checado = '';
-	        input_name = options.hash.input_name;
+	        radio_name = options.hash.radio_name;
+
+	        titulo = options.hash.titulo ;
+	        
 	        valor = 'value="'+ options.hash.valor + '" ';
 	        
-	         if (options.hash.input_booleano === options.hash.input_condicion){
+
+	        if (options.hash.radio_id !== undefined){
+        	radio_id = 'id="'+ options.hash.radio_id + '"';
+         	}
+	         if (options.hash.checado===true){
 	        	checado = 'checked="checked"';
 	         }
 
-	        label = '<label for="' + input_name + '"><span><span></span></span>"' + options.hash.valor + '"</label>';
-	        return '<input  class="radio_bloque" type="radio" name="' +  input_name + '" ' + valor + checado + '/>' + label
+	        label = '<label ' + radio_id  + ' for="' + radio_name + '"><span><span></span></span>"' + titulo + '"</label>';
+	        return '<input  class="radio_bloque" type="radio" name="' +  radio_name + '" ' + valor + checado + '/>' + label
 	      });
 
 
@@ -250,20 +262,17 @@
 
 	Handlebars.registerHelper('grp_options',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
-		var op1_val=options.hash.op1_val;
-		var op1_cond =options.hash.op1_cond;
-		options.hash.valor = op1_val;
-		options.hash.input_condicion = op1_cond;
-		
+	
+		options.hash.titulo = options.hash.op1_titulo;
+		options.hash.valor = options.hash.op1_val;
+		options.hash.checado = options.hash.op1_checado;
 		var res2 =Handlebars.helpers.valores_radio(options)
 
-		var op2_val=options.hash.op2_val
-		var op2_cond =options.hash.op2_cond
-		
-		options.hash.valor = op2_val;
-		options.hash.input_condicion = op2_cond;
-		
+		options.hash.titulo = options.hash.op2_titulo;
+		options.hash.valor = options.hash.op2_val;
+		options.hash.checado = !options.hash.op1_checado;
 		var res3 =Handlebars.helpers.valores_radio(options)
+	
 		return '<li class="li_bloque">' + res1 + res2 +  res3 + '</li>';
 		}
     );
@@ -285,22 +294,24 @@
 
 <script id="personal-detalle-template" type="text/x-handlebars-template">
    <ul class="ul_bloque"> 
-  {{{grp_perdet "Id Empleado" valor=matricula input_id='persona_id' label_desc='id_empleado' input_desc='Id Empleado'}}}
+
+  {{{titulos_caja id label_desc="id_principal" label_id='persona_id'}}}
+  {{{grp_perdet "Matricula" valor=matricula input_id='persona_matricula' label_desc='matricula_empleado' input_desc='Matricula Empleado'}}}
   {{{grp_perdet "Paterno" valor=paterno  input_id='persona_paterno' label_desc='paterno' input_desc='Paterno'}}}
   {{{grp_perdet "Materno" valor=materno  input_id='persona_materno' label_desc='materno' input_desc='Materno'}}}
   {{{grp_perdet "Nombre(s)" valor=nombre  input_id='persona_nombre' label_desc='nombres' input_desc='Nombre(s)'}}}
-  {{{grp_perdet "RFC" valor=rfc  label_desc='rfc' input_desc='RFC'}}}
-  {{{grp_perdet "CURP" valor=""  label_desc='curp' input_desc='CURP'}}}
-  {{{grp_perdet "CUIP"   label_desc='cuip' input_desc='CUIP'}}}
-  {{{grp_perdet "Fecha de Nacimiento"  input_id="cal_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
-  {{{grp_combo "Lugar de Nacimiento"   label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
+  {{{grp_perdet "RFC" valor=rfc  input_id='persona_rfc' label_desc='rfc' input_desc='RFC'}}}
+  {{{grp_perdet "CURP" valor=curp  input_id='persona_curp' label_desc='curp' input_desc='CURP'}}}
+  {{{grp_perdet "CUIP" valor=cuip  input_id='persona_cuip'   label_desc='cuip' input_desc='CUIP'}}}
+  {{{grp_perdet "Fecha de Nacimiento" valor=fec_nacimiento input_id="persona_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
+  {{{grp_combo "Lugar de Nacimiento"    label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
   {{{grp_combo "Municipio"   label_desc='lugar_nacimiento_municipio' select_name='municipio' select_id='perso_mpionac'}}}
   {{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
   {{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
   {{{grp_combo "Religión"   label_desc='religion' select_name='religion' select_id='perso_religion'}}}
-  {{{grp_options "Portación" label_desc='portacion' op1_val='Si' op2_val='No' op1_cond=true op2_cond=false input_name='portacion' input_booleano=portacion}}}   
+  {{{grp_options "Portación"  radio_id='persona_portacion' label_desc='portacion' op1_titulo="Si" op2_titulo="No" op1_val=true op2_val=false  op1_checado=portacion radio_name='persona_portacion' input_booleano=portacion}}}   
   {{{grp_combo "Seguridad Social"   label_desc='seguridad_social' select_name='seguridad_social' select_id='perso_segsoc'}}}
-  {{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
+  {{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  input_id='persona_segsocial' label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
 	</ul>
  </script>
 
