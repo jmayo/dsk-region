@@ -2,7 +2,8 @@ Personal.Router = Backbone.Router.extend({
   routes: {
     "": "index",
     "Personal": "personal",
-    "Personal/:valor_buscado": "personalMatricula",
+    "Personas/nuevo/": "personalNuevo",
+    "Personal/buscar/:valor_buscado": "personalMatricula",
   },
 
 initialize: function () {
@@ -26,7 +27,11 @@ initialize: function () {
      //this.PersonalCatalogos.fetch();
       //<select name="estado" class="select_bloque" id="personal_basicos">
     //</select>
-    Backbone.history.start();
+    Backbone.history.start({
+      root: '/',
+      pushState: true,
+      silent: false
+    });
   },
 
   index: function () {
@@ -42,19 +47,32 @@ initialize: function () {
 
  personalMatricula: function (valor_buscado) {
     this.PersoModelo.valor = valor_buscado;
-    this.PersoModelo.fetch(
-       {
-        success: function(){
-           console.log("exito");
-           // this.PersonalCatalogos = new Personal.Collections.Catalogos();
-            //this.PersonalCatalogos.claves ="1,2";
-            //this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
-            //this.PersonalCatalogos.fetch();            
-        }
-      });
-    // this.model.fetch({ // call fetch() with the following options
-    //    success: this.render // $.ajax 'success' callback
-    //  });
+    this.PersoModelo.fetch();
+  },
+   personalNuevo: function () {
+     var data = {
+        "id": -1,
+        "matricula": "",
+        "paterno": "", 
+        "materno":"", 
+        "nombre":"", 
+        "rfc": "", 
+        "curp": "", 
+        "cuip": "", 
+        "fec_nacimiento":"01/01/1900", 
+        "cdu_estado_nac": "0140000", 
+        "cdu_municipio_nac": "0150000", 
+        "cdu_estado_civil" : "0010000",
+        "cdu_escolaridad": "0020000", 
+        "cdu_religion": "0160000", 
+        "cdu_seguridad_social": "0170000", 
+        "id_seguridad_social": "", 
+        "portacion": false
+      };
+     this.PersoModelo.set(data);
+
+    console.log("nueva persona");
+
   },
 
 

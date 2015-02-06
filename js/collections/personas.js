@@ -10,7 +10,8 @@ Personal.Collections.Personas = Backbone.Collection.extend({
       this.pk  = pk;
   },
   url : function(){
-  	var direccion = 'http://192.168.0.14:8000/personal/';
+  	//var direccion = 'http://192.168.0.14:8000/personal/';
+   var direccion = 'http://104.236.232.238:8000/personal/';
 
   	if(this.pk!== undefined && this.pk!== null){
    	  direccion = direccion + this.pk + '/';

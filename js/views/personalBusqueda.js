@@ -1,6 +1,5 @@
 Personal.Views.PersonalBusqueda = Backbone.View.extend({
   events : {
-     "click .nuevo":   "createArticle",
      "mousedown ": "seleccionado",
    },
   tagName: 'div',
@@ -10,11 +9,6 @@ Personal.Views.PersonalBusqueda = Backbone.View.extend({
   initialize: function () {
   },
 
-  createArticle : function (e) {
-    e.preventDefault();
-    console.log("nuevo");
-  },  
-
   render: function () {
     var busqueda = this.model.toJSON();
     var html = this.template( busqueda);
@@ -23,7 +17,7 @@ Personal.Views.PersonalBusqueda = Backbone.View.extend({
   },
   seleccionado: function(){
     console.log(this.model.get('nombre'));
-    Personal.app.navigate("Personal/" + this.model.get('matricula'), {trigger: true, replace: true});
+    Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true, replace: true});
   }
 });
 

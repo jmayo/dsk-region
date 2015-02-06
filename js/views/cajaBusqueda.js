@@ -3,14 +3,21 @@ events : {
      "keyup .buscar": "buscarEnServidor",
      "blur .buscar" : "esconderBusqueda",
      "focus .buscar" : "mostrarBusqueda",
+     "click .nuevo": "nuevo",
      "click .guardar": "guardar",
+     "click #upload-button": "subir_imagen",
    },
   el: $('.caja_acciones'),
   template: Handlebars.compile($("#resultados-busqueda-template").html()),
 
   initialize: function () {
    },
-
+   nuevo: function()
+   {
+      console.log("nuevo registro");
+      Personal.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
+  
+   },
   guardar: function(){
     console.log("guardando");
     var id = $('#persona_id').text();
