@@ -7,13 +7,14 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   className: 'ul_bloque',
   tagName: 'ul',
   template: Handlebars.compile($("#personal-detalle-template").html()),
- 
-
+  
   initialize: function () {
     this.catMunicipioNac = new Personal.Collections.Catalogos();
     this.listenTo(this.model, "change", this.llenado, this);
-
-
+  },
+  reset: function()
+  {
+    console.log("valores por defecto");
   },
   llenado: function(){
     console.log("llenando el formulario");
@@ -29,7 +30,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
    
     var PersonalCatalogos = new Personal.Collections.Catalogos();
     PersonalCatalogos.claves ="1,2,14,16,17,18";
-    //PersonalCatalogos.cdu_default ="";
+  
     PersonalCatalogos.fetch(
       {
         success: function(){
@@ -60,7 +61,6 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
           visEdoCiv.render();
         }
     });
-          //this.catMunicipioNac = new Personal.Collections.Catalogos();
           this.catMunicipioNac.claves ='15';
           this.catMunicipioNac.cdu_default = detalle["cdu_estado_nac"];
           cat = this.catMunicipioNac;
@@ -73,9 +73,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
           });
   },
   edonacSelected: function(){
-    //var seleccion_descripcion=$( "#perso_edonac option:selected" ).text();
     var cdu_seleccion = $( "#perso_edonac").val();
-    //var catMunicipioNac = new Personal.Collections.Catalogos();
     this.catMunicipioNac.claves ='15';
     this.catMunicipioNac.cdu_default = cdu_seleccion;
     cat = this.catMunicipioNac;
@@ -87,5 +85,71 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
                 }
               });
   },
+  guardar: function(){
+    console.log("guardando");
+    var id = $('#persona_id').text();
+    var matricula = $('#persona_matricula').val();
+    var paterno = $('#persona_paterno').val();
+    var materno = $('#persona_materno').val();
+    var nombre = $('#persona_nombre').val();
+    var rfc = $('#persona_rfc').val();
+    var curp = $('#persona_curp').val();
+    var cuip = $('#persona_cuip').val();
+    var fec_nac = $('#persona_fec_nac').val();
+    var cdu_estado_nac= $('#perso_edonac').val();
+    var cdu_municipio_nac =$('#perso_mpionac').val();
+    var cdu_estado_civil = $('#perso_estado_civil').val();
+   
+    var cdu_escolaridad = $('#perso_escolaridad').val();
+    var cdu_religion = $('#perso_religion').val();
+    var cdu_seguridad_social = $('#perso_segsoc').val();
+    var id_seguridad_social = $('#persona_segsocial').val();
+    var portacion = this.getRadioCheckedValue('persona_portacion');
+    var bln_port = Boolean(portacion.match(/^true$/i)); 
+  
+    var data = {
+        "id": id,
+        "matricula": matricula,
+        "paterno": paterno, 
+        "materno":materno, 
+        "nombre":nombre, 
+        "rfc": rfc, 
+        "curp": curp, 
+        "cuip": cuip, 
+        "fec_nacimiento":fec_nac, 
+        "cdu_estado_nac": cdu_estado_nac, 
+        "cdu_municipio_nac": cdu_municipio_nac, 
+        "cdu_estado_civil" : cdu_estado_civil,
+        "cdu_escolaridad": cdu_escolaridad, 
+        "cdu_religion": cdu_religion, 
+        "cdu_seguridad_social": cdu_seguridad_social, 
+        "id_seguridad_social": id_seguridad_social, 
+        "portacion": bln_port
+      };
+  
+    var model = new Personal.Models.personal(data);
+    model.valor = undefined;
+    model.pk= id;
+    //if(id ===""){ model.pk= null;}else{ model.pk= id;}
+
+    var tipo='POST'
+    if(window.Personal.operacion!=="nuevo"){
+      var tipo='PUT';
+    }
+  
+    model.save(null,{type: tipo});
+  },
+  getRadioCheckedValue: function(radio_name)
+  {
+   var oRadio = $('[name=' + radio_name + ']'); 
+   for(var i = 0; i < oRadio.length; i++)
+   {
+      if(oRadio[i].checked)
+      {
+         return oRadio[i].value;
+      }
+   }
+   return '';
+},
 });
 

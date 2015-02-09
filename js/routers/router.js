@@ -1,78 +1,60 @@
 Personal.Router = Backbone.Router.extend({
   routes: {
-    "": "index",
+    "": "root",
     "Personal": "personal",
     "Personas/nuevo/": "personalNuevo",
     "Personal/buscar/:valor_buscado": "personalMatricula",
+    "Empresas": "empresas",
   },
 
 initialize: function () {
-    location.hash = '';//Para que al refrescar la pagina ponga #
-    this.current = {};
-    this.jsonData = {};
-    this.Perso = new Personal.Collections.Personas();
-    this.PersonalCatalogos = new Personal.Collections.Catalogos();
-    this.PersonalCatalogos.claves ="1";
-    //this.PersonalCatalogos.fetch();
+    //104.236.232.238:8000
+    window.ruta="http://192.168.122.1:8000/";
 
-    this.PersonalCatalogosVista= new Personal.Views.PersonalCatalogos({collection: this.PersonalCatalogos});
+    this.Perso = new Personal.Collections.Personas();
+    this.MenuVista = new Personal.Views.Menu(); 
+
+    this.ContenidoVista = new Personal.Views.Contenido(); 
+ 
     this.PersonalBusquedaVista = new Personal.Views.PersonalBusqueda();
     this.PersonalBusquedasVista = new Personal.Views.PersonalBusquedas({collection: this.Perso});
     
+    this.CajaOperaciones= new Personal.Views.CajaOperaciones();
     this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso});
+  
     this.PersoModelo = new Personal.Models.personal();
     this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo,collection: this.PersonalCatalogos});
-  
-     //this.PersonalCatalogos.reset();
-     //this.PersonalCatalogos.fetch();
-      //<select name="estado" class="select_bloque" id="personal_basicos">
-    //</select>
-    Backbone.history.start({
-      root: '/',
-      pushState: true,
-      silent: false
-    });
   },
 
-  index: function () {
-    //this.Modulos.reset();
-    //this.fetchData('/modulos.json',this.addModulo);
+  root: function () {
+    window.Personal.menu="root";
     console.log("Estas en el indice");
   },
 
 
   personal: function () {
+    window.Personal.menu="personal";
+    window.Personal.operacion="";
     console.log("Estas en la lista de personal");
   },
 
  personalMatricula: function (valor_buscado) {
+    window.Personal.menu="personal";
+    window.Personal.operacion="buscar";
     this.PersoModelo.valor = valor_buscado;
     this.PersoModelo.fetch();
   },
    personalNuevo: function () {
-     var data = {
-        "id": -1,
-        "matricula": "",
-        "paterno": "", 
-        "materno":"", 
-        "nombre":"", 
-        "rfc": "", 
-        "curp": "", 
-        "cuip": "", 
-        "fec_nacimiento":"01/01/1900", 
-        "cdu_estado_nac": "0140000", 
-        "cdu_municipio_nac": "0150000", 
-        "cdu_estado_civil" : "0010000",
-        "cdu_escolaridad": "0020000", 
-        "cdu_religion": "0160000", 
-        "cdu_seguridad_social": "0170000", 
-        "id_seguridad_social": "", 
-        "portacion": false
-      };
-     this.PersoModelo.set(data);
-
+    window.Personal.menu="personal";
+    window.Personal.operacion="nuevo";
+    this.PersoModelo.set(this.PersoModelo.defaults);
     console.log("nueva persona");
+  },
 
+  empresas: function () {
+    window.Personal.menu="empresas";
+    window.Personal.operacion="";
+    console.log("Estas en la lista de empresas");
   },
 
 

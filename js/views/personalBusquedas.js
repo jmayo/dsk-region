@@ -3,7 +3,6 @@ Personal.Views.PersonalBusquedas = Backbone.View.extend({
   template: Handlebars.compile($("#resultados-busqueda-template").html()),
 
   initialize: function () {
-    //this.Escuchar();
     this.listenTo(this.collection, "add", this.addOne, this);
     this.listenTo(this.collection, "reset", this.limpiarTodo, this);
   },

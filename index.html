@@ -31,27 +31,6 @@
 		<div class="titulo">
 			SISTEMA DE GESTIÓN DE PERSONAL
 		</div>
-		<div id="mapdiv">hola</div>
-  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-  <script>
-    map = new OpenLayers.Map("mapdiv");
-    map.addLayer(new OpenLayers.Layer.OSM());
- 
-    var lonLat = new OpenLayers.LonLat( -0.1279688 ,51.5077286 )
-          .transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
-          );
- 
-    var zoom=16;
- 
-    var markers = new OpenLayers.Layer.Markers( "Markers" );
-    map.addLayer(markers);
- 
-    markers.addMarker(new OpenLayers.Marker(lonLat));
- 
-    map.setCenter (lonLat, zoom);
-  </script>
 	</header>
 	<nav>
 		<ul class="menu">
@@ -85,6 +64,7 @@
 		</div>
 
 	</div>
+	<section class="contenido_principal">
 	<section class="contenido">
 		<article class="bloque">
 			<div class="titulo_bloque" >
@@ -190,6 +170,12 @@
 			</div>
 		</article>
 	</section>
+	<section class="contenido_empresas">
+		<p>hola</p>
+	</section>
+	</section>
+
+
 
 
 
@@ -346,6 +332,10 @@
 			<li><a class="e-mail" href="#"></a></li>
 		</ul>
 	</footer>
+
+	<script type="text/javascript" src="js/views/menu.js"></script>
+	<script type="text/javascript" src="js/views/contenido.js"></script>
+	<script type="text/javascript" src="js/views/cajaOperaciones.js"></script>
 	<script type="text/javascript" src="js/views/cajaBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusquedas.js"></script>

@@ -17,7 +17,7 @@ Personal.Views.PersonalBusqueda = Backbone.View.extend({
   },
   seleccionado: function(){
     console.log(this.model.get('nombre'));
-    Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true, replace: true});
+    Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
   }
 });
 
