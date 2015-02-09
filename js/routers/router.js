@@ -23,6 +23,7 @@ initialize: function () {
     this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso});
   
     this.PersoModelo = new Personal.Models.personal();
+    this.PersoModelo.set({"id":"-1"});
     this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo,collection: this.PersonalCatalogos});
   },
 
@@ -33,8 +34,13 @@ initialize: function () {
 
 
   personal: function () {
+    //Si es la primera vez cambiamos el id para llenar el formulario
+    if( this.PersoModelo.get("id")=="-1"){
+      this.PersoModelo.set({"id":""});
+    }
     window.Personal.menu="personal";
     window.Personal.operacion="";
+   
     console.log("Estas en la lista de personal");
   },
 
@@ -47,7 +53,11 @@ initialize: function () {
    personalNuevo: function () {
     window.Personal.menu="personal";
     window.Personal.operacion="nuevo";
+    //Cambiamos el valor del id para que detecte cambio en el modelo 
+    //Cuando le mandamos los valores por defecto
+    this.PersoModelo.set({"id":"-1"});
     this.PersoModelo.set(this.PersoModelo.defaults);
+    
     console.log("nueva persona");
   },
 

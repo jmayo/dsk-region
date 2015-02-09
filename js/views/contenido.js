@@ -9,10 +9,10 @@ Personal.Views.Contenido = Backbone.View.extend({
    			console.log("te escucho");
    			if (window.Personal.menu==="personal"){
    				$('.contenido_empresas').hide();
-   				$('.contenido').show();
+   				$('.contenido_personal').show();
    			}
    			if (window.Personal.menu==="empresas"){
-   				$('.contenido').hide();
+   				$('.contenido_personal').hide();
    				$('.contenido_empresas').show();
    			}
    }

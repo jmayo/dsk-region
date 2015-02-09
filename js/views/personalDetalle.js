@@ -18,16 +18,18 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   },
   llenado: function(){
     console.log("llenando el formulario");
-    this.render();
+    if(this.model.get("id")!=="-1"){
+      this.render();
+    }
   }, 
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);   
-   $("#cal_fec_nac, #cal_fec_alt").datepicker({dateFormat:"dd/mm/yy"});
+   $("#persona_fec_nac, #cal_fec_alt").datepicker({dateFormat:"dd/mm/yy"});
+  
 
-   
     var PersonalCatalogos = new Personal.Collections.Catalogos();
     PersonalCatalogos.claves ="1,2,14,16,17,18";
   
