@@ -12,22 +12,27 @@
 	<!--js-->
 	<script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
 	<script src="js/jquery-ui-1.11.2.custom/jquery-ui.js" type="text/javascript"></script>
-<script type="text/javascript" src="lib/underscore.js"></script>
-  <script type="text/javascript" src="lib/handlebars-v1.3.0.js"></script>
-  <script type="text/javascript" src="lib/backbone.js"></script>
-  <script type="text/javascript" src="js/app.js"></script>
-   <script type="text/javascript" src="js/models/personal.js"></script>
-   <script type="text/javascript" src="js/models/catalogo.js"></script>
-   
-   <script type="text/javascript" src="js/collections/personas.js"></script>
-  <script type="text/javascript" src="js/collections/catalogos.js"></script>
+	<!--para mapas-->
+	<link rel="stylesheet" href="http://openlayers.org/en/v3.1.1/css/ol.css" type="text/css" />
+	<script src="http://openlayers.org/en/v3.1.1/build/ol.js" type="text/javascript"></script>
+	<script src="js/mapa.js" type="text/javascript"></script>
 
-	
+	<!--Esta se puede quitar ya que se cargara en las librerias del modelado-->
+	<!--<script src="js/index.js" type="text/javascript"> </script>-->
+	<!--Librerias de backbone-->
+	<script type="text/javascript" src="lib/underscore.js"></script>
+	<script type="text/javascript" src="lib/handlebars-v1.3.0.js"></script>
+    <script type="text/javascript" src="lib/backbone.js"></script>
+    <!--Librerias del modelado con backbone-->
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/models/personal.js"></script>
+    <script type="text/javascript" src="js/models/catalogo.js"></script>
+    <script type="text/javascript" src="js/collections/personas.js"></script>
+    <script type="text/javascript" src="js/collections/catalogos.js"></script>
 
 </head>
 <body>
 	<header>
-		<style>html, head, body { width: 100%; height: 100% }</style>
 		<div class="titulo">
 			SISTEMA DE GESTIÓN DE PERSONAL
 		</div>
@@ -44,42 +49,29 @@
 	</nav>
 	<div class="caja_acciones">
 		<ul class="menu_acciones">
-			<li class="aa"><a href="#" class="nuevo"></a></li>
+			<li><a href="#" class="nuevo"></a></li>
 			<li><a href="#" class="eliminar"></a></li>
 			<li><a href="#" class="guardar"></a></li>
 			<li><input type="text" placeholder="Buscar" class="buscar"/></li>
 		</ul>
 		<div hidden class="divResultados">
-			<!-- <div class="resultado_ind">
-				<img  src=images/foto.png />
-				<span class="name">Raul Enrique Torres Reyes</span>
-				<p>23333</p>
-			</div>
-			<div class="resultado_ind">
-				<img  src=images/foto.png />
-				<span class="name">Diana Torres Reyes</span>
-				<p>23333</p>
-			</div> -->
-
-		</div>
-
+				<!-- Template:	resultados-busqueda-template	 -->
+	    </div>
 	</div>
-	<section class="contenido_principal">
-	<section class="contenido_personal" hidden>	
 	<section class="contenido">
+		<section class="contenido_personal" hidden>	
 		<article class="bloque">
-			<div class="titulo_bloque" >
+			<div class="titulo_bloque">
 				Básicos
 			</div>
 			<div class="caja_bloque">
 				<div class="campos_bloque" id="personal_basicos">
-					<!--<ul class="ul_bloque"> -->
-					<!-- Plantilla de detalle del personal -->
+					<!-- Template personal-detalle-template -->
 				</div>
 			</div>
 		</article>
 		<article class="bloque">
-			<div  id="titulo" class="titulo_bloque">
+			<div class="titulo_bloque">
 				Administración
 			</div>
 			<div class="caja_bloque">
@@ -133,6 +125,10 @@
 							<input class="inputs_bloque" type="text" placeholder="Número" />
 						</li>
 						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="colonia">Colonia</label>
+							<input class="inputs_bloque" type="text" placeholder="Colonia" />
+						</li>						
+						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
 							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
 						</li>
@@ -156,33 +152,174 @@
 							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
 							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
 						</li>
-					
 					</ul>
 				</div>
 			</div>
 		</article>
 		<article class="bloque">
 			<div class="titulo_bloque">
+				Foto
 			</div>		
 			<div class="caja_foto">
 				<figure class="foto">
-					<img src="images/foto.png" alt="foto" />
+					<p><img src="images/foto.png" alt="foto" />
 				</figure>
 			</div>
 		</article>
-	</section>
-	</section>
-	<section class="contenido_empresas" hidden>
-		<p>hola</p>
-	</section>
+	   </section>	
+
+	<section class="contenido_empresas" >
+			<article class="bloque">
+			<div class="titulo_bloque">
+				Empresa
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="id_empresa">Id Empresa</label>
+							<input class="inputs_bloque" type="text" placeholder="Id Empresa" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="razon_social">Razón Social</label>
+							<textarea class="textarea_bloque" name="razon_social" placeholder="Razón Social"></textarea>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="rfc">RFC</label>
+							<input class="inputs_bloque" type="text" placeholder="RFC" />
+						</li>						
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle">Calle</label>
+							<textarea class="textarea_bloque" name="calle" placeholder="Calle"></textarea>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="numero">Número</label>
+							<input class="inputs_bloque" type="text" placeholder="Número" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="colonia">Colonia</label>
+							<input class="inputs_bloque" type="text" placeholder="Colonia" />
+						</li>						
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
+							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_estado">Estado</label>
+							<select name="calle_estado" class="select_bloque">
+								<option value="estado_de_mexico">Estado de México</option>
+								<option value="distrito_federal">Distrito Federal</option>
+							</select>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_municipio">Municipio</label>
+							<select name="calle_municipio" class="select_bloque">
+								<option value="tlalnepantla">Tlalnepantla</option>
+								<option value="naucalpan">Naucalpan</option>
+								<option value="miguel_hidalgo">Miguel Hidalgo</option>
+								<option value="azcapotzalco">Azcapotzalco</option>
+							</select>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
+							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="telefono1">Teléfono 1</label>
+							<input class="inputs_bloque" type="text" placeholder="Teléfono 1" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="telefono2">Teléfono 2</label>
+							<input class="inputs_bloque" type="text" placeholder="Teléfono 2" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="giro">Giro</label>
+							<select name="giro" class="select_bloque">
+								<option value="industriales">Industriales</option>
+								<option value="extractivas">Extractivas</option>
+								<option value="manufactureras">Manufactureras</option>
+							</select>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="rubro">Rubro</label>
+							<select name="rubro" class="select_bloque">
+								<option value="textil">Textil</option>
+								<option value="construccion">Construccion</option>
+								<option value="plasticos">Plasticos</option>
+							</select>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="fecha_de_alta">Fecha de Alta</label>
+							<input id="cal_fec_alt" class="inputs_bloque" type="text" placeholder="Fecha de Alta" />
+						</li>						
+					</ul>
+				</div>
+			</div>
+		</article>
+		<article class="bloque">
+			<div class="titulo_bloque">
+				Contacto
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="paterno">Paterno</label>
+							<input class="inputs_bloque" type="text" placeholder="Paterno" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="materno">Materno</label>
+							<input class="inputs_bloque" type="text" placeholder="Materno" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="nombres">Nombre(s)</label>
+							<input class="inputs_bloque" type="text" placeholder="Nombre(s)" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="telefono">Teléfono</label>
+							<input class="inputs_bloque" type="text" placeholder="Teléfono" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="e-mail">e-mail</label>
+							<input class="inputs_bloque" type="text" placeholder="e-mail" />
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br>
+			<div class="titulo_bloque">
+				Ubicación
+			</div>
+			<div class="caja_bloque">
+				<div id="mapa" class="campos_bloque">
+				</div>
+			</div>
+		</article>
+
+		<article class="bloque_links">
+			<ul class="ul_links">
+				<li class="li_links"><a class="a_links" href="#">Sucursales</a></li>
+				<li class="li_links"><a class="a_links" href="#">Mapas</a></li>
+			</ul>
+		</article>
 	</section>
 
+	</section>
+	<footer>
+		<ul class="redes_sociales">
+			<li><a class="twitter" href="#"></a></li>
+			<li><a class="facebook" href="#"></a></li>
+			<li><a class="e-mail" href="#"></a></li>
+		</ul>
+	</footer>
 
 
+<!-- ***************** Plantilla de detalle del personal ********************************* -->
 
 
 <script type="text/javascript">
    
+   // Funciones generales para los templates
 	Handlebars.registerHelper('if', function(conditional, options) {
 		  if(conditional) {
 		    return options.fn(this);
@@ -196,7 +333,10 @@
   		return options.inverse(this);
 	});
 
-     Handlebars.registerHelper('titulos_caja',function(contenido, options){
+	//********** Helpers ********************
+
+	//Helper para titulos de campos
+    Handlebars.registerHelper('titulos_caja',function(contenido, options){
         label_id = '';
         label_desc = options.hash.label_desc;
         if (options.hash.label_id !== undefined){
@@ -205,8 +345,8 @@
         return '<label ' + label_id + ' for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
       });
 
-
-      Handlebars.registerHelper('valores_caja', function(options){
+ 	//Helper para cajas de texto
+    Handlebars.registerHelper('valores_caja', function(options){
         input_id = '';
         valor = '';
         input_desc = options.hash.input_desc;
@@ -222,7 +362,7 @@
         return '<input '+ input_id + ' class="inputs_bloque" type="text" placeholder="'+ input_desc + '" ' +valor + ' />';
       });
 
-
+    //Helper para selectores tipo combo
     Handlebars.registerHelper('selectores_combo',function(options){
         select_id = ''; 
         select_name = options.hash.select_name;
@@ -233,7 +373,8 @@
       });
 
 	
-	  Handlebars.registerHelper('valores_radio', function(options){
+    //Helper para controles tipo radio
+	Handlebars.registerHelper('valores_radio', function(options){
 	        radio_id = ''; 
 	        valor = '';
 	        checado = '';
@@ -255,15 +396,16 @@
 	        return '<input  class="radio_bloque" type="radio" name="' +  radio_name + '" ' + valor + checado + '/>' + label
 	      });
 
+	// ************* Helper de agrupacion de varios controles ***********************
 
-
-	 //Helper de agrupacion
+	 //Agrupacion de label como titulo y un input
     Handlebars.registerHelper('grp_perdet',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
 		var res2 =Handlebars.helpers.valores_caja(options)
 		return '<li class="li_bloque">' + res1 + res2 + '</li>';
 		}
     );
+    //Agrupacion de label como titulo y un combo
 	Handlebars.registerHelper('grp_combo',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
 		var res2 =Handlebars.helpers.selectores_combo(options)
@@ -271,6 +413,7 @@
 		}
     );
 
+	//Agrupacion de un label como titulo y dos radio button
 	Handlebars.registerHelper('grp_options',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
 	
@@ -287,10 +430,10 @@
 		return '<li class="li_bloque">' + res1 + res2 +  res3 + '</li>';
 		}
     );
- 
-
-
 </script>
+
+
+	<!--Plantillas del personal usando handlerbars -->
 
 
   <script id="resultados-busqueda-template" type="text/x-handlebars-template">
@@ -325,20 +468,11 @@
   {{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  input_id='persona_segsocial' label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
 	</ul>
  </script>
-
-
-	<footer>
-		<ul class="redes_sociales">
-			<li><a class="twitter" href="#"></a></li>
-			<li><a class="facebook" href="#"></a></li>
-			<li><a class="e-mail" href="#"></a></li>
-		</ul>
-	</footer>
-
-	<script type="text/javascript" src="js/views/menu.js"></script>
-	<script type="text/javascript" src="js/views/contenido.js"></script>
-	<script type="text/javascript" src="js/views/cajaOperaciones.js"></script>
-	<script type="text/javascript" src="js/views/cajaBusqueda.js"></script>
+	<!--Otros modelos de backbone  -->
+   <script type="text/javascript" src="js/views/menu.js"></script>
+  <script type="text/javascript" src="js/views/contenido.js"></script>
+   <script type="text/javascript" src="js/views/cajaOperaciones.js"></script>
+  <script type="text/javascript" src="js/views/cajaBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusquedas.js"></script>
   <script type="text/javascript" src="js/views/personalDetalle.js"></script>

@@ -35,11 +35,12 @@ initialize: function () {
 
   personal: function () {
     //Si es la primera vez cambiamos el id para llenar el formulario
+    window.Personal.operacion="";
     if( this.PersoModelo.get("id")=="-1"){
       this.PersoModelo.set({"id":""});
+      window.Personal.operacion="nuevo";
     }
     window.Personal.menu="personal";
-    window.Personal.operacion="";
    
     console.log("Estas en la lista de personal");
   },
