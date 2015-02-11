@@ -25,6 +25,10 @@ initialize: function () {
     this.PersoModelo = new Personal.Models.personal();
     this.PersoModelo.set({"id":"-1"});
     this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo,collection: this.PersonalCatalogos});
+    
+    this.formview = new Personal.Models.formview();
+    this.FormView = new Personal.Views.FormView({model:this.formview });
+
   },
 
   root: function () {
