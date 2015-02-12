@@ -21,12 +21,24 @@
 	<script src="bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<div class="info message">
- <h3>FYI, something just happened!</h3>
- <p>This is just an info notification message.</p>
-</div>
-
+	<!-- para notificaciones -->
+	<div class="info message" id="notify_info">
+		<h3>Hey, esto te puede interesar!</h3>
+		<p>Descripción de información adicional</p>
+	</div>
+	<div class="error message" id="notify_error">
+		<h3>Oops, un error ha ocurrido</h3>
+		<p>Descripción del error</p>
+	</div>
+	<div class="warning message" id="notify_warning">
+		<h3>Espera, esto es importante!</h3>
+		<p>Descripción de advertencia</p>
+	</div>
+	<div class="success message" id="notify_success">
+		<h3>Felicidades, esta hecho!</h3>
+		<p>Descripción del éxito</p>
+	</div>
+	<!-- termina notificaciones -->
 	<header>
 		<div class="titulo">
 			SISTEMA DE GESTIÓN DE PERSONAL
@@ -185,8 +197,14 @@
 				<div id="mapa" class="campos_bloque">
 				</div>
 			</div>
-		</article>
 
+			<ul id="trigger-list">
+					 <li><a href="#notify_info" class="info_trigger">Info</a></li>
+					 <li><a href="#notify_error" class="error_trigger">Error</a></li>
+					 <li><a href="#notify_warning" class="warning_trigger">Warning</a></li>
+					 <li><a href="#notify_success" class="success_trigger">Success</a></li>
+			</ul>
+		</article>
 		<article class="bloque_links">
 			<ul class="ul_links">
 				<li class="li_links"><a class="a_links" href="#">Sucursales</a></li>
