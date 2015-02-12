@@ -1,6 +1,7 @@
 Personal.Views.PersonalDetalle = Backbone.View.extend({
   events : {
      "change #perso_edonac": "edonacSelected",
+     "change #perso_estado_dom": "edodomSelected",
    },
 
   el: $('#personal_basicos'),
@@ -10,6 +11,8 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   
   initialize: function () {
     this.catMunicipioNac = new Personal.Collections.Catalogos();
+    this.catMunicipioDom = new Personal.Collections.Catalogos();
+    
     this.listenTo(this.model, "change", this.llenado, this);
   },
   reset: function()
@@ -73,19 +76,38 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
           collection: catTipEmpleado,cdu_seleccionado: detalle["cdu_tipo_empleado"] ,id_select: "#perso_tipo_de_empleado" });
           visTipEmpleado.render();
 
-          
+          var catEdoDom = new Backbone.Collection(PersonalCatalogos.Estados());
+          var visEdoDom = new Personal.Views.PersonalCatalogos({
+            collection: catEdoDom,cdu_seleccionado: detalle["cdu_estado_dom"] ,id_select: "#perso_estado_dom" });
+          visEdoDom.render();
+
+
         }
+          
     });
           this.catMunicipioNac.claves ='15';
           this.catMunicipioNac.cdu_default = detalle["cdu_estado_nac"];
-          cat = this.catMunicipioNac;
+          catMNac = this.catMunicipioNac;
           this.catMunicipioNac.fetch({
               success: function(){
                   var visMunicipioNac = new Personal.Views.PersonalCatalogos({
-                   collection: cat,cdu_seleccionado: detalle["cdu_municipio_nac"] ,id_select: "#perso_mpionac" });
+                   collection: catMNac,cdu_seleccionado: detalle["cdu_municipio_nac"] ,id_select: "#perso_mpionac" });
                   visMunicipioNac.render();
                 }
           });
+
+
+          this.catMunicipioDom.claves ='15';
+          this.catMunicipioDom.cdu_default = detalle["cdu_estado_dom"];
+          catMDom = this.catMunicipioDom;
+          this.catMunicipioDom.fetch({
+              success: function(){
+                  var visMunicipioDom = new Personal.Views.PersonalCatalogos({
+                   collection: catMDom,cdu_seleccionado: detalle["cdu_municipio_dom"] ,id_select: "#perso_municipio_dom" });
+                  visMunicipioDom.render();
+                }
+          });
+
     },
   edonacSelected: function(){
     var cdu_seleccion = $( "#perso_edonac").val();
@@ -97,6 +119,19 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
                   var visMunicipioNac = new Personal.Views.PersonalCatalogos({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: "#perso_mpionac" });
                   visMunicipioNac.render();
+                }
+              });
+  },
+   edodomSelected: function(){
+    var cdu_seleccion = $( "#perso_estado_dom").val();
+    this.catMunicipioDom.claves ='15';
+    this.catMunicipioDom.cdu_default = cdu_seleccion;
+    cat = this.catMunicipioDom;
+    this.catMunicipioDom.fetch({
+              success: function(){
+                  var visMunicipioDom = new Personal.Views.PersonalCatalogos({
+                   collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: "#perso_municipio_dom" });
+                  visMunicipioDom.render();
                 }
               });
   },

@@ -56,13 +56,13 @@
 			<li><a href="#" class="eliminar"></a></li>
 			<li><a href="#" class="guardar"></a></li>
 			<li><input type="text" placeholder="Buscar" class="buscar"/></li>
-			<form enctype="multipart/form-data">
+			<!-- <form enctype="multipart/form-data">
 			    <label>File<input name='file' type='file' /></label>
 			    <br>
 			    <label>Name<input name='name' type='text' /></label>
 			    <br>
 			    <input type="submit" value="Upload">
-			</form>
+			</form> -->
 
 		</ul>
 		<div hidden class="divResultados">
@@ -432,43 +432,15 @@
 			<div class="caja_bloque">
 				<div class="campos_bloque">
 					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle">Calle</label>
-							<textarea class="textarea_bloque" name="calle" placeholder="Calle"></textarea>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="numero">Número</label>
-							<input class="inputs_bloque" type="text" placeholder="Número" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="colonia">Colonia</label>
-							<input class="inputs_bloque" type="text" placeholder="Colonia" />
-						</li>						
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
-							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_estado">Estado</label>
-							<select name="calle_estado" class="select_bloque">
-								<option value="estado_de_mexico">Estado de México</option>
-								<option value="distrito_federal">Distrito Federal</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_municipio">Municipio</label>
-							<select name="calle_municipio" class="select_bloque">
-								<option value="tlalnepantla">Tlalnepantla</option>
-								<option value="naucalpan">Naucalpan</option>
-								<option value="miguel_hidalgo">Miguel Hidalgo</option>
-								<option value="azcapotzalco">Azcapotzalco</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
-							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
-						</li>
-					</ul>
+						
+					{{{grp_perdetTextArea "Calle" valor=calle_dom   label_desc='' textarea_desc='Calle'}}}
+					{{{grp_perdet "Número" valor=numero_dom  input_id='persona_numero_dom' label_desc='numero' input_desc='Número'}}}
+					{{{grp_perdet "Colonia" valor=colonia_dom  input_id='persona_colonia_dom' label_desc='colonia' input_desc='Colonia'}}}
+				 	{{{grp_perdet "Código Postal" valor=cp_dom  input_id='persona_cp_dom' label_desc='codigo_postal' input_desc='Código Postal'}}}
+				 	{{{grp_combo "Estado"    label_desc='calle_estado' select_name='estado_dom' select_id='perso_estado_dom'}}} 
+				 	{{{grp_combo "Municipio"   label_desc='calle_municipio' select_name='municipio_dom' select_id='perso_municipio_dom'}}}
+				 	{{{grp_perdet "Ciudad/Población" valor=ciudad_dom  input_id='persona_ciudad_dom' label_desc='calle_ciudad' input_desc='Ciudad/Población'}}}
+   				</ul>
 				</div>
 			</div>
 		</article>
