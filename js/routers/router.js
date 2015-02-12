@@ -9,7 +9,7 @@ Personal.Router = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.122.1:8000/";
+    window.ruta="http://192.168.0.14:8000/";
 
     this.Perso = new Personal.Collections.Personas();
     this.MenuVista = new Personal.Views.Menu(); 

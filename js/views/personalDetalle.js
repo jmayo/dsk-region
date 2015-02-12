@@ -31,7 +31,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   
 
     var PersonalCatalogos = new Personal.Collections.Catalogos();
-    PersonalCatalogos.claves ="1,2,14,16,17,18";
+    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
   
     PersonalCatalogos.fetch(
       {
@@ -61,6 +61,19 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
           var visEdoCiv = new Personal.Views.PersonalCatalogos({
             collection: catEdoCiv,cdu_seleccionado:  detalle["cdu_estado_civil"]  ,id_select: "#perso_estado_civil" });
           visEdoCiv.render();
+
+          var catTipAlta = new Backbone.Collection(PersonalCatalogos.TipoAlta());
+          var visTipAlta = new Personal.Views.PersonalCatalogos({
+          collection: catTipAlta,cdu_seleccionado: detalle["cdu_tipo_alta"] ,id_select: "#perso_tipo_de_alta" });
+          visTipAlta.render();
+
+
+          var catTipEmpleado = new Backbone.Collection(PersonalCatalogos.TipoEmpleado());
+          var visTipEmpleado = new Personal.Views.PersonalCatalogos({
+          collection: catTipEmpleado,cdu_seleccionado: detalle["cdu_tipo_empleado"] ,id_select: "#perso_tipo_de_empleado" });
+          visTipEmpleado.render();
+
+          
         }
     });
           this.catMunicipioNac.claves ='15';
@@ -73,7 +86,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
                   visMunicipioNac.render();
                 }
           });
-  },
+    },
   edonacSelected: function(){
     var cdu_seleccion = $( "#perso_edonac").val();
     this.catMunicipioNac.claves ='15';

@@ -39,5 +39,20 @@ Personal.Models.personal = Backbone.Model.extend({
         "cdu_seguridad_social": "0170000", 
         "id_seguridad_social": "", 
         "portacion": false,
+        "cdu_tipo_alta": "0200000", 
+        "fec_alta": "2015-02-12", 
+        "condicionada": false, 
+        "condiciones_alta": "", 
+        "cdu_tipo_empleado": "0210000", 
+        "calle_dom": "", 
+        "numero_dom": "", 
+        "colonia_dom": "", 
+        "cp_dom": "", 
+        "cdu_estado_dom": "0140000", 
+        "cdu_municipio_dom": "0150000", 
+        "ciudad_dom": ""
   },
 });
+
+
+       

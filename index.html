@@ -70,114 +70,10 @@
 	    </div>
 	</div>
 	<section class="contenido">
-		<section class="contenido_personal" hidden>	
-		<article class="bloque">
-			<div class="titulo_bloque">
-				Básicos
-			</div>
-			<div class="caja_bloque">
-				<div class="campos_bloque" id="personal_basicos">
-					<!-- Template personal-detalle-template -->
-				</div>
-			</div>
-		</article>
-		<article class="bloque">
-			<div class="titulo_bloque">
-				Administración
-			</div>
-			<div class="caja_bloque">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="tipo_de_alta">Tipo de Alta</label>
-							<select name="tipo_de_alta" class="select_bloque">
-								<option value="normal">Normal</option>
-								<option value="condicionada">Condicionada</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="fecha_de_alta">Fecha de Alta</label>
-							<input id="cal_fec_alt" class="inputs_bloque" type="text" placeholder="Fecha de Alta" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="alta_condicionada">Alta Condicionada</label>
-							<input class="radio_bloque" type="radio" name="alta_condicionada" value="si">
-							<label for="portacion"><span><span></span></span>Si</label>
-							<input class="radio_bloque" type="radio" name="alta_condicionada" value="no" checked="checked">
-							<label for="alta_condicionada"><span><span></span></span>No</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="alta_condicionada"></label>
-							<textarea class="textarea_bloque" name="condicion_alta" placeholder="Condición(es)"></textarea>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="tipo_de_empleado">Tipo de Empleado</label>
-							<select name="tipo_de_empleado" class="select_bloque">
-								<option value="operativo">Operativo</option>
-								<option value="administrativo">Administrativo</option>
-							</select>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<br>
-			<div class="titulo_bloque">
-				Domicilio
-			</div>
-			<div class="caja_bloque">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle">Calle</label>
-							<textarea class="textarea_bloque" name="calle" placeholder="Calle"></textarea>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="numero">Número</label>
-							<input class="inputs_bloque" type="text" placeholder="Número" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="colonia">Colonia</label>
-							<input class="inputs_bloque" type="text" placeholder="Colonia" />
-						</li>						
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
-							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_estado">Estado</label>
-							<select name="calle_estado" class="select_bloque">
-								<option value="estado_de_mexico">Estado de México</option>
-								<option value="distrito_federal">Distrito Federal</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_municipio">Municipio</label>
-							<select name="calle_municipio" class="select_bloque">
-								<option value="tlalnepantla">Tlalnepantla</option>
-								<option value="naucalpan">Naucalpan</option>
-								<option value="miguel_hidalgo">Miguel Hidalgo</option>
-								<option value="azcapotzalco">Azcapotzalco</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
-							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
-						</li>
-					</ul>
-				</div>
-			</div>
-		</article>
-		<article class="bloque">
-			<div class="titulo_bloque">
-				Foto
-			</div>		
-			<div class="caja_foto">
-				<figure class="foto">
-					<p><img src="images/foto.png" alt="foto" />
-				</figure>
-			</div>
-		</article>
-	   </section>	
+
+	 <section class="contenido_personal" id="personal_basicos" hidden>	
+			<!-- Template:	personal-detalle-template	 -->
+	 </section>	
 
 	<section class="contenido_empresas" >
 			<article class="bloque">
@@ -373,6 +269,20 @@
         return '<input '+ input_id + ' class="inputs_bloque" type="text" placeholder="'+ input_desc + '" ' +valor + ' />';
       });
 
+	//Helper para cajas de texto
+    Handlebars.registerHelper('valores_textarea', function(options){
+        valor = options.hash.valor;
+    	textarea_id ='';
+        textarea_desc = options.hash.textarea_desc;
+    
+        return '<textarea '+ textarea_id + ' class="textarea_bloque" placeholder="'+ textarea_desc + '">' +valor + '</textarea>';
+      });
+
+
+  
+	
+
+
     //Helper para selectores tipo combo
     Handlebars.registerHelper('selectores_combo',function(options){
         select_id = ''; 
@@ -416,6 +326,18 @@
 		return '<li class="li_bloque">' + res1 + res2 + '</li>';
 		}
     );
+  
+	 //Agrupacion de label como titulo y un TextArea
+    Handlebars.registerHelper('grp_perdetTextArea',function(contenido, options){
+		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
+		var res2 =Handlebars.helpers.valores_textarea(options)
+		return '<li class="li_bloque">' + res1 + res2 + '</li>';
+		}
+    );
+
+
+
+
     //Agrupacion de label como titulo y un combo
 	Handlebars.registerHelper('grp_combo',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
@@ -458,27 +380,111 @@
 </script>
 
 <script id="personal-detalle-template" type="text/x-handlebars-template">
-   <ul class="ul_bloque"> 
+		<article class="bloque">
+			<div class="titulo_bloque">
+				Básicos
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque" >
+				   <ul class="ul_bloque"> 
+				  {{{titulos_caja id label_desc="id_principal" label_id='persona_id'}}}
+				  {{{grp_perdet "Matricula" valor=matricula input_id='persona_matricula' label_desc='matricula_empleado' input_desc='Matricula Empleado'}}}
+				  {{{grp_perdet "Paterno" valor=paterno  input_id='persona_paterno' label_desc='paterno' input_desc='Paterno'}}}
+				  {{{grp_perdet "Materno" valor=materno  input_id='persona_materno' label_desc='materno' input_desc='Materno'}}}
+				  {{{grp_perdet "Nombre(s)" valor=nombre  input_id='persona_nombre' label_desc='nombres' input_desc='Nombre(s)'}}}
+				  {{{grp_perdet "RFC" valor=rfc  input_id='persona_rfc' label_desc='rfc' input_desc='RFC'}}}
+				  {{{grp_perdet "CURP" valor=curp  input_id='persona_curp' label_desc='curp' input_desc='CURP'}}}
+				  {{{grp_perdet "CUIP" valor=cuip  input_id='persona_cuip'   label_desc='cuip' input_desc='CUIP'}}}
+				  {{{grp_perdet "Fecha de Nacimiento" valor=fec_nacimiento input_id="persona_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
+				  {{{grp_combo "Lugar de Nacimiento"    label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
+				  {{{grp_combo "Municipio"   label_desc='lugar_nacimiento_municipio' select_name='municipio' select_id='perso_mpionac'}}}
+				  {{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
+				  {{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
+				  {{{grp_combo "Religión"   label_desc='religion' select_name='religion' select_id='perso_religion'}}}
+				  {{{grp_options "Portación"  radio_id='persona_portacion' label_desc='portacion' op1_titulo="Si" op2_titulo="No" op1_val=true op2_val=false  op1_checado=portacion radio_name='persona_portacion' input_booleano=portacion}}}   
+				  {{{grp_combo "Seguridad Social"   label_desc='seguridad_social' select_name='seguridad_social' select_id='perso_segsoc'}}}
+				  {{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  input_id='persona_segsocial' label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
+					</ul>
+				</div>
+			</div>
+		</article>
+				<article class="bloque">
+			<div class="titulo_bloque">
+				Administración
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque" id="personal_administracion">
+					<ul class="ul_bloque"> 
+					 	{{{grp_combo "Tipo de Alta"   label_desc='tipo_de_alta' select_name='tipo_de_alta' select_id='perso_tipo_de_alta'}}}
+					  {{{grp_perdet "Fecha de Alta" valor=fec_alta input_id="cal_fec_alt" label_desc='fecha_de_alta' input_desc='Fecha de Alta'}}}  
+					  {{{grp_options "Alta Condicionada"  radio_id='persona_condicionada' label_desc='alta_condicionada' op1_titulo="Si" op2_titulo="No" op1_val=true op2_val=false  op1_checado=condicionada radio_name='persona_condicionada' input_booleano=condicionada}}}   
 
-  {{{titulos_caja id label_desc="id_principal" label_id='persona_id'}}}
-  {{{grp_perdet "Matricula" valor=matricula input_id='persona_matricula' label_desc='matricula_empleado' input_desc='Matricula Empleado'}}}
-  {{{grp_perdet "Paterno" valor=paterno  input_id='persona_paterno' label_desc='paterno' input_desc='Paterno'}}}
-  {{{grp_perdet "Materno" valor=materno  input_id='persona_materno' label_desc='materno' input_desc='Materno'}}}
-  {{{grp_perdet "Nombre(s)" valor=nombre  input_id='persona_nombre' label_desc='nombres' input_desc='Nombre(s)'}}}
-  {{{grp_perdet "RFC" valor=rfc  input_id='persona_rfc' label_desc='rfc' input_desc='RFC'}}}
-  {{{grp_perdet "CURP" valor=curp  input_id='persona_curp' label_desc='curp' input_desc='CURP'}}}
-  {{{grp_perdet "CUIP" valor=cuip  input_id='persona_cuip'   label_desc='cuip' input_desc='CUIP'}}}
-  {{{grp_perdet "Fecha de Nacimiento" valor=fec_nacimiento input_id="persona_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
-  {{{grp_combo "Lugar de Nacimiento"    label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
-  {{{grp_combo "Municipio"   label_desc='lugar_nacimiento_municipio' select_name='municipio' select_id='perso_mpionac'}}}
-  {{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
-  {{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
-  {{{grp_combo "Religión"   label_desc='religion' select_name='religion' select_id='perso_religion'}}}
-  {{{grp_options "Portación"  radio_id='persona_portacion' label_desc='portacion' op1_titulo="Si" op2_titulo="No" op1_val=true op2_val=false  op1_checado=portacion radio_name='persona_portacion' input_booleano=portacion}}}   
-  {{{grp_combo "Seguridad Social"   label_desc='seguridad_social' select_name='seguridad_social' select_id='perso_segsoc'}}}
-  {{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  input_id='persona_segsocial' label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
-	</ul>
+						{{{grp_perdetTextArea "" valor=condiciones_alta   label_desc='' textarea_desc='Condición(es)'}}}
+
+					  {{{grp_combo "Administrativo"   label_desc='tipo_de_empleado' select_name='tipo_de_empleado' select_id='perso_tipo_de_empleado'}}}	
+					</ul>
+				</div>
+			</div>
+			<br>
+			<div class="titulo_bloque">
+				Domicilio
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle">Calle</label>
+							<textarea class="textarea_bloque" name="calle" placeholder="Calle"></textarea>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="numero">Número</label>
+							<input class="inputs_bloque" type="text" placeholder="Número" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="colonia">Colonia</label>
+							<input class="inputs_bloque" type="text" placeholder="Colonia" />
+						</li>						
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
+							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_estado">Estado</label>
+							<select name="calle_estado" class="select_bloque">
+								<option value="estado_de_mexico">Estado de México</option>
+								<option value="distrito_federal">Distrito Federal</option>
+							</select>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_municipio">Municipio</label>
+							<select name="calle_municipio" class="select_bloque">
+								<option value="tlalnepantla">Tlalnepantla</option>
+								<option value="naucalpan">Naucalpan</option>
+								<option value="miguel_hidalgo">Miguel Hidalgo</option>
+								<option value="azcapotzalco">Azcapotzalco</option>
+							</select>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
+							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</article>
+		<article class="bloque">
+			<div class="titulo_bloque">
+				Foto
+			</div>		
+			<div class="caja_foto">
+				<figure class="foto">
+					<p><img src="images/foto.png" alt="foto" />
+				</figure>
+			</div>
+		</article>
  </script>
+
+ 
 	<!--Otros modelos de backbone  -->
    <script type="text/javascript" src="js/views/menu.js"></script>
   <script type="text/javascript" src="js/views/contenido.js"></script>
