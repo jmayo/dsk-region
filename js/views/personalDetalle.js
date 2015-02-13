@@ -1,7 +1,7 @@
 Personal.Views.PersonalDetalle = Backbone.View.extend({
   events : {
-     "change #perso_edonac": "edonacSelected",
-     "change #perso_estado_dom": "edodomSelected",
+     "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
+     "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
    },
 
   el: $('#personal_basicos'),
@@ -29,7 +29,8 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
-   this.$el.html(html);   
+   this.$el.html(html);
+   var self = this;   
    $("#persona_fec_nac, #cal_fec_alt").datepicker({dateFormat:"dd/mm/yy"});
   
 
@@ -39,149 +40,93 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
     PersonalCatalogos.fetch(
       {
         success: function(){
-          var catEscolaridad = new Backbone.Collection(PersonalCatalogos.Escolaridad());
-          var visEscolaridad = new Personal.Views.PersonalCatalogos({
-            collection: catEscolaridad,cdu_seleccionado: detalle["cdu_escolaridad"] ,id_select: "#perso_escolaridad"});
-          visEscolaridad.render();
           
-          var catReligion = new Backbone.Collection(PersonalCatalogos.Religion());
-          var visReligion = new Personal.Views.PersonalCatalogos({
-            collection: catReligion,cdu_seleccionado: detalle["cdu_religion"] ,id_select: "#perso_religion" });
-          visReligion.render();
-          
-          var catEdoNac = new Backbone.Collection(PersonalCatalogos.Estados());
-          var visEdoNac = new Personal.Views.PersonalCatalogos({
-            collection: catEdoNac,cdu_seleccionado: detalle["cdu_estado_nac"] ,id_select: "#perso_edonac" });
-          visEdoNac.render();
+          self.llenadoCatalogosCombo(PersonalCatalogos.Escolaridad(),detalle["cdu_escolaridad"],"#perso_escolaridad");
 
+          self.llenadoCatalogosCombo(PersonalCatalogos.Religion(),detalle["cdu_religion"],"#perso_religion");
 
-          var catSegSoc = new Backbone.Collection(PersonalCatalogos.SeguridadSocial());
-          var visSegSoc = new Personal.Views.PersonalCatalogos({
-          collection: catSegSoc,cdu_seleccionado: detalle["cdu_seguridad_social"] ,id_select: "#perso_segsoc" });
-          visSegSoc.render();
+          self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_nac"],"#perso_edonac");
         
-          var catEdoCiv = new Backbone.Collection(PersonalCatalogos.EstadoCivil());
-          var visEdoCiv = new Personal.Views.PersonalCatalogos({
-            collection: catEdoCiv,cdu_seleccionado:  detalle["cdu_estado_civil"]  ,id_select: "#perso_estado_civil" });
-          visEdoCiv.render();
+          self.llenadoCatalogosCombo(PersonalCatalogos.SeguridadSocial(),detalle["cdu_seguridad_social"],"#perso_segsoc");
 
-          var catTipAlta = new Backbone.Collection(PersonalCatalogos.TipoAlta());
-          var visTipAlta = new Personal.Views.PersonalCatalogos({
-          collection: catTipAlta,cdu_seleccionado: detalle["cdu_tipo_alta"] ,id_select: "#perso_tipo_de_alta" });
-          visTipAlta.render();
+          self.llenadoCatalogosCombo(PersonalCatalogos.EstadoCivil(),detalle["cdu_estado_civil"],"#perso_estado_civil");
 
+          self.llenadoCatalogosCombo(PersonalCatalogos.TipoAlta(),detalle["cdu_tipo_alta"],"#perso_tipo_de_alta");
 
-          var catTipEmpleado = new Backbone.Collection(PersonalCatalogos.TipoEmpleado());
-          var visTipEmpleado = new Personal.Views.PersonalCatalogos({
-          collection: catTipEmpleado,cdu_seleccionado: detalle["cdu_tipo_empleado"] ,id_select: "#perso_tipo_de_empleado" });
-          visTipEmpleado.render();
+          self.llenadoCatalogosCombo(PersonalCatalogos.TipoEmpleado(),detalle["cdu_tipo_empleado"],"#perso_tipo_de_empleado");
 
-          var catEdoDom = new Backbone.Collection(PersonalCatalogos.Estados());
-          var visEdoDom = new Personal.Views.PersonalCatalogos({
-            collection: catEdoDom,cdu_seleccionado: detalle["cdu_estado_dom"] ,id_select: "#perso_estado_dom" });
-          visEdoDom.render();
-
+          self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_dom"],"#perso_estado_dom");
 
         }
           
     });
-          this.catMunicipioNac.claves ='15';
-          this.catMunicipioNac.cdu_default = detalle["cdu_estado_nac"];
-          catMNac = this.catMunicipioNac;
-          this.catMunicipioNac.fetch({
-              success: function(){
-                  var visMunicipioNac = new Personal.Views.PersonalCatalogos({
-                   collection: catMNac,cdu_seleccionado: detalle["cdu_municipio_nac"] ,id_select: "#perso_mpionac" });
-                  visMunicipioNac.render();
-                }
-          });
 
 
-          this.catMunicipioDom.claves ='15';
-          this.catMunicipioDom.cdu_default = detalle["cdu_estado_dom"];
-          catMDom = this.catMunicipioDom;
-          this.catMunicipioDom.fetch({
-              success: function(){
-                  var visMunicipioDom = new Personal.Views.PersonalCatalogos({
-                   collection: catMDom,cdu_seleccionado: detalle["cdu_municipio_dom"] ,id_select: "#perso_municipio_dom" });
-                  visMunicipioDom.render();
-                }
-          });
+          this.llenadoComboDependiente(this.catMunicipioNac,'15', detalle["cdu_estado_nac"],detalle["cdu_municipio_nac"],"#perso_mpionac");
+
+          this.llenadoComboDependiente(this.catMunicipioDom,'15', detalle["cdu_estado_dom"],detalle["cdu_municipio_dom"],"#perso_municipio_dom");
 
     },
-  edonacSelected: function(){
-    var cdu_seleccion = $( "#perso_edonac").val();
-    this.catMunicipioNac.claves ='15';
-    this.catMunicipioNac.cdu_default = cdu_seleccion;
-    cat = this.catMunicipioNac;
-    this.catMunicipioNac.fetch({
+    llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
+          var cat = new Backbone.Collection(catalogo);
+          var vis = new Personal.Views.PersonalCatalogos({
+            collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
+          vis.render();
+
+    },
+   llenadoComboDependiente: function(catalogo,id_catalogo,cdu_default,cdu_seleccion,id_selector){
+      catalogo.claves = id_catalogo;
+      catalogo.cdu_default = cdu_default;
+      var cat = catalogo;
+      catalogo.fetch({
               success: function(){
-                  var visMunicipioNac = new Personal.Views.PersonalCatalogos({
-                   collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: "#perso_mpionac" });
-                  visMunicipioNac.render();
+                  var vista = new Personal.Views.PersonalCatalogos({
+                   collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
+                  vista.render();
                 }
-              });
-  },
-   edodomSelected: function(){
-    var cdu_seleccion = $( "#perso_estado_dom").val();
-    this.catMunicipioDom.claves ='15';
-    this.catMunicipioDom.cdu_default = cdu_seleccion;
-    cat = this.catMunicipioDom;
-    this.catMunicipioDom.fetch({
-              success: function(){
-                  var visMunicipioDom = new Personal.Views.PersonalCatalogos({
-                   collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: "#perso_municipio_dom" });
-                  visMunicipioDom.render();
-                }
-              });
-  },
-  guardar: function(){
-    console.log("guardando");
-    var id = $('#persona_id').text();
-    var matricula = $('#persona_matricula').val();
-    var paterno = $('#persona_paterno').val();
-    var materno = $('#persona_materno').val();
-    var nombre = $('#persona_nombre').val();
-    var rfc = $('#persona_rfc').val();
-    var curp = $('#persona_curp').val();
-    var cuip = $('#persona_cuip').val();
-    var fec_nac = $('#persona_fec_nac').val();
-    var cdu_estado_nac= $('#perso_edonac').val();
-    var cdu_municipio_nac =$('#perso_mpionac').val();
-    var cdu_estado_civil = $('#perso_estado_civil').val();
-   
-    var cdu_escolaridad = $('#perso_escolaridad').val();
-    var cdu_religion = $('#perso_religion').val();
-    var cdu_seguridad_social = $('#perso_segsoc').val();
-    var id_seguridad_social = $('#persona_segsocial').val();
-    var portacion = this.getRadioCheckedValue('persona_portacion');
-    var bln_port = Boolean(portacion.match(/^true$/i)); 
-  
-    var data = {
-        "id": id,
-        "matricula": matricula,
-        "paterno": paterno, 
-        "materno":materno, 
-        "nombre":nombre, 
-        "rfc": rfc, 
-        "curp": curp, 
-        "cuip": cuip, 
-        "fec_nacimiento":fec_nac, 
-        "cdu_estado_nac": cdu_estado_nac, 
-        "cdu_municipio_nac": cdu_municipio_nac, 
-        "cdu_estado_civil" : cdu_estado_civil,
-        "cdu_escolaridad": cdu_escolaridad, 
-        "cdu_religion": cdu_religion, 
-        "cdu_seguridad_social": cdu_seguridad_social, 
-        "id_seguridad_social": id_seguridad_social, 
-        "portacion": bln_port
+            });
+   },
+relacionColumnas: function(){
+      var columnasCampos ={
+        "calle_dom": '#perso_domicilio', 
+        "cdu_escolaridad": '#perso_escolaridad', 
+        "cdu_estado_civil" : '#perso_estado_civil',
+        "cdu_estado_dom": '#perso_estado_dom', 
+        "cdu_estado_nac": '#perso_edonac', 
+        "cdu_municipio_dom": '#perso_municipio_dom', 
+        "cdu_municipio_nac": '#perso_mpionac', 
+        "cdu_religion": '#perso_religion', 
+        "cdu_seguridad_social": '#perso_segsoc', 
+        "cdu_tipo_alta":'#perso_tipo_de_alta' , 
+        "cdu_tipo_empleado": '#perso_tipo_de_empleado', 
+        "ciudad_dom": '#persona_ciudad_dom',
+        "colonia_dom": '#persona_colonia_dom', 
+        "condicionada": '#persona_condicionada_1', 
+        "condiciones_alta": '#persona_condicion_alta', 
+        "cp_dom": '#persona_cp_dom', 
+        "cuip": '#persona_cuip', 
+        "curp": '#persona_curp', 
+        "fec_alta": '#persona_fec_alta', 
+        "fec_nacimiento":'#persona_fec_nac', 
+        "id":'#persona_id',
+        "id_seguridad_social": '#persona_segsocial', 
+        "materno":'#persona_materno', 
+        "matricula":'#persona_matricula',
+        "nombre":'#persona_nombre', 
+        "numero_dom": '#persona_numero_dom', 
+        "paterno": '#persona_paterno', 
+        "portacion": '#persona_portacion_1',
+        "rfc": '#persona_rfc', 
       };
-  
+      return columnasCampos;
+   },
+guardar: function(){
+    var data =this.generarJSON();
+    
     var model = new Personal.Models.personal(data);
     model.valor = undefined;
-    model.pk= id;
-    //if(id ===""){ model.pk= null;}else{ model.pk= id;}
-
+    model.pk= data["id"];
+    
     var tipo='POST'
     if(window.Personal.operacion!=="nuevo"){
       var tipo='PUT';
@@ -189,17 +134,32 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   
     model.save(null,{type: tipo});
   },
-  getRadioCheckedValue: function(radio_name)
-  {
-   var oRadio = $('[name=' + radio_name + ']'); 
-   for(var i = 0; i < oRadio.length; i++)
-   {
-      if(oRadio[i].checked)
+  
+generarJSON: function(){
+      var data ={};
+      var relacion =this.relacionColumnas();
+      for(var campo in relacion)
       {
-         return oRadio[i].value;
+        if (relacion.hasOwnProperty(campo))
+        {
+           var elemento  =$(relacion[campo]).get(0).tagName;
+           var tipo = $(relacion[campo]).get(0).type;
+           var id_control = relacion[campo];
+
+           if (elemento === "LABEL"){
+              data[campo] = $(id_control).text();
+           }      
+           else if (elemento === "INPUT" || elemento==='TEXTAREA' || elemento==="SELECT"){
+              if(tipo=='radio'){
+                 data[campo] = $(id_control).get(0).checked
+              }
+              else{
+                 data[campo] = $(id_control).val();
+              }
+           }      
+        }
       }
-   }
-   return '';
-},
+      return data;
+   },
 });
 

@@ -275,6 +275,9 @@
     	textarea_id ='';
         textarea_desc = options.hash.textarea_desc;
     
+    	if (options.hash.textarea_id !== undefined){
+        	textarea_id = 'id="'+ options.hash.textarea_id + '"';
+         }
         return '<textarea '+ textarea_id + ' class="textarea_bloque" placeholder="'+ textarea_desc + '">' +valor + '</textarea>';
       });
 
@@ -313,8 +316,8 @@
 	        	checado = 'checked="checked"';
 	         }
 
-	        label = '<label ' + radio_id  + ' for="' + radio_name + '"><span><span></span></span>"' + titulo + '"</label>';
-	        return '<input  class="radio_bloque" type="radio" name="' +  radio_name + '" ' + valor + checado + '/>' + label
+	        label = '<label  for="' + radio_name + '"><span><span></span></span>"' + titulo + '"</label>';
+	        return '<input  ' + radio_id + ' class="radio_bloque" type="radio" name="' +  radio_name + '" ' + valor + checado + '/>' + label
 	      });
 
 	// ************* Helper de agrupacion de varios controles ***********************
@@ -349,15 +352,17 @@
 	//Agrupacion de un label como titulo y dos radio button
 	Handlebars.registerHelper('grp_options',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
-	
+		var radio_id = options.hash.radio_id;
 		options.hash.titulo = options.hash.op1_titulo;
 		options.hash.valor = options.hash.op1_val;
 		options.hash.checado = options.hash.op1_checado;
+		options.hash.radio_id = radio_id + '_1';
 		var res2 =Handlebars.helpers.valores_radio(options)
 
 		options.hash.titulo = options.hash.op2_titulo;
 		options.hash.valor = options.hash.op2_val;
 		options.hash.checado = !options.hash.op1_checado;
+		options.hash.radio_id = radio_id + '_2';
 		var res3 =Handlebars.helpers.valores_radio(options)
 	
 		return '<li class="li_bloque">' + res1 + res2 +  res3 + '</li>';
@@ -416,10 +421,10 @@
 				<div class="campos_bloque" id="personal_administracion">
 					<ul class="ul_bloque"> 
 					 	{{{grp_combo "Tipo de Alta"   label_desc='tipo_de_alta' select_name='tipo_de_alta' select_id='perso_tipo_de_alta'}}}
-					  {{{grp_perdet "Fecha de Alta" valor=fec_alta input_id="cal_fec_alt" label_desc='fecha_de_alta' input_desc='Fecha de Alta'}}}  
+					  {{{grp_perdet "Fecha de Alta" valor=fec_alta input_id="persona_fec_alta" label_desc='fecha_de_alta' input_desc='Fecha de Alta'}}}  
 					  {{{grp_options "Alta Condicionada"  radio_id='persona_condicionada' label_desc='alta_condicionada' op1_titulo="Si" op2_titulo="No" op1_val=true op2_val=false  op1_checado=condicionada radio_name='persona_condicionada' input_booleano=condicionada}}}   
 
-						{{{grp_perdetTextArea "" valor=condiciones_alta   label_desc='' textarea_desc='Condición(es)'}}}
+						{{{grp_perdetTextArea "" textarea_id='persona_condicion_alta' valor=condiciones_alta   label_desc='' textarea_desc='Condición(es)'}}}
 
 					  {{{grp_combo "Administrativo"   label_desc='tipo_de_empleado' select_name='tipo_de_empleado' select_id='perso_tipo_de_empleado'}}}	
 					</ul>
@@ -433,7 +438,7 @@
 				<div class="campos_bloque">
 					<ul class="ul_bloque">
 						
-					{{{grp_perdetTextArea "Calle" valor=calle_dom   label_desc='' textarea_desc='Calle'}}}
+					{{{grp_perdetTextArea "Calle" valor=calle_dom textarea_id='perso_domicilio'  label_desc='' textarea_desc='Calle'}}}
 					{{{grp_perdet "Número" valor=numero_dom  input_id='persona_numero_dom' label_desc='numero' input_desc='Número'}}}
 					{{{grp_perdet "Colonia" valor=colonia_dom  input_id='persona_colonia_dom' label_desc='colonia' input_desc='Colonia'}}}
 				 	{{{grp_perdet "Código Postal" valor=cp_dom  input_id='persona_cp_dom' label_desc='codigo_postal' input_desc='Código Postal'}}}

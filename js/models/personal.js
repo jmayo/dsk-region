@@ -40,7 +40,7 @@ Personal.Models.personal = Backbone.Model.extend({
         "id_seguridad_social": "", 
         "portacion": false,
         "cdu_tipo_alta": "0200000", 
-        "fec_alta": "2015-02-12", 
+        "fec_alta": "01/01/1900", 
         "condicionada": false, 
         "condiciones_alta": "", 
         "cdu_tipo_empleado": "0210000", 
