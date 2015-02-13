@@ -40,18 +40,19 @@ body
 	//background linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* W3C */
 	font-family arial-regular
 	font-size 14px
+	//margin-bottom 120px
 
 header
-	background gris_oscuro
-	//padding 0.1em
-	//height 10em
-	.titulo
-		color gris_claro
-		font-family arial-bold
-		font-size 24px
-		text-align center
-		padding 0.5em
-		overflow-x auto
+// 	background gris_oscuro
+// 	//padding 0.1em
+// 	//height 10em
+// 	.titulo
+// 		color gris_claro
+// 		font-family arial-bold
+// 		font-size 24px
+// 		text-align center
+// 		padding 0.5em
+// 		overflow-x auto
 
 nav
 	background gris_oscuro
@@ -60,6 +61,10 @@ nav
 	//font-size 14px
 	//position relative
 	//display inline-block
+	//text-align center
+	//position fixed
+	//width 100%
+	//z-index: 67;
 	.menu
 		// las siguientes 2 líneas fijan el menu (colocan un scroll)
 		//height 35px
@@ -67,10 +72,11 @@ nav
 		display inline-block
 		margin 0
 		padding 0
-		overflow-x auto
+		//overflow-x auto
 		//white-space nowrap
 		//float left
 		//position relative
+		//position fixed
 		li
 			display inline-block
 			padding 0.5em
@@ -278,6 +284,7 @@ nav
 .caja_acciones
 	text-align center
 	.menu_acciones
+		position relative
 		display inline-block
 		margin 0
 		padding 0
@@ -361,6 +368,8 @@ hr
 
 footer
 	background gris_oscuro
+	//width 100%
+	//position fixed
 	//color gris_claro
 	//font-family arial-regular
 	//font-size 14px
@@ -423,6 +432,7 @@ footer
 	position fixed
 	_position absolute
 	text-shadow 0 1px 0 rgba(0,0,0,.5)
+	height 35px
 	//animation animate-bg 5s linear infinite
 
 .info

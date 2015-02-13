@@ -64,26 +64,29 @@ esta no funciona-------------------------------------**/
 $(document).ready(function(){
 	$("a.info_trigger").click(function(){
 		$("#notify_info").notify();
-		window.setTimeout(autoclose,5000);
+		//window.setTimeout(autoclose,5000);
 		return false;
 	});
 	$("a.warning_trigger").click(function(){
 		$("#notify_warning").notify();
-		window.setTimeout(autoclose,5000);
+		//window.setTimeout(autoclose,5000);
 		return false;
 	});
 	$("a.error_trigger").click(function(){
 		$("#notify_error").notify();
-		window.setTimeout(autoclose,5000);
+		//window.setTimeout(autoclose,5000);
 		return false;
 	});
 	$("a.success_trigger").click(function(){
 		$("#notify_success").notify();
-		window.setTimeout(autoclose,5000);
+		//window.setTimeout(autoclose,5000);
 		return false;
 	});
 });
 
 function autoclose() {
   $("#notify_info").fadeOut("slow");
+  $("#notify_warning").fadeOut("slow");
+  $("#notify_error").fadeOut("slow");
+  $("#notify_success").fadeOut("slow");
 }
