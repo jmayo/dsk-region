@@ -1,7 +1,7 @@
 Personal.Views.Menu = Backbone.View.extend({
   events :{
      "click .personal": "opcion_personal",
-     "click .empresas": "opcion_empresas",
+     "click .empresas": "opcion_empresa",
   },
 
   el: $('.menu'),
@@ -12,8 +12,7 @@ Personal.Views.Menu = Backbone.View.extend({
    opcion_personal: function(){
       Personal.app.navigate("Personal", {trigger: true,replace: false});
    },
-   opcion_empresas: function(){
-      Personal.app.navigate("Empresas", {trigger: true,replace: false});
-
+   opcion_empresa: function(){
+      Personal.app.navigate("Empresa", {trigger: true,replace: false});
    },
 });

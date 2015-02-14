@@ -5,10 +5,10 @@ events : {
      "focus .buscar" : "mostrarBusqueda",  
    },
   el: $('.caja_acciones'),
-  template: Handlebars.compile($("#resultados-busqueda-template").html()),
+  //template: Handlebars.compile($("#resultados-empresa-busqueda-template").html()),
 
   initialize: function () {
-  
+     
    },
    buscarEnServidor: function(event,val) {
     if(event.keyCode == 13){
@@ -23,6 +23,14 @@ events : {
   },
    mostrarBusqueda: function(){
     this.$(".divResultados").show();
-  }
+  },
+  close: function(){
+      // Cuando se asigna una nueva instancia en ocaciones quedan objetos zombies
+      // Estas funciones eliminan cualquier referencia
+      this.$(".divResultados").empty();
+      this.collection.unbind();
+      this.unbind();
+      this.undelegateEvents();
+    }
 
 });

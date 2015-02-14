@@ -4,7 +4,7 @@ Personal.Views.PersonalBusqueda = Backbone.View.extend({
    },
   tagName: 'div',
   className: 'resultado_ind',
-  template: Handlebars.compile($("#resultados-busqueda-template").html()),
+  template: Handlebars.compile($("#resultados-personal-busqueda-template").html()),
 
   initialize: function () {
   },

@@ -27,11 +27,13 @@
     <script type="text/javascript" src="lib/backbone.js"></script>
     <!--Librerias del modelado con backbone-->
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/models/personal.js"></script>
     <script type="text/javascript" src="js/models/catalogo.js"></script>
-    <script type="text/javascript" src="js/collections/personas.js"></script>
+    <script type="text/javascript" src="js/models/personal.js"></script>
+    <script type="text/javascript" src="js/models/empresa.js"></script>
+    
     <script type="text/javascript" src="js/collections/catalogos.js"></script>
-
+    <script type="text/javascript" src="js/collections/personas.js"></script>
+	<script type="text/javascript" src="js/collections/empresas.js"></script>
 
 </head>
 <body>
@@ -71,145 +73,12 @@
 	</div>
 	<section class="contenido">
 
-	 <section class="contenido_personal" id="personal_basicos" hidden>	
-			<!-- Template:	personal-detalle-template	 -->
-	 </section>	
-
-	<section class="contenido_empresas" >
-			<article class="bloque">
-			<div class="titulo_bloque">
-				Empresa
-			</div>
-			<div class="caja_bloque">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="id_empresa">Id Empresa</label>
-							<input class="inputs_bloque" type="text" placeholder="Id Empresa" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="razon_social">Razón Social</label>
-							<textarea class="textarea_bloque" name="razon_social" placeholder="Razón Social"></textarea>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="rfc">RFC</label>
-							<input class="inputs_bloque" type="text" placeholder="RFC" />
-						</li>						
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle">Calle</label>
-							<textarea class="textarea_bloque" name="calle" placeholder="Calle"></textarea>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="numero">Número</label>
-							<input class="inputs_bloque" type="text" placeholder="Número" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="colonia">Colonia</label>
-							<input class="inputs_bloque" type="text" placeholder="Colonia" />
-						</li>						
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
-							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_estado">Estado</label>
-							<select name="calle_estado" class="select_bloque">
-								<option value="estado_de_mexico">Estado de México</option>
-								<option value="distrito_federal">Distrito Federal</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_municipio">Municipio</label>
-							<select name="calle_municipio" class="select_bloque">
-								<option value="tlalnepantla">Tlalnepantla</option>
-								<option value="naucalpan">Naucalpan</option>
-								<option value="miguel_hidalgo">Miguel Hidalgo</option>
-								<option value="azcapotzalco">Azcapotzalco</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
-							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="telefono1">Teléfono 1</label>
-							<input class="inputs_bloque" type="text" placeholder="Teléfono 1" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="telefono2">Teléfono 2</label>
-							<input class="inputs_bloque" type="text" placeholder="Teléfono 2" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="giro">Giro</label>
-							<select name="giro" class="select_bloque">
-								<option value="industriales">Industriales</option>
-								<option value="extractivas">Extractivas</option>
-								<option value="manufactureras">Manufactureras</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="rubro">Rubro</label>
-							<select name="rubro" class="select_bloque">
-								<option value="textil">Textil</option>
-								<option value="construccion">Construccion</option>
-								<option value="plasticos">Plasticos</option>
-							</select>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="fecha_de_alta">Fecha de Alta</label>
-							<input id="cal_fec_alt" class="inputs_bloque" type="text" placeholder="Fecha de Alta" />
-						</li>						
-					</ul>
-				</div>
-			</div>
-		</article>
-		<article class="bloque">
-			<div class="titulo_bloque">
-				Contacto
-			</div>
-			<div class="caja_bloque">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="paterno">Paterno</label>
-							<input class="inputs_bloque" type="text" placeholder="Paterno" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="materno">Materno</label>
-							<input class="inputs_bloque" type="text" placeholder="Materno" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="nombres">Nombre(s)</label>
-							<input class="inputs_bloque" type="text" placeholder="Nombre(s)" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="telefono">Teléfono</label>
-							<input class="inputs_bloque" type="text" placeholder="Teléfono" />
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="e-mail">e-mail</label>
-							<input class="inputs_bloque" type="text" placeholder="e-mail" />
-						</li>
-					</ul>
-				</div>
-			</div>
-			<br>
-			<div class="titulo_bloque">
-				Ubicación
-			</div>
-			<div class="caja_bloque">
-				<div id="mapa" class="campos_bloque">
-				</div>
-			</div>
-		</article>
-
-		<article class="bloque_links">
-			<ul class="ul_links">
-				<li class="li_links"><a class="a_links" href="#">Sucursales</a></li>
-				<li class="li_links"><a class="a_links" href="#">Mapas</a></li>
-			</ul>
-		</article>
-	</section>
+		 <section class="contenido_personal" id="personal_basicos" hidden>	
+				<!-- Template:	personal-detalle-template	 -->
+		 </section>	
+		  <section class="contenido_empresa" id="empresa_basicos" hidden>	
+				<!-- Template:	empresa-detalle-template	 -->
+		 </section>
 
 	</section>
 	<footer>
@@ -374,7 +243,7 @@
 	<!--Plantillas del personal usando handlerbars -->
 
 
-  <script id="resultados-busqueda-template" type="text/x-handlebars-template">
+  <script id="resultados-personal-busqueda-template" type="text/x-handlebars-template">
 		<img  src=images/foto.png />
 		<span>{{paterno}} {{materno}} {{nombre}}</span>
 		<p>{{matricula}}</p>
@@ -461,22 +330,112 @@
 		</article>
  </script>
 
- 
+ 	<!--Listado de empresas usando handlerbars -->
+
+ <script id="resultados-empresa-busqueda-template" type="text/x-handlebars-template">
+		<span>{{razon_social}}</span>
+		<p>{{cve_empresa}}</p>
+  </script>
+
+<script id="empresa-detalle-template" type="text/x-handlebars-template">
+
+ 	<article class="bloque">
+			<div class="titulo_bloque">
+				Empresa
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						{{{titulos_caja id label_desc="id_principal" label_id='empresa_id'}}}
+						{{{grp_perdet "Cve Empresa" valor=cve_empresa input_id='empresa_clave' label_desc='id_empresa' input_desc='Cve Empresa'}}}
+				  		{{{grp_perdetTextArea "Razón Social" textarea_id='empresa_razon_social' valor=razon_social   label_desc='razon_social' textarea_desc='Razón Social'}}}
+				  		{{{grp_perdet "RFC" valor=rfc input_id='empresa_rfc' label_desc='rfc' input_desc='RFC'}}}
+				  		{{{grp_perdetTextArea "Calle" textarea_id='empresa_calle' valor=calle   label_desc='calle' textarea_desc='Calle'}}}
+				  		
+						 {{{grp_perdet "Número" valor=numero input_id='empresa_numero' label_desc='numero' input_desc='Número'}}}
+						{{{grp_perdet "Colonia" valor=colonia input_id='empresa_colonia' label_desc='colonia' input_desc='Colonia'}}}
+						{{{grp_perdet "Código Postal" valor=cp input_id='empresa_cp' label_desc='codigo_postal' input_desc='Código Postal'}}}
+						{{{grp_combo "Estado"    label_desc='calle_estado' select_name='calle_estado' select_id='empresa_estado'}}} 
+						{{{grp_combo "Municipio"    label_desc='calle_municipio' select_name='calle_municipio' select_id='empresa_municipio'}}}				
+						{{{grp_perdet "Ciudad/Población" valor=ciudad input_id='empresa_ciudad' label_desc='calle_ciudad' input_desc='Ciudad/Población'}}}
+						{{{grp_perdet "Teléfono 1" valor=telefono1 input_id='empresa_telefono1' label_desc='telefono1' input_desc='Teléfono 1'}}}
+						{{{grp_perdet "Teléfono 2" valor=telefono2 input_id='empresa_telefono2' label_desc='telefono2' input_desc='Teléfono 2'}}}
+
+						{{{grp_combo "Giro"    label_desc='giro' select_name='giro' select_id='empresa_giro'}}} 
+
+						{{{grp_combo "Rubro"    label_desc='rubro' select_name='rubro' select_id='empresa_rubro'}}} 
+				  		{{{grp_perdet "Fecha de Alta" valor=fecha_alta input_id='empresa_fecha_alta' label_desc='fecha_de_alta' input_desc='Fecha de Alta'}}}
+					</ul>
+				</div>
+			</div>
+		</article>
+		<article class="bloque">
+			<div class="titulo_bloque">
+				Contacto
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="paterno">Paterno</label>
+							<input class="inputs_bloque" type="text" placeholder="Paterno" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="materno">Materno</label>
+							<input class="inputs_bloque" type="text" placeholder="Materno" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="nombres">Nombre(s)</label>
+							<input class="inputs_bloque" type="text" placeholder="Nombre(s)" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="telefono">Teléfono</label>
+							<input class="inputs_bloque" type="text" placeholder="Teléfono" />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="e-mail">e-mail</label>
+							<input class="inputs_bloque" type="text" placeholder="e-mail" />
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br>
+			<div class="titulo_bloque">
+				Ubicación
+			</div>
+			<div class="caja_bloque">
+				<div id="mapa" class="campos_bloque">
+				</div>
+			</div>
+		</article>
+		<article class="bloque_links">
+			<ul class="ul_links">
+				<li class="li_links"><a class="a_links" href="#">Sucursales</a></li>
+				<li class="li_links"><a class="a_links" href="#">Mapas</a></li>
+			</ul>
+		</article>
+</script>
+
 	<!--Otros modelos de backbone  -->
-   <script type="text/javascript" src="js/views/menu.js"></script>
   <script type="text/javascript" src="js/views/contenido.js"></script>
    <script type="text/javascript" src="js/views/cajaOperaciones.js"></script>
   <script type="text/javascript" src="js/views/cajaBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusquedas.js"></script>
+
   <script type="text/javascript" src="js/views/personalDetalle.js"></script>
   <script type="text/javascript" src="js/views/personalCatalogo.js"></script>
  <script type="text/javascript" src="js/views/personalCatalogos.js"></script> 
+  <script type="text/javascript" src="js/views/empresaDetalle.js"></script>
+  <script type="text/javascript" src="js/views/empresaBusqueda.js"></script> 
+  <script type="text/javascript" src="js/views/empresaBusquedas.js"></script>
+  
 
 <script type="text/javascript" src="js/models/formView.js"></script> 
 <script type="text/javascript" src="js/views/formView.js"></script> 
 
   <script type="text/javascript" src="js/routers/router.js"></script>
   <script type="text/javascript" src="js/main.js"></script> 
+   <script type="text/javascript" src="js/views/menu.js"></script>
 </body>
 </html>

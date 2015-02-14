@@ -41,11 +41,19 @@ Personal.Collections.Catalogos = Backbone.Collection.extend({
   SeguridadSocial: function () {
 		return this.where({catalogos: 17});
 	},
+  Rubro: function () {
+    return this.where({catalogos: 19});
+  },
+  Giro: function () {
+    return this.where({catalogos: 18});
+  },
   TipoAlta: function(){
     return this.where({catalogos:20});
   },
   TipoEmpleado: function(){
     return this.where({catalogos: 21});
   },
+
+
 
 });

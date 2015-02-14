@@ -1,6 +1,6 @@
 Personal.Views.PersonalBusquedas = Backbone.View.extend({
   el: $('.divResultados'),
-  template: Handlebars.compile($("#resultados-busqueda-template").html()),
+  template: Handlebars.compile($("#resultados-personal-busqueda-template").html()),
 
   initialize: function () {
     this.listenTo(this.collection, "add", this.addOne, this);
@@ -18,5 +18,11 @@ Personal.Views.PersonalBusquedas = Backbone.View.extend({
    limpiarTodo:function(){
     console.log("limpiando resultados");
      this.$el.empty();
-  }
+  },
+  close: function(){
+      this.collection.reset();
+      this.collection.unbind();
+      this.collection.drop();
+      this.unbind();
+    }
 });
