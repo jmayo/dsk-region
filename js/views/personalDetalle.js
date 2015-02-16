@@ -2,6 +2,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   events : {
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
+     'submit form' : 'uploadFile',
    },
 
   el: $('#personal_basicos'),
@@ -86,7 +87,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
                 }
             });
    },
-relacionColumnas: function(){
+relacionColumnas: function(){ 
       var columnasCampos ={
         "calle_dom": '#perso_domicilio', 
         "cdu_escolaridad": '#perso_escolaridad', 
@@ -161,5 +162,32 @@ generarJSON: function(){
       }
       return data;
    },
+uploadFile: function(event) {
+    event.preventDefault();
+    debugger;
+    var id =$("#persona_id").text();;
+    var x = document.getElementById("imagencontrol");
+    if (!x) {
+    return;
+  }
+
+  if (!x.name) {
+    console.log('Trying to upload an invalid file');
+    return;
+  }
+
+    var file =x.files[0]
+    //var file=$("#imagencontrol")[0].files[0]
+    var data = new FormData();
+
+    data.append('imagen', file);
+    //'http://192.168.122.1:8000/subirf/'
+    $.ajax('http://192.168.122.1:8000/personal/subir_imagen/' + id + '/', {
+        type:'POST',
+        data: data,
+        processData: false,
+       contentType: false // it automaticly sets multipart/form-data; boundary=...
+    });
+  }
 });
 

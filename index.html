@@ -59,7 +59,7 @@
 			<li><a href="#" class="guardar"></a></li>
 			<li><input type="text" placeholder="Buscar" class="buscar"/></li>
 			<!-- <form enctype="multipart/form-data">
-			    <label>File<input name='file' type='file' /></label>
+			    <label>File<input name='file' type='file'  id="imagencontrol" /></label>
 			    <br>
 			    <label>Name<input name='name' type='text' /></label>
 			    <br>
@@ -120,6 +120,28 @@
          }
         return '<label ' + label_id + ' for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
       });
+
+	Handlebars.registerHelper('caja_imagen',function(contenido){
+		var ruta = Handlebars.helpers.ruta_imagen(contenido);
+		var valor =  '<div class="caja_foto">'+
+				    '<figure class="foto">' +
+					   '<p><img src=' + ruta + ' alt="foto" />' +
+				    '</figure>' +
+			    '</div>';
+		return valor;
+      });
+
+	Handlebars.registerHelper('ruta_imagen',function(contenido){
+		var ruta= window.ruta + 'media/';
+		if(contenido===undefined || contenido===""){
+			contenido='imagenes/foto.png';
+		}
+		ruta = ruta + contenido;
+		return ruta;
+	});
+
+
+
 
  	//Helper para cajas de texto
     Handlebars.registerHelper('valores_caja', function(options){
@@ -244,10 +266,12 @@
 
 
   <script id="resultados-personal-busqueda-template" type="text/x-handlebars-template">
-		<img  src=images/foto.png />
+		<img  src={{{ruta_imagen imagen}}}>
 		<span>{{paterno}} {{materno}} {{nombre}}</span>
 		<p>{{matricula}}</p>
   </script>
+
+
 
 <script id="personal-catalogos-template" type="text/x-handlebars-template">
 	{{descripcion1}} 
@@ -322,11 +346,12 @@
 			<div class="titulo_bloque">
 				Foto
 			</div>		
-			<div class="caja_foto">
-				<figure class="foto">
-					<p><img src="images/foto.png" alt="foto" />
-				</figure>
-			</div>
+			{{{caja_imagen imagen}}}
+			<form enctype="multipart/form-data">
+			    <label>File<input name='file' type='file'  id="imagencontrol" /></label>
+			    <input type="submit" value="Subir Imagen">
+			</form>
+		
 		</article>
  </script>
 

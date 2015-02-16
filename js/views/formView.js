@@ -8,28 +8,29 @@ initialize: function () {
   events: {
     'submit form' : 'uploadFile'
   },
-
   el: $('.caja_acciones'),
 
 
   uploadFile: function(event) {
-    var x = document.getElementById("imagenform");
-    if (!file) {
+    event.preventDefault();
+    var id =$("#persona_id").text();;
+    var x = document.getElementById("imagencontrol");
+    if (!x) {
     return;
   }
 
-  if (!file.name) {
+  if (!x.name) {
     console.log('Trying to upload an invalid file');
     return;
   }
 
     var file =x.files[0]
-    //var file=$("#imagenform")[0].files[0]
+    //var file=$("#imagencontrol")[0].files[0]
     var data = new FormData();
 
-    data.append('image', file);
-
-    $.ajax('http://192.168.122.1:8000/subirf/', {
+    data.append('imagen', file);
+    //'http://192.168.122.1:8000/subirf/'
+    $.ajax('http://192.168.122.1:8000/personal/subir_imagen/' + id + '/', {
         type:'POST',
         data: data,
         processData: false,
