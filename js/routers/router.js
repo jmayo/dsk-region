@@ -11,8 +11,8 @@ Personal.Router = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14:8000/";
-    //window.ruta="http://104.236.232.238:8080/";
+    //window.ruta="http://192.168.0.14:8080/";
+    window.ruta="http://104.236.232.238:8080/";
 
     this.Perso = new Personal.Collections.Personas();          
     this.Empresa = new Personal.Collections.Empresas();
@@ -77,6 +77,7 @@ initialize: function () {
    personalNuevo: function () {
    // window.Personal.menu="personal";
     window.Personal.operacion="nuevo";
+    debugger;
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
     this.PersoModelo.set({"id":"-1"});

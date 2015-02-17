@@ -27,6 +27,8 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
     }
   }, 
   render: function () {
+    debugger;
+    this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
@@ -123,27 +125,27 @@ relacionColumnas: function(){
    },
 guardar: function(){
     var data =this.generarJSON();
-    
+    var self = this;
     var model = new Personal.Models.personal(data);
     model.valor = undefined;
     model.pk= data["id"];
-    
-    var tipo='POST'
+    this.tipo='POST'
     if(window.Personal.operacion!=="nuevo"){
-      var tipo='PUT';
+        this.tipo='PUT';
     }
-  
+ 
     model.save(null,{
-        type: tipo,
-        success: function(model) {
-             $("#notify_success").notify();
+        type: self.tipo,
+        success: function(model,response) {
+            $('#persona_id').text(model.get("id"));
+            window.Personal.operacion="buscar";
+            $("#notify_success").notify();
           },
         error: function(model,response, options) {
              $("#notify_error").notify();
               console.log(response.responseText);
-              var responseObj = $.parseJSON(response.responseText);
-             debugger;
-              console.log(responseObj);
+             // var responseObj = $.parseJSON(response.responseText);
+             // console.log(responseObj);
    //           for(campo in responseObj){ console.log(campo); }
         }
 
@@ -197,7 +199,7 @@ uploadFile: function(event) {
 
     data.append('imagen', file);
     //'http://192.168.122.1:8000/subirf/'
-    $.ajax('http://192.168.0.14:8000/personal/subir_imagen/' + id + '/', {
+    $.ajax('http://104.236.232.238:8080/personal/subir_imagen/' + id + '/', {
         type:'POST',
         data: data,
         processData: false,

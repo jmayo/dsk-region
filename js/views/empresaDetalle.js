@@ -69,7 +69,36 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
                   vista.render();
                 }
             });
+    this.mostrarMapa();
    },
+  mostrarMapa: function(){
+        var pos_ini = -99.1696;
+        var pos_fin = 19.5225;
+
+        var map = new ol.Map({
+          target: 'mapa',
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.MapQuest({layer: 'osm'})
+            })
+          ],
+          view: new ol.View({
+            center: ol.proj.transform([pos_ini, pos_fin], 'EPSG:4326', 'EPSG:3857'),
+            zoom: 14
+          })
+        });
+
+        map.addOverlay(new ol.Overlay({
+          position: ol.proj.transform(
+            [pos_ini, pos_fin],
+            'EPSG:4326',
+            'EPSG:3857'
+          ),
+       element: $('<img src="images/marker.png" height=20px weight=20px>')
+       }));
+  },
+
+
 relacionColumnas: function(){
       var columnasCampos ={
      		"id": "#empresa_id",
@@ -104,6 +133,11 @@ guardar: function(){
     }
   
     model.save(null,{type: tipo});
+    //CREAETE SEND POST
+    // PARA PATCH:
+    //model.clear().set({id: 1, a: 1, b: 2, c: 3, d: 4}); 
+    //model.save();
+    //model.save({b: 2, d: 4}, {patch: true});
   },
   
 generarJSON: function(){
