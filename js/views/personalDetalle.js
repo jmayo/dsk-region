@@ -133,8 +133,18 @@ guardar: function(){
       var tipo='PUT';
     }
   
-    model.save(null,{type: tipo});
-  },
+    model.save(null,{
+        type: tipo,
+        success: function(model) {
+             $("#notify_success").notify();
+          },
+        error: function(model, xhr, options) {
+             $("#notify_error").notify();
+        }
+
+    });
+
+},
   
 generarJSON: function(){
       var data ={};
@@ -182,7 +192,7 @@ uploadFile: function(event) {
 
     data.append('imagen', file);
     //'http://192.168.122.1:8000/subirf/'
-    $.ajax('http://192.168.122.1:8000/personal/subir_imagen/' + id + '/', {
+    $.ajax('http://192.168.0.14:8000/personal/subir_imagen/' + id + '/', {
         type:'POST',
         data: data,
         processData: false,
