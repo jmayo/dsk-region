@@ -138,8 +138,13 @@ guardar: function(){
         success: function(model) {
              $("#notify_success").notify();
           },
-        error: function(model, xhr, options) {
+        error: function(model,response, options) {
              $("#notify_error").notify();
+              console.log(response.responseText);
+              var responseObj = $.parseJSON(response.responseText);
+             debugger;
+              console.log(responseObj);
+   //           for(campo in responseObj){ console.log(campo); }
         }
 
     });
