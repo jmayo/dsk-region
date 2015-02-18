@@ -58,10 +58,11 @@ initialize: function () {
       
     //Si es la primera vez cambiamos el id para llenar el formulario
 //     window.Personal.menu="personal";
-    window.Personal.operacion="";
-    if( this.PersoModelo.get("id")=="-1"){
+    window.Personal.operacion="buscar";
+    if( this.PersoModelo.get("id")==="-1" ||  this.PersoModelo.get("id")===""){
       this.PersoModelo.set({"id":""});
       window.Personal.operacion="nuevo";
+  
     }
     window.Personal.menu="personal";
    
@@ -77,7 +78,7 @@ initialize: function () {
    personalNuevo: function () {
    // window.Personal.menu="personal";
     window.Personal.operacion="nuevo";
-    debugger;
+ 
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
     this.PersoModelo.set({"id":"-1"});
@@ -87,9 +88,9 @@ initialize: function () {
   },
 
   empresa: function () {
-    window.Personal.operacion="";
+    window.Personal.operacion="buscar";
     //window.Personal.menu="empresa";
-    if( this.EmpresaModelo.get("id")=="-1"){
+    if( this.EmpresaModelo.get("id")==="-1"  ||  this.EmpresaModelo.get("id")===""){
       this.EmpresaModelo.set({"id":""});
       window.Personal.operacion="nuevo";
     }
