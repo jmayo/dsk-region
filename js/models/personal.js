@@ -50,7 +50,8 @@ Personal.Models.personal = Backbone.Model.extend({
         "cp_dom": "", 
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
-        "ciudad_dom": ""
+        "ciudad_dom": "",
+        "imagen": "",
   },
 });
 

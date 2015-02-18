@@ -3,13 +3,30 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
      'submit form' : 'uploadFile',
+  //   'change #imagencontrol':  'mostrarImagen',
    },
 
   el: $('#personal_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
   template: Handlebars.compile($("#personal-detalle-template").html()),
-  
+
+  cambioImagen: function(control){
+    console.log("cambio la imagen");
+    this.mostrarImagen();
+  },
+  mostrarImagen: function() {
+     var input = $('#imagencontrol').get(0);
+     
+     if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+       $('#perso_foto').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+     }
+},
+    
   initialize: function () {
     this.catMunicipioNac = new Personal.Collections.Catalogos();
     this.catMunicipioDom = new Personal.Collections.Catalogos();
@@ -27,7 +44,6 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
     }
   }, 
   render: function () {
-    debugger;
     this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
@@ -181,7 +197,7 @@ generarJSON: function(){
    },
 uploadFile: function(event) {
     event.preventDefault();
-    debugger;
+    var self = this;
     var id =$("#persona_id").text();;
     var x = document.getElementById("imagencontrol");
     if (!x) {
@@ -203,7 +219,15 @@ uploadFile: function(event) {
         type:'POST',
         data: data,
         processData: false,
-       contentType: false // it automaticly sets multipart/form-data; boundary=...
+       contentType: false ,
+        success: function(result){
+          console.log("Exito al subir la foto");
+           $("#notify_success").notify();
+          self.mostrarImagen();
+      },
+        error: function(model,response, options) {
+             $("#notify_error").notify();
+        }
     });
   }
 });

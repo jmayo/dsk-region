@@ -59,9 +59,6 @@
 	</div>
 	<!-- termina notificaciones -->
 	<header>
-		<div class="titulo">
-			SISTEMA DE GESTIÓN DE PERSONAL
-		</div>
 	</header>
 	<nav>
 		<ul class="menu">
@@ -142,11 +139,12 @@
         return '<label ' + label_id + ' for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
       });
 
-	Handlebars.registerHelper('caja_imagen',function(contenido){
+	Handlebars.registerHelper('caja_imagen',function(contenido,options){
+		img_id = 'id=' + options.hash.img_id;
 		var ruta = Handlebars.helpers.ruta_imagen(contenido);
 		var valor =  '<div class="caja_foto">'+
 				    '<figure class="foto">' +
-					   '<p><img src=' + ruta + ' alt="foto" />' +
+					   '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
 				    '</figure>' +
 			    '</div>';
 		return valor;
@@ -367,7 +365,7 @@
 			<div class="titulo_bloque">
 				Foto
 			</div>		
-			{{{caja_imagen imagen}}}
+			{{{caja_imagen imagen img_id='perso_foto'}}}
 			<form enctype="multipart/form-data">
 			    <label>File<input name='file' type='file'  id="imagencontrol" /></label>
 			    <input type="submit" value="Subir Imagen">
