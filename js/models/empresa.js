@@ -38,5 +38,7 @@ Personal.Models.empresa = Backbone.Model.extend({
 	"cdu_giro": "0180000",
 	"cdu_rubro": "0190000",
 	"fecha_alta":"01/01/1900",
+  "latitud" : "99.1696",
+  "longitud" :  "19.5225",
   },
 });

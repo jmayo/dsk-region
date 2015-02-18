@@ -69,11 +69,13 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
                   vista.render();
                 }
             });
-    this.mostrarMapa();
+    this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
    },
-  mostrarMapa: function(){
-        var pos_ini = -99.1696;
-        var pos_fin = 19.5225;
+  mostrarMapa: function(latitud,longitud){
+        var pos_ini = parseFloat(latitud);
+        var pos_fin = parseFloat(longitud);
+        //pos_ini= -99.1696;
+        //pos_fin = 19.5225;
 
         var map = new ol.Map({
           target: 'mapa',
