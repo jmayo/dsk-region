@@ -1,3 +1,4 @@
+// colores
 gris_claro=#dddddc
 gris_oscuro=#30302f
 gris_medio=#696868
@@ -8,6 +9,7 @@ gris_claro_rgb_1=rgb(192,192,192)
 gris_claro_rgb_2=rgb(224,224,224)
 gris_claro_rgb_3=rgb(240,240,240)
 gris_claro_rgba_1=rgba(0, 0, 0, 0.5)
+rojo_vineta=#ff7070
 ico_font_family="iconos"
 ico_personal="\e607"
 ico_empresas="\e606"
@@ -203,7 +205,7 @@ nav
 						//border-bottom 2px solid #eee
 						//position relative
 						.etiquetas_bloque
-							width 150px
+							width 135px
 							margin-top 2px
 							display inline-block
 							float left
@@ -213,33 +215,68 @@ nav
 							height 16px
 							width 220px
 							padding 2px 8px
-							border 1px solid verde
+							border 1px solid lightblue
 							box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
 							border-radius 1px
 							&:focus
-								border 2px solid rosa
-								//padding-right 70px
+								border 1px solid white
+							&:valid
+								border 1px solid lightgreen
+							&:valid ~ .viñeta::before
+								content "\2713"
+								color lightgreen
+							&:invalid
+								border 1px solid rojo_vineta
+							&:invalid ~ .viñeta::before
+								content "\2613"
+								color rojo_vineta
+						.viñeta
+							display inline-block
 						.textarea_bloque
 							color black
 							height 80px
 							width 220px
 							resize vertical
 							padding 2px 8px
-							border 1px solid verde
+							border 1px solid lightblue
 							box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
 							border-radius 1px
 							&:focus
-								border 2px solid rosa
+								border 1px solid white
+							&:valid
+								border 1px solid lightgreen
+							&:valid ~ .viñeta::before
+								content "\2713"
+								color lightgreen
+							&:invalid
+								border 1px solid rojo_vineta
+							&:invalid ~ .viñeta::before
+								content "\2613"
+								color rojo_vineta
+						.viñeta
+							display inline-block
 						.select_bloque
 							color black
 							height 22px
 							width 238px
 							padding 2px 8px
-							border 1px solid verde
+							border 1px solid lightblue
 							box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
 							border-radius 1px
 							&:focus
-								border 2px solid rosa
+								border 1px solid white
+							&:valid
+								border 1px solid lightgreen
+							&:valid ~ .viñeta::before
+								content "\2713"
+								color lightgreen
+							&:invalid
+								border 1px solid rojo_vineta
+							&:invalid ~ .viñeta::before
+								content "\2613"
+								color rojo_vineta
+						.viñeta
+							display inline-block
 						.radio_bloque:not(old)
 							width 2em
 							margin 0

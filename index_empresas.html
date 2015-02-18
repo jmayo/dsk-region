@@ -78,31 +78,38 @@
 					<ul class="ul_bloque">
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="id_empresa">Id Empresa</label>
-							<input class="inputs_bloque" type="text" placeholder="Id Empresa" />
+							<input class="inputs_bloque" type="text" pattern="[0-9]{1,10}" maxlength="10" placeholder="Id Empresa" required/>
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="razon_social">Razón Social</label>
 							<textarea class="textarea_bloque" name="razon_social" placeholder="Razón Social"></textarea>
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="rfc">RFC</label>
 							<input class="inputs_bloque" type="text" placeholder="RFC" />
+							<div class="viñeta"></div>
 						</li>						
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="calle">Calle</label>
 							<textarea class="textarea_bloque" name="calle" placeholder="Calle"></textarea>
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="numero">Número</label>
 							<input class="inputs_bloque" type="text" placeholder="Número" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="colonia">Colonia</label>
 							<input class="inputs_bloque" type="text" placeholder="Colonia" />
+							<div class="viñeta"></div>
 						</li>						
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
 							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="calle_estado">Estado</label>
@@ -110,6 +117,7 @@
 								<option value="estado_de_mexico">Estado de México</option>
 								<option value="distrito_federal">Distrito Federal</option>
 							</select>
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="calle_municipio">Municipio</label>
@@ -119,18 +127,22 @@
 								<option value="miguel_hidalgo">Miguel Hidalgo</option>
 								<option value="azcapotzalco">Azcapotzalco</option>
 							</select>
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
 							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="telefono1">Teléfono 1</label>
 							<input class="inputs_bloque" type="text" placeholder="Teléfono 1" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="telefono2">Teléfono 2</label>
 							<input class="inputs_bloque" type="text" placeholder="Teléfono 2" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="giro">Giro</label>
@@ -139,6 +151,7 @@
 								<option value="extractivas">Extractivas</option>
 								<option value="manufactureras">Manufactureras</option>
 							</select>
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="rubro">Rubro</label>
@@ -147,10 +160,12 @@
 								<option value="construccion">Construccion</option>
 								<option value="plasticos">Plasticos</option>
 							</select>
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="fecha_de_alta">Fecha de Alta</label>
 							<input id="cal_fec_alt" class="inputs_bloque" type="text" placeholder="Fecha de Alta" />
+							<div class="viñeta"></div>
 						</li>						
 					</ul>
 				</div>
@@ -166,22 +181,27 @@
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="paterno">Paterno</label>
 							<input class="inputs_bloque" type="text" placeholder="Paterno" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="materno">Materno</label>
 							<input class="inputs_bloque" type="text" placeholder="Materno" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="nombres">Nombre(s)</label>
 							<input class="inputs_bloque" type="text" placeholder="Nombre(s)" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="telefono">Teléfono</label>
 							<input class="inputs_bloque" type="text" placeholder="Teléfono" />
+							<div class="viñeta"></div>
 						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque" for="e-mail">e-mail</label>
-							<input class="inputs_bloque" type="text" placeholder="e-mail" />
+							<input class="inputs_bloque" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="e-mail" />
+							<div class="viñeta"></div>
 						</li>
 					</ul>
 				</div>
