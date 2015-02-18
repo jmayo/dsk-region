@@ -40,4 +40,3 @@ Personal.Models.empresa = Backbone.Model.extend({
 	"fecha_alta":"01/01/1900",
   },
 });
-

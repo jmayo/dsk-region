@@ -122,22 +122,38 @@ relacionColumnas: function(){
    },
 guardar: function(){
     var data =this.generarJSON();
-    
+     var self = this;
     var model = new Personal.Models.empresa(data);
     model.valor = undefined;
     model.pk= data["id"];
     
-    var tipo='POST'
+    this.tipo='POST'
     if(window.Personal.operacion!=="nuevo"){
-      var tipo='PUT';
+      this.tipo='PUT';
     }
-  
-    model.save(null,{type: tipo});
+   
+    model.save(null,{
+        type: self.tipo,
+        success: function(model,response) {
+            $('#empresa_id').text(model.get("id"));
+            window.Personal.operacion="buscar";
+            $("#notify_success").notify();
+          },
+        error: function(model,response, options) {
+             $("#notify_error").notify();
+              console.log(response.responseText);
+             // var responseObj = $.parseJSON(response.responseText);
+             // console.log(responseObj);
+   //           for(campo in responseObj){ console.log(campo); }
+        }
+
+    });
     //CREAETE SEND POST
     // PARA PATCH:
     //model.clear().set({id: 1, a: 1, b: 2, c: 3, d: 4}); 
     //model.save();
     //model.save({b: 2, d: 4}, {patch: true});
+
   },
   
 generarJSON: function(){
