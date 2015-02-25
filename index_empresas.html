@@ -68,8 +68,6 @@
 		</div> -->
 	</div>
 	<section class="contenido">
-		<section class="contenido_empresas" >
-
 		<article class="div_empresa_servicio">
 			<div class="div_empresa">
 				COMISIÓN FEDERAL DE ELECTRICIDAD S.A. DE C.V., PATITO S.A. DE C.V. ASADASDASDAS
@@ -116,9 +114,8 @@
 			<div class="div_servicio">
 				el ultimo
 			</div>
-		</article>		
-
-		<article class="bloque">
+		</article>
+		<article id="bloque_empresa" class="bloque">
 			<div class="titulo_bloque">
 				Empresa
 			</div>
@@ -220,6 +217,98 @@
 				</div>
 			</div>
 		</article>
+		<article id="bloque_sucursal" class="bloque">
+			<div id="titulo_bloque_sucursal" class="titulo_bloque">
+				Sucursal
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="id_empresa">Id Empresa</label>
+							<input class="inputs_bloque" type="text" placeholder="Id Empresa" readonly />
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="id_sucursal">Id Sucursal</label>
+							<input class="inputs_bloque" type="text" placeholder="Id Sucursal"/>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="sucursal">Sucursal</label>
+							<textarea class="textarea_bloque" name="sucursal" placeholder="Sucursal"></textarea>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle">Calle</label>
+							<textarea class="textarea_bloque" name="calle" placeholder="Calle"></textarea>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="numero">Número</label>
+							<input class="inputs_bloque" type="text" placeholder="Número" />
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="colonia">Colonia</label>
+							<input class="inputs_bloque" type="text" placeholder="Colonia" />
+							<div class="viñeta"></div>
+						</li>						
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="codigo_postal">Código Postal</label>
+							<input class="inputs_bloque" type="text" placeholder="Código Postal" />
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_estado">Estado</label>
+							<select name="calle_estado" class="select_bloque">
+								<option value="estado_de_mexico">Estado de México</option>
+								<option value="distrito_federal">Distrito Federal</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_municipio">Municipio</label>
+							<select name="calle_municipio" class="select_bloque">
+								<option value="tlalnepantla">Tlalnepantla</option>
+								<option value="naucalpan">Naucalpan</option>
+								<option value="miguel_hidalgo">Miguel Hidalgo</option>
+								<option value="azcapotzalco">Azcapotzalco</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="calle_ciudad">Ciudad/Población</label>
+							<input class="inputs_bloque" type="text" placeholder="Ciudad/Población" />
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="telefono">Teléfono</label>
+							<input class="inputs_bloque" type="text" placeholder="Teléfono" />
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="estatus">Estatus</label>
+							<select name="estatus" class="select_bloque">
+								<option value="activo">Activo</option>
+								<option value="baja">Baja</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="fecha_de_alta">Fecha de Alta</label>
+							<input id="cal_fec_alt" class="inputs_bloque" type="text" placeholder="Fecha de Alta" />
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="fecha_de_baja">Fecha de Baja</label>
+							<input id="cal_fec_baj" class="inputs_bloque" type="text" placeholder="Fecha de Baja" />
+							<div class="viñeta"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</article>		
 		<article class="bloque">
 			<div class="titulo_bloque">
 				Contacto
@@ -259,18 +348,15 @@
 			<div class="titulo_mapa">
 				Ubicación
 			</div>
-			<div class="caja_mapa">
-				<div id="mapa">
-				</div>
-			</div>
+			<div id="mapa" class="caja_mapa"></div>
 		</article>
+
 <!-- 		<article class="bloque_links">
 			<ul class="ul_links">
 				<li class="li_links"><a class="a_links" href="#">Sucursales</a></li>
 				<li class="li_links"><a class="a_links" href="#">Mapas</a></li>
 			</ul>
 		</article> -->
-	</section>
 	</section>
 	
 	<footer>
