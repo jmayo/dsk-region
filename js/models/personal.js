@@ -53,6 +53,23 @@ Personal.Models.personal = Backbone.Model.extend({
         "ciudad_dom": "",
         "imagen": "",
   },
+  validation: function() {
+    return {
+      matricula: {
+        required: true,
+        maxlength: 5,
+        pattern: '[0-9]{4,10}',
+        msg: 'Especifique una matricula',
+      },
+      paterno: {
+        required: true,
+        maxlength: 30,
+        pattern: '[A-Z]{4,10}',
+        msg: 'Especifique el apellido paterno',
+      },
+
+    }
+  }
 });
 
 

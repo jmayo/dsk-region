@@ -48,10 +48,12 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
-   this.$el.html(html);
+   this.$el.html(html)
+   
    var self = this;   
    $("#persona_fec_nac, #cal_fec_alt").datepicker({dateFormat:"dd/mm/yy"});
   
+   this.agregarValidacion();
 
     var PersonalCatalogos = new Personal.Collections.Catalogos();
     PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
@@ -195,6 +197,23 @@ generarJSON: function(){
       }
       return data;
    },
+agregarValidacion: function(){
+    var relacion =this.relacionColumnas();
+    
+    for(var campo in relacion){
+        if (relacion.hasOwnProperty(campo)){
+          var id_control = relacion[campo];
+          var validacion = Personal.app.PersoModelo.validation()[campo];
+          
+          if(validacion !== undefined){
+              $(id_control).prop('required',validacion['required']);
+              $(id_control).prop('pattern',validacion['pattern']);
+              $(id_control).prop('maxlength',validacion['maxlength']);
+          }
+        }
+      }
+},
+
 uploadFile: function(event) {
     event.preventDefault();
     var self = this;

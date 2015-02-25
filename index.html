@@ -236,7 +236,7 @@
     Handlebars.registerHelper('grp_perdet',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
 		var res2 =Handlebars.helpers.valores_caja(options)
-		return '<li class="li_bloque">' + res1 + res2 + '</li>';
+		return '<li class="li_bloque">' + res1 + res2 + '<div class="viñeta"></div>' + '</li>';
 		}
     );
   
