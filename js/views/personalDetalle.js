@@ -206,9 +206,10 @@ agregarValidacion: function(){
           var validacion = Personal.app.PersoModelo.validation()[campo];
           
           if(validacion !== undefined){
-              $(id_control).prop('required',validacion['required']);
-              $(id_control).prop('pattern',validacion['pattern']);
               $(id_control).prop('maxlength',validacion['maxlength']);
+              $(id_control).prop('pattern',validacion['pattern']);
+              $(id_control).prop('required',validacion['required']);
+             // $(id_control).prop('oninvalid','setCustomValidity("' + validacion['title'] + '")' );
           }
         }
       }

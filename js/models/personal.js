@@ -57,17 +57,88 @@ Personal.Models.personal = Backbone.Model.extend({
     return {
       matricula: {
         required: true,
-        maxlength: 5,
+        maxlength: 10,
         pattern: '[0-9]{4,10}',
-        msg: 'Especifique una matricula',
+        title: 'La matricula solo puede contener numero',
       },
       paterno: {
         required: true,
-        maxlength: 30,
-        pattern: '[A-Z]{4,10}',
-        msg: 'Especifique el apellido paterno',
+        maxlength: 20,
+        pattern: '[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]{1,20}',
+        title: 'Solo se aceptan letras',
       },
-
+      materno: {
+        required: true,
+        maxlength: 20,
+        pattern: '[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]{1,20}',
+        title: 'Solo se aceptan letras',
+      },
+      nombre: {
+        required: true,
+        maxlength: 20,
+        pattern: '[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]{2,20}',
+        title: 'Solo se aceptan letras',
+      },
+       rfc: {
+        required: true,
+        maxlength: 13,
+        pattern: '[A-Za-z0-9]{10,13}',
+        title: 'Error en el rfc',
+      },
+       curp: {
+        required: true,
+        maxlength: 18,
+        pattern: '[A-Za-z0-9]{10,18}',
+        title: 'Error en el curp',
+      },
+       cuip: {
+        required: false,
+        maxlength: 30,
+        pattern: '[A-Za-z0-9]{0,10}',
+        title: 'Error en el cuip',
+      },
+      id_seguridad_social: {
+        required: false,
+        maxlength: 20,
+        pattern: '[A-Za-z0-9\\s]{0,10}',
+        title: '',
+      },
+       condiciones_alta: {
+        required: false,
+        maxlength: 150,
+        pattern: '[A-Za-z0-9\\s]{0,10}',
+        title: '',
+      },
+       calle_dom: {
+        required: true,
+        maxlength: 100,
+        pattern: '[A-Za-z0-9\\s]{0,10}',
+        title: '',
+      },
+       numero_dom: {
+        required: true,
+        maxlength: 10,
+        pattern: '[A-Za-z0-9\\s]{0,10}',
+        title: '',
+      },
+       colonia_dom: {
+        required: true,
+        maxlength: 100,
+        pattern: '[A-Za-z0-9\\s]{0,10}',
+        title: '',
+      },
+       cp_dom: {
+        required: true,
+        maxlength: 10,
+        pattern: '[A-Za-z0-9]{0,10}',
+        title: '',
+      },
+       ciudad_dom: {
+        required: true,
+        maxlength: 100,
+        pattern: '[A-Za-z0-9\\s]{0,10}',
+        title: '',
+      },
     }
   }
 });

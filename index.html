@@ -176,7 +176,7 @@
         	valor = 'value="'+ options.hash.valor + '"';
          }
 
-        return '<input '+ input_id + ' class="inputs_bloque" type="text" placeholder="'+ input_desc + '" ' +valor + ' />';
+        return '<input '+ input_id + ' class="inputs_bloque" type="text" placeholder="'+ input_desc + '" ' +valor + ' style="text-transform:uppercase ;" />';
       });
 
 	//Helper para cajas de texto
@@ -244,7 +244,7 @@
     Handlebars.registerHelper('grp_perdetTextArea',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
 		var res2 =Handlebars.helpers.valores_textarea(options)
-		return '<li class="li_bloque">' + res1 + res2 + '</li>';
+		return '<li class="li_bloque">' + res1 + res2 + '<div class="viñeta"></div>'  + '</li>';
 		}
     );
 
