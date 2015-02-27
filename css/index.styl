@@ -56,7 +56,7 @@ nav
 					border-radius 10px
 					border-width 2px
 					font-family ico_font_family
-					font-size 50px
+					font-size 40px
 					content ico_personal
 				&:hover:before
 					color rosa
@@ -69,7 +69,7 @@ nav
 					border-radius 10px
 					border-width 2px
 					font-family ico_font_family
-					font-size 50px
+					font-size 40px
 					content ico_empresas
 				&:hover:before
 					color rosa
@@ -82,25 +82,34 @@ nav
 					border-radius 10px
 					border-width 2px
 					font-family ico_font_family
-					font-size 50px
+					font-size 40px
 					content ico_catalogos
 				&:hover:before
 					color rosa
 					border-color gris_claro
 					box-shadow 10px 10px 25px lightblue
+	.cerrar_sesion
+		overflow-x auto
+		margin 0
+		padding 0
+		li
+			display inline-block
+			padding 0.5em
+			a
+				color gris_claro
+				text-decoration none
 			a.cerrar_sesion
 				color rosa
 				&:before
 					font-family ico_font_family
-					font-size 40px
+					font-size 25px
 					content ico_cerrar_sesion
 				&:hover:before
 					color gris_claro
 
 .caja_acciones
 	background gris_claro
-	//box-shadow 0 1px 0 0 gris_oscuro
-	margin-top -0.4em
+	margin-top -1em
 	padding 0
 	position fixed
 	text-align center
@@ -142,11 +151,11 @@ nav
 
 body
 	background -moz-linear-gradient(bottom,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%) /* FF3.6+ */
-	//background -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))) /* Chrome,Safari4+ */
-	//background -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Chrome10+,Safari5.1+ */
-	//background -o-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Opera 11.10+ */
-	//background -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* IE10+ */
-	//background linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* W3C */
+	background -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))) /* Chrome,Safari4+ */
+	background -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Chrome10+,Safari5.1+ */
+	background -o-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Opera 11.10+ */
+	background -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* IE10+ */
+	background linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* W3C */
 	font-family arial-regular
 	font-size 14px
 	margin-top 5em
@@ -162,9 +171,7 @@ body
 		margin-top 4em
 	.div_empresa
 		background gris_oscuro
-		//border-radius 5px 5px 5px 5px
 		border-radius 0 0 0.5em 0.5em
-		//box-shadow 0 0 5px 5px gris_medio
 		box-shadow 2px 2px 10px gris_claro
 		color white
 		font-size 18px
@@ -466,7 +473,7 @@ footer
 				font-size 14px
 			.caja_bloque
 				width 100%
-				br
+			br
 				display none
 			.campos_bloque
 				display flex
