@@ -33,27 +33,16 @@ ico_flecha="\e602"
 	font-weight normal
 	font-style normal
 
-body
-	background -moz-linear-gradient(bottom,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%) /* FF3.6+ */
-	//background -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))) /* Chrome,Safari4+ */
-	//background -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Chrome10+,Safari5.1+ */
-	//background -o-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Opera 11.10+ */
-	//background -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* IE10+ */
-	//background linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* W3C */
-	font-family arial-regular
-	font-size 14px
-
-//header
-	//background gris_oscuro
-
 nav
 	background gris_oscuro
 	position fixed
+	top 0
 	width 100%
+	z-index 1
 	.menu
-	//  display inline-block
-	//  margin 0
-	//  padding 0
+		overflow-x auto
+		margin 0
+		padding 0
 		li
 			display inline-block
 			padding 0.5em
@@ -108,256 +97,263 @@ nav
 				&:hover:before
 					color gris_claro
 
-//	.cerrar_sesion
-		//display inline-block
-		//overflow-x auto
-		//margin-top .5em
-		//padding 0
-		//float right
-	 // li
-		// display inline-block
-		// padding 0.5em
-		// a
-		// 	color rosa
-		// 	text-decoration none
+.caja_acciones
+	background gris_claro
+	//box-shadow 0 1px 0 0 gris_oscuro
+	margin-top -0.4em
+	padding 0
+	position fixed
+	text-align center
+	width 100%
+	z-index 2
+	.menu_acciones
+		overflow-x auto
+		margin 4px
+		padding 0
+		li
+			display inline-block
+			padding-left 0.5em
+			a
+				color gris_medio
+				text-decoration none
+			a.nuevo
+				&:before
+					font-family ico_font_family
+					font-size 30px
+					content ico_nuevo
+			a.eliminar
+				&:before
+					font-family ico_font_family
+					font-size 30px
+					content ico_eliminar
+			a.guardar
+				&:before
+					font-family ico_font_family
+					font-size 30px
+					content ico_guardar
+			input.buscar
+				border 2px solid gris_medio
+				border-radius 6px
+				color black
+				height 1.5em
+				width 18em
+				&:focus
+					border 2px solid rosa
 
+body
+	background -moz-linear-gradient(bottom,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%) /* FF3.6+ */
+	//background -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))) /* Chrome,Safari4+ */
+	//background -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Chrome10+,Safari5.1+ */
+	//background -o-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* Opera 11.10+ */
+	//background -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* IE10+ */
+	//background linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) /* W3C */
+	font-family arial-regular
+	font-size 14px
+	margin-top 5em
 
-// .contenido
-//  .div_empresa_servicio
-//      display inline-block
-//      font-family arial-regular
-//      width 25%
-//      vertical-align top
-//      margin-right 1%
-//      margin-left 1%
-//      .div_empresa
-//          background gris_oscuro
-//          border-radius 5px 5px 5px 5px
-//          color white
-//          font-size 18px
-//          padding 2px
-//          text-align center
-//          position relative
-//          box-shadow 0 0 5px 5px gris_medio
-//          margin-bottom 0.5em
-//      .div_servicio
-//          background gris_medio
-//          border-radius 0 0 0.5em 0.5em
-//          box-shadow 2px 2px 10px gris_claro
-//          color white
-//          font-size 14px
-//          text-align left
-//          margin-bottom 0.2em
-//          padding 8px 15px
-//  #bloque_empresa
-//  #bloque_contacto
-//      display none
-//  .bloque
-//      display inline-block
-//      width 30%
-//      vertical-align top
-//      margin-right 1%
-//      margin-left 1%          
-//      #titulo_bloque_sucursal
-//          background rosa
-//      .titulo_bloque
-//          background verde
-//          border-radius 5px 5px 0 0
-//          color white
-//          font-family arial-regular
-//          font-size 16px
-//          text-align center
-//      .caja_bloque
-//          border-radius 0 0 5px 5px
-//          background gris_medio
-//          .campos_bloque
-//              .ul_bloque
-//                  width 800px
-//                  list-style-type none
-//                  margin 0
-//                  padding 0.1em
-//                  .li_bloque
-//                      color gris_claro
-//                      font-family arial-regular
-//                      font-size 14px
-//                      padding 0.2em
-//                      .etiquetas_bloque
-//                          width 135px
-//                          margin-top 2px
-//                          display inline-block
-//                          float left
-//                          padding 2px
-//                      .inputs_bloque
-//                          color black
-//                          height 16px
-//                          width 220px
-//                          padding 2px 8px
-//                          border 1px solid lightblue
-//                          box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
-//                          border-radius 1px
-//                          &:focus
-//                              border 1px solid white
-//                          &:valid
-//                              border 1px solid lightgreen
-//                          &:valid ~ .viñeta::before
-//                              content "\2713"
-//                              color lightgreen
-//                          &:invalid
-//                              border 1px solid rojo_vineta
-//                          &:invalid ~ .viñeta::before
-//                              content "\2613"
-//                              color rojo_vineta
-//                      .viñeta
-//                          display inline-block
-//                      .textarea_bloque
-//                          color black
-//                          height 80px
-//                          width 220px
-//                          resize vertical
-//                          padding 2px 8px
-//                          border 1px solid lightblue
-//                          box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
-//                          border-radius 1px
-//                          &:focus
-//                              border 1px solid white
-//                          &:valid
-//                              border 1px solid lightgreen
-//                          &:valid ~ .viñeta::before
-//                              content "\2713"
-//                              color lightgreen
-//                          &:invalid
-//                              border 1px solid rojo_vineta
-//                          &:invalid ~ .viñeta::before
-//                              content "\2613"
-//                              color rojo_vineta
-//                      .viñeta
-//                          display inline-block
-//                      .select_bloque
-//                          color black
-//                          height 22px
-//                          width 238px
-//                          padding 2px 8px
-//                          border 1px solid lightblue
-//                          box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
-//                          border-radius 1px
-//                          &:focus
-//                              border 1px solid white
-//                          &:valid
-//                              border 1px solid lightgreen
-//                          &:valid ~ .viñeta::before
-//                              content "\2713"
-//                              color lightgreen
-//                          &:invalid
-//                              border 1px solid rojo_vineta
-//                          &:invalid ~ .viñeta::before
-//                              content "\2613"
-//                              color rojo_vineta
-//                      .viñeta
-//                          display inline-block
-//                      .radio_bloque:not(old)
-//                          width 2em
-//                          margin 0
-//                          padding 0
-//                          font-size 1em
-//                          opacity 0
-//                          &:not(old) + label
-//                              display inline-block
-//                              margin-left -2em
-//                              line-height 1.5em
-//                          &:not(old) + label > span
-//                              display inline-block
-//                              width 0.875em
-//                              height 0.875em
-//                              margin 0.25em 0.5em 0.25em 0.25em
-//                              border 0.0625em solid gris_claro_rgb_1
-//                              border-radius 0.25em
-//                              background gris_claro_rgb_2
-//                              background-image -moz-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
-//                              background-image -ms-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
-//                              background-image -o-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
-//                              background-image -webkit-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
-//                              background-image linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
-//                              vertical-align bottom
-//                          &:not(old):checked + label > span
-//                              background-image -moz-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
-//                              background-image -ms-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
-//                              background-image -o-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
-//                              background-image -webkit-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
-//                              background-image linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
-//                          &:not(old):checked +  label > span > span
-//                              display block
-//                              width 0.5em
-//                              height 0.5em
-//                              margin 0.125em
-//                              border 0.0625em solid verde_rgb
-//                              border-radius 0.125em
-//                              background verde_rgb
-//                              background-image -moz-linear-gradient(verde_rgb,verde_rgb)
-//                              background-image -ms-linear-gradient(verde_rgb,verde_rgb)
-//                              background-image -o-linear-gradient(verde_rgb,verde_rgb)
-//                              background-image -webkit-linear-gradient(verde_rgb,verde_rgb)
-//                              background-image linear-gradient(verde_rgb,verde_rgb)
-//      .caja_foto
-//          border 0
-//          background gris_medio
-//          .foto
-//              margin 0
-//              img
-//                  width 180px
-//                  height 180px
-//                  border-radius 20px
-//          .foto p
-//              margin 0
-//              text-align center
-//      .titulo_mapa
-//          background verde
-//          border-radius 5px 5px 0 0
-//          color white
-//          font-family arial-regular
-//          font-size 16px
-//          text-align center
-//      .caja_mapa
-//          background lightblue
-//          border-radius 0 0 5px 5px
-//          height 29em
-// .caja_acciones
-//  text-align center
-//  .menu_acciones
-//      position relative
-//      display inline-block
-//      margin 0
-//      padding 0
-//      overflow-x auto
-//  li
-//      display inline-block
-//      padding 0.5em
-//      a
-//          color gris_medio
-//          text-decoration none
-//      a.nuevo
-//          &:before
-//              font-family ico_font_family
-//              font-size 40px
-//              content ico_nuevo
-//      a.eliminar
-//          &:before
-//              font-family ico_font_family
-//              font-size 40px
-//              content ico_eliminar
-//      a.guardar
-//          &:before
-//              font-family ico_font_family
-//              font-size 40px
-//              content ico_guardar
-//      .buscar
-//          color black
-//          height 20px
-//          width 300px
-//          padding 2px 8px
-//          border 3px solid gris_medio
-//          border-radius 8px
-//          &:focus
-//              border 3px solid rosa
+.contenido
+	font-family arial-regular
+	.div_empresa_servicio
+		display inline-block
+		width 25%
+		vertical-align top
+		margin-right 1%
+		margin-left 1%
+		margin-top 4em
+	.div_empresa
+		background gris_oscuro
+		//border-radius 5px 5px 5px 5px
+		border-radius 0 0 0.5em 0.5em
+		//box-shadow 0 0 5px 5px gris_medio
+		box-shadow 2px 2px 10px gris_claro
+		color white
+		font-size 18px
+		text-align center
+		position relative
+		margin-bottom 0.2em
+		padding 2px
+	.div_servicio
+		background gris_medio
+		border-radius 0 0 0.5em 0.5em
+		box-shadow 2px 2px 10px gris_claro
+		color white
+		font-size 14px
+		text-align left
+		margin-bottom 0.2em
+		padding 8px 15px
+#bloque_empresa
+#bloque_contacto
+	display none
+.bloque
+	display inline-block
+	width 30%
+	vertical-align top
+	margin-right 1%
+	margin-left 1%
+	margin-top 4em
+	#titulo_bloque_sucursal
+		background rosa
+	.titulo_bloque
+		background verde
+		border-radius 5px 5px 0 0
+		color white
+		font-family arial-regular
+		font-size 16px
+		text-align center
+	.caja_bloque
+		border-radius 0 0 5px 5px
+		background gris_medio
+		.campos_bloque
+			.ul_bloque
+				width 800px
+				list-style-type none
+				margin 0
+				padding 0.1em
+				.li_bloque
+					color gris_claro
+					font-family arial-regular
+					font-size 14px
+					padding 0.2em
+					.etiquetas_bloque
+						width 135px
+						margin-top 2px
+						display inline-block
+						float left
+						padding 2px
+					.inputs_bloque
+						color black
+						height 16px
+						width 220px
+						padding 2px 8px
+						border 1px solid lightblue
+						box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
+						border-radius 1px
+						&:focus
+							border 1px solid white
+						&:valid
+							border 1px solid lightgreen
+						&:valid ~ .viñeta::before
+							content "\2713"
+							color lightgreen
+						&:invalid
+							border 1px solid rojo_vineta
+						&:invalid ~ .viñeta::before
+							content "\2613"
+							color rojo_vineta
+					.viñeta
+						display inline-block
+					.textarea_bloque
+						color black
+						height 80px
+						width 220px
+						resize vertical
+						padding 2px 8px
+						border 1px solid lightblue
+						box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
+						border-radius 1px
+						&:focus
+							border 1px solid white
+						&:valid
+							border 1px solid lightgreen
+						&:valid ~ .viñeta::before
+							content "\2713"
+							color lightgreen
+						&:invalid
+							border 1px solid rojo_vineta
+						&:invalid ~ .viñeta::before
+							content "\2613"
+							color rojo_vineta
+					.viñeta
+						display inline-block
+					.select_bloque
+						color black
+						height 22px
+						width 238px
+						padding 2px 8px
+						border 1px solid lightblue
+						box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
+						border-radius 1px
+						&:focus
+							border 1px solid white
+						&:valid
+							border 1px solid lightgreen
+						&:valid ~ .viñeta::before
+							content "\2713"
+							color lightgreen
+						&:invalid
+							border 1px solid rojo_vineta
+						&:invalid ~ .viñeta::before
+							content "\2613"
+							color rojo_vineta
+					.viñeta
+						display inline-block
+					.radio_bloque:not(old)
+						width 2em
+						margin 0
+						padding 0
+						font-size 1em
+						opacity 0
+						&:not(old) + label
+							display inline-block
+							margin-left -2em
+							line-height 1.5em
+						&:not(old) + label > span
+							display inline-block
+							width 0.875em
+							height 0.875em
+							margin 0.25em 0.5em 0.25em 0.25em
+							border 0.0625em solid gris_claro_rgb_1
+							border-radius 0.25em
+							background gris_claro_rgb_2
+							background-image -moz-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+							background-image -ms-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+							background-image -o-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+							background-image -webkit-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+							background-image linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+							vertical-align bottom
+						&:not(old):checked + label > span
+							background-image -moz-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+							background-image -ms-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+							background-image -o-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+							background-image -webkit-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+							background-image linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+						&:not(old):checked +  label > span > span
+							display block
+							width 0.5em
+							height 0.5em
+							margin 0.125em
+							border 0.0625em solid verde_rgb
+							border-radius 0.125em
+							background verde_rgb
+							background-image -moz-linear-gradient(verde_rgb,verde_rgb)
+							background-image -ms-linear-gradient(verde_rgb,verde_rgb)
+							background-image -o-linear-gradient(verde_rgb,verde_rgb)
+							background-image -webkit-linear-gradient(verde_rgb,verde_rgb)
+							background-image linear-gradient(verde_rgb,verde_rgb)
+	.caja_foto
+		border 0
+		background gris_medio
+		.foto
+			margin 0
+			img
+				width 180px
+				height 180px
+				border-radius 20px
+		.foto p
+			margin 0
+			text-align center
+	.titulo_mapa
+		background verde
+		border-radius 5px 5px 0 0
+		color white
+		font-family arial-regular
+		font-size 16px
+		text-align center
+	.caja_mapa
+		background lightblue
+		border-radius 0 0 5px 5px
+		height 24em
+
 //  .divResultados
 //          position absolute
 //          margin-left auto
@@ -397,10 +393,17 @@ nav
 
 footer
 	background gris_oscuro
+	bottom 0
+	position fixed
 	width 100%
 	.redes_sociales
+		overflow-x auto
+		margin 0
+		padding 0
 		li
 			display inline-block
+			float right
+			padding 0.5em
 			a
 				color gris_claro
 				font-size 20px
@@ -417,6 +420,41 @@ footer
 				&:before
 					font-family ico_font_family
 					content ico_twitter
+
+.message
+	box-shadow inset 0 -1px 0 rgba(255,255,255,.4)
+	width 100%
+	border 1px solid
+	color #fff
+	padding 15px
+	position fixed
+	_position absolute
+	text-shadow 0 1px 0 rgba(0,0,0,.5)
+	height 35px
+
+.info
+	background-color #4ea5cd
+	border-color #3b8eb5
+
+.error
+	background-color #de4343
+	border-color #c43d3d
+
+.warning
+	background-color #eaaf51
+	border-color #d99a36
+
+.success
+	background-color #61b832
+	border-color #55a12c
+
+.message h3
+	margin 0 0 5px 0
+	text-align center
+
+.message p
+	margin 0
+	text-align center
 
 // @media screen and (max-width: 768px)
 //  .contenido
@@ -441,37 +479,3 @@ footer
 //              height 15px
 //              width 250px
 
-// .message
-//  box-shadow inset 0 -1px 0 rgba(255,255,255,.4)
-//  width 100%
-//  border 1px solid
-//  color #fff
-//  padding 15px
-//  position fixed
-//  _position absolute
-//  text-shadow 0 1px 0 rgba(0,0,0,.5)
-//  height 35px
-
-// .info
-//  background-color #4ea5cd
-//  border-color #3b8eb5
-
-// .error
-//  background-color #de4343
-//  border-color #c43d3d
-
-// .warning
-//  background-color #eaaf51
-//  border-color #d99a36
-
-// .success
-//  background-color #61b832
-//  border-color #55a12c
-
-// .message h3
-//  margin 0 0 5px 0
-//  text-align center
-
-// .message p
-//  margin 0
-//  text-align center
