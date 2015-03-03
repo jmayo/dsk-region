@@ -3,11 +3,11 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
      "change #empresa_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#empresa_estado").val(),'',"#empresa_municipio");},
    },
 
-  el: $('#empresa_basicos'),
+  el: $('#bloque_empresa'),
   className: 'ul_bloque',
   tagName: 'ul',
   template: Handlebars.compile($("#empresa-detalle-template").html()),
-  
+
   initialize: function () {
     this.catMunicipio = new Personal.Collections.Catalogos();  
     this.listenTo(this.model, "change", this.llenado, this);
@@ -27,9 +27,18 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
+
+
+   var empresaTitulo = new Personal.Views.EmpresaDescripcion({model: this.model});
+   $("#sucursal_padre").empty();
+   $("#sucursal_padre").append(empresaTitulo.render().el);
+   $('#bloque_empresa').show();
+   $('#bloque_sucursal').empty();
+   
+
    var self = this;   
    $("#empresa_fecha_alta").datepicker({dateFormat:"dd/mm/yy"});
-  
+
 
     var EmpresaCatalogos = new Personal.Collections.Catalogos();
     EmpresaCatalogos.claves ="14,19,18";
@@ -69,7 +78,13 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
                   vista.render();
                 }
             });
-    this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
+      this.mostrarSucursalLista(this.model.get("id"));
+    //this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
+   },
+   mostrarSucursalLista: function(id_empresa){
+      Personal.app.SucursalLista.id_empresa = id_empresa;
+      Personal.app.SucursalLista.reset();
+      Personal.app.SucursalLista.fetch();
    },
   mostrarMapa: function(latitud,longitud){
         var pos_ini = parseFloat(latitud);

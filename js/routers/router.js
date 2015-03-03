@@ -13,9 +13,10 @@ initialize: function () {
     //104.236.232.238:8000
     window.ruta="http://192.168.0.14:8080/";
     //window.ruta="http://104.236.232.238:8080/";
-
+    window.ruta ="http://localhost:8080/";
     this.Perso = new Personal.Collections.Personas();          
     this.Empresa = new Personal.Collections.Empresas();
+    this.SucursalLista = new Personal.Collections.Sucursales(); 
 
     this.MenuVista = new Personal.Views.Menu(); 
 
@@ -24,14 +25,13 @@ initialize: function () {
        
     this.PersonalBusquedaVista = new Personal.Views.PersonalBusqueda();
     
-
     this.EmpresaBusquedaVista = new Personal.Views.EmpresaBusqueda();
     
+    this.SucursalListadoVista = new Personal.Views.SucursalListados({collection: this.SucursalLista});
+
 
     this.CajaOperaciones= new Personal.Views.CajaOperaciones();
-    // this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso});
-    // this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Empresa});
-
+ 
     this.PersoModelo = new Personal.Models.personal();
     this.PersoModelo.set({"id":"-1"});
     this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo/*,collection: this.PersonalCatalogos*/});
@@ -42,9 +42,12 @@ initialize: function () {
     this.EmpresaModelo.set({"id":"-1"});
     this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo/*,collection: this.PersonalCatalogos*/});
     
+    
 
-    this.formview = new Personal.Models.formview();
-    this.FormView = new Personal.Views.FormView({model:this.formview });
+
+
+    //this.formview = new Personal.Models.formview();
+    //this.FormView = new Personal.Views.FormView({model:this.formview });
 
     window.Personal.menu="root";
   },
@@ -113,7 +116,6 @@ initialize: function () {
     
     console.log("nueva empresa");
   },
-
 
 
 //***** FUNCIONES GENERICAS ****************

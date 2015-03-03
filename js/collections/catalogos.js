@@ -53,6 +53,9 @@ Personal.Collections.Catalogos = Backbone.Collection.extend({
   TipoEmpleado: function(){
     return this.where({catalogos: 21});
   },
+  Estatus: function(){
+    return this.where({catalogos: 24});
+  },
 
 
 

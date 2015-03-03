@@ -49,9 +49,9 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html)
-   
+
    var self = this;   
-   $("#persona_fec_nac, #cal_fec_alt").datepicker({dateFormat:"dd/mm/yy"});
+   $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
    this.agregarValidacion();
 
