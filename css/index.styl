@@ -195,10 +195,39 @@ body
 				border-radius 100px
 				border-width 2px				
 				font-family ico_font_family
-				font-size 25px
+				font-size 20px
 				content ico_agregar
 	a.lnk_servicio
 		text-decoration none
+		display inline-block
+		vertical-align middle
+		-webkit-transform translateZ(0)
+		transform translateZ(0)
+		box-shadow 0 0 2px rgba(0, 0, 0, 0)
+		-webkit-backface-visibility hidden
+		backface-visibility hidden
+		-moz-osx-font-smoothing grayscale
+		position relative
+		overflow hidden
+		width 100%
+		&:before
+			content ""
+			position absolute
+			z-index -1
+			left 50%
+			right 50%
+			bottom 0
+			background rosa
+			height 4px
+			-webkit-transition-property left, right
+			transition-property left, right
+			-webkit-transition-duration 0.8s
+			transition-duration 0.8s
+			-webkit-transition-timing-function ease-out
+			transition-timing-function ease-out
+		&:hover:before, &:focus:before, &:active:before
+			left 0
+			right 0
 	.div_servicio
 		background gris_medio
 		border-radius 0 0 0.5em 0.5em
@@ -206,7 +235,7 @@ body
 		color white
 		font-size 12px
 		text-align left
-		margin-bottom 0.2em
+		margin-bottom 0.5em
 		padding 8px 30px
 #bloque_empresa
 #bloque_contacto
@@ -218,6 +247,7 @@ body
 	margin-right 1%
 	margin-left 1%
 	margin-top 4em
+	margin-bottom 4em
 	.titulo_mapa
 		background verde
 		border-radius 5px 5px 0 0
@@ -236,6 +266,7 @@ body
 	margin-right 1%
 	margin-left 1%
 	margin-top 4em
+	margin-bottom 4em
 	#titulo_bloque_sucursal
 		background rosa
 	.titulo_bloque
