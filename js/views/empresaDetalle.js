@@ -79,7 +79,10 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
                 }
             });
       this.mostrarSucursalLista(this.model.get("id"));
-    //this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
+      //this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
+      var mimapa= new Personal.Views.SucursalMapa();
+      mimapa.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
+
    },
    mostrarSucursalLista: function(id_empresa){
       Personal.app.SucursalLista.id_empresa = id_empresa;
