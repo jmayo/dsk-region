@@ -64,8 +64,6 @@
 			<li><a class="personal" href="#"></a></li>
 			<li><a class="empresas" href="#"></a></li>
 			<li><a class="catalogos" href="#"></a></li>
-		</ul>
-		<ul class="cerrar_sesion">
 			<li><a class="cerrar_sesion" href="#"></a></li>
 		</ul>
 	</nav>
@@ -93,8 +91,8 @@
 		 <section class="contenido contenido_personal" id="personal_basicos" hidden>	
 				<!-- Template:	personal-detalle-template	 -->
 		 </section>	
-		  <section class="contenido contenido_empresa" hidden>	  
-		  	   <article class="div_empresa_servicio">
+		  <section class="contenido contenido_empresa">	  
+		  	   <article class="div_empresa_servicio" >
 		  	   	<div id="sucursal_padre">
 		  	   	</div>
 		  	   	<div  id="sucursal_listado"> </div>
@@ -106,12 +104,15 @@
 		  	   <article id="bloque_sucursal" class="bloque">
 		<!-- Template:	sucursal-detalle-template	 -->
 		  	   </article>
-			<article id="bloque_mapa_sucursal" class="bloque">
+
+
+		<article id="bloque_mapa_sucursal"  class="bloque_mapa">
 				<div class="titulo_mapa" id="idubicacion">
 					Ubicación
 				</div>
 				<div id="mapa" class="caja_mapa"></div>
-			 	</article>
+		</article>
+		
 		 </section>
 
 	<footer>
@@ -327,8 +328,8 @@
 			{{{grp_perdet "RFC" valor=rfc  input_id='persona_rfc' label_desc='rfc' input_desc='RFC'}}}
 			{{{grp_perdet "CURP" valor=curp  input_id='persona_curp' label_desc='curp' input_desc='CURP'}}}
 			{{{grp_perdet "CUIP" valor=cuip  input_id='persona_cuip'   label_desc='cuip' input_desc='CUIP'}}}
-			{{{grp_perdet "Fecha de Nacimiento" valor=fec_nacimiento input_id="persona_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
-			{{{grp_combo "Lugar de Nacimiento"    label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
+			{{{grp_perdet "Fecha de Nac." valor=fec_nacimiento input_id="persona_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
+			{{{grp_combo "Lugar de Nac."    label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
 			{{{grp_combo "Municipio"   label_desc='lugar_nacimiento_municipio' select_name='municipio' select_id='perso_mpionac'}}}
 			{{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
 			{{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
@@ -394,7 +395,9 @@
   </script>
 
  <script id="resultados-empresa-sucursal-listado-template" type="text/x-handlebars-template">
+		<div class="div_servicio">
 		{{cve_sucursal}} {{nombre}}
+		</div>
   </script>
 <script id="resultados-empresa-padre-template" type="text/x-handlebars-template">
 		{{cve_empresa}} {{razon_social}}
@@ -489,6 +492,5 @@
    	<!--para mapas-->
  	<link rel="stylesheet" href="http://openlayers.org/en/v3.1.1/css/ol.css" type="text/css" />
 	<script src="http://openlayers.org/en/v3.1.1/build/ol.js" type="text/javascript"></script>
-  	<script src="js/mapa.js" type="text/javascript"></script>
 </body>
 </html>

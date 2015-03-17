@@ -1,10 +1,8 @@
 Personal.Views.SucursalMapa = Backbone.View.extend({
  
-  el: $('#bloque_mapa_sucursal'),
  
   initialize: function () {
-   // this.listenTo(this.model, "change", this.llenado, this);
-
+ 
 
   },
   reset: function()
@@ -12,17 +10,24 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
     console.log("valores por defecto");
   },
   events :{
-     "click #idubicacion": "ver",
+     "click #idubicacion": "marcar",
   },
-  ver: function(){
+  marcar: function(latitud,longitud){
     console.log("poner marca");
-    pos_ini= -99.2088957;
-    pos_fin =  19.4958339;
-
+    var pos_fin =  19.4958339;
+    var pos_ini= -99.2088957;
+    
+    var pos_ini = parseFloat(latitud);
+    var pos_fin = parseFloat(longitud);
+    
+    this.map.latitud = pos_ini;
+    this.map.longitud = pos_fin;
+    
+    var self= this;
     //this.map.getView().setCenter(ol.proj.transform([pos_ini, pos_fin], 'EPSG:4326', 'EPSG:3857'));
     this.map.addOverlay(new ol.Overlay({
           position: ol.proj.transform(
-            [pos_ini, pos_ini],
+            [this.map.latitud, this.map.longitud],
             'EPSG:4326',
             'EPSG:3857'
           ),
@@ -30,15 +35,23 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
        }));
 
   },
-  mostrarMapa: function(latitud,longitud){
-        //this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
+  zoom: function(valor){
+    this.map.getView().setZoom(valor);
 
-        var pos_ini = parseFloat(latitud);
-        var pos_fin = parseFloat(longitud);
-         pos_ini= -99.2088957;
-        pos_fin =  19.4958339;
-        //pos_ini= parseFloat(-99.1696);
-        //pos_fin = parseFloat(19.5225);
+  },
+  posicionar: function(latitud,longitud){
+    var pos_ini = parseFloat(latitud);
+    var pos_fin = parseFloat(longitud);
+   
+    this.map.latitud = pos_ini;
+    this.map.longitud = pos_fin;
+    this.map.getView().setCenter(ol.proj.transform([this.map.latitud, this.map.longitud], 'EPSG:4326', 'EPSG:3857'));
+    this.zoom(14);
+  },
+  mostrarMapa: function(latitud,longitud){
+        $('#mapa').empty();
+        pos_ini= parseFloat(latitud);
+        pos_fin = parseFloat(longitud);
         this.map = new ol.Map({
           target: 'mapa',
           layers: [
@@ -48,20 +61,8 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
           ],
           view: new ol.View({
             center: ol.proj.transform([pos_ini, pos_fin], 'EPSG:4326', 'EPSG:3857'),
-            zoom: 15
+            zoom: 12
           })
         });
-
-        
-    // this.map.addOverlay(new ol.Overlay({
-    //         position: ol.proj.transform(
-    //       [pos_ini, pos_ini],
-    //       'EPSG:4326',
-    //        'EPSG:3857'
-    //      ),
-    //   element: $('<img src="images/marker.png" height=20px weight=20px>')
-    //     }));
-  },
-
-
+      },
 });

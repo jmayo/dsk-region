@@ -42,6 +42,11 @@ initialize: function () {
     this.EmpresaModelo.set({"id":"-1"});
     this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo/*,collection: this.PersonalCatalogos*/});
     
+
+    this.EmpresaMapa= new Personal.Views.SucursalMapa();
+    //this.EmpresaMapa.mostrarMapa(1,1)
+
+  
     
 
 

@@ -34,6 +34,8 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
    $("#sucursal_padre").append(empresaTitulo.render().el);
    $('#bloque_empresa').show();
    $('#bloque_sucursal').empty();
+   $('#bloque_sucursal').hide();
+   $("#bloque_mapa_sucursal").hide();
    
 
    var self = this;   
@@ -79,46 +81,14 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
                 }
             });
       this.mostrarSucursalLista(this.model.get("id"));
-      //this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
-      var mimapa= new Personal.Views.SucursalMapa();
-      mimapa.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
-
-   },
+     
+      },
    mostrarSucursalLista: function(id_empresa){
       Personal.app.SucursalLista.id_empresa = id_empresa;
       Personal.app.SucursalLista.reset();
       Personal.app.SucursalLista.fetch();
+
    },
-  mostrarMapa: function(latitud,longitud){
-        var pos_ini = parseFloat(latitud);
-        var pos_fin = parseFloat(longitud);
-        //pos_ini= -99.1696;
-        //pos_fin = 19.5225;
-
-        var map = new ol.Map({
-          target: 'mapa',
-          layers: [
-            new ol.layer.Tile({
-              source: new ol.source.MapQuest({layer: 'osm'})
-            })
-          ],
-          view: new ol.View({
-            center: ol.proj.transform([pos_ini, pos_fin], 'EPSG:4326', 'EPSG:3857'),
-            zoom: 14
-          })
-        });
-
-        map.addOverlay(new ol.Overlay({
-          position: ol.proj.transform(
-            [pos_ini, pos_fin],
-            'EPSG:4326',
-            'EPSG:3857'
-          ),
-       element: $('<img src="images/marker.png" height=20px weight=20px>')
-       }));
-  },
-
-
 relacionColumnas: function(){
       var columnasCampos ={
      		"id": "#empresa_id",

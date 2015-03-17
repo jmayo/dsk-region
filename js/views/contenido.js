@@ -2,8 +2,8 @@ Personal.Views.Contenido = Backbone.View.extend({
   el: $('.contenido_principal'),
 
   initialize: function () {
-  		//window.routers.base.on('router:root' , this.inicio());
-  		//Personal.app.on("route:root", this.inicio());
+      $('.contenido_personal').hide();
+      $('.contenido_empresa').hide();
    },
    mostrarMenuPersonal: function(){
    			window.Personal.menu="personal";
@@ -27,7 +27,14 @@ Personal.Views.Contenido = Backbone.View.extend({
           console.log("ruta empresa")
           $('.contenido_personal').hide();
           $('.contenido_empresa').show();
-        
+          
+          if(Personal.app.SucursalListadoVista.collection.length>0){
+            $('#bloque_mapa_sucursal').show();
+          }
+          else{
+            $('#bloque_sucursal').hide();
+            $('#bloque_empresa').show();
+          }        
    }
 
 });
