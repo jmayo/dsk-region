@@ -12,7 +12,12 @@ Personal.Views.SucursalListados = Backbone.View.extend({
   },
   addOne: function (sucursal) {
     var busquedaView = new Personal.Views.SucursalDescripcion({ model: sucursal }); 
-    this.$el.append(busquedaView.render().el);
+    if(sucursal.get("id")==="-1"){
+      this.$el.prepend(busquedaView.render().el);  
+    }
+    else{
+      this.$el.append(busquedaView.render().el);
+    }
   },
    limpiarTodo:function(){
     console.log("limpiando resultados");

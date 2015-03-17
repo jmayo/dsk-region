@@ -37,7 +37,7 @@ Personal.Models.sucursal = Backbone.Model.extend({
 	"cdu_estatus": "0240000",
 	"fecha_alta":"01/01/1900",
 	"fecha_baja":"01/01/1900",
-	"latitud" : "99.1696",
-    "longitud" :  "19.5225",
+	"latitud" : "-99.1330",
+    "longitud" : "19.4425",
   },
 });

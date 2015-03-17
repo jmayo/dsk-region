@@ -14,8 +14,6 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
   },
   marcar: function(latitud,longitud){
     console.log("poner marca");
-    var pos_fin =  19.4958339;
-    var pos_ini= -99.2088957;
     
     var pos_ini = parseFloat(latitud);
     var pos_fin = parseFloat(longitud);

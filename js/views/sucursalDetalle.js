@@ -18,9 +18,9 @@ Personal.Views.SucursalDetalle = Backbone.View.extend({
   },
   llenado: function(){
     console.log("llenando el formulario");
-    if(this.model.get("id")!=="-1"){
+  //  if(this.model.get("id")!=="-1"){
       this.render();
-    }
+   // }
   }, 
   render: function () {
    console.log("buscando en el render");

@@ -1,7 +1,7 @@
 Personal.Views.CajaOperaciones = Backbone.View.extend({
      events: {
-	   "click .nuevo": "nuevo",
-       "click .guardar": "guardar",
+	   "click .nuevo": "nuevo", 
+      "click .guardar": "guardar",
    },
     el: $('.caja_acciones'),
 
@@ -28,6 +28,5 @@ Personal.Views.CajaOperaciones = Backbone.View.extend({
       Personal.app.EmpresaDetalle.guardar();
       console.log("guardando personal");
     }
-  },
-
+  }
 });

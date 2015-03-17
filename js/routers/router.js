@@ -5,7 +5,7 @@ Personal.Router = Backbone.Router.extend({
     "Personas/nuevo/": "personalNuevo",
     "Personal/buscar/:valor_buscado": "personalMatricula",
     "Empresa": "empresa",
-    "Empresas/nuevo/": "empresaNuevo",
+    "Empresas/nuevo/": "empresaNuevo",    
     "Empresa/buscar/:valor_buscado": "empresaClave",
   },
 
@@ -121,7 +121,6 @@ initialize: function () {
     
     console.log("nueva empresa");
   },
-
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){

@@ -18,22 +18,27 @@ Personal.Views.SucursalDescripcion = Backbone.View.extend({
         $("#bloque_mapa_sucursal").show();
         Personal.app.EmpresaMapa.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
     }  
+    if(this.model.get("id")!=="-1"){
         Personal.app.EmpresaMapa.marcar(this.model.get("latitud"),this.model.get("longitud"));
-
+    }
     return this;
   },
   seleccionado: function(){
     $('#bloque_empresa').hide();
     $('#bloque_sucursal').show();
-    console.log(this.model.get("id"));
-    this.SucursalModelo = new Personal.Models.sucursal();
-    this.SucursalModelo.pk = this.model.get("id");
-    this.SucursalDetalle = new Personal.Views.SucursalDetalle({model: this.SucursalModelo});
-    this.SucursalModelo.fetch();
-    Personal.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
-    
-   // console.log(this.model.get('nombre'));
-   // Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
+ 
+    if(this.model.get("id")==="-1"){
+      this.SucursalDetalle = new Personal.Views.SucursalDetalle({model: this.model});
+      this.SucursalDetalle.llenado();
+      Personal.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
+    }
+    else{  
+      this.SucursalModelo = new Personal.Models.sucursal();
+      this.SucursalModelo.pk = this.model.get("id");
+      this.SucursalDetalle = new Personal.Views.SucursalDetalle({model: this.SucursalModelo});
+      this.SucursalModelo.fetch();
+      Personal.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
+    }
   }
 });
 

@@ -86,8 +86,14 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
    mostrarSucursalLista: function(id_empresa){
       Personal.app.SucursalLista.id_empresa = id_empresa;
       Personal.app.SucursalLista.reset();
-      Personal.app.SucursalLista.fetch();
-
+       Personal.app.SucursalLista.fetch().always(function(){
+            // Este modelo sera para crear nuevas sucursales
+           var sucursal = new Personal.Models.sucursal();
+           sucursal.set(sucursal.defaults);
+           sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":"AGREGAR SUCURSAL"});
+           Personal.app.SucursalLista.add(sucursal);
+        }
+      );
    },
 relacionColumnas: function(){
       var columnasCampos ={

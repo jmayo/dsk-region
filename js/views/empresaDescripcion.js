@@ -8,12 +8,14 @@ Personal.Views.EmpresaDescripcion = Backbone.View.extend({
   },
   events:{
     "mousedown ": "seleccionado",
+    "click .agregar_servicio": "nuevoServicio",
   },
   render: function () {
     var descripcion = this.model.toJSON();
     var html = this.template(descripcion);
+   // html = html + '<div class="agregar_servicio">+<a href="#"></a></div>';
     this.$el.html(html);
-    $('#sucursal_padre').append('<div class="agregar_servicio"><a href="#"></a></div>');
+   // $('#sucursal_padre').append('<div class="agregar_servicio">+<a href="#"></a></div>');
     return this;
   },
   seleccionado: function(){
@@ -22,7 +24,10 @@ Personal.Views.EmpresaDescripcion = Backbone.View.extend({
     Personal.app.EmpresaMapa.zoom(12);
    // console.log(this.model.get('nombre'));
    // Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
-  }
+  },
+  nuevoServicio: function(){
+    console.log("un nuevo servicio se agregara");
+  },
 });
 
 
