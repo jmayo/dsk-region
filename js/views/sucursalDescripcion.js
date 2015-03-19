@@ -24,6 +24,7 @@ Personal.Views.SucursalDescripcion = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
+    window.Personal.menu="sucursal";
     $('#bloque_empresa').hide();
     $('#bloque_sucursal').show();
  

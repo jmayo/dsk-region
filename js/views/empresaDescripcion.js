@@ -19,6 +19,7 @@ Personal.Views.EmpresaDescripcion = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
+    window.Personal.menu="empresa";
     $('#bloque_sucursal').hide();
     $('#bloque_empresa').show();
     Personal.app.EmpresaMapa.zoom(12);

@@ -12,7 +12,7 @@ Personal.Models.sucursal = Backbone.Model.extend({
   url : function(){
    var direccion = window.ruta + 'sucursal/';
    if(this.pk!== undefined && this.pk!== null){
-      if(window.Personal.operacion==='buscar' && this.pk!==""){
+      if(this.pk!=="-1"){
    	    return direccion = direccion + this.pk + '/';
       }
    } 

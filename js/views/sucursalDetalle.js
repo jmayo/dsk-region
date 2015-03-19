@@ -9,8 +9,10 @@ Personal.Views.SucursalDetalle = Backbone.View.extend({
   template: Handlebars.compile($("#sucursal-detalle-template").html()),
 
   initialize: function () {
-    this.catMunicipio = new Personal.Collections.Catalogos();  
-    this.listenTo(this.model, "change", this.llenado, this);
+    if(this.model !==undefined){
+      this.catMunicipio = new Personal.Collections.Catalogos();  
+      this.listenTo(this.model, "change", this.llenado, this);
+    }
   },
   reset: function()
   {
@@ -89,9 +91,46 @@ relacionColumnas: function(){
 				"cdu_estatus": "#sucursal_estatus",
 				"fecha_alta":"#sucursal_fecha_alta",
         "fecha_baja":"#sucursal_fecha_alta",
-           };
+        "latitud":"#sucursal_latitud",
+        "longitud":"#sucursal_longitud",        
+      };
       return columnasCampos;
 },
+guardar: function(){
+    var data =this.generarJSON();
+    var self = this;
+    var model = new Personal.Models.sucursal(data);
+    //model.valor = undefined;
+    model.pk= data["id"];
+    this.tipo='POST'
+    if(model.get("id")!=="-1"){
+      this.tipo='PUT';
+    }
+   
+    model.save(null,{
+        type: self.tipo,
+        success: function(model,response) {
+            debugger;
+            $('#sucursal_id').text(model.get("id"));
+            //window.Personal.operacion="buscar";
+            $("#notify_success").notify();
+          },
+        error: function(model,response, options) {
+             $("#notify_error").notify();
+              console.log(response.responseText);
+             // var responseObj = $.parseJSON(response.responseText);
+             // console.log(responseObj);
+   //           for(campo in responseObj){ console.log(campo); }
+        }
+
+    });
+    //CREAETE SEND POST
+    // PARA PATCH:
+    //model.clear().set({id: 1, a: 1, b: 2, c: 3, d: 4}); 
+    //model.save();
+    //model.save({b: 2, d: 4}, {patch: true});
+
+  },
 generarJSON: function(){
       var data ={};
       var relacion =this.relacionColumnas();

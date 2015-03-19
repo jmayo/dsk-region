@@ -12,7 +12,7 @@ Personal.Views.CajaOperaciones = Backbone.View.extend({
       if(window.Personal.menu==="personal"){
          Personal.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
        }
-      else if(window.Personal.menu==="empresa"){
+      else if(window.Personal.menu==="empresa" || window.Personal.menu==="sucursal"){
          Personal.app.navigate("Empresas/nuevo/", {trigger: true, replace: true});
        }
       
@@ -27,6 +27,12 @@ Personal.Views.CajaOperaciones = Backbone.View.extend({
     if(window.Personal.menu==="empresa"){
       Personal.app.EmpresaDetalle.guardar();
       console.log("guardando personal");
+    }
+    if(window.Personal.menu==="sucursal"){
+      var sucursal = new Personal.Views.SucursalDetalle();
+      sucursal.guardar();
+
+      console.log("guardando sucursal");
     }
   }
 });
