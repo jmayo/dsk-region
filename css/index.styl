@@ -26,14 +26,14 @@ ico_agregar="\e60b"
 
 // anteriores al 100315
 // @font-face
-// 	font-family "iconos"
-// 	src url("../fonts/icomoon.eot?lqw3j3")
-// 	src url("../fonts/icomoon.eot?#iefixlqw3j3") format("embedded-opentype"),
-// 		url("../fonts/icomoon.woff?lqw3j3") format("woff"),
-// 		url("../fonts/icomoon.ttf?lqw3j3") format("truetype"),
-// 		url("../fonts/icomoon.svg?lqw3j3#icomoon") format("svg")
-// 	font-weight normal
-// 	font-style normal
+//  font-family "iconos"
+//  src url("../fonts/icomoon.eot?lqw3j3")
+//  src url("../fonts/icomoon.eot?#iefixlqw3j3") format("embedded-opentype"),
+//      url("../fonts/icomoon.woff?lqw3j3") format("woff"),
+//      url("../fonts/icomoon.ttf?lqw3j3") format("truetype"),
+//      url("../fonts/icomoon.svg?lqw3j3#icomoon") format("svg")
+//  font-weight normal
+//  font-style normal
 
 @font-face
 	font-family "iconos"
@@ -171,13 +171,203 @@ body
 		margin-right 1%
 		margin-left 1%
 		margin-top 4em
-	.div_empresa
-		background gris_oscuro
-		border-radius 0 0 0.5em 0.5em
-		box-shadow 2px 2px 10px gris_claro
-		color white
-		font-size 16px
-		text-align left
+		.div_empresa
+			background gris_oscuro
+			border-radius 5px 5px 5px 5px
+			color white
+			font-size 18px
+			padding 2px
+			text-align center
+			position relative
+			box-shadow 0 0 5px 5px gris_medio
+			margin-bottom 0.5em
+		.div_servicio
+			background gris_medio
+			//border-radius 5px 5px 5px 5px
+			border-radius 0 0 0.5em 0.5em
+			box-shadow 2px 2px 10px gris_claro
+			color white
+			font-size 14px
+			text-align left
+			//padding-left 15px
+			margin-bottom 0.2em
+			padding 8px 15px
+	#bloque_contacto
+		display none
+	.bloque
+		display inline-block
+		width 30%
+		vertical-align top
+		margin-right 1%
+		margin-left 1%          
+		#titulo_bloque_sucursal
+			background rosa
+		.titulo_bloque
+			background verde
+			border-radius 5px 5px 0 0
+			color white
+			font-family arial-regular
+			font-size 16px
+			text-align center
+		.caja_bloque
+			border-radius 0 0 5px 5px
+			background gris_medio
+			.campos_bloque
+				.ul_bloque
+					width 800px
+					list-style-type none
+					//list-style-position outside
+					margin 0
+					padding 0.1em
+					.li_bloque
+						color gris_claro
+						font-family arial-regular
+						font-size 14px
+						padding 0.2em
+						//border-bottom 2px solid #eee
+						//position relative
+						.etiquetas_bloque
+							width 135px
+							margin-top 2px
+							display inline-block
+							float left
+							padding 2px
+						.inputs_bloque
+							color black
+							height 16px
+							width 220px
+							padding 2px 8px
+							border 1px solid lightblue
+							box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
+							border-radius 1px
+							&:focus
+								border 1px solid white
+							&:valid
+								border 1px solid lightgreen
+							&:valid ~ .viñeta::before
+								content "\2713"
+								color lightgreen
+							&:invalid
+								border 1px solid rojo_vineta
+							&:invalid ~ .viñeta::before
+								content "\2613"
+								color rojo_vineta
+						.viñeta
+							display inline-block
+						.textarea_bloque
+							color black
+							height 80px
+							width 220px
+							resize vertical
+							padding 2px 8px
+							border 1px solid lightblue
+							box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
+							border-radius 1px
+							&:focus
+								border 1px solid white
+							&:valid
+								border 1px solid lightgreen
+							&:valid ~ .viñeta::before
+								content "\2713"
+								color lightgreen
+							&:invalid
+								border 1px solid rojo_vineta
+							&:invalid ~ .viñeta::before
+								content "\2613"
+								color rojo_vineta
+						.viñeta
+							display inline-block
+						.select_bloque
+							color black
+							height 22px
+							width 238px
+							padding 2px 8px
+							border 1px solid lightblue
+							box-shadow 0px 0px 1px verde, 0 10px 15px gris_claro inset
+							border-radius 1px
+							&:focus
+								border 1px solid white
+							&:valid
+								border 1px solid lightgreen
+							&:valid ~ .viñeta::before
+								content "\2713"
+								color lightgreen
+							&:invalid
+								border 1px solid rojo_vineta
+							&:invalid ~ .viñeta::before
+								content "\2613"
+								color rojo_vineta
+						.viñeta
+							display inline-block
+						.radio_bloque:not(old)
+							width 2em
+							margin 0
+							padding 0
+							font-size 1em
+							opacity 0
+							&:not(old) + label
+								display inline-block
+								margin-left -2em
+								line-height 1.5em
+							&:not(old) + label > span
+								display inline-block
+								width 0.875em
+								height 0.875em
+								margin 0.25em 0.5em 0.25em 0.25em
+								border 0.0625em solid gris_claro_rgb_1
+								border-radius 0.25em
+								background gris_claro_rgb_2
+								background-image -moz-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+								background-image -ms-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+								background-image -o-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+								background-image -webkit-linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+								background-image linear-gradient(gris_claro_rgb_3,gris_claro_rgb_2)
+								vertical-align bottom
+							&:not(old):checked + label > span
+								background-image -moz-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+								background-image -ms-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+								background-image -o-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+								background-image -webkit-linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+								background-image linear-gradient(gris_claro_rgb_2,gris_claro_rgb_3)
+							&:not(old):checked +  label > span > span
+								display block
+								width 0.5em
+								height 0.5em
+								margin 0.125em
+								border 0.0625em solid verde_rgb
+								border-radius 0.125em
+								background verde_rgb
+								background-image -moz-linear-gradient(verde_rgb,verde_rgb)
+								background-image -ms-linear-gradient(verde_rgb,verde_rgb)
+								background-image -o-linear-gradient(verde_rgb,verde_rgb)
+								background-image -webkit-linear-gradient(verde_rgb,verde_rgb)
+								background-image linear-gradient(verde_rgb,verde_rgb)
+		.caja_foto
+			border 0
+			background gris_medio
+			.foto
+				margin 0
+				img
+					width 180px
+					height 180px
+					border-radius 20px
+			.foto p
+				margin 0
+				text-align center
+		.titulo_mapa
+			background verde
+			border-radius 5px 5px 0 0
+			color white
+			font-family arial-regular
+			font-size 16px
+			text-align center
+		.caja_mapa
+			background red
+			border-radius 0 0 5px 5px
+			height 29em
+.caja_acciones
+	text-align center
+	.menu_acciones
 		position relative
 		margin-bottom 0.2em
 		padding 2px 50px 2px 10px
@@ -193,7 +383,7 @@ body
 				border-style solid
 				border-color rosa
 				border-radius 100px
-				border-width 2px				
+				border-width 2px                
 				font-family ico_font_family
 				font-size 20px
 				content ico_agregar
@@ -237,7 +427,6 @@ body
 		text-align left
 		margin-bottom 0.5em
 		padding 8px 30px
-#bloque_empresa
 #bloque_contacto
 	display none
 .bloque_mapa
@@ -418,44 +607,41 @@ body
 		.foto p
 			margin 0
 			text-align center
-
-
-//  .divResultados
-//          position absolute
-//          margin-left auto
-//          margin-right auto
-//          width: 320px
-//          left: 45%
-//          margin-top -10px    
-//          border solid 1px #dedede
-//          border-top 0px
-//          border-radius 6px
-//          box-shadow 0px 0px 5px #999
-//          border-width 1px 1px 1px
-//          border-style solid
-//          border-color gris_claro #DEDEDE #DEDEDE
-//          background-color white
-//          .resultado_ind
-//              padding:9px
-//              border-top solid 1px #dedede
-//              font-size 12px
-//              height 40px
-//              margin 1px 1px 1px 1px
-//              overflow hidden
-//              img
-//                  float left
-//                  height 40px
-//                  width 40px
-//                  margin-right 6px                    
-//          .resultado_ind:hover
-//              background gris_medio
-//              color #FFFFFF
-//              cursor pointer
-
-// hr
-//  height 12px
-//  border 0px none
-//  box-shadow 0px 12px 12px -12px gris_claro_rgba_1 inset
+ .divResultados
+		 position absolute
+		 margin-left auto
+		 margin-right auto
+		 width: 320px
+		 left: 45%
+		 margin-top -10px    
+		 border solid 1px #dedede
+		 border-top 0px
+		 border-radius 6px
+		 box-shadow 0px 0px 5px #999
+		 border-width 1px 1px 1px
+		 border-style solid
+		 border-color gris_claro #DEDEDE #DEDEDE
+		 background-color white
+		 .resultado_ind
+			 padding:9px
+			 border-top solid 1px #dedede
+			 font-size 12px
+			 height 40px
+			 margin 1px 1px 1px 1px
+			 overflow hidden
+			 img
+				 float left
+				 height 40px
+				 width 40px
+				 margin-right 6px                    
+		 .resultado_ind:hover
+			 background gris_medio
+			 color #FFFFFF
+			 cursor pointer
+hr
+ height 12px
+ border 0px none
+ box-shadow 0px 12px 12px -12px gris_claro_rgba_1 inset
 
 footer
 	background gris_oscuro
@@ -525,7 +711,7 @@ footer
 @media screen and (max-width: 768px)
 	.contenido
 		.div_empresa_servicio
-			margin-top 5em
+			margin-top 7em
 			width 100%
 		.agregar_servicio
 			margin-left 17.6em
