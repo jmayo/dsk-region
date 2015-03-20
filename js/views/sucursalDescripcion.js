@@ -11,6 +11,9 @@ Personal.Views.SucursalDescripcion = Backbone.View.extend({
   render: function () {
     var descripcion = this.model.toJSON();
     var html = this.template(descripcion);
+    if(this.model.get("id")==="-1"){
+      html = html + '<div class="agregar_servicio"><a href="#"></a></div>';
+    }
     this.$el.html(html);
     //Personal.app.EmpresaMapa.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
     
