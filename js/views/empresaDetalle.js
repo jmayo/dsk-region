@@ -22,20 +22,28 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
       this.render();
     }
   }, 
+  mostrarDescripcion: function(modelo){
+     $("#sucursal_padre").empty();
+     this.empresaTitulo = new Personal.Views.EmpresaDescripcion({model: modelo});
+     $('#listado_empresa_sucursal').hide();
+     if(modelo.get("id")!==""){
+        $("#listado_empresa_sucursal").show();
+        $("#sucursal_padre").append(this.empresaTitulo.render().el);
+     }
+     
+   
+     $('#bloque_sucursal').empty();
+     $('#bloque_sucursal').hide();
+     $("#bloque_mapa_sucursal").hide();
+
+  },
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
 
-
-   var empresaTitulo = new Personal.Views.EmpresaDescripcion({model: this.model});
-   $("#sucursal_padre").empty();
-   $("#sucursal_padre").append(empresaTitulo.render().el);
-   $('#bloque_empresa').show();
-   $('#bloque_sucursal').empty();
-   $('#bloque_sucursal').hide();
-   $("#bloque_mapa_sucursal").hide();
+   this.mostrarDescripcion(this.model);  
    
 
    var self = this;   
@@ -84,16 +92,19 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
      
       },
    mostrarSucursalLista: function(id_empresa){
-      Personal.app.SucursalLista.id_empresa = id_empresa;
-      Personal.app.SucursalLista.reset();
-       Personal.app.SucursalLista.fetch().always(function(){
-            // Este modelo sera para crear nuevas sucursales
-           var sucursal = new Personal.Models.sucursal();
-           sucursal.set(sucursal.defaults);
-           sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":"AGREGAR SUCURSAL"});
-           Personal.app.SucursalLista.add(sucursal);
-        }
-      );
+      
+        Personal.app.SucursalLista.id_empresa = id_empresa;
+        Personal.app.SucursalLista.reset();
+         Personal.app.SucursalLista.fetch().always(function(){
+             if(id_empresa!==""){
+                // Este modelo sera para crear nuevas sucursales
+               var sucursal = new Personal.Models.sucursal();
+               sucursal.set(sucursal.defaults);
+               sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":"AGREGAR SUCURSAL"});
+               Personal.app.SucursalLista.add(sucursal);
+            }
+          }
+        );
    },
 relacionColumnas: function(){
       var columnasCampos ={
@@ -132,24 +143,17 @@ guardar: function(){
         type: self.tipo,
         success: function(model,response) {
             $('#empresa_id').text(model.get("id"));
+            self.mostrarDescripcion(model);
+            self.mostrarSucursalLista(model.get("id"));
             window.Personal.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
              $("#notify_error").notify();
               console.log(response.responseText);
-             // var responseObj = $.parseJSON(response.responseText);
-             // console.log(responseObj);
-   //           for(campo in responseObj){ console.log(campo); }
         }
 
     });
-    //CREAETE SEND POST
-    // PARA PATCH:
-    //model.clear().set({id: 1, a: 1, b: 2, c: 3, d: 4}); 
-    //model.save();
-    //model.save({b: 2, d: 4}, {patch: true});
-
   },
   
 generarJSON: function(){

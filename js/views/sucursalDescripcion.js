@@ -4,6 +4,7 @@ Personal.Views.SucursalDescripcion = Backbone.View.extend({
   template: Handlebars.compile($("#resultados-empresa-sucursal-listado-template").html()),
   attributes: { href: '#' },
   initialize: function () {
+     this.listenTo(this.model, "change", this.render, this);
   },
   events:{
     "mousedown ": "seleccionado",

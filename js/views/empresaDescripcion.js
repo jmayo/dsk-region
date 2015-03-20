@@ -4,11 +4,15 @@ Personal.Views.EmpresaDescripcion = Backbone.View.extend({
   template: Handlebars.compile($("#resultados-empresa-padre-template").html()),
 
   initialize: function () {
-
+     //   this.listenTo(this.model, "change", this.cambio, this);
   },
   events:{
     "mousedown ": "seleccionado",
     "click .agregar_servicio": "nuevoServicio",
+  },
+  cambio: function(){
+    console.log("cambio el modelo");
+    this.render();
   },
   render: function () {
     var descripcion = this.model.toJSON();

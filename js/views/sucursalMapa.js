@@ -1,6 +1,5 @@
 Personal.Views.SucursalMapa = Backbone.View.extend({
  
- 
   initialize: function () {
  
 

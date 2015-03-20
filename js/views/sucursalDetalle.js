@@ -111,7 +111,8 @@ guardar: function(){
         type: self.tipo,
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
-            Personal.app.SucursalLista.add(model);
+
+            Personal.app.SucursalLista.add(model,{merge: true});
             //window.Personal.operacion="buscar";
             $("#notify_success").notify();
           },
