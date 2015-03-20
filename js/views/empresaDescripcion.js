@@ -13,7 +13,7 @@ Personal.Views.EmpresaDescripcion = Backbone.View.extend({
   render: function () {
     var descripcion = this.model.toJSON();
     var html = this.template(descripcion);
-   // html = html + '<div class="agregar_servicio">+<a href="#"></a></div>';
+    html = html + '<div class="agregar_servicio"><a href="#"></a></div>';
     this.$el.html(html);
    // $('#sucursal_padre').append('<div class="agregar_servicio">+<a href="#"></a></div>');
     return this;
