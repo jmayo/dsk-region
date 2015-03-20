@@ -110,8 +110,8 @@ guardar: function(){
     model.save(null,{
         type: self.tipo,
         success: function(model,response) {
-            debugger;
             $('#sucursal_id').text(model.get("id"));
+            Personal.app.SucursalLista.add(model);
             //window.Personal.operacion="buscar";
             $("#notify_success").notify();
           },
