@@ -1,16 +1,18 @@
-Personal.Views.EmpresaDetalle = Backbone.View.extend({
+Personal.Views.SucursalDetalle = Backbone.View.extend({
   events : {
-     "change #empresa_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#empresa_estado").val(),'',"#empresa_municipio");},
+     "change #sucursal_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#sucursal_estado").val(),'',"#sucursal_municipio");},
    },
 
-  el: $('#bloque_empresa'),
+  el: $('#bloque_sucursal'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#empresa-detalle-template").html()),
+  template: Handlebars.compile($("#sucursal-detalle-template").html()),
 
   initialize: function () {
-    this.catMunicipio = new Personal.Collections.Catalogos();  
-    this.listenTo(this.model, "change", this.llenado, this);
+    if(this.model !==undefined){
+      this.catMunicipio = new Personal.Collections.Catalogos();  
+      this.listenTo(this.model, "change", this.llenado, this);
+    }
   },
   reset: function()
   {
@@ -18,9 +20,9 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
   },
   llenado: function(){
     console.log("llenando el formulario");
-    if(this.model.get("id")!=="-1"){
+  //  if(this.model.get("id")!=="-1"){
       this.render();
-    }
+   // }
   }, 
   render: function () {
    console.log("buscando en el render");
@@ -29,37 +31,26 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
    this.$el.html(html);
 
 
-   var empresaTitulo = new Personal.Views.EmpresaDescripcion({model: this.model});
-   $("#sucursal_padre").empty();
-   $("#sucursal_padre").append(empresaTitulo.render().el);
-   $('#bloque_empresa').show();
-   $('#bloque_sucursal').empty();
-   $('#bloque_sucursal').hide();
-   $("#bloque_mapa_sucursal").hide();
-   
-
    var self = this;   
-   $("#empresa_fecha_alta").datepicker({dateFormat:"dd/mm/yy"});
+   $("#sucursal_fecha_alta, #sucursal_fecha_baja").datepicker({dateFormat:"dd/mm/yy"});
+ 
 
-
-    var EmpresaCatalogos = new Personal.Collections.Catalogos();
-    EmpresaCatalogos.claves ="14,19,18";
+    var SucursalCatalogos = new Personal.Collections.Catalogos();
+    SucursalCatalogos.claves ="14,24";
   
-    EmpresaCatalogos.fetch(
+    SucursalCatalogos.fetch(
       {
         success: function(){
           
-          self.llenadoCatalogosCombo(EmpresaCatalogos.Estados(),detalle["cdu_estado"],"#empresa_estado");
+          self.llenadoCatalogosCombo(SucursalCatalogos.Estados(),detalle["cdu_estado"],"#sucursal_estado");
 
-          self.llenadoCatalogosCombo(EmpresaCatalogos.Giro(),detalle["cdu_giro"],"#empresa_giro");
-
-          self.llenadoCatalogosCombo(EmpresaCatalogos.Rubro(),detalle["cdu_rubro"],"#empresa_rubro");
+          self.llenadoCatalogosCombo(SucursalCatalogos.Estatus(),detalle["cdu_estatus"],"#sucursal_estatus");
         }
           
     });
 
 
-          this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#empresa_municipio");
+          this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#sucursal_municipio");
 
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
@@ -80,59 +71,48 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
                   vista.render();
                 }
             });
-      this.mostrarSucursalLista(this.model.get("id"));
-     
-      },
-   mostrarSucursalLista: function(id_empresa){
-      Personal.app.SucursalLista.id_empresa = id_empresa;
-      Personal.app.SucursalLista.reset();
-       Personal.app.SucursalLista.fetch().always(function(){
-            // Este modelo sera para crear nuevas sucursales
-           var sucursal = new Personal.Models.sucursal();
-           sucursal.set(sucursal.defaults);
-           sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":"AGREGAR SUCURSAL"});
-           Personal.app.SucursalLista.add(sucursal);
-        }
-      );
+    //  this.mostrarSucursalLista(this.model.get("id"));
+    //this.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
    },
 relacionColumnas: function(){
       var columnasCampos ={
-     		"id": "#empresa_id",
-				"cve_empresa": "#empresa_clave",
-				"razon_social": "#empresa_razon_social",
-				"rfc": "#empresa_rfc",
-				"calle": "#empresa_calle",
-				"numero": "#empresa_numero",
-				"colonia": "#empresa_colonia",
-				"cp": "#empresa_cp",
-				"cdu_estado": "#empresa_estado",
-				"cdu_municipio": "#empresa_municipio",
-				"ciudad": "#empresa_ciudad",
-				"telefono1": "#empresa_telefono1",
-				"telefono2": "#empresa_telefono2",
-				"cdu_giro": "#empresa_giro",
-				"cdu_rubro": "#empresa_rubro",
-				"fecha_alta":"#empresa_fecha_alta",
-           };
+     		"id": "#sucursal_id",
+				"cve_empresa": "#empresa_id",
+				"cve_sucursal": "#sucursal_cve_sucursal",
+        "nombre": "#sucursal_nombre",
+				"calle": "#sucursal_calle",
+				"numero": "#sucursal_numero",
+				"colonia": "#sucursal_colonia",
+				"cp": "#sucursal_cp",
+				"cdu_estado": "#sucursal_estado",
+				"cdu_municipio": "#sucursal_municipio",
+				"ciudad": "#sucursal_ciudad",
+				"telefono": "#sucursal_telefono",
+				"cdu_estatus": "#sucursal_estatus",
+				"fecha_alta":"#sucursal_fecha_alta",
+        "fecha_baja":"#sucursal_fecha_alta",
+        "latitud":"#sucursal_latitud",
+        "longitud":"#sucursal_longitud",        
+      };
       return columnasCampos;
-   },
+},
 guardar: function(){
     var data =this.generarJSON();
-     var self = this;
-    var model = new Personal.Models.empresa(data);
-    model.valor = undefined;
+    var self = this;
+    var model = new Personal.Models.sucursal(data);
+    //model.valor = undefined;
     model.pk= data["id"];
-    
     this.tipo='POST'
-    if(window.Personal.operacion!=="nuevo"){
+    if(model.get("id")!=="-1"){
       this.tipo='PUT';
     }
    
     model.save(null,{
         type: self.tipo,
         success: function(model,response) {
-            $('#empresa_id').text(model.get("id"));
-            window.Personal.operacion="buscar";
+            $('#sucursal_id').text(model.get("id"));
+            Personal.app.SucursalLista.add(model);
+            //window.Personal.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
@@ -151,7 +131,6 @@ guardar: function(){
     //model.save({b: 2, d: 4}, {patch: true});
 
   },
-  
 generarJSON: function(){
       var data ={};
       var relacion =this.relacionColumnas();
