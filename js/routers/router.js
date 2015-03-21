@@ -116,6 +116,7 @@ initialize: function () {
     window.Personal.operacion="nuevo";
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
+    
     this.EmpresaModelo.set({"id":"-1"});
     this.EmpresaModelo.set(this.EmpresaModelo.defaults);
     

@@ -111,6 +111,10 @@
 					Ubicación
 				</div>
 				<div id="mapa" class="caja_mapa"></div>
+				<ul class="menu_cordenadas">
+				<li><a class="obtener_cordenadas" href="#" title="Obtener cordenadas"></a></li>
+				<li><a class="seleccionar_cordenadas" href="#" title="Seleccionar cordenadas"></a></li>
+			</ul>
 		</article>
 		
 		 </section>
@@ -400,7 +404,9 @@
 		</div>
   </script>
 <script id="resultados-empresa-padre-template" type="text/x-handlebars-template">
-		{{cve_empresa}} {{razon_social}}
+        <div class="div_empresa">
+			{{cve_empresa}} {{razon_social}}
+		</div>
   </script>
 
 <script id="empresa-detalle-template" type="text/x-handlebars-template">

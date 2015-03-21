@@ -1,8 +1,8 @@
 Personal.Views.EmpresaDescripcion = Backbone.View.extend({
-  tagName: 'div',
-  className: 'div_empresa',
+  tagName: 'a',
+  className: 'lnk_servicio',
   template: Handlebars.compile($("#resultados-empresa-padre-template").html()),
-
+   attributes: { href: '#' },
   initialize: function () {
      //   this.listenTo(this.model, "change", this.cambio, this);
   },

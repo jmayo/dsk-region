@@ -235,7 +235,7 @@ uploadFile: function(event) {
 
     data.append('imagen', file);
     //'http://192.168.122.1:8000/subirf/'
-    $.ajax(window.ruta + ' personal/subir_imagen/' + id + '/', {
+    $.ajax(window.ruta + 'personal/subir_imagen/' + id + '/', {
         type:'POST',
         data: data,
         processData: false,

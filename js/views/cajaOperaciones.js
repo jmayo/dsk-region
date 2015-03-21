@@ -9,6 +9,7 @@ Personal.Views.CajaOperaciones = Backbone.View.extend({
    },
    nuevo: function(){
       console.log("nuevo registro");
+      debugger;
       if(window.Personal.menu==="personal"){
          Personal.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
        }

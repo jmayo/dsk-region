@@ -38,6 +38,8 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
 
   },
   render: function () {
+   $('#bloque_sucursal').hide();
+   $('#bloque_empresa').show();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
