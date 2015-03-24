@@ -21,14 +21,15 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
     event.preventDefault();
     console.log("obteniendo cordenadas");
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.mostrarUbicacion);
+        var self=this;
+        navigator.geolocation.getCurrentPosition(function(position){
+            console.log(position);
+             self.posicionar(position.coords.longitude,position.coords.latitude,true)
+        });
     } 
     else {
        $("#notify_warning").notify();
     }
-  },
-  mostrarUbicacion: function(position) {
-       console.log('latitud:' + position.coords.latitude + '  longitud:' + position.coords.longitude);
   },
   marcar: function(latitud,longitud){
     console.log("poner marca");
@@ -54,14 +55,17 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
     this.map.getView().setZoom(valor);
 
   },
-  posicionar: function(latitud,longitud){
-    var pos_ini = parseFloat(latitud);
-    var pos_fin = parseFloat(longitud);
-   
+  posicionar: function(latitud,longitud,cambiar){
+    var pos_ini = (parseFloat(latitud).toFixed(4))/1;
+    var pos_fin = (parseFloat(longitud).toFixed(4))/1;
     this.map.latitud = pos_ini;
     this.map.longitud = pos_fin;
-    this.map.getView().setCenter(ol.proj.transform([this.map.latitud, this.map.longitud], 'EPSG:4326', 'EPSG:3857'));
+    this.map.getView().setCenter(ol.proj.transform([this.map.latitud, this.map.longitud],'EPSG:4326', 'EPSG:3857'));
     this.zoom(14);
+    if(cambiar===true){
+        $('#sucursal_latitud').val(pos_ini);
+        $('#sucursal_longitud').val(pos_fin);
+    }
   },
   mostrarMapa: function(latitud,longitud){
         $('#mapa').empty();
@@ -75,20 +79,17 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
             })
           ],
           view: new ol.View({
-            center: ol.proj.transform([pos_ini, pos_fin], 'EPSG:4326', 'EPSG:3857'),
+            center: ol.proj.transform([pos_ini, pos_fin],'EPSG:4326', 'EPSG:3857'),
             zoom: 12
           })
         });
 
-        this.map.on('click', function(evt) {
-          console.log("click");
-           var lonlat = ol.proj.transform(evt.coordinate,  'EPSG:3857','EPSG:4326');
-           var lon = lonlat[0];
-           var lat = lonlat[1];
-
-           console.log(lonlat);
-        //   var out = ol.coordinate.toStringXY(lonlat, 4);
-      //     console.log(out);
-        });
+        // this.map.on('click', function(evt) {
+        //   console.log("click");
+        //    var lonlat = ol.proj.transform(evt.coordinate,  'EPSG:3857','EPSG:4326');
+        //    var lon = lonlat[0];
+        //    var lat = lonlat[1];
+        //    console.log(lonlat);    
+        // });
       },
 });
