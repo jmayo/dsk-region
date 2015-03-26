@@ -197,23 +197,27 @@ generarJSON: function(){
       }
       return data;
    },
-agregarValidacion: function(){
-    var relacion =this.relacionColumnas();
-    
-    for(var campo in relacion){
-        if (relacion.hasOwnProperty(campo)){
-          var id_control = relacion[campo];
-          var validacion = Personal.app.PersoModelo.validation()[campo];
-          
-          if(validacion !== undefined){
-              $(id_control).prop('maxlength',validacion['maxlength']);
-              $(id_control).prop('pattern',validacion['pattern']);
-              $(id_control).prop('required',validacion['required']);
-             // $(id_control).prop('oninvalid','setCustomValidity("' + validacion['title'] + '")' );
+ agregarValidacion: function(){
+      var relacion =this.relacionColumnas();
+      var listaVal = Personal.app.PersoModelo.validation();
+      for(var campo in relacion){
+          if (relacion.hasOwnProperty(campo)){
+            var id_control = relacion[campo];
+            var validacion =listaVal[campo];
+            
+            if(validacion !== undefined){
+                $(id_control).prop('maxlength',validacion['maxlength']);
+
+                $(id_control).prop('pattern',validacion['pattern']); 
+                $(id_control).prop('required',validacion['required']);
+                var mensaje ="Este campo "
+                mensaje += ((validacion['required'] === true) ? 'es obligatorio y ' :'');
+                mensaje +=  validacion['title']
+                $(id_control).prop('title',mensaje);         
+            }
           }
-        }
       }
-},
+    },
 
 uploadFile: function(event) {
     event.preventDefault();

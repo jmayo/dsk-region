@@ -2,6 +2,7 @@ Personal.Models.sucursal = Backbone.Model.extend({
   initialize: function(){
   		this.valor = null;
   		this.pk = null;
+      this.camposValidar();
   },
  valor : function(valor){
       this.valor  = valor;
@@ -40,4 +41,24 @@ Personal.Models.sucursal = Backbone.Model.extend({
 	"latitud" : "-99.1330",
     "longitud" : "19.4425",
   },
+   camposValidar: function(){
+      var vali = new Personal.Models.validacion();
+      vali.Campo('cve_empresa',1,10,vali.Numeros());
+      vali.Campo('cve_sucursal',1,10,vali.Numeros());
+      vali.Campo('nombre',1,150,vali.Generico());
+      vali.Campo('calle',1,100,vali.Generico());
+      vali.Campo('numero',1,10,vali.AlfaNumerico()); 
+      vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
+      vali.Campo('cp',1,10,vali.Numeros()); 
+      vali.Campo('ciudad',1,100,vali.AlfaNumerico()); 
+      vali.Campo('telefono',1,10,vali.AlfaNumerico()); 
+      vali.Campo('fecha_alta',1,10,vali.Fecha());
+      vali.Campo('fecha_baja',1,10,vali.Fecha());
+      vali.Campo('latitud',0,10,vali.Decimales());
+      vali.Campo('longitud',0,10,vali.Decimales()); 
+      this.listado = vali.Listado();
+  },
+  validation: function() {
+      return this.listado;  
+  }
 });

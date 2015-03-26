@@ -50,7 +50,8 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
 
    var self = this;   
    $("#empresa_fecha_alta").datepicker({dateFormat:"dd/mm/yy"});
-
+  
+   this.agregarValidacion();
 
     var EmpresaCatalogos = new Personal.Collections.Catalogos();
     EmpresaCatalogos.claves ="14,19,18";
@@ -184,5 +185,26 @@ generarJSON: function(){
       }
       return data;
    },
+  agregarValidacion: function(){
+      var relacion =this.relacionColumnas();
+      var listaVal = Personal.app.EmpresaModelo.validation();
+      for(var campo in relacion){
+          if (relacion.hasOwnProperty(campo)){
+            var id_control = relacion[campo];
+            var validacion =listaVal[campo];
+            
+            if(validacion !== undefined){
+                $(id_control).prop('maxlength',validacion['maxlength']);
+
+                $(id_control).prop('pattern',validacion['pattern']); 
+                $(id_control).prop('required',validacion['required']);
+                var mensaje ="Este campo "
+                mensaje += ((validacion['required'] === true) ? 'es obligatorio y ' :'');
+                mensaje +=  validacion['title']
+                $(id_control).prop('title',mensaje);         
+            }
+          }
+      }
+    },
 });
 

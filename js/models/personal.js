@@ -2,6 +2,7 @@ Personal.Models.personal = Backbone.Model.extend({
   initialize: function(){
   		this.valor = null;
   		this.pk = null;
+      this.camposValidar();
   },
  valor : function(valor){
       this.valor  = valor;
@@ -53,93 +54,28 @@ Personal.Models.personal = Backbone.Model.extend({
         "ciudad_dom": "",
         "imagen": "",
   },
+  camposValidar: function(){
+      var vali = new Personal.Models.validacion();
+      vali.Campo('matricula',4,10,vali.Numeros());
+      vali.Campo('paterno',1,20,vali.AlfaNumerico());
+      vali.Campo('materno',1,20,vali.AlfaNumerico());
+      vali.Campo('nombre',1,20,vali.AlfaNumerico());
+      vali.Campo('rfc',1,13,vali.RFC());
+      vali.Campo('curp',1,18,vali.RFC());
+      vali.Campo('cuip',0,30,vali.RFC());
+      vali.Campo('fec_nacimiento',1,10,vali.Fecha());
+      vali.Campo('fec_alta',1,10,vali.Fecha());
+      vali.Campo('id_seguridad_social',1,20,vali.AlfaNumerico());
+      vali.Campo('condiciones_alta',1,150,vali.AlfaNumerico()); 
+      vali.Campo('calle_dom',1,10,vali.AlfaNumerico());
+      vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
+      vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
+      vali.Campo('cp_dom',1,10,vali.Numeros()); 
+      vali.Campo('ciudad_dom',1,100,vali.AlfaNumerico());
+      this.listado = vali.Listado();
+  },
   validation: function() {
-    return {
-      matricula: {
-        required: true,
-        maxlength: 10,
-        pattern: '[0-9]{4,10}',
-        title: 'La matricula solo puede contener numero',
-      },
-      paterno: {
-        required: true,
-        maxlength: 20,
-        pattern: '[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]{1,20}',
-        title: 'Solo se aceptan letras',
-      },
-      materno: {
-        required: true,
-        maxlength: 20,
-        pattern: '[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]{1,20}',
-        title: 'Solo se aceptan letras',
-      },
-      nombre: {
-        required: true,
-        maxlength: 20,
-        pattern: '[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]{2,20}',
-        title: 'Solo se aceptan letras',
-      },
-       rfc: {
-        required: true,
-        maxlength: 13,
-        pattern: '[A-Za-z0-9]{10,13}',
-        title: 'Error en el rfc',
-      },
-       curp: {
-        required: true,
-        maxlength: 18,
-        pattern: '[A-Za-z0-9]{10,18}',
-        title: 'Error en el curp',
-      },
-       cuip: {
-        required: false,
-        maxlength: 30,
-        pattern: '[A-Za-z0-9]{0,10}',
-        title: 'Error en el cuip',
-      },
-      id_seguridad_social: {
-        required: false,
-        maxlength: 20,
-        pattern: '[A-Za-z0-9\\s]{0,10}',
-        title: '',
-      },
-       condiciones_alta: {
-        required: false,
-        maxlength: 150,
-        pattern: '[A-Za-z0-9\\s]{0,10}',
-        title: '',
-      },
-       calle_dom: {
-        required: true,
-        maxlength: 100,
-        pattern: '[A-Za-z0-9\\s]{0,10}',
-        title: '',
-      },
-       numero_dom: {
-        required: true,
-        maxlength: 10,
-        pattern: '[A-Za-z0-9\\s]{0,10}',
-        title: '',
-      },
-       colonia_dom: {
-        required: true,
-        maxlength: 100,
-        pattern: '[A-Za-z0-9\\s]{0,10}',
-        title: '',
-      },
-       cp_dom: {
-        required: true,
-        maxlength: 10,
-        pattern: '[A-Za-z0-9]{0,10}',
-        title: '',
-      },
-       ciudad_dom: {
-        required: true,
-        maxlength: 100,
-        pattern: '[A-Za-z0-9\\s]{0,10}',
-        title: '',
-      },
-    }
+      return this.listado;  
   }
 });
 

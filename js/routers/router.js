@@ -14,6 +14,8 @@ initialize: function () {
     window.ruta="http://192.168.0.14:8080/";
     //window.ruta="http://104.236.232.238:8080/";
     window.ruta ="http://localhost:8080/";
+ 
+
     this.Perso = new Personal.Collections.Personas();          
     this.Empresa = new Personal.Collections.Empresas();
     this.SucursalLista = new Personal.Collections.Sucursales(); 
