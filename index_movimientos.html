@@ -47,24 +47,26 @@
 	</nav>
 	<div class="caja_acciones">
 		<ul class="menu_acciones">
-			<li><a href="#" class="nuevo"></a></li>
 			<li><a href="#" class="eliminar"></a></li>
 			<li><a href="#" class="guardar"></a></li>
 		</ul>
 	</div>
 	<section class="contenido">
 		<article class="bloque reducir">
-			<div>
-				<input type="text" placeholder="Empleado..." class="buscar"/>	
+			<div class="caja_buscar">
+				<ul class="lista_buscar">
+					<li><a class="personal" href="#"></a></li>
+					<li><input type="text" placeholder="Empleado..." class="buscar"/></li>
+				</ul>
 			</div>
 			<br>
-			<div class="caja_bloque">
+			<div class="caja_bloque redondear">
 				<div class="campos_bloque">
 					<ul class="ul_bloque">
 						<li class="li_bloque">
 							<label class="etiquetas_bloque reducir">Id Empleado</label>
 							<label class="etiquetas_bloque_consulta">587495</label>
-						</li>					
+						</li>
 						<li class="li_bloque">
 							<label class="etiquetas_bloque reducir">Paterno</label>
 							<label class="etiquetas_bloque_consulta">Mondragón</label>
@@ -92,7 +94,63 @@
 					</ul>
 				</div>
 			</div>
-
+			<br>
+			<div class="caja_bloque redondear">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Id Sucursal</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">100</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Sucursal</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Patito S.A. de C.V., esquina con Av. de bicentenario de Peña Nieto</label>
+						</li>						
+					</ul>
+				</div>
+			</div>
+		</article>
+		<article class="bloque reducir">
+			<div class="caja_buscar">
+				<ul class="lista_buscar">
+					<li><a class="empresa" href="#"></a></li>
+					<li><input type="text" placeholder="Sucursal..." class="buscar"/></li>
+				</ul>
+			</div>
+			<br>
+			<div class="caja_bloque redondear">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Id Sucursal</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">200</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Sucursal</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Lagunita S.A. de C.V.</label>
+						</li>						
+					</ul>
+				</div>
+			</div>
+			<br>
+			<div class="titulo_bloque">
+				Otros
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir" for="giro">Giro</label>
+							<select name="giro" class="select_bloque">
+								<option value="industriales">Industriales</option>
+								<option value="extractivas">Extractivas</option>
+								<option value="manufactureras">Manufactureras</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</article>
 	</section>
 	
