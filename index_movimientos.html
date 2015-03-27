@@ -105,7 +105,31 @@
 						<li class="li_bloque">
 							<label class="etiquetas_bloque reducir">Sucursal</label>
 							<label class="etiquetas_bloque_consulta color_sucursal">Patito S.A. de C.V., esquina con Av. de bicentenario de Peña Nieto</label>
-						</li>						
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Motivo</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Reasignación</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Turno</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">12x12</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Puesto</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Oficial</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Rango</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Rango</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Sueldo</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">150.35</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Fecha</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">15/03/2015</label>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -134,18 +158,50 @@
 			</div>
 			<br>
 			<div class="titulo_bloque">
-				Otros
+				Movimiento
 			</div>
 			<div class="caja_bloque">
 				<div class="campos_bloque">
 					<ul class="ul_bloque">
 						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir" for="giro">Giro</label>
-							<select name="giro" class="select_bloque">
-								<option value="industriales">Industriales</option>
-								<option value="extractivas">Extractivas</option>
-								<option value="manufactureras">Manufactureras</option>
+							<label class="etiquetas_bloque reducir" for="motivo">Motivo</label>
+							<select name="motivo" class="select_bloque">
+								<option value="reasignacion">Reasignación</option>
+								<option value="incapacidad">Incapacidad</option>
 							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir" for="turno">Turno</label>
+							<select name="turno" class="select_bloque">
+								<option value="12x12">12x12</option>
+								<option value="24x24">24x24</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir" for="puesto">Puesto</label>
+							<select name="puesto" class="select_bloque">
+								<option value="oficial">Oficial</option>
+								<option value="comandante">Comandante</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir" for="rango">Rango</label>
+							<select name="rango" class="select_bloque">
+								<option value="1">1</option>
+								<option value="2">2</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir" for="sueldo">Sueldo</label>
+							<input class="inputs_bloque" type="text" placeholder="sueldo" readonly />
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir" for="fecha_movimiento">Fecha</label>
+							<input id="cal_fec_mov" class="inputs_bloque" type="text" placeholder="Fecha de Movimiento" />
 							<div class="viñeta"></div>
 						</li>
 					</ul>
