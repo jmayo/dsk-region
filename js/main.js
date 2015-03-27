@@ -8,7 +8,7 @@ $(function() {
    Backbone.history.start({
       root: '/',
       silent: true,
-    //  pushState: true,
+     // pushState: true,
     //  hashChange: true,
     });
     //Personal.app.navigate('', true);

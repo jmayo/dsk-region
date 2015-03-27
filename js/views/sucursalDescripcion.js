@@ -23,7 +23,7 @@ Personal.Views.SucursalDescripcion = Backbone.View.extend({
         Personal.app.EmpresaMapa.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
     }  
     if(this.model.get("id")!=="-1"){
-        Personal.app.EmpresaMapa.marcar(this.model.get("latitud"),this.model.get("longitud"));
+        Personal.app.EmpresaMapa.marcar(this.model.get("id"),this.model.get("latitud"),this.model.get("longitud"));
     }
     return this;
   },

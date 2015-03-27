@@ -2,6 +2,7 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
  
   el: $('.bloque_mapa'),
   initialize: function () {
+    this.marcas ={};
       // this.handler = new OpenLayers.Handler.Click(
       //               this, {
       //                   'click': this.trigger
@@ -31,7 +32,7 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
        $("#notify_warning").notify();
     }
   },
-  marcar: function(latitud,longitud){
+  marcar: function(id,latitud,longitud){
     console.log("poner marca");
     
     var pos_ini = parseFloat(latitud);
@@ -41,15 +42,24 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
     this.map.longitud = pos_fin;
     
     var self= this;
-    this.map.addOverlay(new ol.Overlay({
+    //Si ya existe una marca para ese servicio la quitamos del mapa
+   
+    var imagen = new ol.Overlay({
           position: ol.proj.transform(
             [this.map.latitud, this.map.longitud],
+            'EPSG:3857',
             'EPSG:4326',
-            'EPSG:3857'
           ),
        element: $('<img src="images/marker.png" height=20px weight=20px>')
-       }));
+       });
 
+  if(this.marcas[id]){
+      this.map.removeOverlay(this.marcas[id]);
+      this.posicionar(this.map.latitud, this.map.longitud);
+  } 
+   this.map.addOverlay(imagen);
+   
+   this.marcas[id] =  imagen;
   },
   zoom: function(valor){
     this.map.getView().setZoom(valor);
@@ -60,7 +70,7 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
     var pos_fin = (parseFloat(longitud).toFixed(4))/1;
     this.map.latitud = pos_ini;
     this.map.longitud = pos_fin;
-    this.map.getView().setCenter(ol.proj.transform([this.map.latitud, this.map.longitud],'EPSG:4326', 'EPSG:3857'));
+    this.map.getView().setCenter(ol.proj.transform([this.map.latitud, this.map.longitud], 'EPSG:3857','EPSG:4326'));
     this.zoom(14);
     if(cambiar===true){
         $('#sucursal_latitud').val(pos_ini);
@@ -79,7 +89,7 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
             })
           ],
           view: new ol.View({
-            center: ol.proj.transform([pos_ini, pos_fin],'EPSG:4326', 'EPSG:3857'),
+            center: ol.proj.transform([pos_ini, pos_fin],'EPSG:3857''EPSG:4326'),
             zoom: 12
           })
         });
