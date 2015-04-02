@@ -4,6 +4,7 @@ Personal.Views.Contenido = Backbone.View.extend({
   initialize: function () {
       $('.contenido_personal').hide();
       $('.contenido_empresa').hide();
+      $('.contenido_movimientos').hide();
    },
    mostrarMenuPersonal: function(){
    			window.Personal.menu="personal";
@@ -12,20 +13,22 @@ Personal.Views.Contenido = Backbone.View.extend({
           } 
           
           this.PersonalBusquedasVista = new Personal.Views.PersonalBusquedas({collection: this.Perso});
-          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso});
+          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_acciones'});
           console.log("ruta personal")
           $('.contenido_empresa').hide();
+          $('.contenido_movimientos').hide();
           $('.contenido_personal').show();
    },
-      mostrarMenuEmpresas: function(){
+   mostrarMenuEmpresas: function(){
         window.Personal.menu="empresa";
           if (this.CajaBusqueda){
             this.CajaBusqueda.close();
           } 
           this.EmpresaBusquedasVista = new Personal.Views.EmpresaBusquedas({collection: this.Empresa});
-          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Empresa});
+          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Empresa,el: '.caja_acciones'});
           console.log("ruta empresa")
           $('.contenido_personal').hide();
+          $('.contenido_movimientos').hide();
           $('.contenido_empresa').show();
           
           if(Personal.app.SucursalListadoVista.collection.length>0){
@@ -35,6 +38,22 @@ Personal.Views.Contenido = Backbone.View.extend({
             $('#bloque_sucursal').hide();
             $('#bloque_empresa').show();
           }        
-   }
+   },
+   mostrarMenuMovimientos:function(){
+      window.Personal.menu = "movimiento";
+      if (this.CajaBusqueda){
+            this.CajaBusqueda.close();
+          } 
+        this.PersonalBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Perso,el: '.caja_buscar',template:"#resultados-personal-busqueda-template"});
+        this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_buscar'});
+
+
+        console.log("ruta movimientos")
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').show();
+
+
+   },
 
 });

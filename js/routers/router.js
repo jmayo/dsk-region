@@ -7,6 +7,7 @@ Personal.Router = Backbone.Router.extend({
     "Empresa": "empresa",
     "Empresas/nuevo/": "empresaNuevo",    
     "Empresa/buscar/:valor_buscado": "empresaClave",
+    "Movimiento": "movimiento",
   },
 
 initialize: function () {
@@ -19,6 +20,7 @@ initialize: function () {
     this.Perso = new Personal.Collections.Personas();          
     this.Empresa = new Personal.Collections.Empresas();
     this.SucursalLista = new Personal.Collections.Sucursales(); 
+    this.PersoSucursal = new Personal.Models.personalsucursal();
 
     this.MenuVista = new Personal.Views.Menu(); 
 
@@ -123,6 +125,13 @@ initialize: function () {
     this.EmpresaModelo.set(this.EmpresaModelo.defaults);
     
     console.log("nueva empresa");
+  },
+   movimiento: function () {
+    window.Personal.operacion="buscar";
+    
+    window.Personal.menu="movimiento";
+   
+    console.log("Estas en la lista de movimientos del personal");
   },
 
 //***** FUNCIONES GENERICAS ****************

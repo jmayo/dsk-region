@@ -4,12 +4,10 @@ events : {
      "blur .buscar" : "esconderBusqueda",
      "focus .buscar" : "mostrarBusqueda",  
    },
-  el: $('.caja_acciones'),
-  //template: Handlebars.compile($("#resultados-empresa-busqueda-template").html()),
-
-  initialize: function () {
-     
-   },
+  // el: $('.caja_acciones'),
+  initialize: function (opciones) {
+     this.setElement(opciones.el);  
+  },
    buscarEnServidor: function(event,val) {
     if(event.keyCode == 13){
       console.log("Buscando..");

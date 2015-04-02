@@ -31,11 +31,13 @@
     <script type="text/javascript" src="js/models/personal.js"></script>
     <script type="text/javascript" src="js/models/empresa.js"></script>
     <script type="text/javascript" src="js/models/sucursal.js"></script>
+    <script type="text/javascript" src="js/models/personal_sucursal.js"></script>
     
     <script type="text/javascript" src="js/collections/catalogos.js"></script>
     <script type="text/javascript" src="js/collections/personas.js"></script>
 	<script type="text/javascript" src="js/collections/empresas.js"></script>
 	<script type="text/javascript" src="js/collections/sucursales.js"></script>
+	<script type="text/javascript" src="js/collections/personal_sucursales.js"></script>
 
 
 	<script src="js/notificaciones.js" type="text/javascript"></script>
@@ -66,7 +68,7 @@
 		<ul class="menu">
 			<li><a class="personal" href="#"></a></li>
 			<li><a class="empresas" href="#"></a></li>
-			<li><a class="catalogos" href="#"></a></li>
+			<li><a class="movimientos catalogos" href="#"></a></li>
 			<li><a class="cerrar_sesion" href="#"></a></li>
 		</ul>
 	</nav>
@@ -77,14 +79,6 @@
                        <li><a href="#" class="guardar"></a></li>
                        <li><input type="text" placeholder="Buscar" class="buscar"/></li>
 			</ul>
-
-			<!-- <form enctype="multipart/form-data">
-			    <label>File<input name='file' type='file'  id="imagencontrol" /></label>
-			    <br>
-			    <label>Name<input name='name' type='text' /></label>
-			    <br>
-			    <input type="submit" value="Upload">
-			</form> -->
 
 		<div hidden class="divResultados">
 				<!-- Template:	resultados-busqueda-template	 -->
@@ -121,6 +115,94 @@
 		</article>
 		
 		 </section>
+
+		<section class="contenido contenido_movimientos" id="personal_movimientos" hidden>
+		<article class="bloque reducir">
+			<div class="caja_buscar">
+				<ul class="lista_buscar">
+					<li><a class="personal" href="#"></a></li>
+					<li><input type="text" placeholder="Empleado..." class="buscar"/></li>
+				</ul>
+				  <div hidden class="divResultados">
+			 	     <!-- Template:	resultados-busqueda-template	 -->
+	  			  </div>
+			</div>
+			<br>
+			<div class="caja_bloque redondear">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Id Empl</label>
+							<label class="etiquetas_bloque_consulta">587495</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Paterno</label>
+							<label class="etiquetas_bloque_consulta">Mondragón</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Materno</label>
+							<label class="etiquetas_bloque_consulta">Mayo</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Nombre(s)</label>
+							<label class="etiquetas_bloque_consulta">Juan Carlos</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">RFC</label>
+							<label class="etiquetas_bloque_consulta">MONJ7912054V8</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">CURP</label>
+							<label class="etiquetas_bloque_consulta">MOMJ791205HDFNYN07</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">CUIP</label>
+							<label class="etiquetas_bloque_consulta">MOMJ791205HEDMF43</label>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br>
+			<div class="caja_bloque redondear">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Id Suc</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">100</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Sucursal</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Patito S.A. de C.V., esquina con Av. de bicentenario de Peña Nieto</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Motivo</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Reasignación</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Turno</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">12x12</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Puesto</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Oficial</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Rango</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">Rango</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Sueldo</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">150.35</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque reducir">Fecha</label>
+							<label class="etiquetas_bloque_consulta color_sucursal">15/03/2015</label>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</article>
+	</section>	
 
 	<footer>
 		<ul class="redes_sociales">
@@ -475,6 +557,11 @@
   <script type="text/javascript" src="js/views/contenido.js"></script>
    <script type="text/javascript" src="js/views/cajaOperaciones.js"></script>
   <script type="text/javascript" src="js/views/cajaBusqueda.js"></script>
+
+	<script type="text/javascript" src="js/views/datoBusqueda.js"></script>
+	<script type="text/javascript" src="js/views/datoBusquedas.js"></script>
+        
+
   <script type="text/javascript" src="js/views/personalBusqueda.js"></script>
   <script type="text/javascript" src="js/views/personalBusquedas.js"></script>
 
