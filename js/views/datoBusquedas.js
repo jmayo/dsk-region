@@ -1,5 +1,5 @@
 Personal.Views.DatoBusquedas = Backbone.View.extend({
-  // el: $('.divResultados'),
+   //el: $('#resultados_personal_movimiento'),
   //template: Handlebars.compile($("#resultados-empresa-busqueda-template").html()),
   template: null,
   initialize: function (opciones) {

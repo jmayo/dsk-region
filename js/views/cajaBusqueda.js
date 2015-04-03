@@ -7,6 +7,7 @@ events : {
   // el: $('.caja_acciones'),
   initialize: function (opciones) {
      this.setElement(opciones.el);  
+     this.divResultados = opciones.divResultados;
   },
    buscarEnServidor: function(event,val) {
     if(event.keyCode == 13){
@@ -17,15 +18,18 @@ events : {
       }
   },
   esconderBusqueda: function(){
-    this.$(".divResultados").hide();
+    //this.$(".divResultados").hide();
+      this.$(this.divResultados).hide(); 
   },
    mostrarBusqueda: function(){
-    this.$(".divResultados").show();
+    //this.$(".divResultados").show();
+     this.$(this.divResultados).show(); 
   },
   close: function(){
       // Cuando se asigna una nueva instancia en ocaciones quedan objetos zombies
       // Estas funciones eliminan cualquier referencia
-      this.$(".divResultados").empty();
+      //this.$(".divResultados").empty();
+      this.$(this.divResultados).empty(); 
       this.collection.unbind();
       this.unbind();
       this.undelegateEvents();

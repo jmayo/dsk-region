@@ -13,7 +13,7 @@ Personal.Views.Contenido = Backbone.View.extend({
           } 
           
           this.PersonalBusquedasVista = new Personal.Views.PersonalBusquedas({collection: this.Perso});
-          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_acciones'});
+          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_acciones',divResultados: '#resultados_generales'});
           console.log("ruta personal")
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
@@ -25,7 +25,7 @@ Personal.Views.Contenido = Backbone.View.extend({
             this.CajaBusqueda.close();
           } 
           this.EmpresaBusquedasVista = new Personal.Views.EmpresaBusquedas({collection: this.Empresa});
-          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Empresa,el: '.caja_acciones'});
+          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Empresa,el: '.caja_acciones',divResultados: '#resultados_generales'});
           console.log("ruta empresa")
           $('.contenido_personal').hide();
           $('.contenido_movimientos').hide();
@@ -44,8 +44,8 @@ Personal.Views.Contenido = Backbone.View.extend({
       if (this.CajaBusqueda){
             this.CajaBusqueda.close();
           } 
-        this.PersonalBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Perso,el: '.caja_buscar',template:"#resultados-personal-busqueda-template"});
-        this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_buscar'});
+        this.PersonalMBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Perso,el: '#resultados_personal_movimiento',template:"#resultados-personal-busqueda-template"});
+        this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_buscar',divResultados: '#resultados_personal_movimiento'});
 
 
         console.log("ruta movimientos")
