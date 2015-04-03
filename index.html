@@ -128,39 +128,8 @@
 	  			  </div>
 			</div>
 			<br>
-			<div class="caja_bloque redondear">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Id Empl</label>
-							<label class="etiquetas_bloque_consulta">587495</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Paterno</label>
-							<label class="etiquetas_bloque_consulta">Mondragón</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Materno</label>
-							<label class="etiquetas_bloque_consulta">Mayo</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Nombre(s)</label>
-							<label class="etiquetas_bloque_consulta">Juan Carlos</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">RFC</label>
-							<label class="etiquetas_bloque_consulta">MONJ7912054V8</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">CURP</label>
-							<label class="etiquetas_bloque_consulta">MOMJ791205HDFNYN07</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">CUIP</label>
-							<label class="etiquetas_bloque_consulta">MOMJ791205HEDMF43</label>
-						</li>
-					</ul>
-				</div>
+			<div class="caja_bloque redondear" id="personal_datos_basicos">
+				 <!-- personal-datos_basicos-template  -->
 			</div>
 			<br>
 			<div class="caja_bloque redondear">
@@ -244,6 +213,25 @@
         return '<label ' + label_id + ' for="'+ label_desc +'" class="etiquetas_bloque">'+ contenido +'</label>';
       });
 
+    Handlebars.registerHelper('titulos_etiqueta',function(contenido){
+        return '<label  class="etiquetas_bloque reducir">'+ contenido +'</label>';
+      });
+
+    Handlebars.registerHelper('titulos_dato',function(options){
+        label_id = '';
+         valor = options.hash.valor;
+
+        if (options.hash.label_id !== undefined){
+        	label_id = 'id="'+ options.hash.label_id + '"';
+         }
+
+        if (options.hash.valor !== undefined){
+        	valor =  options.hash.valor ;
+         }
+
+        return '<label ' + label_id + ' class="etiquetas_bloque_consulta">'+ valor +'</label>';
+      });
+
 	Handlebars.registerHelper('caja_imagen',function(contenido,options){
 		img_id = 'id=' + options.hash.img_id;
 		var ruta = Handlebars.helpers.ruta_imagen(contenido);
@@ -263,8 +251,6 @@
 		ruta = ruta + contenido;
 		return ruta;
 	});
-
-
 
 
  	//Helper para cajas de texto
@@ -344,7 +330,18 @@
 		return '<li class="li_bloque">' + res1 + res2 + '<div class="viñeta"></div>' + '</li>';
 		}
     );
+
+	
+	//Agrupacion de dos labels uno para titulo y otro para datos
+	Handlebars.registerHelper('grp_perbasico',function(contenido, options){
+		var res1 =Handlebars.helpers.titulos_etiqueta(contenido, options)
+		var res2 =Handlebars.helpers.titulos_dato(options)
+		return '<li class="li_bloque">' + res1 + res2 + '</li>';
+		}
+    );
   
+
+
 	 //Agrupacion de label como titulo y un TextArea
     Handlebars.registerHelper('grp_perdetTextArea',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
@@ -553,6 +550,25 @@
 	</div>
 </script>
 
+
+	<!--Plantillas usadas en la consulta de movimientos -->
+			<!--Datos basicos de la persona -->
+	
+<script id="personal-datos_basicos-template" type="text/x-handlebars-template">
+		<div class="campos_bloque">
+			<ul class="ul_bloque">
+				{{{grp_perbasico "Matricula" valor=matricula label_id='personal_basico_matricula'}}}
+				{{{grp_perbasico "Paterno" valor=paterno label_id='personal_basico_paterno'}}}
+				{{{grp_perbasico "Materno" valor=materno label_id='personal_basico_materno'}}}
+				{{{grp_perbasico "Nombre(s)" valor=nombre label_id='personal_basico_nombre'}}}
+				{{{grp_perbasico "RFC" valor=rfc label_id='personal_basico_rfc'}}}
+				{{{grp_perbasico "CURP" valor=curp label_id='personal_basico_curp'}}}
+				{{{grp_perbasico "CUIP" valor=cuip label_id='personal_basico_cuip'}}}
+			</ul>
+		</div>
+	</script>
+
+
 	<!--Otros modelos de backbone  -->
   <script type="text/javascript" src="js/views/contenido.js"></script>
    <script type="text/javascript" src="js/views/cajaOperaciones.js"></script>
@@ -566,6 +582,8 @@
   <script type="text/javascript" src="js/views/personalBusquedas.js"></script>
 
   <script type="text/javascript" src="js/views/personalDetalle.js"></script>
+  <script type="text/javascript" src="js/views/personalBasicos.js"></script>
+  
   <script type="text/javascript" src="js/views/personalCatalogo.js"></script>
  <script type="text/javascript" src="js/views/personalCatalogos.js"></script> 
   <script type="text/javascript" src="js/views/empresaDetalle.js"></script>

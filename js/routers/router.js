@@ -38,13 +38,17 @@ initialize: function () {
  
     this.PersoModelo = new Personal.Models.personal();
     this.PersoModelo.set({"id":"-1"});
-    this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo/*,collection: this.PersonalCatalogos*/});
+    this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo});
     
-
 
     this.EmpresaModelo = new Personal.Models.empresa();
     this.EmpresaModelo.set({"id":"-1"});
-    this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo/*,collection: this.PersonalCatalogos*/});
+    this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo});
+    
+
+    this.PersoBasicoModelo = new Personal.Models.personal();
+    this.PersoBasicoModelo.set({"id":"-1"});
+    this.PersonalBasico = new Personal.Views.PersonalBasico({model: this.PersoBasicoModelo});
     
 
     this.EmpresaMapa= new Personal.Views.SucursalMapa();
@@ -83,9 +87,17 @@ initialize: function () {
 
  personalMatricula: function (valor_buscado) {
   //  window.Personal.menu="personal";
+  if(window.Personal.menu==="personal"){
     window.Personal.operacion="buscar";
     this.PersoModelo.valor = valor_buscado;
     this.PersoModelo.fetch();
+  }
+  if(window.Personal.menu==="movimiento"){
+    window.Personal.operacion="buscar";
+    this.PersoBasicoModelo.valor = valor_buscado;
+    this.PersoBasicoModelo.fetch();
+  }
+
   },
    personalNuevo: function () {
    // window.Personal.menu="personal";

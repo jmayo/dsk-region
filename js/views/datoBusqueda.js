@@ -17,7 +17,7 @@ Personal.Views.DatoBusqueda = Backbone.View.extend({
   },
   seleccionado: function(){
     console.log(this.model.get('sueldo'));
-    //Personal.app.navigate("Empresa/buscar/" + this.model.get('cve_empresa'), {trigger: true});
+    Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
   }
 });
 
