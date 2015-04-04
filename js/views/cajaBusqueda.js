@@ -12,6 +12,7 @@ events : {
    buscarEnServidor: function(event,val) {
     if(event.keyCode == 13){
       console.log("Buscando..");
+      
       this.collection.valor = this.$('.buscar').val();//el.val();
       this.collection.reset();
       this.collection.fetch();

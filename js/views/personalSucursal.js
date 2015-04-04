@@ -18,7 +18,6 @@ Personal.Views.PersonalSucursal = Backbone.View.extend({
 
   },
   render: function () {
-  	debugger;
    this.$el.empty();
    var detalle = this.model.toJSON();
    var html = this.template(detalle);

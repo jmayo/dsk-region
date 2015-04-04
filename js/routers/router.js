@@ -21,6 +21,7 @@ initialize: function () {
 
     this.Perso = new Personal.Collections.Personas();          
     this.Empresa = new Personal.Collections.Empresas();
+    this.Sucursal = new Personal.Collections.Sucursales();
     this.SucursalLista = new Personal.Collections.Sucursales(); 
 
     this.MenuVista = new Personal.Views.Menu(); 

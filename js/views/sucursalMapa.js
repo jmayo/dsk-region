@@ -97,7 +97,6 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
 
   },
   posicionar: function(latitud,longitud,cambiar){
-    debugger;
     var lat = (parseFloat(latitud).toFixed(4))/1;
     var lon = (parseFloat(longitud).toFixed(4))/1;
     this.map.latitud = lat;
@@ -110,7 +109,6 @@ Personal.Views.SucursalMapa = Backbone.View.extend({
     }
   },
   mostrarMapa: function(latitud,longitud){
-        debugger;
         $('#mapa').empty();
         lat= parseFloat(latitud);
         lon = parseFloat(longitud);

@@ -118,7 +118,7 @@
 
 		<section class="contenido contenido_movimientos" id="personal_movimientos" hidden>
 		<article class="bloque reducir">
-			<div class="caja_buscar">
+			<div class="caja_buscar" id="caja_buscar_personas">
 				<ul class="lista_buscar">
 					<li><a class="personal" href="#"></a></li>
 					<li><input type="text" placeholder="Empleado..." class="buscar"/></li>
@@ -137,8 +137,19 @@
 				<!--  personal-sucursal-activa-template -->
 			</div>
 		</article>
-	</section>	
+	    <article class="bloque reducir">
+			<div class="caja_buscar" id="caja_buscar_sucursales">
+				<ul class="lista_buscar">
+					<li><a class="empresa" href="#"></a></li>
+					<li><input type="text" placeholder="Sucursal..." class="buscar"/></li>
+				</ul>
+				  <div hidden class="divResultados divResultados3" id="resultados_sucursal_movimiento" >
+			 	     <!-- Template:	resultados-busqueda-template	 -->
+	  			  </div>
+			</div>
+		</article>
 
+	</section>	
 	<footer>
 		<ul class="redes_sociales">
 			<li><a class="twitter" href="#"></a></li>
@@ -449,6 +460,11 @@
  <script id="resultados-empresa-busqueda-template" type="text/x-handlebars-template">
 		<span>{{razon_social}}</span>
 		<p>{{cve_empresa}}</p>
+  </script>
+
+ <script id="resultados-sucursal-busqueda-template" type="text/x-handlebars-template">
+		<span>{{cve_sucursal}}</span>
+		<p>{{nombre}}</p>
   </script>
 
  <script id="resultados-empresa-sucursal-listado-template" type="text/x-handlebars-template">

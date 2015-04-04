@@ -41,11 +41,19 @@ Personal.Views.Contenido = Backbone.View.extend({
    },
    mostrarMenuMovimientos:function(){
       window.Personal.menu = "movimiento";
-      if (this.CajaBusqueda){
-            this.CajaBusqueda.close();
+      if (this.CajaBusquedaPersonal){
+            this.CajaBusquedaPersonal.close();
           } 
+         if (this.CajaBusquedaSucursal){
+            this.CajaBusquedaSucursal.close();
+          } 
+
         this.PersonalMBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Perso,el: '#resultados_personal_movimiento',template:"#resultados-personal-busqueda-template"});
-        this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_buscar',divResultados: '#resultados_personal_movimiento'});
+        this.CajaBusquedaPersonal= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
+
+        this.SucursalMBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:"#resultados-sucursal-busqueda-template"});
+        this.CajaBusquedaSucursal= new Personal.Views.CajaBusqueda({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
+ 
 
 
         console.log("ruta movimientos")

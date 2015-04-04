@@ -95,7 +95,7 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
      
       },
    mostrarSucursalLista: function(id_empresa){
-      
+        Personal.app.SucursalLista.valor = null;
         Personal.app.SucursalLista.id_empresa = id_empresa;
         Personal.app.SucursalLista.reset();
          Personal.app.SucursalLista.fetch().always(function(){
