@@ -18,7 +18,7 @@ Personal.Models.personalsucursal = Backbone.Model.extend({
    } 
   
    if(this.id_personal!== undefined && this.id_personal!== null){
-   	  direccion = direccion + 'personal/' + this.valor + '/sucursal/activa';
+   	  direccion = direccion + this.id_personal + '/sucursal/activa';
    } 
    return direccion;
   },

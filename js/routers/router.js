@@ -8,6 +8,8 @@ Personal.Router = Backbone.Router.extend({
     "Empresas/nuevo/": "empresaNuevo",    
     "Empresa/buscar/:valor_buscado": "empresaClave",
     "Movimiento": "movimiento",
+    "Personal/:valor_buscado/sucursal/activa": "sucursalActiva",
+  //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
 initialize: function () {
@@ -20,7 +22,6 @@ initialize: function () {
     this.Perso = new Personal.Collections.Personas();          
     this.Empresa = new Personal.Collections.Empresas();
     this.SucursalLista = new Personal.Collections.Sucursales(); 
-    this.PersoSucursal = new Personal.Models.personalsucursal();
 
     this.MenuVista = new Personal.Views.Menu(); 
 
@@ -45,15 +46,15 @@ initialize: function () {
     this.EmpresaModelo.set({"id":"-1"});
     this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo});
     
+    this.EmpresaMapa= new Personal.Views.SucursalMapa();
 
     this.PersoBasicoModelo = new Personal.Models.personal();
     this.PersoBasicoModelo.set({"id":"-1"});
     this.PersonalBasico = new Personal.Views.PersonalBasico({model: this.PersoBasicoModelo});
     
-
-    this.EmpresaMapa= new Personal.Views.SucursalMapa();
-    //this.EmpresaMapa.mostrarMapa(1,1)
-
+    this.PersoSucursalModelo = new Personal.Models.personalsucursal();
+    this.PersoSucursalModelo.set({"id":"-1"});
+    this.PersonalSucursal = new Personal.Views.PersonalSucursal({model: this.PersoSucursalModelo});
   
     
 
@@ -88,16 +89,31 @@ initialize: function () {
  personalMatricula: function (valor_buscado) {
   //  window.Personal.menu="personal";
   if(window.Personal.menu==="personal"){
-    window.Personal.operacion="buscar";
-    this.PersoModelo.valor = valor_buscado;
-    this.PersoModelo.fetch();
+      window.Personal.operacion="buscar";
+      this.PersoModelo.valor = valor_buscado;
+      this.PersoModelo.fetch();
   }
   if(window.Personal.menu==="movimiento"){
-    window.Personal.operacion="buscar";
-    this.PersoBasicoModelo.valor = valor_buscado;
-    this.PersoBasicoModelo.fetch();
-  }
-
+      window.Personal.operacion="buscar";
+      $('#personal_sin_asignar').hide();
+      //Ponemos vacia la sucursal, asi solo si esta asignado a una, se llenaran los datos
+      this.PersonalSucursal.limpiarTodo();
+      this.PersoSucursalModelo.set({"id":"-1"});
+      this.PersoBasicoModelo.valor = valor_buscado;
+      var self = this; 
+      this.PersoBasicoModelo.fetch({
+          success: function(){
+              self.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
+              self.PersoSucursalModelo.fetch({
+                error: function(a,err){
+                  if(err.status===404){
+                    $('#personal_sin_asignar').show();
+                  }
+                },
+              });
+            }
+        });
+       }
   },
    personalNuevo: function () {
    // window.Personal.menu="personal";
@@ -107,7 +123,7 @@ initialize: function () {
     //Cuando le mandamos los valores por defecto
     this.PersoModelo.set({"id":"-1"});
     this.PersoModelo.set(this.PersoModelo.defaults);
-    
+  
     console.log("nueva persona");
   },
 
@@ -144,6 +160,13 @@ initialize: function () {
     window.Personal.menu="movimiento";
    
     console.log("Estas en la lista de movimientos del personal");
+  },
+  sucursalActiva: function(valor_buscado){
+    console.log("Ver su sucursal activa");
+    window.Personal.operacion="buscar";
+    //this.PersoBasicoModelo.valor = valor_buscado;
+    //this.EmpresaModelo.fetch();
+    //this.PersoBasicoModelo =
   },
 
 //***** FUNCIONES GENERICAS ****************

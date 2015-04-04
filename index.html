@@ -132,43 +132,9 @@
 				 <!-- personal-datos_basicos-template  -->
 			</div>
 			<br>
-			<div class="caja_bloque redondear">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Id Suc</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">100</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Sucursal</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">Patito S.A. de C.V., esquina con Av. de bicentenario de Peña Nieto</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Motivo</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">Reasignación</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Turno</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">12x12</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Puesto</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">Oficial</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Rango</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">Rango</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Sueldo</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">150.35</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque reducir">Fecha</label>
-							<label class="etiquetas_bloque_consulta color_sucursal">15/03/2015</label>
-						</li>
-					</ul>
-				</div>
+			<label hidden id="personal_sin_asignar">El elemento no esta asignado a ningun servicio</label>
+			<div class="caja_bloque redondear" id="personal_sucursal_activa">
+				<!--  personal-sucursal-activa-template -->
 			</div>
 		</article>
 	</section>	
@@ -219,7 +185,12 @@
 
     Handlebars.registerHelper('titulos_dato',function(options){
         label_id = '';
-         valor = options.hash.valor;
+        clase_color ='';
+        valor = options.hash.valor;
+
+         if (options.hash.clase_color !== undefined){
+        	clase_color = options.hash.clase_color;
+         }
 
         if (options.hash.label_id !== undefined){
         	label_id = 'id="'+ options.hash.label_id + '"';
@@ -229,7 +200,7 @@
         	valor =  options.hash.valor ;
          }
 
-        return '<label ' + label_id + ' class="etiquetas_bloque_consulta">'+ valor +'</label>';
+        return '<label ' + label_id + ' class="etiquetas_bloque_consulta  '+ clase_color + '">'+ valor +'</label>';
       });
 
 	Handlebars.registerHelper('caja_imagen',function(contenido,options){
@@ -568,6 +539,21 @@
 		</div>
 	</script>
 
+<script id="personal-sucursal-activa-template" type="text/x-handlebars-template">
+	<div class="campos_bloque">
+		<ul class="ul_bloque">
+		{{{grp_perbasico "Id Suc" valor=id_sucursal.cve_sucursal label_id='personal_sucursal_cve_sucursal' clase_color='color_sucursal'}}}
+		{{{grp_perbasico "Sucursal" valor=id_sucursal.nombre label_id='personal_sucursal_sucursal' clase_color='color_sucursal'}}}
+		{{{grp_perbasico "Motivo" valor=cdu_motivo.descripcion1 label_id='personal_sucursal_motivo' clase_color='color_sucursal'}}}
+		{{{grp_perbasico "Turno" valor=cdu_turno.descripcion1 label_id='personal_sucursal_turno' clase_color='color_sucursal'}}}
+		{{{grp_perbasico "Puesto" valor=cdu_puesto.descripcion1 label_id='personal_sucursal_puesto' clase_color='color_sucursal'}}}
+		{{{grp_perbasico "Rango" valor=cdu_rango.descripcion1 label_id='personal_sucursal_rango' clase_color='color_sucursal'}}}
+		{{{grp_perbasico "Sueldo" valor=sueldo label_id='personal_sucursal_sueldo' clase_color='color_sucursal'}}}
+		{{{grp_perbasico "Fecha" valor=fecha_inicial label_id='personal_sucursal_fecha_inicial' clase_color='color_sucursal'}}}	
+		</ul>
+	</div>
+	</script>
+
 
 	<!--Otros modelos de backbone  -->
   <script type="text/javascript" src="js/views/contenido.js"></script>
@@ -596,6 +582,9 @@
  
  
 <script type="text/javascript" src="js/views/empresaDescripcion.js"></script>
+
+<script type="text/javascript" src="js/views/personalSucursal.js"></script>
+
 
 
 <script type="text/javascript" src="js/models/formView.js"></script> 
