@@ -22,6 +22,9 @@ Personal.Models.personal = Backbone.Model.extend({
    } 
    return direccion;
   },
+  busqueda: function(){
+     Personal.app.navigate("Personal/buscar/" + this.get('matricula'), {trigger: true});
+  },
   defaults : {
         "id" : "",
         "matricula": "",

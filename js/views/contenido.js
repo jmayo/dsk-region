@@ -53,7 +53,6 @@ Personal.Views.Contenido = Backbone.View.extend({
 
         this.SucursalMBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:"#resultados-sucursal-busqueda-template"});
         this.CajaBusquedaSucursal= new Personal.Views.CajaBusqueda({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
- 
 
 
         console.log("ruta movimientos")

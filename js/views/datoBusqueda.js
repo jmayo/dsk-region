@@ -5,7 +5,9 @@ Personal.Views.DatoBusqueda = Backbone.View.extend({
   tagName: 'div',
   className: 'resultado_ind',
   template: null,
-
+  rutas: function(rutas){
+    this.rutas = ruta;
+  },
   initialize: function (opciones) {
     this.template = Handlebars.compile($(opciones.template).html());
   },
@@ -17,8 +19,7 @@ Personal.Views.DatoBusqueda = Backbone.View.extend({
   },
   seleccionado: function(){
     console.log(this.model.get('sueldo'));
-    Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
-//    Personal.app.navigate("Personal/" + this.model.get('id') + "/sucursal/activa" , {trigger: true});
+    this.model.busqueda();
   }
 });
 

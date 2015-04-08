@@ -56,6 +56,18 @@ Personal.Collections.Catalogos = Backbone.Collection.extend({
   Estatus: function(){
     return this.where({catalogos: 24});
   },
+   Motivo: function(){
+    return this.where({catalogos: 25});
+  },
+   Turno: function(){
+    return this.where({catalogos: 26});
+  },
+   Puesto: function(){
+    return this.where({catalogos: 27});
+  },
+   Rango: function(){
+    return this.where({catalogos: 28});
+  },
 
 
 

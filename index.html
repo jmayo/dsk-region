@@ -147,6 +147,16 @@
 			 	     <!-- Template:	resultados-busqueda-template	 -->
 	  			  </div>
 			</div>
+			<br>
+			<div class="caja_bloque redondear" id="sucursal_datos_basicos">
+				 <!-- personal-datos_basicos-template  -->
+			</div>
+			<br>
+		
+			<div class="caja_bloque redondear" id="movimiento_personal_sucursal">
+				 <!-- movimiento-personal-sucursal-template  -->
+			</div>
+
 		</article>
 
 	</section>	
@@ -569,7 +579,34 @@
 		</ul>
 	</div>
 	</script>
+	
+	<script id="sucursal-datos_basicos-template" type="text/x-handlebars-template">
+		<div class="campos_bloque">
+			<ul class="ul_bloque">
+			{{{grp_perbasico "Id Suc" valor=cve_sucursal  clase_color='color_sucursal' label_id='sucursal_basico_clave'}}}
+			{{{grp_perbasico "Sucursal" valor=nombre  clase_color='color_sucursal' label_id='sucursal_basico_sucursal'}}}
+			</ul>
+		</div>
+	</script>
 
+
+<script id="movimiento-personal-sucursal-template" type="text/x-handlebars-template">
+	<div id="titulo_bloque_sucursal" class="titulo_bloque">
+				Movimiento
+	</div>
+	<div class="caja_bloque">
+	<div class="campos_bloque">
+		<ul class="ul_bloque">
+		{{{grp_combo "Motivo" label_desc='motivo' select_name='motivo' select_id='movimiento_sucursal_motivo'}}}
+		{{{grp_combo "Turno"  label_desc='turno' select_name='turno' select_id='movimiento_sucursal_turno'}}}
+		{{{grp_combo "Puesto" label_desc='puesto' select_name='puesto' select_id='movimiento_sucursal_puesto'}}}
+		{{{grp_combo "Rango" label_desc='rango' select_name='rango' select_id='movimiento_sucursal_rango'}}}	
+		{{{grp_perdet "Sueldo" valor=sueldo  input_id='movimiento_sucursal_sueldo'   label_desc='sueldo' input_desc='sueldo'}}}	
+		{{{grp_perdet "Fecha" valor=fecha_inicial input_id='movimiento_sucursal_fecha' label_desc='fecha_movimiento' input_desc='Fecha de Movimiento'}}}
+		</ul>
+	</div>
+	</div>
+</script>
 
 	<!--Otros modelos de backbone  -->
   <script type="text/javascript" src="js/views/contenido.js"></script>
@@ -595,6 +632,10 @@
  <script type="text/javascript" src="js/views/sucursalDescripcion.js"></script>
  <script type="text/javascript" src="js/views/sucursalMapa.js"></script>
  <script type="text/javascript" src="js/views/sucursalDetalle.js"></script>
+ <script type="text/javascript" src="js/views/sucursalBasicos.js"></script>
+ 
+ <script type="text/javascript" src="js/views/personalMovimiento.js"></script>
+ 
  
  
 <script type="text/javascript" src="js/views/empresaDescripcion.js"></script>

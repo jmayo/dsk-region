@@ -22,6 +22,9 @@ Personal.Models.sucursal = Backbone.Model.extend({
    } 
    return direccion;
   },
+  busqueda: function(){
+     Personal.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal'), {trigger: true});
+  },
   defaults : {
 	"id": "",
 	"cve_empresa": "",

@@ -22,5 +22,18 @@ Personal.Models.personalsucursal = Backbone.Model.extend({
    } 
    return direccion;
   },
+  defaults : {
+  "id": "",
+  "id_personal": "",
+  "id_sucursal": "",
+  "cdu_motivo": "0250000",
+  "cdu_turno": "0260000",
+  "cdu_puesto": "0270000",
+  "cdu_rango": "0280000",
+  "sueldo": "0.0",
+  "fecha_inicial": "01/01/1900",
+  "fecha_final": "01/01/1900",
+  "motivo": "",
+  },
   
 });

@@ -7,6 +7,8 @@ Personal.Router = Backbone.Router.extend({
     "Empresa": "empresa",
     "Empresas/nuevo/": "empresaNuevo",    
     "Empresa/buscar/:valor_buscado": "empresaClave",
+    "Sucursal/buscar/:valor_buscado": "sucursalClave",
+    
     "Movimiento": "movimiento",
     "Personal/:valor_buscado/sucursal/activa": "sucursalActiva",
   //  http://localhost:8080/personal/1/sucursal/activa/
@@ -47,6 +49,9 @@ initialize: function () {
     this.EmpresaModelo.set({"id":"-1"});
     this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo});
     
+    
+
+
     this.EmpresaMapa= new Personal.Views.SucursalMapa();
 
     this.PersoBasicoModelo = new Personal.Models.personal();
@@ -57,13 +62,15 @@ initialize: function () {
     this.PersoSucursalModelo.set({"id":"-1"});
     this.PersonalSucursal = new Personal.Views.PersonalSucursal({model: this.PersoSucursalModelo});
   
+    this.SucursalBasicoModelo = new Personal.Models.sucursal();
+    this.SucursalBasicoModelo.set({"id":"-1"});
+    this.SucursalBasico = new Personal.Views.SucursalBasico({model: this.SucursalBasicoModelo});
     
 
-
-
-    //this.formview = new Personal.Models.formview();
-    //this.FormView = new Personal.Views.FormView({model:this.formview });
-
+    this.PersonalMovimientoModelo = new Personal.Models.personalsucursal();
+    this.PersonalMovimientoModelo.set({"id":"-1"});
+    this.PersonalMovimiento = new Personal.Views.PersonalMovimiento({model: this.PersonalMovimientoModelo});
+    
     window.Personal.menu="root";
   },
 
@@ -168,6 +175,14 @@ initialize: function () {
     //this.PersoBasicoModelo.valor = valor_buscado;
     //this.EmpresaModelo.fetch();
     //this.PersoBasicoModelo =
+  },
+  sucursalClave: function (valor_buscado) {
+   // window.Personal.menu="empresas";
+    window.Personal.operacion="buscar";
+    this.SucursalBasicoModelo.valor = valor_buscado;
+    this.SucursalBasicoModelo.fetch();
+    this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
+    this.PersonalMovimiento.render();
   },
 
 //***** FUNCIONES GENERICAS ****************
