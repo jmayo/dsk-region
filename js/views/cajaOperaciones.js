@@ -35,5 +35,10 @@ Personal.Views.CajaOperaciones = Backbone.View.extend({
 
       console.log("guardando sucursal");
     }
+    if(window.Personal.menu ==="movimiento"){
+      Personal.app.PersonalMovimiento.guardar();
+      console.log("guardando movimiento");      
+    }
+
   }
 });

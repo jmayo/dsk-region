@@ -46,19 +46,19 @@
 <body>
 	<!-- para notificaciones -->
 	<div class="info message" id="notify_info">
-		<h3>Hey, esto te puede interesar!</h3>
+		<h3 id="mensaje_notificacion">Hey, esto te puede interesar!</h3>
 		<p>Descripción de información adicional</p>
 	</div>
 	<div class="error message" id="notify_error">
-		<h3>Oops, un error ha ocurrido</h3>
+		<h3 id="mensaje_error">Oops, un error ha ocurrido</h3>
 		<p></p>
 	</div>
 	<div class="warning message" id="notify_warning">
-		<h3>Espera, esto es importante!</h3>
+		<h3 id="mensaje_alerta">Espera, esto es importante!</h3>
 		<p>Descripción de advertencia</p>
 	</div>
 	<div class="success message" id="notify_success">
-		<h3>Los datos fueron guardados con exito!</h3>
+		<h3 id="mensaje_exito">Los datos fueron guardados con exito!</h3>
 		<p></p>
 	</div>
 	<!-- termina notificaciones -->
@@ -326,9 +326,14 @@
 	
 	//Agrupacion de dos labels uno para titulo y otro para datos
 	Handlebars.registerHelper('grp_perbasico',function(contenido, options){
+		var oculto = ''
+		if(options.hash.ocultar && options.hash.ocultar===true){
+			oculto = 'hidden';
+		}
+
 		var res1 =Handlebars.helpers.titulos_etiqueta(contenido, options)
 		var res2 =Handlebars.helpers.titulos_dato(options)
-		return '<li class="li_bloque">' + res1 + res2 + '</li>';
+		return '<li ' + oculto + ' class="li_bloque">' + res1 + res2 + '</li>';
 		}
     );
   
@@ -554,6 +559,7 @@
 <script id="personal-datos_basicos-template" type="text/x-handlebars-template">
 		<div class="campos_bloque">
 			<ul class="ul_bloque">
+			    {{{grp_perbasico "Id" valor=id label_id='personal_basico_id' ocultar=true}}}
 				{{{grp_perbasico "Matricula" valor=matricula label_id='personal_basico_matricula'}}}
 				{{{grp_perbasico "Paterno" valor=paterno label_id='personal_basico_paterno'}}}
 				{{{grp_perbasico "Materno" valor=materno label_id='personal_basico_materno'}}}
@@ -583,6 +589,8 @@
 	<script id="sucursal-datos_basicos-template" type="text/x-handlebars-template">
 		<div class="campos_bloque">
 			<ul class="ul_bloque">
+			{{{grp_perbasico "Id" valor=id   label_id='sucursal_basico_id' ocultar=true}}}
+			
 			{{{grp_perbasico "Id Suc" valor=cve_sucursal  clase_color='color_sucursal' label_id='sucursal_basico_clave'}}}
 			{{{grp_perbasico "Sucursal" valor=nombre  clase_color='color_sucursal' label_id='sucursal_basico_sucursal'}}}
 			</ul>
@@ -603,6 +611,7 @@
 		{{{grp_combo "Rango" label_desc='rango' select_name='rango' select_id='movimiento_sucursal_rango'}}}	
 		{{{grp_perdet "Sueldo" valor=sueldo  input_id='movimiento_sucursal_sueldo'   label_desc='sueldo' input_desc='sueldo'}}}	
 		{{{grp_perdet "Fecha" valor=fecha_inicial input_id='movimiento_sucursal_fecha' label_desc='fecha_movimiento' input_desc='Fecha de Movimiento'}}}
+		{{{grp_perdetTextArea "" textarea_id='movimiento_sucursal_dscmotivo' valor=motivo   label_desc='' textarea_desc='Motivo'}}}
 		</ul>
 	</div>
 	</div>
@@ -634,7 +643,7 @@
  <script type="text/javascript" src="js/views/sucursalDetalle.js"></script>
  <script type="text/javascript" src="js/views/sucursalBasicos.js"></script>
  
- <script type="text/javascript" src="js/views/personalMovimiento.js"></script>
+ <script type="text/javascript" src="js/views/personalMovimiento.js" ></script>
  
  
  
