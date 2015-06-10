@@ -21,7 +21,7 @@ Personal.Views.Body = Backbone.View.extend({
       this.addEventListener("touchmove", resetTimer, false);
       this.addEventListener("MSPointerMove", resetTimer, false);
    
-      this.startTimer();
+    //  this.startTimer();
   },
   startTimer: function() {
     	// wait 2 seconds before calling goInactive
@@ -40,6 +40,6 @@ Personal.Views.Body = Backbone.View.extend({
     this.goActive();
   },
   goInactive: function(){
-  		alert("se termino la sesion");
+  //		alert("se termino la sesion");
   }
 }); 

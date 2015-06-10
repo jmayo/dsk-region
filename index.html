@@ -232,13 +232,26 @@
 	Handlebars.registerHelper('caja_imagen',function(contenido,options){
 		img_id = 'id=' + options.hash.img_id;
 		var ruta = Handlebars.helpers.ruta_imagen(contenido);
-		var valor =  '<div class="caja_foto">'+
-				    '<figure class="foto">' +
+		var clase1 = "caja_foto"
+        var clase2 = "foto"
+
+  		if (options.hash.clase1 !== undefined){
+        	clase1 =  options.hash.clase1 ;
+         }
+
+  		if (options.hash.clase2 !== undefined){
+        	clase2 =  options.hash.clase2 ;
+         }
+
+		var valor =  '<div class="' + clase1 + '">'+
+				    '<figure class="' + clase2 + '">' +
 					   '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
 				    '</figure>' +
 			    '</div>';
 		return valor;
       });
+
+
 
 	Handlebars.registerHelper('ruta_imagen',function(contenido){
 		var ruta= window.ruta + 'media/';
@@ -562,43 +575,40 @@
 			<!--Datos basicos de la persona -->
 	
 <script id="personal-datos_basicos-template" type="text/x-handlebars-template">
-		<div class="campos_bloque">
-			<ul class="ul_bloque">
-			    {{{grp_perbasico "Id" valor=id label_id='personal_basico_id' ocultar=true}}}
-				{{{grp_perbasico "Matricula" valor=matricula label_id='personal_basico_matricula'}}}
-				{{{grp_perbasico "Paterno" valor=paterno label_id='personal_basico_paterno'}}}
-				{{{grp_perbasico "Materno" valor=materno label_id='personal_basico_materno'}}}
-				{{{grp_perbasico "Nombre(s)" valor=nombre label_id='personal_basico_nombre'}}}
-				{{{grp_perbasico "RFC" valor=rfc label_id='personal_basico_rfc'}}}
-				{{{grp_perbasico "CURP" valor=curp label_id='personal_basico_curp'}}}
-				{{{grp_perbasico "CUIP" valor=cuip label_id='personal_basico_cuip'}}}
-			</ul>
+	<div class="profiler">
+		{{{caja_imagen imagen img_id='perso_foto' clase1='profiler_foto' clase2='foto_profiler'}}}
+		<div class="profiler_datos">
+			<h2>{{matricula}}</h2>
+			<h3>{{nombre}} {{paterno}} {{materno}}</h3>
+			<h5>{{rfc}}</h5>
+			<h5>{{curp}}</h5>
 		</div>
+	</div>
 	</script>
 
 <script id="personal-sucursal-activa-template" type="text/x-handlebars-template">
-	<div class="campos_bloque">
-		<ul class="ul_bloque">
-		{{{grp_perbasico "Id Suc" valor=id_sucursal.cve_sucursal label_id='personal_sucursal_cve_sucursal' clase_color='color_sucursal'}}}
-		{{{grp_perbasico "Sucursal" valor=id_sucursal.nombre label_id='personal_sucursal_sucursal' clase_color='color_sucursal'}}}
-		{{{grp_perbasico "Motivo" valor=cdu_motivo.descripcion1 label_id='personal_sucursal_motivo' clase_color='color_sucursal'}}}
-		{{{grp_perbasico "Turno" valor=cdu_turno.descripcion1 label_id='personal_sucursal_turno' clase_color='color_sucursal'}}}
-		{{{grp_perbasico "Puesto" valor=cdu_puesto.descripcion1 label_id='personal_sucursal_puesto' clase_color='color_sucursal'}}}
-		{{{grp_perbasico "Rango" valor=cdu_rango.descripcion1 label_id='personal_sucursal_rango' clase_color='color_sucursal'}}}
-		{{{grp_perbasico "Sueldo" valor=sueldo label_id='personal_sucursal_sueldo' clase_color='color_sucursal'}}}
-		{{{grp_perbasico "Fecha" valor=fecha_inicial label_id='personal_sucursal_fecha_inicial' clase_color='color_sucursal'}}}	
-		</ul>
-	</div>
+
+		<div class="enterprise">
+			<div class="enterprise_foto">
+				<figure class="foto_enterprise">
+					<img src="images/factory.png" alt="foto" />
+				</figure>
+			</div>
+			<div class="enterprise_datos">
+				<h2>{{id_sucursal.cve_sucursal}}</h2>
+				<h3>{{id_sucursal.nombre}}</h3>
+				<h5>{{cdu_motivo.descripcion1}}</h5>
+				<h5>{{cdu_turno.descripcion1}}, {{cdu_puesto.descripcion1}}, {{cdu_rango.descripcion1}}, ${{sueldo}}</h5>
+				<h5>{{fecha_inicial}}</h5>
+			</div>
+		</div>
 	</script>
 	
 	<script id="sucursal-datos_basicos-template" type="text/x-handlebars-template">
-		<div class="campos_bloque">
-			<ul class="ul_bloque">
-			{{{grp_perbasico "Id" valor=id   label_id='sucursal_basico_id' ocultar=true}}}
-			
-			{{{grp_perbasico "Id Suc" valor=cve_sucursal  clase_color='color_sucursal' label_id='sucursal_basico_clave'}}}
-			{{{grp_perbasico "Sucursal" valor=nombre  clase_color='color_sucursal' label_id='sucursal_basico_sucursal'}}}
-			</ul>
+		<div class="enterprise_buscar">
+			<div class="enterprise_buscar_datos">
+				<h2>{{id}}, {{nombre}}</h2>
+			</div>
 		</div>
 	</script>
 
