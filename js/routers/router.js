@@ -18,9 +18,10 @@ initialize: function () {
     //104.236.232.238:8000
     window.ruta="http://192.168.0.14:8080/";
     //window.ruta="http://104.236.232.238:8080/";
-    window.ruta ="http://localhost:8080/";
+    //window.ruta ="http://localhost:8080/";
  
 
+      
     this.Perso = new Personal.Collections.Personas();          
     this.Empresa = new Personal.Collections.Empresas();
     this.Sucursal = new Personal.Collections.Sucursales();
@@ -37,6 +38,7 @@ initialize: function () {
     
     this.SucursalListadoVista = new Personal.Views.SucursalListados({collection: this.SucursalLista});
 
+    this.IniciarSesion = new Personal.Views.IniciarSesion();
 
     this.CajaOperaciones= new Personal.Views.CajaOperaciones();
  
@@ -71,6 +73,8 @@ initialize: function () {
     this.PersonalMovimientoModelo.set({"id":"-1"});
     this.PersonalMovimiento = new Personal.Views.PersonalMovimiento({model: this.PersonalMovimientoModelo});
     
+    this.Body = new Personal.Views.Body();
+    
     window.Personal.menu="root";
   },
 
@@ -99,7 +103,7 @@ initialize: function () {
   if(window.Personal.menu==="personal"){
       window.Personal.operacion="buscar";
       this.PersoModelo.valor = valor_buscado;
-      this.PersoModelo.fetch();
+      this.PersoModelo.fetch(  { headers: {'Authorization' :localStorage.token}} );
   }
   if(window.Personal.menu==="movimiento"){
       window.Personal.operacion="buscar";
@@ -109,7 +113,9 @@ initialize: function () {
       this.PersoSucursalModelo.set({"id":"-1"});
       this.PersoBasicoModelo.valor = valor_buscado;
       var self = this; 
+      
       this.PersoBasicoModelo.fetch({
+       
           success: function(){
               self.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
               self.PersoSucursalModelo.fetch({
@@ -123,6 +129,7 @@ initialize: function () {
         });
        }
   },
+
    personalNuevo: function () {
    // window.Personal.menu="personal";
     window.Personal.operacion="nuevo";

@@ -7,6 +7,7 @@ Personal.Views.Menu = Backbone.View.extend({
 
   el: $('.menu'),
   initialize: function () {
+    localStorage.setItem("tiempo",0);
   		//window.routers.base.on('router:root' , this.inicio());
   		//Personal.app.on("route:root", this.inicio());
    },
@@ -19,4 +20,4 @@ Personal.Views.Menu = Backbone.View.extend({
    opcion_movimientos: function(){
       Personal.app.navigate("Movimiento", {trigger: true,replace: false});
    },
-});
+}); 

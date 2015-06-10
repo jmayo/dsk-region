@@ -40,5 +40,6 @@ Personal.Views.CajaOperaciones = Backbone.View.extend({
       console.log("guardando movimiento");      
     }
 
-  }
+  },
+
 });

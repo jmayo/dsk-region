@@ -15,7 +15,7 @@ events : {
       
       this.collection.valor = this.$('.buscar').val();//el.val();
       this.collection.reset();
-      this.collection.fetch();
+      this.collection.fetch({ headers: {'Authorization' :localStorage.token} });
       }
   },
   esconderBusqueda: function(){
