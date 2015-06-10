@@ -87,6 +87,7 @@ guardar: function(){
       data.sueldo= parseFloat(data.sueldo).toFixed(7)
       var model = new Personal.Models.personalsucursal(data);
       model.pk = "-1";
+      debugger;
       this.tipo='POST'
 
         model.save(null,{
@@ -124,8 +125,10 @@ campoValor: function(campo){
        }
        var elemento  =$(id_control).get(0).tagName;
        var tipo = $(id_control).get(0).type;
-       
-       if (elemento === "LABEL"){
+       if(elemento ==="H1"){
+           return $(id_control).text();
+       }
+       else if (elemento === "LABEL"){
           return $(id_control).text();
        }      
        else if (elemento === "INPUT" || elemento==='TEXTAREA' || elemento==="SELECT"){

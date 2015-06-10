@@ -578,6 +578,7 @@
 	<div class="profiler">
 		{{{caja_imagen imagen img_id='perso_foto' clase1='profiler_foto' clase2='foto_profiler'}}}
 		<div class="profiler_datos">
+			<h1 hidden id="personal_basico_id">{{id}}</h1>
 			<h2>{{matricula}}</h2>
 			<h3>{{nombre}} {{paterno}} {{materno}}</h3>
 			<h5>{{rfc}}</h5>
@@ -595,7 +596,7 @@
 				</figure>
 			</div>
 			<div class="enterprise_datos">
-				<h2>{{id_sucursal.cve_sucursal}}</h2>
+				<h2 >{{id_sucursal.cve_sucursal}}</h2>
 				<h3>{{id_sucursal.nombre}}</h3>
 				<h5>{{cdu_motivo.descripcion1}}</h5>
 				<h5>{{cdu_turno.descripcion1}}, {{cdu_puesto.descripcion1}}, {{cdu_rango.descripcion1}}, ${{sueldo}}</h5>
@@ -607,7 +608,9 @@
 	<script id="sucursal-datos_basicos-template" type="text/x-handlebars-template">
 		<div class="enterprise_buscar">
 			<div class="enterprise_buscar_datos">
-				<h2>{{id}}, {{nombre}}</h2>
+				<h1 id="sucursal_basico_id" hidden>{{id}}</h1>
+				<h2 >{{cve_sucursal}}</h2>
+				<h2 >{{nombre}}</h2>
 			</div>
 		</div>
 	</script>
