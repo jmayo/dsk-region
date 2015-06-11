@@ -153,10 +153,9 @@
 	  			  </div>
 			</div>
 			<br>
-			<div class="caja_bloque redondear" id="sucursal_datos_basicos">
+			<div id="sucursal_datos_basicos">
 				 <!-- personal-datos_basicos-template  -->
 			</div>
-			<br>
 		
 			<div class="caja_bloque redondear" id="movimiento_personal_sucursal">
 				 <!-- movimiento-personal-sucursal-template  -->
@@ -337,6 +336,9 @@
     Handlebars.registerHelper('grp_perdet',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
 		var res2 =Handlebars.helpers.valores_caja(options)
+		 if (options.hash.titulo  !== undefined){
+		 	var res1 =Handlebars.helpers.titulos_etiqueta(contenido, options)
+		 }
 		return '<li class="li_bloque">' + res1 + res2 + '<div class="viñeta"></div>' + '</li>';
 		}
     );
@@ -361,6 +363,9 @@
     Handlebars.registerHelper('grp_perdetTextArea',function(contenido, options){
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
 		var res2 =Handlebars.helpers.valores_textarea(options)
+		 if (options.hash.titulo  !== undefined){
+		 	var res1 =Handlebars.helpers.titulos_etiqueta(contenido, options)
+		 }
 		return '<li class="li_bloque">' + res1 + res2 + '<div class="viñeta"></div>'  + '</li>';
 		}
     );
@@ -370,7 +375,11 @@
 
     //Agrupacion de label como titulo y un combo
 	Handlebars.registerHelper('grp_combo',function(contenido, options){
+
 		var res1 =Handlebars.helpers.titulos_caja(contenido, options)
+		 if (options.hash.titulo  !== undefined){
+		 	var res1 =Handlebars.helpers.titulos_etiqueta(contenido, options)
+		 }
 		var res2 =Handlebars.helpers.selectores_combo(options)
 		return '<li class="li_bloque">' + res1 + res2 + '</li>';
 		}
@@ -606,30 +615,28 @@
 	</script>
 	
 	<script id="sucursal-datos_basicos-template" type="text/x-handlebars-template">
-		<div class="enterprise_buscar">
-			<div class="enterprise_buscar_datos">
-				<h1 id="sucursal_basico_id" hidden>{{id}}</h1>
-				<h2 >{{cve_sucursal}}</h2>
-				<h2 >{{nombre}}</h2>
-			</div>
+		
+		<div id="titulo_bloque" class="titulo_bloque">
+					Movimiento
 		</div>
+		<h2 class="enterprise_buscar">
+			<strong id="sucursal_basico_id" hidden>{{id}}</strong>{{cve_sucursal}} , {{nombre}}
+		</h2>
 	</script>
 
 
 <script id="movimiento-personal-sucursal-template" type="text/x-handlebars-template">
-	<div id="titulo_bloque_sucursal" class="titulo_bloque">
-				Movimiento
-	</div>
+	
 	<div class="caja_bloque">
 	<div class="campos_bloque">
 		<ul class="ul_bloque">
-		{{{grp_combo "Motivo" label_desc='motivo' select_name='motivo' select_id='movimiento_sucursal_motivo'}}}
-		{{{grp_combo "Turno"  label_desc='turno' select_name='turno' select_id='movimiento_sucursal_turno'}}}
-		{{{grp_combo "Puesto" label_desc='puesto' select_name='puesto' select_id='movimiento_sucursal_puesto'}}}
-		{{{grp_combo "Rango" label_desc='rango' select_name='rango' select_id='movimiento_sucursal_rango'}}}	
-		{{{grp_perdet "Sueldo" valor=sueldo  input_id='movimiento_sucursal_sueldo'   label_desc='sueldo' input_desc='sueldo'}}}	
-		{{{grp_perdet "Fecha" valor=fecha_inicial input_id='movimiento_sucursal_fecha' label_desc='fecha_movimiento' input_desc='Fecha de Movimiento'}}}
-		{{{grp_perdetTextArea "" textarea_id='movimiento_sucursal_dscmotivo' valor=motivo   label_desc='' textarea_desc='Motivo'}}}
+		{{{grp_combo "Motivo" label_desc='motivo' select_name='motivo' select_id='movimiento_sucursal_motivo' titulo="reducido"}}}
+		{{{grp_combo "Turno"  label_desc='turno' select_name='turno' select_id='movimiento_sucursal_turno' titulo="reducido"}}}
+		{{{grp_combo "Puesto" label_desc='puesto' select_name='puesto' select_id='movimiento_sucursal_puesto' titulo="reducido"}}}
+		{{{grp_combo "Rango" label_desc='rango' select_name='rango' select_id='movimiento_sucursal_rango' titulo="reducido"}}}	
+		{{{grp_perdet "Sueldo" valor=sueldo  input_id='movimiento_sucursal_sueldo'   label_desc='sueldo' input_desc='sueldo' titulo="reducido" }}}	
+		{{{grp_perdet "Fecha" valor=fecha_inicial input_id='movimiento_sucursal_fecha' label_desc='fecha_movimiento' input_desc='Fecha de Movimiento' titulo="reducido"}}}
+		{{{grp_perdetTextArea "" textarea_id='movimiento_sucursal_dscmotivo' valor=motivo   label_desc='' textarea_desc='Observaciones' titulo="reducido"}}}
 		</ul>
 	</div>
 	</div>
