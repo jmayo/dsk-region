@@ -41,8 +41,8 @@ Personal.Models.sucursal = Backbone.Model.extend({
 	"cdu_estatus": "0240000",
 	"fecha_alta":"01/01/1900",
 	"fecha_baja":"01/01/1900",
-	"latitud" : "-99.1330",
-    "longitud" : "19.4425",
+	"latitud" : "19.4425",
+    "longitud" : "-99.1330",
   },
    camposValidar: function(){
       var vali = new Personal.Models.validacion();
