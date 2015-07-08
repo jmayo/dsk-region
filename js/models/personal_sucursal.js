@@ -1,4 +1,7 @@
-Personal.Models.personalsucursal = Backbone.Model.extend({
+var Backbone = require('backbone'),
+    ValidacionModelo = require('./validacion');
+ 
+module.exports = Backbone.Model.extend({
   initialize: function(){
       this.id_personal = null;
   	  this.pk = null;
@@ -43,7 +46,7 @@ Personal.Models.personalsucursal = Backbone.Model.extend({
   "motivo": "",
   },
    camposValidar: function(){
-      var vali = new Personal.Models.validacion();
+      var vali = new ValidacionModelo();
       vali.Campo('sueldo',1,10,vali.Decimales());
       vali.Campo('fecha_inicial',1,10,vali.Fecha()); 
       this.listado = vali.Listado();

@@ -1,4 +1,15 @@
-Personal.Views.Contenido = Backbone.View.extend({
+var Backbone               = require('backbone'),
+    $                      = require('jquery'),
+    PersonalBusquedasVista = require('../views/personalBusquedas'),
+    EmpresaBusquedasVista  = require('../views/empresaBusquedas'),
+    DatoBusquedasVista     = require('../views/datoBusquedas'),
+    CajaBusquedaVista      = require('../views/cajaBusqueda'),
+    PlantillaPersonal      = require('../templates/resultados-personal-busqueda.hbs'),
+    PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
+
+
+//Personal.Views.Contenido
+module.exports = Backbone.View.extend({
   el: $('.contenido_principal'),
 
   initialize: function () {
@@ -7,13 +18,13 @@ Personal.Views.Contenido = Backbone.View.extend({
       $('.contenido_movimientos').hide();
    },
    mostrarMenuPersonal: function(){
-   			window.Personal.menu="personal";
+   			   window.Personal.menu="personal";
            if (this.CajaBusqueda){
             this.CajaBusqueda.close();
-          } 
+          }
           
-          this.PersonalBusquedasVista = new Personal.Views.PersonalBusquedas({collection: this.Perso});
-          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '.caja_acciones',divResultados: '#resultados_generales'});
+          this.PersonalBusquedasVista = new PersonalBusquedasVista({collection: this.Perso});
+          this.CajaBusqueda= new CajaBusquedaVista({collection: this.Perso,el: '.caja_acciones',divResultados: '#resultados_generales'});
           console.log("ruta personal")
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
@@ -24,14 +35,14 @@ Personal.Views.Contenido = Backbone.View.extend({
           if (this.CajaBusqueda){
             this.CajaBusqueda.close();
           } 
-          this.EmpresaBusquedasVista = new Personal.Views.EmpresaBusquedas({collection: this.Empresa});
-          this.CajaBusqueda= new Personal.Views.CajaBusqueda({collection: this.Empresa,el: '.caja_acciones',divResultados: '#resultados_generales'});
+          this.EmpresaBusquedasVista = new EmpresaBusquedasVista({collection: this.Empresa});
+          this.CajaBusqueda= new CajaBusquedaVista({collection: this.Empresa,el: '.caja_acciones',divResultados: '#resultados_generales'});
           console.log("ruta empresa")
           $('.contenido_personal').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_empresa').show();
           
-          if(Personal.app.SucursalListadoVista.collection.length>0){
+          if(Backbone.app.SucursalListadoVista.collection.length>0){
             $('#bloque_mapa_sucursal').show();
           }
           else{
@@ -48,11 +59,14 @@ Personal.Views.Contenido = Backbone.View.extend({
             this.CajaBusquedaSucursal.close();
           } 
 
-        this.PersonalMBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Perso,el: '#resultados_personal_movimiento',template:"#resultados-personal-busqueda-template"});
-        this.CajaBusquedaPersonal= new Personal.Views.CajaBusqueda({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
 
-        this.SucursalMBusquedasVista = new Personal.Views.DatoBusquedas({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:"#resultados-sucursal-busqueda-template"});
-        this.CajaBusquedaSucursal= new Personal.Views.CajaBusqueda({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
+
+
+        this.PersonalMBusquedasVista = new DatoBusquedasVista({collection: this.Perso,el: '#resultados_personal_movimiento',template:PlantillaPersonal});
+        this.CajaBusquedaPersonal= new CajaBusquedaVista({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
+
+        this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
+        this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
 
 
         console.log("ruta movimientos")

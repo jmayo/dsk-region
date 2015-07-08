@@ -1,4 +1,7 @@
-Personal.Views.DatoBusqueda = Backbone.View.extend({
+var Backbone    = require('backbone');
+
+//Personal.Views.DatoBusqueda 
+module.exports = Backbone.View.extend({
   events : {
      "mousedown ": "seleccionado",
    },
@@ -9,7 +12,7 @@ Personal.Views.DatoBusqueda = Backbone.View.extend({
     this.rutas = ruta;
   },
   initialize: function (opciones) {
-    this.template = Handlebars.compile($(opciones.template).html());
+    this.template = opciones.template;
   },
   render: function () {
     var busqueda = this.model.toJSON();

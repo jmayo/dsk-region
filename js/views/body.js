@@ -1,4 +1,8 @@
-Personal.Views.Body = Backbone.View.extend({
+var Backbone = require('backbone'),
+    $        = require('jquery');
+     
+//Personal.Views.Body 
+module.exports = Backbone.View.extend({
   events :{
      "mousemove":"iniciarConteo",
   },

@@ -1,4 +1,15 @@
-Personal.Views.PersonalDetalle = Backbone.View.extend({
+var Backbone                = require('backbone');
+    $                       = require('jquery');
+    $.ui                    = require('jquery-ui'),
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    Personal                = require('../models/personal');
+    Plantilla               = require('../templates/personal-detalle.hbs'),
+    app                     = Backbone.app;
+
+
+//Personal.Views.PersonalDetalle
+ module.exports = Backbone.View.extend({
   events : {
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
@@ -9,7 +20,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   el: $('#personal_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#personal-detalle-template").html()),
+  template: Plantilla,
 
   cambioImagen: function(control){
     console.log("cambio la imagen");
@@ -28,8 +39,8 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
 },
     
   initialize: function () {
-    this.catMunicipioNac = new Personal.Collections.Catalogos();
-    this.catMunicipioDom = new Personal.Collections.Catalogos();
+    this.catMunicipioNac = new Catalogos();
+    this.catMunicipioDom = new Catalogos();
     
     this.listenTo(this.model, "change", this.llenado, this);
   },
@@ -55,7 +66,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   
    this.agregarValidacion();
 
-    var PersonalCatalogos = new Personal.Collections.Catalogos();
+    var PersonalCatalogos = new Catalogos();
     PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
   
     PersonalCatalogos.fetch(
@@ -90,7 +101,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
-          var vis = new Personal.Views.PersonalCatalogos({
+          var vis = new PersonalCatalogosVista({
             collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
           vis.render();
 
@@ -101,7 +112,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
       var cat = catalogo;
       catalogo.fetch({
               success: function(){
-                  var vista = new Personal.Views.PersonalCatalogos({
+                  var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
                   vista.render();
                 }
@@ -144,7 +155,8 @@ relacionColumnas: function(){
 guardar: function(){
     var data =this.generarJSON();
     var self = this;
-    var model = new Personal.Models.personal(data);
+
+    var model = newPersonal(data);
     model.valor = undefined;
     model.pk= data["id"];
     this.tipo='POST'
@@ -199,7 +211,7 @@ generarJSON: function(){
    },
  agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var listaVal = Personal.app.PersoModelo.validation();
+      var listaVal = Backbone.app.PersoModelo.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){
             var id_control = relacion[campo];
@@ -255,4 +267,3 @@ uploadFile: function(event) {
     });
   }
 });
-

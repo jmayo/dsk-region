@@ -1,4 +1,9 @@
-Personal.Views.IniciarSesion = Backbone.View.extend({
+var Backbone    = require('backbone'),
+    $                     = require('jquery'),
+    Login       = require('../models/login');
+   
+//Personal.Views.IniciarSesion 
+module.exports = Backbone.View.extend({
 
 	events: {
       "click .login": "login",
@@ -19,7 +24,7 @@ Personal.Views.IniciarSesion = Backbone.View.extend({
     var data ={"username": "rulo", "password": "123"};
 
     var self = this;
-    var model = new Personal.Models.login(data);
+    var model = new Login(data);
     this.tipo='POST'
     model.save(null,{
         type: self.tipo,

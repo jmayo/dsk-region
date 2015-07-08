@@ -1,4 +1,6 @@
-Personal.Models.formview = Backbone.Model.extend({
+var Backbone = require('backbone');
+
+module.exports = Backbone.Model.extend({
  
   url : function(){
     //return  window.ruta +  'subirf/';

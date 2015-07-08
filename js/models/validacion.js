@@ -1,4 +1,7 @@
-Personal.Models.validacion= function validacion(){
+var Backbone = require('backbone');
+
+//Personal.Models.validacion
+module.exports = function validacion(){
 	var lista={}
 	 
 return {

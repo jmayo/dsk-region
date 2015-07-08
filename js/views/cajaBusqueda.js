@@ -1,4 +1,7 @@
-Personal.Views.CajaBusqueda = Backbone.View.extend({
+var Backbone = require('backbone');
+
+//Personal.Views.CajaBusqueda 
+module.exports = Backbone.View.extend({
 events : {
      "keyup .buscar": "buscarEnServidor",
      "blur .buscar" : "esconderBusqueda",

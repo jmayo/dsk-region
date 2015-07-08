@@ -1,8 +1,13 @@
-Personal.Views.PersonalBasico = Backbone.View.extend({
+var Backbone  = require('backbone'),
+    $         = require('jquery'),
+    Plantilla = require('../templates/personal-datos_basicos.hbs');
+
+//Personal.Views.PersonalBasico 
+module.exports= Backbone.View.extend({
   el: $('#personal_datos_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#personal-datos_basicos-template").html()),
+  template: Plantilla,
     
   initialize: function () {
     this.listenTo(this.model, "change", this.llenado, this);

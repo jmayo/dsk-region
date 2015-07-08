@@ -1,0 +1,34 @@
+{
+  "name": "PersoRegFrontEnd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "watchify -t hbsfy ./js/main.js -o ./js/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmayo/dsk-region"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmayo/dsk-region/issues"
+  },
+  "homepage": "https://github.com/jmayo/dsk-region",
+  "dependencies": {
+    "backbone": "^1.2.x",
+    "bootstrap": "^3.3.5",
+    "browserify": "^10.2.4",
+    "handlebars": "^3.0.3",
+    "hbsfy": "^2.2.1",
+    "jquery": "^1.11.0",
+    "jquery-ui": "^1.10.5",
+    "ol": "^3.1.0-pre.1",
+    "underscore": "^1.8.3",
+    "watchify": "^3.2.3"
+  },
+  "devDependencies": {
+    "openlayers": "^3.7.0"
+  }
+}

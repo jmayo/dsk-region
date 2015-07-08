@@ -1,4 +1,9 @@
-Personal.Collections.Catalogos = Backbone.Collection.extend({
+var Backbone      = require('backbone'),
+    CatalogoModelo = require('../models/catalogo');
+
+//Personal.Collections.Catalogos = 
+
+module.exports = Backbone.Collection.extend({
   claves : function(claves){
       this.claves  = claves;
      
@@ -15,7 +20,7 @@ Personal.Collections.Catalogos = Backbone.Collection.extend({
    return window.ruta + 'catalogos_detalle/' + this.claves + '/' + this.cdu_default;
   },
   
-  model: Personal.Models.catalogo,
+  model: CatalogoModelo,
 
   EstadoCivil: function () {
 		return this.where({catalogos: 1});
@@ -68,7 +73,4 @@ Personal.Collections.Catalogos = Backbone.Collection.extend({
    Rango: function(){
     return this.where({catalogos: 28});
   },
-
-
-
 });

@@ -1,4 +1,7 @@
-Personal.Models.catalogo = Backbone.Model.extend({
+var Backbone = require('backbone');
+
+//Personal.Models.catalogo 
+module.exports = Backbone.Model.extend({
  claves : function(claves){
       this.claves  = claves;
   },

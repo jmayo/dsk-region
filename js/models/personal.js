@@ -1,4 +1,8 @@
-Personal.Models.personal = Backbone.Model.extend({
+var Backbone = require('backbone'),
+    ValidacionModelo = require('../models/validacion');
+ 
+//Personal.Models.personal 
+module.exports= Backbone.Model.extend({
   initialize: function(){
   		this.valor = null;
   		this.pk = null;
@@ -23,7 +27,7 @@ Personal.Models.personal = Backbone.Model.extend({
    return direccion;
   },
   busqueda: function(){
-     Personal.app.navigate("Personal/buscar/" + this.get('matricula'), {trigger: true});
+     Backbone.app.navigate("Personal/buscar/" + this.get('matricula'), {trigger: true});
   },
   defaults : {
         "id" : "",
@@ -58,7 +62,7 @@ Personal.Models.personal = Backbone.Model.extend({
         "imagen": "",
   },
   camposValidar: function(){
-      var vali = new Personal.Models.validacion();
+      var vali = new ValidacionModelo();
       vali.Campo('matricula',4,10,vali.Numeros());
       vali.Campo('paterno',1,20,vali.AlfaNumerico());
       vali.Campo('materno',1,20,vali.AlfaNumerico());

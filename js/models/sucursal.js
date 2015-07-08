@@ -1,4 +1,8 @@
-Personal.Models.sucursal = Backbone.Model.extend({
+var Backbone = require('backbone'),
+    ValidacionModelo = require('../models/validacion');
+
+//Personal.Models.sucursal 
+module.exports= Backbone.Model.extend({
   initialize: function(){
   		this.valor = null;
   		this.pk = null;
@@ -23,7 +27,7 @@ Personal.Models.sucursal = Backbone.Model.extend({
    return direccion;
   },
   busqueda: function(){
-     Personal.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal'), {trigger: true});
+     Backbone.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal'), {trigger: true});
   },
   defaults : {
 	"id": "",
@@ -45,7 +49,7 @@ Personal.Models.sucursal = Backbone.Model.extend({
     "longitud" : "-99.1330",
   },
    camposValidar: function(){
-      var vali = new Personal.Models.validacion();
+      var vali = new ValidacionModelo();
       vali.Campo('cve_empresa',1,10,vali.Numeros());
       vali.Campo('cve_sucursal',1,10,vali.Numeros());
       vali.Campo('nombre',1,150,vali.Generico());

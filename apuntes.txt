@@ -1,0 +1,28 @@
+Gestor de dependencias bower:
+  npm install -g bower
+
+  inicializar el archivo de manejo de paquetes:
+  	bower init
+  	bower install <paquete>
+  	bower search <paquete>
+  	bower list [--paths]
+
+Los archivos de bower_components se pueden enlazar en lib
+    ln -s /bower_components/backbone.js
+
+Para correr algun script:
+	 npm run bundle
+	 npm -ls //para ver el arbol de dependencias
+	 instalar y registrar en el package.json:
+	    npm install handlebars --save
+
+
+Instalar browserify:
+	npm install -g browserify
+
+	Uso para convertir un archivo a modulos: 
+	   browserify app/js/main.js -o app/js/app.js
+
+	Observando los cambios automaticamente:
+	    npm install -g watchify
+	    watchify main.js -o static/bundle.js

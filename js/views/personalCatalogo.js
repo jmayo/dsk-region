@@ -1,7 +1,12 @@
-Personal.Views.PersonalCatalogo = Backbone.View.extend({
+var Backbone              = require('backbone'),
+    $                     = require('jquery'),
+    Plantilla             = require('../templates/personal-catalogos.hbs');
+
+//Personal.Views.PersonalCatalogo 
+module.exports = Backbone.View.extend({
   tagName: 'option',
  // el: $('#personal_basicos'),
-  template: Handlebars.compile($("#personal-catalogos-template").html()),
+  template: Plantilla,
   
   initialize: function (attrs) {
     this.options = attrs;

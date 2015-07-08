@@ -1,4 +1,15 @@
-Personal.Views.EmpresaDetalle = Backbone.View.extend({
+var Backbone                = require('backbone'),
+    $                       = require('jquery'),
+    Sucursal                = require('../models/sucursal'),
+    Empresa                 = require('../models/empresa'),  
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    EmpresaDescripcionVista = require('../views/empresaDescripcion'),
+    Plantilla               = require('../templates/empresa-detalle.hbs'),
+    app                     = Backbone.app;
+
+//Personal.Views.EmpresaDetalle 
+module.exports = Backbone.View.extend({
   events : {
      "change #empresa_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#empresa_estado").val(),'',"#empresa_municipio");},
    },
@@ -6,10 +17,10 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
   el: $('#bloque_empresa'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#empresa-detalle-template").html()),
+  template: Plantilla,
 
   initialize: function () {
-    this.catMunicipio = new Personal.Collections.Catalogos();  
+    this.catMunicipio = new Catalogos();  
     this.listenTo(this.model, "change", this.llenado, this);
   },
   reset: function()
@@ -24,7 +35,7 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
   }, 
   mostrarDescripcion: function(modelo){
      $("#sucursal_padre").empty();
-     this.empresaTitulo = new Personal.Views.EmpresaDescripcion({model: modelo});
+     this.empresaTitulo = new EmpresaDescripcionVista({model: modelo});
      $('#listado_empresa_sucursal').hide();
      if(modelo.get("id")!==""){
         $("#listado_empresa_sucursal").show();
@@ -44,7 +55,6 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
-
    this.mostrarDescripcion(this.model);  
    
 
@@ -53,7 +63,7 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
   
    this.agregarValidacion();
 
-    var EmpresaCatalogos = new Personal.Collections.Catalogos();
+    var EmpresaCatalogos = new Catalogos();
     EmpresaCatalogos.claves ="14,19,18";
   
     EmpresaCatalogos.fetch(
@@ -75,7 +85,7 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
-          var vis = new Personal.Views.PersonalCatalogos({
+          var vis = new PersonalCatalogosVista({
             collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
           vis.render();
 
@@ -86,7 +96,7 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
       var cat = catalogo;
       catalogo.fetch({
               success: function(){
-                  var vista = new Personal.Views.PersonalCatalogos({
+                  var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
                   vista.render();
                 }
@@ -95,16 +105,16 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
      
       },
    mostrarSucursalLista: function(id_empresa){
-        Personal.app.SucursalLista.valor = null;
-        Personal.app.SucursalLista.id_empresa = id_empresa;
-        Personal.app.SucursalLista.reset();
-         Personal.app.SucursalLista.fetch().always(function(){
+        Backbone.app.SucursalLista.valor = null;
+        Backbone.app.SucursalLista.id_empresa = id_empresa;
+        Backbone.app.SucursalLista.reset();
+        Backbone.app.SucursalLista.fetch().always(function(){
              if(id_empresa!==""){
                 // Este modelo sera para crear nuevas sucursales
-               var sucursal = new Personal.Models.sucursal();
+               var sucursal = new Sucursal();
                sucursal.set(sucursal.defaults);
                sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":"AGREGAR SUCURSAL"});
-               Personal.app.SucursalLista.add(sucursal);
+               Backbone.app.SucursalLista.add(sucursal);
             }
           }
         );
@@ -133,7 +143,7 @@ relacionColumnas: function(){
 guardar: function(){
     var data =this.generarJSON();
      var self = this;
-    var model = new Personal.Models.empresa(data);
+    var model = new Empresa(data);
     model.valor = undefined;
     model.pk= data["id"];
     
@@ -187,7 +197,7 @@ generarJSON: function(){
    },
   agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var listaVal = Personal.app.EmpresaModelo.validation();
+      var listaVal = Backbone.app.EmpresaModelo.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){
             var id_control = relacion[campo];

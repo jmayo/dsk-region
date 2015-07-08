@@ -1,4 +1,13 @@
-Personal.Views.SucursalDetalle = Backbone.View.extend({
+var Backbone                = require('backbone'),
+    $                     = require('jquery'),
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    Sucursal                = require('../models/sucursal'),
+    Plantilla               = require('../templates/sucursal-detalle.hbs'),
+    app                     = Backbone.app;
+
+//Personal.Views.SucursalDetalle 
+module.exports = Backbone.View.extend({
   events : {
      "change #sucursal_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#sucursal_estado").val(),'',"#sucursal_municipio");},
    },
@@ -6,11 +15,11 @@ Personal.Views.SucursalDetalle = Backbone.View.extend({
   el: $('#bloque_sucursal'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#sucursal-detalle-template").html()),
+  template: Plantilla,
 
   initialize: function () {
     if(this.model !==undefined){
-      this.catMunicipio = new Personal.Collections.Catalogos();  
+      this.catMunicipio = new Catalogos();  
       this.listenTo(this.model, "change", this.llenado, this);
     }
   },
@@ -36,7 +45,7 @@ Personal.Views.SucursalDetalle = Backbone.View.extend({
  
    this.agregarValidacion();
    
-    var SucursalCatalogos = new Personal.Collections.Catalogos();
+    var SucursalCatalogos = new Catalogos();
     SucursalCatalogos.claves ="14,24";
   
     SucursalCatalogos.fetch(
@@ -56,7 +65,8 @@ Personal.Views.SucursalDetalle = Backbone.View.extend({
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
-          var vis = new Personal.Views.PersonalCatalogos({
+
+          var vis = new PersonalCatalogosVista({
             collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
           vis.render();
 
@@ -67,7 +77,7 @@ Personal.Views.SucursalDetalle = Backbone.View.extend({
       var cat = catalogo;
       catalogo.fetch({
               success: function(){
-                  var vista = new Personal.Views.PersonalCatalogos({
+                  var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
                   vista.render();
                 }
@@ -100,7 +110,7 @@ relacionColumnas: function(){
 guardar: function(){
     var data =this.generarJSON();
     var self = this;
-    var model = new Personal.Models.sucursal(data);
+    var model = new Sucursal(data);
     //model.valor = undefined;
     model.pk= data["id"];
     this.tipo='POST'
@@ -112,7 +122,7 @@ guardar: function(){
         type: self.tipo,
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
-             Personal.app.SucursalLista.add(response);
+             Backbone.app.SucursalLista.add(response);
             //window.Personal.operacion="buscar";
             $("#notify_success").notify();
           },

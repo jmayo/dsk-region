@@ -1,4 +1,11 @@
-Personal.Views.SucursalMapa = Backbone.View.extend({
+var Backbone                 = require('backbone'),
+    $                        = require('jquery'),
+    ol                       = require('openlayers'),
+    SucursalDescripcionVista = require('../views/sucursalDescripcion');
+
+
+//Personal.Views.SucursalMapa 
+module.exports = Backbone.View.extend({
  
   el: $('.bloque_mapa'),
   initialize: function () {

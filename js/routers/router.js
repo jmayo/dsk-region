@@ -1,4 +1,30 @@
-Personal.Router = Backbone.Router.extend({
+var Backbone        = require('backbone'),
+    $               = require('jquery');
+    Personas        = require('../collections/personas'),
+    Empresas        = require('../collections/empresas'),
+    Sucursales      = require('../collections/sucursales'),
+    MenuVista       = require('../views/menu'),
+    PersonalBusquedaVista   = require('../views/personalBusqueda'),
+    EmpresaBusquedaVista    = require('../views/empresaBusqueda'),
+    SucursalListadosVista   = require('../views/sucursalListados'),
+    IniciarSesionVista      = require('../views/iniciarSesion'),
+    CajaOperacionesVista    = require('../views/cajaOperaciones'),
+    Personal                = require('../models/personal'),
+    PersonalDetalleVista    = require('../views/personalDetalle');
+    Empresa                 = require('../models/empresa'),
+    EmpresaDetalleVista     = require('../views/empresaDetalle'),
+    EmpresaMapaVista        = require('../views/sucursalMapa'),
+    PersonalBasicoVista     = require('../views/personalBasicos'),
+    PersonalSucursal        = require('../models/personal_sucursal'),
+    SucursalBasicoVista     = require('../views/sucursalBasicos'),
+    PersonalSucursalVista   = require('../views/personalSucursal'),
+    PersonalMovimientoVista = require('../views/personalMovimiento'),
+    ContenidoVista          = require('../views/contenido'),
+    BodyVista = require('../views/body');
+   app      = Backbone.app;
+
+//Personal.Router
+module.exports = Backbone.Router.extend({
   routes: {
     "": "root",
     "Personal": "personal",
@@ -22,60 +48,68 @@ initialize: function () {
  
 
       
-    this.Perso = new Personal.Collections.Personas();          
-    this.Empresa = new Personal.Collections.Empresas();
-    this.Sucursal = new Personal.Collections.Sucursales();
-    this.SucursalLista = new Personal.Collections.Sucursales(); 
+    this.Perso = new Personas();          
+    this.Empresa = new Empresas();
+    this.Sucursal = new Sucursales();
+    this.SucursalLista = new Sucursales(); 
 
-    this.MenuVista = new Personal.Views.Menu(); 
+    this.MenuVista = new MenuVista; 
 
-    this.ContenidoVista = new Personal.Views.Contenido(); 
+    this.ContenidoVista = new ContenidoVista(); 
  
        
-    this.PersonalBusquedaVista = new Personal.Views.PersonalBusqueda();
+    this.PersonalBusquedaVista = new PersonalBusquedaVista();
     
-    this.EmpresaBusquedaVista = new Personal.Views.EmpresaBusqueda();
+    this.EmpresaBusquedaVista = new EmpresaBusquedaVista();
     
-    this.SucursalListadoVista = new Personal.Views.SucursalListados({collection: this.SucursalLista});
+    this.SucursalListadoVista = new SucursalListadosVista({collection: this.SucursalLista});
 
-    this.IniciarSesion = new Personal.Views.IniciarSesion();
+    this.IniciarSesion = new IniciarSesionVista();
 
-    this.CajaOperaciones= new Personal.Views.CajaOperaciones();
+    this.CajaOperaciones= new CajaOperacionesVista();
  
-    this.PersoModelo = new Personal.Models.personal();
+    this.PersoModelo = new Personal();
     this.PersoModelo.set({"id":"-1"});
-    this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo});
-    
 
-    this.EmpresaModelo = new Personal.Models.empresa();
+    this.PersonalDetalle = new PersonalDetalleVista({model: this.PersoModelo});
+    
+    this.EmpresaModelo = new Empresa();
     this.EmpresaModelo.set({"id":"-1"});
-    this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo});
-    
+
+    this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
     
 
-
-    this.EmpresaMapa= new Personal.Views.SucursalMapa();
-
-    this.PersoBasicoModelo = new Personal.Models.personal();
-    this.PersoBasicoModelo.set({"id":"-1"});
-    this.PersonalBasico = new Personal.Views.PersonalBasico({model: this.PersoBasicoModelo});
-    
-    this.PersoSucursalModelo = new Personal.Models.personalsucursal();
-    this.PersoSucursalModelo.set({"id":"-1"});
-    this.PersonalSucursal = new Personal.Views.PersonalSucursal({model: this.PersoSucursalModelo});
   
-    this.SucursalBasicoModelo = new Personal.Models.sucursal();
+
+    this.EmpresaMapa= new EmpresaMapaVista();
+        
+    this.PersoBasicoModelo = new Personal();
+    this.PersoBasicoModelo.set({"id":"-1"});
+
+   
+
+    this.PersonalBasico = new PersonalBasicoVista({model: this.PersoBasicoModelo});
+    
+    this.PersoSucursalModelo = new PersonalSucursal();
+    this.PersoSucursalModelo.set({"id":"-1"});
+    this.PersonalSucursal = new PersonalSucursalVista({model: this.PersoSucursalModelo});
+  
+    this.SucursalBasicoModelo = new PersonalSucursal();
     this.SucursalBasicoModelo.set({"id":"-1"});
-    this.SucursalBasico = new Personal.Views.SucursalBasico({model: this.SucursalBasicoModelo});
+    
+     
+
+    this.SucursalBasico = new SucursalBasicoVista({model: this.SucursalBasicoModelo});
     
 
-    this.PersonalMovimientoModelo = new Personal.Models.personalsucursal();
+    this.PersonalMovimientoModelo = new PersonalSucursal();
     this.PersonalMovimientoModelo.set({"id":"-1"});
-    this.PersonalMovimiento = new Personal.Views.PersonalMovimiento({model: this.PersonalMovimientoModelo});
+    this.PersonalMovimiento = new PersonalMovimientoVista({model: this.PersonalMovimientoModelo});
     
-    this.Body = new Personal.Views.Body();
+
+    this.Body = new BodyVista();
     
-    window.Personal.menu="root";
+    this.menu="root";
   },
 
   root: function () {

@@ -1,4 +1,6 @@
+var    $               = require('jquery');
 var myMessages = ['info','warning','error','success'];
+
 
 function hideAllMessages(){
 	var messagesHeights = new Array(); // this array will store height for each
@@ -90,3 +92,4 @@ function autoclose() {
   $("#notify_error").fadeOut("slow");
   $("#notify_success").fadeOut("slow");
 }
+

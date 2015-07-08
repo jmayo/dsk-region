@@ -1,8 +1,12 @@
-Personal.Views.PersonalSucursal = Backbone.View.extend({
+var Backbone  = require('backbone'),
+    Plantilla = require('../templates/personal-sucursal-activa.hbs')
+
+//Personal.Views.PersonalSucursal 
+module.exports = Backbone.View.extend({
   el: $('#personal_sucursal_activa'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#personal-sucursal-activa-template").html()),
+  template: Plantilla,
     
   initialize: function () {
     this.listenTo(this.model, "change", this.llenado, this);

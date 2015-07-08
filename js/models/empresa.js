@@ -1,4 +1,8 @@
-Personal.Models.empresa = Backbone.Model.extend({
+var Backbone        = require('backbone');
+    ValidacionVista = require('./validacion')
+
+//Personal.Models.empresa 
+module.exports = Backbone.Model.extend({
   initialize: function(){
   		this.valor = null;
   		this.pk = null;
@@ -44,7 +48,7 @@ Personal.Models.empresa = Backbone.Model.extend({
   "longitud" :  "19.5225",
   },
   camposValidar: function(){
-      var vali = new Personal.Models.validacion();
+      var vali = new ValidacionVista();
       vali.Campo('cve_empresa',1,10,vali.Numeros());
       vali.Campo('razon_social',1,150,vali.Generico());
       vali.Campo('rfc',1,13,vali.RFC());

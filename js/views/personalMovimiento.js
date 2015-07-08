@@ -1,9 +1,19 @@
-Personal.Views.PersonalMovimiento = Backbone.View.extend({
+var Backbone                = require('backbone'),
+    $                       = require('jquery'),
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    PersonalSucursal        = require('../models/personal_sucursal'),
+    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs'),
+    app                     = Backbone.app;
+
+
+//Personal.Views.PersonalMovimiento
+module.exports = Backbone.View.extend({
  
   el: $('#movimiento_personal_sucursal'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#movimiento-personal-sucursal-template").html()),
+  template: Plantilla,
 
   initialize: function () {
     if(this.model !==undefined){
@@ -31,7 +41,7 @@ Personal.Views.PersonalMovimiento = Backbone.View.extend({
  
    this.agregarValidacion();
    
-    var SucursalCatalogos = new Personal.Collections.Catalogos();
+    var SucursalCatalogos = new Catalogos();
     SucursalCatalogos.claves ="25,26,27,28";
   
     SucursalCatalogos.fetch(
@@ -53,7 +63,7 @@ Personal.Views.PersonalMovimiento = Backbone.View.extend({
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
-          var vis = new Personal.Views.PersonalCatalogos({
+          var vis = new PersonalCatalogosVista({
             collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
           vis.render();
 
@@ -85,16 +95,15 @@ guardar: function(){
       var data =this.generarJSON();
       
       data.sueldo= parseFloat(data.sueldo).toFixed(7)
-      var model = new Personal.Models.personalsucursal(data);
+      var model = new PersonalSucursal(data);
       model.pk = "-1";
-      debugger;
       this.tipo='POST'
 
         model.save(null,{
         type: self.tipo,
         success: function(model,response) {
            //window.Personal.operacion="buscar";
-           Personal.app.PersoSucursalModelo.set(response);
+           Backbone.app.PersoSucursalModelo.set(response);
             $("#notify_success").notify();
             $('#personal_sin_asignar').hide();
           },
@@ -143,7 +152,7 @@ campoValor: function(campo){
   },
 agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var perso_suc = new Personal.Models.personalsucursal();
+      var perso_suc = new PersonalSucursal();
       var listaVal = perso_suc.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){

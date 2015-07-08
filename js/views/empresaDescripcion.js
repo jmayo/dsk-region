@@ -1,7 +1,13 @@
-Personal.Views.EmpresaDescripcion = Backbone.View.extend({
+var Backbone   = require('backbone'),
+    Plantilla  = require('../templates/resultados-empresa-padre.hbs')       
+    app        = Backbone.app;
+
+//Personal.Views.EmpresaDescripcion
+
+module.exports = Backbone.View.extend({
   tagName: 'a',
   className: 'lnk_servicio',
-  template: Handlebars.compile($("#resultados-empresa-padre-template").html()),
+  template: Plantilla,
    attributes: { href: '#' },
   initialize: function () {
      //   this.listenTo(this.model, "change", this.cambio, this);
@@ -26,7 +32,7 @@ Personal.Views.EmpresaDescripcion = Backbone.View.extend({
     window.Personal.menu="empresa";
     $('#bloque_sucursal').hide();
     $('#bloque_empresa').show();
-    Personal.app.EmpresaMapa.zoom(12);
+    Backbone.app.EmpresaMapa.zoom(12);
    // console.log(this.model.get('nombre'));
    // Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
   },
