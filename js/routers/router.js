@@ -22,6 +22,7 @@ var Backbone        = require('backbone'),
     ContenidoVista          = require('../views/contenido'),
     MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body');
+    MenuOpcion = require('../models/menu')
  
 
 //Personal.Router
@@ -54,7 +55,8 @@ initialize: function () {
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
 
-    this.MenuVista = new MenuVista; 
+    this.MenuModelo = new MenuOpcion();
+    this.MenuVista = new MenuVista({model: this.MenuModelo}); 
 
     this.ContenidoVista = new ContenidoVista(); 
  
@@ -119,16 +121,30 @@ initialize: function () {
 
 
   personal: function () {
-    //Si es la primera vez cambiamos el id para llenar el formulario
-     Backbone.app.operacion="buscar";
-    if( this.PersoModelo.get("id")==="-1" ||  this.PersoModelo.get("id")===""){
-      this.PersoModelo.set({"id":""});
-      Backbone.app.operacion="nuevo";
+    this.MenuModelo.Opcion ='personal';
+    self = this;
+    this.MenuModelo.fetch({
+              headers: {'Authorization' :localStorage.token},
+              success: function(){
+                  //Si es la primera vez cambiamos el id para llenar el formulario
+                     Backbone.app.operacion="buscar";
+                    if( self.PersoModelo.get("id")==="-1" ||  self.PersoModelo.get("id")===""){
+                      self.PersoModelo.set({"id":""});
+                      Backbone.app.operacion="nuevo";
+                  
+                    }
+                    Backbone.app.menu="personal";
+                   
+                    console.log("Estas en la lista de personal");
+                },
+              error: function(model,response, options) {
+                     $("#notify_error").text("No estas registrado en el sistema"); 
+                     $("#notify_error").notify();
+                      console.log(response.responseText);
+                }
+            });
+
   
-    }
-    Backbone.app.menu="personal";
-   
-    console.log("Estas en la lista de personal");
   },
 
  personalMatricula: function (valor_buscado) {
@@ -145,6 +161,7 @@ initialize: function () {
       this.PersoSucursalModelo.set({"id":"-1"});
       this.PersoBasicoModelo.valor = valor_buscado;
       var self = this; 
+
       
       this.PersoBasicoModelo.fetch({
        
@@ -175,13 +192,26 @@ initialize: function () {
   },
 
   empresa: function () {
-   Backbone.app.operacion="buscar";
-    if( this.EmpresaModelo.get("id")==="-1"  ||  this.EmpresaModelo.get("id")===""){
-      this.EmpresaModelo.set({"id":""});
-      Backbone.app.operacion="nuevo";
-    }
-   
-    console.log("Estas en la lista de empresas");
+    this.MenuModelo.Opcion ='sucursal';
+    self = this;
+    this.MenuModelo.fetch({
+              headers: {'Authorization' :localStorage.token},
+              success: function(){
+                 Backbone.app.operacion="buscar";
+                  if( self.EmpresaModelo.get("id")==="-1"  ||  self.EmpresaModelo.get("id")===""){
+                    self.EmpresaModelo.set({"id":""});
+                    Backbone.app.operacion="nuevo";
+                  }
+                 
+                  console.log("Estas en la lista de empresas");
+                },
+              error: function(model,response, options) {
+                     $("#notify_error").text("No estas registrado en el sistema"); 
+                     $("#notify_error").notify();
+                      console.log(response.responseText);
+                }
+            });
+
   },
   empresaClave: function (valor_buscado) {
     Backbone.app.operacion="buscar";
@@ -199,11 +229,24 @@ initialize: function () {
     console.log("nueva empresa");
   },
    movimiento: function () {
-    Backbone.app.operacion="buscar";
-    
-    Backbone.app.menu="movimiento";
-   
-    console.log("Estas en la lista de movimientos del personal");
+
+     this.MenuModelo.Opcion ='personal_sucursales';
+    self = this;
+    this.MenuModelo.fetch({
+              headers: {'Authorization' :localStorage.token},
+              success: function(){                
+                    Backbone.app.operacion="buscar";
+                    
+                    Backbone.app.menu="movimiento";
+                   
+                    console.log("Estas en la lista de movimientos del personal");
+                },
+              error: function(model,response, options) {
+                     $("#notify_error").text("No estas registrado en el sistema"); 
+                     $("#notify_error").notify();
+                      console.log(response.responseText);
+                }
+            });
   },
   sucursalActiva: function(valor_buscado){
     console.log("Ver su sucursal activa");

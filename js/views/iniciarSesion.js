@@ -6,10 +6,10 @@ var Backbone    = require('backbone'),
 module.exports = Backbone.View.extend({
 
 	events: {
-      "click .login": "login",
+      "click #iniciar_sesion": "login",
    },
 
-  el: $('.caja_acciones'),
+  el: $('.login'),
     
   initialize: function () {
 
@@ -17,11 +17,16 @@ module.exports = Backbone.View.extend({
   
    login: function(){
     console.log("iniciar sesion");
+    this.usuario = $('#login_user').val();
+    this.pass = $('#login_password').val();
     this.guardar();
   },
 
   guardar: function(){
-    var data ={"username": "rulo", "password": "123"};
+    console.log(this.usuario)
+    console.log(this.pass)
+    
+    var data ={"username": this.usuario, "password": this.pass};
 
     var self = this;
     var model = new Login(data);
@@ -29,12 +34,14 @@ module.exports = Backbone.View.extend({
     model.save(null,{
         type: self.tipo,
         success: function(model,response) {
+          $("#notify_success").text("Bienvenido " + self.usuario) 
             Backbone.app.operacion="buscar";
             $("#notify_success").notify();
             localStorage.setItem("token",'Token ' + response.token);
             console.log( localStorage.token);
           },
         error: function(model,response, options) {
+           $("#notify_error").text("El usuario o contraseña son incorrectos") 
              $("#notify_error").notify();
               console.log(response.responseText);
              // var responseObj = $.parseJSON(response.responseText);
