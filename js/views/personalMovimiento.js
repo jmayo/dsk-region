@@ -3,9 +3,7 @@ var Backbone                = require('backbone'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     PersonalSucursal        = require('../models/personal_sucursal'),
-    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs'),
-    app                     = Backbone.app;
-
+    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs');
 
 //Personal.Views.PersonalMovimiento
 module.exports = Backbone.View.extend({
@@ -33,6 +31,7 @@ module.exports = Backbone.View.extend({
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
+   debugger;
    var html = this.template(detalle);
    this.$el.html(html);
 
@@ -75,7 +74,7 @@ module.exports = Backbone.View.extend({
         'cdu_motivo':'#movimiento_sucursal_motivo',
         'cdu_turno':'#movimiento_sucursal_turno',
         'cdu_puesto':'#movimiento_sucursal_puesto',
-        'cdu_rango':'#movimiento_sucursal_rango',
+        'cdu_rango':'#movimiento_sucursal_rango',  
         'sueldo':'#movimiento_sucursal_sueldo',
         'fecha_inicial':'#movimiento_sucursal_fecha',
         'motivo': '#movimiento_sucursal_dscmotivo',
@@ -84,6 +83,7 @@ module.exports = Backbone.View.extend({
       return columnasCampos;
    },
 guardar: function(){
+    debugger;
     if(this.campoValor('id_personal')===null){
         $("#notify_error").notify();
     }
@@ -102,7 +102,6 @@ guardar: function(){
         model.save(null,{
         type: self.tipo,
         success: function(model,response) {
-           //window.Personal.operacion="buscar";
            Backbone.app.PersoSucursalModelo.set(response);
             $("#notify_success").notify();
             $('#personal_sin_asignar').hide();
@@ -134,7 +133,8 @@ campoValor: function(campo){
        }
        var elemento  =$(id_control).get(0).tagName;
        var tipo = $(id_control).get(0).type;
-       if(elemento ==="H1"){
+       debugger;
+       if(elemento ==="H1" || elemento=='STRONG'){
            return $(id_control).text();
        }
        else if (elemento === "LABEL"){

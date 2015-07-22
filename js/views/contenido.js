@@ -18,7 +18,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
    },
    mostrarMenuPersonal: function(){
-   			   window.Personal.menu="personal";
+   			  Backbone.app.menu="personal";
            if (this.CajaBusqueda){
             this.CajaBusqueda.close();
           }
@@ -31,7 +31,7 @@ module.exports = Backbone.View.extend({
           $('.contenido_personal').show();
    },
    mostrarMenuEmpresas: function(){
-        window.Personal.menu="empresa";
+        Backbone.app.menu="empresa";
           if (this.CajaBusqueda){
             this.CajaBusqueda.close();
           } 
@@ -51,14 +51,13 @@ module.exports = Backbone.View.extend({
           }        
    },
    mostrarMenuMovimientos:function(){
-      window.Personal.menu = "movimiento";
+      Backbone.app.menu = "movimiento";
       if (this.CajaBusquedaPersonal){
             this.CajaBusquedaPersonal.close();
           } 
          if (this.CajaBusquedaSucursal){
             this.CajaBusquedaSucursal.close();
           } 
-
 
 
 

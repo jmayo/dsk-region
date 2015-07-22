@@ -18,7 +18,7 @@ module.exports = Backbone.Model.extend({
   url : function(){
    var direccion = window.ruta + 'empresa/';
    if(this.pk!== undefined && this.pk!== null){
-      if(window.Personal.operacion==='buscar' && this.pk!==""){
+      if(Backbone.app.operacion==='buscar' && this.pk!==""){
    	    direccion = direccion + this.pk + '/';
       }
    } 
@@ -27,26 +27,36 @@ module.exports = Backbone.Model.extend({
    } 
    return direccion;
   },
-  defaults : {
-	"id": "",
-	"cve_empresa": "",
-	"razon_social": "",
-	"rfc": "",
-	"calle": "",
-	"numero": "",
-	"colonia": "",
-	"cp": "",
-	"cdu_estado": "0140000",
-	"cdu_municipio": "0150000",
-	"ciudad": "",
-	"telefono1": "",
-	"telefono2": "",
-	"cdu_giro": "0180000",
-	"cdu_rubro": "0190000",
-	"fecha_alta":"01/01/1900",
-  "latitud" : "99.1696",
-  "longitud" :  "19.5225",
-  },
+  defaults : function(){
+      var now  = new Date();
+       var dia  =  "" + now.getDate(); 
+       if (dia.length == 1) { dia = "0" + dia; };
+       var mes  =  "" + (now.getMonth() + 1); 
+       if (mes.length == 1) { mes = "0" + mes; };
+       var anio = now.getFullYear();
+       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
+     
+       return {
+    	"id": "",
+    	"cve_empresa": "",
+    	"razon_social": "",
+    	"rfc": "",
+    	"calle": "",
+    	"numero": "",
+    	"colonia": "",
+    	"cp": "",
+    	"cdu_estado": "0140000",
+    	"cdu_municipio": "0150000",
+    	"ciudad": "",
+    	"telefono1": "",
+    	"telefono2": "",
+    	"cdu_giro": "0180000",
+    	"cdu_rubro": "0190000",
+    	"fecha_alta": this.fecha_actual ,
+      "latitud" : "99.1696",
+      "longitud" :  "19.5225",
+      }
+},
   camposValidar: function(){
       var vali = new ValidacionVista();
       vali.Campo('cve_empresa',1,10,vali.Numeros());

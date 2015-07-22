@@ -3,6 +3,7 @@ var Backbone                = require('backbone'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     Sucursal                = require('../models/sucursal'),
+    Personal                = require('../models/personal'),
     Plantilla               = require('../templates/sucursal-detalle.hbs'),
     app                     = Backbone.app;
 
@@ -123,7 +124,7 @@ guardar: function(){
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
              Backbone.app.SucursalLista.add(response);
-            //window.Personal.operacion="buscar";
+        
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
@@ -170,7 +171,7 @@ generarJSON: function(){
    },
 agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var suc = new Personal.Models.sucursal();
+      var suc = new Personal();
       var listaVal = suc.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){

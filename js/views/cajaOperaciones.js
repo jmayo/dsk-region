@@ -14,32 +14,33 @@ module.exports = Backbone.View.extend({
    },
    nuevo: function(){
       console.log("nuevo registro");
-      if(window.Personal.menu==="personal"){
+      if(Backbone.app.menu==="personal"){
          Backbone.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
        }
-      else if(window.Personal.menu==="empresa" || window.Personal.menu==="sucursal"){
+      else if(Backbone.app.menu==="empresa" || Backbone.app.menu==="sucursal"){
          Backbone.app.navigate("Empresas/nuevo/", {trigger: true, replace: true});
        }
       
    },
   guardar: function(){
     console.log("guardando");
-    
-    if(window.Personal.menu==="personal"){
+    debugger;
+
+    if(Backbone.app.menu==="personal"){
       Backbone.app.PersonalDetalle.guardar();
       console.log("guardando personal");
     }
-    if(window.Personal.menu==="empresa"){
+    if(Backbone.app.menu==="empresa"){
       Backbone.app.EmpresaDetalle.guardar();
       console.log("guardando personal");
     }
-    if(window.Personal.menu==="sucursal"){
+    if(Backbone.app.menu==="sucursal"){
       var sucursal = new SucursalDetalleVista();
       sucursal.guardar();
 
       console.log("guardando sucursal");
     }
-    if(window.Personal.menu ==="movimiento"){
+    if(Backbone.app.menu ==="movimiento"){
       Backbone.app.PersonalMovimiento.guardar();
       console.log("guardando movimiento");      
     }

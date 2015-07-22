@@ -148,7 +148,7 @@ guardar: function(){
     model.pk= data["id"];
     
     this.tipo='POST'
-    if(window.Personal.operacion!=="nuevo"){
+    if(Backbone.app.operacion!=="nuevo"){
       this.tipo='PUT';
     }
    
@@ -158,7 +158,7 @@ guardar: function(){
             $('#empresa_id').text(model.get("id"));
             self.mostrarDescripcion(model);
             self.mostrarSucursalLista(model.get("id"));
-            window.Personal.operacion="buscar";
+           Backbone.app.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {

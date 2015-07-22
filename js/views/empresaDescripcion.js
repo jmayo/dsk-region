@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    window.Personal.menu="empresa";
+    Backbone.app.menu="empresa";
     $('#bloque_sucursal').hide();
     $('#bloque_empresa').show();
     Backbone.app.EmpresaMapa.zoom(12);

@@ -7,6 +7,7 @@ module.exports= Backbone.Model.extend({
   		this.valor = null;
   		this.pk = null;
       this.camposValidar();
+   
   },
  valor : function(valor){
       this.valor  = valor;
@@ -17,7 +18,7 @@ module.exports= Backbone.Model.extend({
   url : function(){
    var direccion = window.ruta + 'personal/';
    if(this.pk!== undefined && this.pk!== null){
-      if(window.Personal.operacion==='buscar' && this.pk!==""){
+      if(Backbone.app.operacion==='buscar' && this.pk!==""){
    	    direccion = direccion + this.pk + '/';
       }
    } 
@@ -27,9 +28,24 @@ module.exports= Backbone.Model.extend({
    return direccion;
   },
   busqueda: function(){
+//     var now = new Date();
+// var dt = new Date(now.getYear(), now.getMonth(), now.getDay());
+// console.log(now.getFullYear())
+// month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
+// day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
      Backbone.app.navigate("Personal/buscar/" + this.get('matricula'), {trigger: true});
   },
-  defaults : {
+
+  defaults : function() {
+       var now  = new Date();
+       var dia  =  "" + now.getDate(); 
+       if (dia.length == 1) { dia = "0" + dia; };
+       var mes  =  "" + (now.getMonth() + 1); 
+       if (mes.length == 1) { mes = "0" + mes; };
+       var anio = now.getFullYear();
+       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
+     
+        return{
         "id" : "",
         "matricula": "",
         "paterno": "", 
@@ -48,7 +64,7 @@ module.exports= Backbone.Model.extend({
         "id_seguridad_social": "", 
         "portacion": false,
         "cdu_tipo_alta": "0200000", 
-        "fec_alta": "01/01/1900", 
+        "fec_alta": this.fecha_actual , 
         "condicionada": false, 
         "condiciones_alta": "", 
         "cdu_tipo_empleado": "0210000", 
@@ -59,7 +75,8 @@ module.exports= Backbone.Model.extend({
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
         "ciudad_dom": "",
-        "imagen": "",
+        "imagen": ""
+      };
   },
   camposValidar: function(){
       var vali = new ValidacionModelo();

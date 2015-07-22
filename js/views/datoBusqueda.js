@@ -21,7 +21,6 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    console.log(this.model.get('sueldo'));
     this.model.busqueda();
   }
 });

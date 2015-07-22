@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend({
     model.save(null,{
         type: self.tipo,
         success: function(model,response) {
-            window.Personal.operacion="buscar";
+            Backbone.app.operacion="buscar";
             $("#notify_success").notify();
             localStorage.setItem("token",'Token ' + response.token);
             console.log( localStorage.token);

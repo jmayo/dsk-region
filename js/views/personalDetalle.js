@@ -5,7 +5,7 @@ var Backbone                = require('backbone');
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     Personal                = require('../models/personal');
     Plantilla               = require('../templates/personal-detalle.hbs'),
-    app                     = Backbone.app;
+    $.ua                    = require('../notificaciones');
 
 
 //Personal.Views.PersonalDetalle
@@ -156,11 +156,11 @@ guardar: function(){
     var data =this.generarJSON();
     var self = this;
 
-    var model = newPersonal(data);
+    var model = new Personal(data);
     model.valor = undefined;
     model.pk= data["id"];
     this.tipo='POST'
-    if(window.Personal.operacion!=="nuevo"){
+    if(Backbone.app.operacion!=="nuevo"){
         this.tipo='PUT';
     }
  
@@ -168,7 +168,7 @@ guardar: function(){
         type: self.tipo,
         success: function(model,response) {
             $('#persona_id').text(model.get("id"));
-            window.Personal.operacion="buscar";
+           Backbone.app.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {

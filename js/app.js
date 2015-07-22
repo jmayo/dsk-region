@@ -76,7 +76,7 @@ module.exports = Backbone.Collection.extend({
   },
 });
 
-},{"../models/catalogo":6,"backbone":52}],2:[function(require,module,exports){
+},{"../models/catalogo":6,"backbone":53}],2:[function(require,module,exports){
 var Backbone      = require('backbone'),
     empresaModelo = require('../models/empresa');
        
@@ -108,7 +108,7 @@ module.exports = Backbone.Collection.extend({
   model: empresaModelo,
 });
 
-},{"../models/empresa":7,"backbone":52}],3:[function(require,module,exports){
+},{"../models/empresa":7,"backbone":53}],3:[function(require,module,exports){
 var Backbone      = require('backbone'),
   PersonalModelo = require('../models/personal');
 
@@ -140,7 +140,7 @@ module.exports = Backbone.Collection.extend({
   model: PersonalModelo,
 });
 
-},{"../models/personal":9,"backbone":52}],4:[function(require,module,exports){
+},{"../models/personal":9,"backbone":53}],4:[function(require,module,exports){
 var Backbone      = require('backbone'),
     SucursalModelo = require('../models/sucursal');
 
@@ -176,7 +176,7 @@ module.exports = Backbone.Collection.extend({
   model: SucursalModelo,
 });
 
-},{"../models/sucursal":11,"backbone":52}],5:[function(require,module,exports){
+},{"../models/sucursal":11,"backbone":53}],5:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $           = require('jquery');
     Router      = require('./routers/router'),
@@ -431,7 +431,7 @@ $(function() {
     Backbone.app.navigate('', true);
 });
 
-},{"./routers/router":13,"backbone":52,"hbsfy/runtime":87,"jquery":89}],6:[function(require,module,exports){
+},{"./routers/router":14,"backbone":53,"hbsfy/runtime":88,"jquery":90}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -443,7 +443,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta +  'catalogos_detalle/' + this.claves + '/';
   },
 });
-},{"backbone":52}],7:[function(require,module,exports){
+},{"backbone":53}],7:[function(require,module,exports){
 var Backbone        = require('backbone');
     ValidacionVista = require('./validacion')
 
@@ -464,7 +464,7 @@ module.exports = Backbone.Model.extend({
   url : function(){
    var direccion = window.ruta + 'empresa/';
    if(this.pk!== undefined && this.pk!== null){
-      if(window.Personal.operacion==='buscar' && this.pk!==""){
+      if(Backbone.app.operacion==='buscar' && this.pk!==""){
    	    direccion = direccion + this.pk + '/';
       }
    } 
@@ -473,26 +473,36 @@ module.exports = Backbone.Model.extend({
    } 
    return direccion;
   },
-  defaults : {
-	"id": "",
-	"cve_empresa": "",
-	"razon_social": "",
-	"rfc": "",
-	"calle": "",
-	"numero": "",
-	"colonia": "",
-	"cp": "",
-	"cdu_estado": "0140000",
-	"cdu_municipio": "0150000",
-	"ciudad": "",
-	"telefono1": "",
-	"telefono2": "",
-	"cdu_giro": "0180000",
-	"cdu_rubro": "0190000",
-	"fecha_alta":"01/01/1900",
-  "latitud" : "99.1696",
-  "longitud" :  "19.5225",
-  },
+  defaults : function(){
+      var now  = new Date();
+       var dia  =  "" + now.getDate(); 
+       if (dia.length == 1) { dia = "0" + dia; };
+       var mes  =  "" + (now.getMonth() + 1); 
+       if (mes.length == 1) { mes = "0" + mes; };
+       var anio = now.getFullYear();
+       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
+     
+       return {
+    	"id": "",
+    	"cve_empresa": "",
+    	"razon_social": "",
+    	"rfc": "",
+    	"calle": "",
+    	"numero": "",
+    	"colonia": "",
+    	"cp": "",
+    	"cdu_estado": "0140000",
+    	"cdu_municipio": "0150000",
+    	"ciudad": "",
+    	"telefono1": "",
+    	"telefono2": "",
+    	"cdu_giro": "0180000",
+    	"cdu_rubro": "0190000",
+    	"fecha_alta": this.fecha_actual ,
+      "latitud" : "99.1696",
+      "longitud" :  "19.5225",
+      }
+},
   camposValidar: function(){
       var vali = new ValidacionVista();
       vali.Campo('cve_empresa',1,10,vali.Numeros());
@@ -513,7 +523,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./validacion":12,"backbone":52}],8:[function(require,module,exports){
+},{"./validacion":12,"backbone":53}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.login 
@@ -523,7 +533,7 @@ module.exports= Backbone.Model.extend({
   },
 });
 
-},{"backbone":52}],9:[function(require,module,exports){
+},{"backbone":53}],9:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
  
@@ -533,6 +543,7 @@ module.exports= Backbone.Model.extend({
   		this.valor = null;
   		this.pk = null;
       this.camposValidar();
+   
   },
  valor : function(valor){
       this.valor  = valor;
@@ -543,7 +554,7 @@ module.exports= Backbone.Model.extend({
   url : function(){
    var direccion = window.ruta + 'personal/';
    if(this.pk!== undefined && this.pk!== null){
-      if(window.Personal.operacion==='buscar' && this.pk!==""){
+      if(Backbone.app.operacion==='buscar' && this.pk!==""){
    	    direccion = direccion + this.pk + '/';
       }
    } 
@@ -553,9 +564,24 @@ module.exports= Backbone.Model.extend({
    return direccion;
   },
   busqueda: function(){
+//     var now = new Date();
+// var dt = new Date(now.getYear(), now.getMonth(), now.getDay());
+// console.log(now.getFullYear())
+// month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
+// day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
      Backbone.app.navigate("Personal/buscar/" + this.get('matricula'), {trigger: true});
   },
-  defaults : {
+
+  defaults : function() {
+       var now  = new Date();
+       var dia  =  "" + now.getDate(); 
+       if (dia.length == 1) { dia = "0" + dia; };
+       var mes  =  "" + (now.getMonth() + 1); 
+       if (mes.length == 1) { mes = "0" + mes; };
+       var anio = now.getFullYear();
+       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
+     
+        return{
         "id" : "",
         "matricula": "",
         "paterno": "", 
@@ -574,7 +600,7 @@ module.exports= Backbone.Model.extend({
         "id_seguridad_social": "", 
         "portacion": false,
         "cdu_tipo_alta": "0200000", 
-        "fec_alta": "01/01/1900", 
+        "fec_alta": this.fecha_actual , 
         "condicionada": false, 
         "condiciones_alta": "", 
         "cdu_tipo_empleado": "0210000", 
@@ -585,7 +611,8 @@ module.exports= Backbone.Model.extend({
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
         "ciudad_dom": "",
-        "imagen": "",
+        "imagen": ""
+      };
   },
   camposValidar: function(){
       var vali = new ValidacionModelo();
@@ -614,7 +641,7 @@ module.exports= Backbone.Model.extend({
 
 
        
-},{"../models/validacion":12,"backbone":52}],10:[function(require,module,exports){
+},{"../models/validacion":12,"backbone":53}],10:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('./validacion');
  
@@ -649,18 +676,29 @@ module.exports = Backbone.Model.extend({
 
    return direccion;
   },
-  defaults : {
-  "id": "",
-  "id_personal": "",
-  "id_sucursal": "",
-  "cdu_motivo": "0250000",
-  "cdu_turno": "0260000",
-  "cdu_puesto": "0270000",
-  "cdu_rango": "0280000",
-  "sueldo": "0.0",
-  "fecha_inicial": "01/01/1900",
-  "fecha_final": "01/01/1900",
-  "motivo": "",
+  defaults : function(){ 
+     var now  = new Date();
+     var dia  =  "" + now.getDate(); 
+     if (dia.length == 1) { dia = "0" + dia; };
+     var mes  =  "" + (now.getMonth() + 1); 
+     if (mes.length == 1) { mes = "0" + mes; };
+     var anio = now.getFullYear();
+     this.fecha_actual =  dia + '/' + mes + '/' + anio; 
+     
+
+    return {
+    "id": "",
+    "id_personal": "",
+    "id_sucursal": "",
+    "cdu_motivo": "0250000",
+    "cdu_turno": "0260000",
+    "cdu_puesto": "0270000",
+    "cdu_rango": "0280000",
+    "sueldo": "0.0",
+    "fecha_inicial": this.fecha_actual ,
+    "fecha_final": "01/01/1900",
+    "motivo": "",
+     }
   },
    camposValidar: function(){
       var vali = new ValidacionModelo();
@@ -673,7 +711,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./validacion":12,"backbone":52}],11:[function(require,module,exports){
+},{"./validacion":12,"backbone":53}],11:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
 
@@ -745,62 +783,62 @@ module.exports= Backbone.Model.extend({
       return this.listado;  
   }
 });
-},{"../models/validacion":12,"backbone":52}],12:[function(require,module,exports){
+},{"../models/validacion":12,"backbone":53}],12:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.validacion
 module.exports = function validacion(){
-	var lista={}
+	var lista=[];
 	 
 return {
 	Letras: function(){
-	  	var regex ='[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]';
-	 	var mensaje= "solo acepta Letras";
-	    return {regex,mensaje};
+		var regex ='[A-Za-zñáéíóúÑÁÉÍÓÚ\\s]';
+		var mensaje= "solo acepta Letras";
+		return [regex,mensaje];
 	},
 	 Numeros: function(){
 		var regex ='[0-9]';
-	    var mensaje = "solo acepta Numeros"
-		return {regex,mensaje};
+		var mensaje = "solo acepta Numeros";
+		return [regex,mensaje];
 	},
 	AlfaNumerico: function(){
-	  	var regex ='[0-9A-Za-zñáéíóúÑÁÉÍÓÚ\\s]';
-	 	var mensaje= "es alfanumerico";
-	    return {regex,mensaje};
+		var regex ='[0-9A-Za-zñáéíóúÑÁÉÍÓÚ\\s]';
+		var mensaje= "es alfanumerico";
+		return [regex,mensaje];
 	},
 	AlfaNumericoSinEspacios: function(){
-	  	var regex ='[0-9A-Za-zñáéíóúÑÁÉÍÓÚ]';
-	 	var mensaje= "es alfanumerico sin espacios";
-	    return {regex,mensaje};
+		var regex ='[0-9A-Za-zñáéíóúÑÁÉÍÓÚ]';
+		var mensaje= "es alfanumerico sin espacios";
+		return [regex,mensaje];
 	},
 	Decimales: function(){
 		var regex ='[0-9]?[0-9]?(\\.[0-9][0-9]?)?';
-	 	var mensaje= "solo acepta decimales";
-	    return {regex,mensaje};
+		var mensaje= "solo acepta decimales";
+		return [regex,mensaje];
 	},
 	RFC: function(){
 		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
 		var mensaje= "debe ser un rfc correcto";
-		return {regex,mensaje};;
+		return [regex,mensaje];;
 	},
 	Fecha: function(){
 		var regex = '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d';
 		var mensaje= "debe ser una fecha correcta";
-		return {regex,mensaje};;
+		return [regex,mensaje];;
 	},
 	Generico: function(){
 		var regex = '';
 		var mensaje= " acepta cualquier caracter";
-		return {regex,mensaje};;
+		return [regex,mensaje];;
 	},
 	Campo: function(campo,min,longitud,expmsg,mensaje){
 	  var req =  ((min === 0) ? false :true);
 	  var msg= mensaje;
-	  var expreg=expmsg['regex'] + '{' + min + ',' + longitud + '}';
+	  var expreg=expmsg[0] + '{' + min + ',' + longitud + '}';
 	  if(mensaje===undefined){
-      	 msg= expmsg['mensaje']
-      }
-      lista[campo]={
+		 msg= expmsg[1]
+	  }
+	  lista[campo]={
 		required: req,
 		maxlength: longitud,
 		pattern: expreg,
@@ -815,13 +853,111 @@ return {
   }
 };
 
-},{"backbone":52}],13:[function(require,module,exports){
+},{"backbone":53}],13:[function(require,module,exports){
+var    $               = require('jquery');
+
+module.exports = $(function() {
+
+	var myMessages = ['info','warning','error','success'];
+
+	function hideAllMessages(){
+		var messagesHeights = new Array(); // this array will store height for each
+		for (i=0; i<myMessages.length; i++){
+			messagesHeights[i] = $('.' + myMessages[i]).outerHeight(); // fill array
+			$('.' + myMessages[i]).css('top', -messagesHeights[i]); //move element outside viewport
+		}
+	}
+
+	function showMessage(type){
+		$('.'+ type +'-trigger').click(function(){
+			hideAllMessages();
+			$('.'+type).animate({top:"0"}, 500);
+		});
+	}
+
+	$(document).ready(function(){
+		// Initially, hide them all
+		hideAllMessages();
+		// Show message
+		for(var i=0;i<myMessages.length;i++){
+			showMessage(myMessages[i]);
+		}
+		// When message is clicked, hide it
+		$('.message').click(function(){
+			$(this).animate({top: -$(this).outerHeight()}, 500);
+		});
+	});
+
+	//
+	$.fn.notify = function(settings_overwrite){
+		settings = {
+					placement:"top",
+					default_class: ".message",
+					delay:0
+					};
+		$.extend(settings, settings_overwrite);
+		$(settings.default_class).each(function(){$(this).hide();});
+		$(this).show().css(settings.placement, -$(this).outerHeight());
+		obj = $(this);
+		if(settings.placement == "bottom"){
+			setTimeout(function(){obj.animate({bottom:"0"}, 500)},settings.delay);
+		}
+		else{
+			setTimeout(function(){obj.animate({top:"0"}, 500)},settings.delay);
+		}
+	}
+
+	/** begin notification alerts
+	esta no funciona-------------------------------------**/
+	// $(document).ready(function ($) {
+	// 	$('.message').on('click', (function () {
+	// 		$(this).fadeTo('slow', 0, function() {
+	// 			$(this).slideUp("slow", function() {
+	// 				$(this).remove();
+	// 			});
+	// 		});
+	// 	}));
+	// });
+
+
+	// al click del boton ó link
+	$(document).ready(function(){
+		$("a.info_trigger").click(function(){
+			$("#notify_info").notify();
+			//window.setTimeout(autoclose,5000);
+			return false;
+		});
+		$("a.warning_trigger").click(function(){
+			$("#notify_warning").notify();
+			//window.setTimeout(autoclose,5000);
+			return false;
+		});
+		$("a.error_trigger").click(function(){
+			$("#notify_error").notify();
+			//window.setTimeout(autoclose,5000);
+			return false;
+		});
+		$("a.success_trigger").click(function(){
+			$("#notify_success").notify();
+			//window.setTimeout(autoclose,5000);
+			return false;
+		});
+	});
+
+	function autoclose() {
+	  $("#notify_info").fadeOut("slow");
+	  $("#notify_warning").fadeOut("slow");
+	  $("#notify_error").fadeOut("slow");
+	  $("#notify_success").fadeOut("slow");
+	}
+});
+
+},{"jquery":90}],14:[function(require,module,exports){
 var Backbone        = require('backbone'),
     $               = require('jquery');
     Personas        = require('../collections/personas'),
     Empresas        = require('../collections/empresas'),
     Sucursales      = require('../collections/sucursales'),
-    MenuVista       = require('../views/menu'),
     PersonalBusquedaVista   = require('../views/personalBusqueda'),
     EmpresaBusquedaVista    = require('../views/empresaBusqueda'),
     SucursalListadosVista   = require('../views/sucursalListados'),
@@ -834,12 +970,14 @@ var Backbone        = require('backbone'),
     EmpresaMapaVista        = require('../views/sucursalMapa'),
     PersonalBasicoVista     = require('../views/personalBasicos'),
     PersonalSucursal        = require('../models/personal_sucursal'),
+    Sucursal                = require('../models/sucursal'),
     SucursalBasicoVista     = require('../views/sucursalBasicos'),
     PersonalSucursalVista   = require('../views/personalSucursal'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
     ContenidoVista          = require('../views/contenido'),
+    MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body');
-   app      = Backbone.app;
+ 
 
 //Personal.Router
 module.exports = Backbone.Router.extend({
@@ -912,7 +1050,7 @@ initialize: function () {
     this.PersoSucursalModelo.set({"id":"-1"});
     this.PersonalSucursal = new PersonalSucursalVista({model: this.PersoSucursalModelo});
   
-    this.SucursalBasicoModelo = new PersonalSucursal();
+    this.SucursalBasicoModelo = new Sucursal();
     this.SucursalBasicoModelo.set({"id":"-1"});
     
      
@@ -936,29 +1074,26 @@ initialize: function () {
 
 
   personal: function () {
-      
     //Si es la primera vez cambiamos el id para llenar el formulario
-//     window.Personal.menu="personal";
-    window.Personal.operacion="buscar";
+     Backbone.app.operacion="buscar";
     if( this.PersoModelo.get("id")==="-1" ||  this.PersoModelo.get("id")===""){
       this.PersoModelo.set({"id":""});
-      window.Personal.operacion="nuevo";
+      Backbone.app.operacion="nuevo";
   
     }
-    window.Personal.menu="personal";
+    Backbone.app.menu="personal";
    
     console.log("Estas en la lista de personal");
   },
 
  personalMatricula: function (valor_buscado) {
-  //  window.Personal.menu="personal";
-  if(window.Personal.menu==="personal"){
-      window.Personal.operacion="buscar";
+  if(Backbone.app.menu==="personal"){
+      Backbone.app.operacion="buscar";
       this.PersoModelo.valor = valor_buscado;
       this.PersoModelo.fetch(  { headers: {'Authorization' :localStorage.token}} );
   }
-  if(window.Personal.menu==="movimiento"){
-      window.Personal.operacion="buscar";
+  if(Backbone.app.menu==="movimiento"){
+      Backbone.app.operacion="buscar";
       $('#personal_sin_asignar').hide();
       //Ponemos vacia la sucursal, asi solo si esta asignado a una, se llenaran los datos
       this.PersonalSucursal.limpiarTodo();
@@ -981,63 +1116,59 @@ initialize: function () {
         });
        }
   },
+  
 
    personalNuevo: function () {
-   // window.Personal.menu="personal";
-    window.Personal.operacion="nuevo";
+    Backbone.app.operacion="nuevo";
  
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
     this.PersoModelo.set({"id":"-1"});
-    this.PersoModelo.set(this.PersoModelo.defaults);
+    this.PersoModelo.set(this.PersoModelo.defaults());
   
     console.log("nueva persona");
   },
 
   empresa: function () {
-    window.Personal.operacion="buscar";
-    //window.Personal.menu="empresa";
+   Backbone.app.operacion="buscar";
     if( this.EmpresaModelo.get("id")==="-1"  ||  this.EmpresaModelo.get("id")===""){
       this.EmpresaModelo.set({"id":""});
-      window.Personal.operacion="nuevo";
+      Backbone.app.operacion="nuevo";
     }
    
     console.log("Estas en la lista de empresas");
   },
   empresaClave: function (valor_buscado) {
-   // window.Personal.menu="empresas";
-    window.Personal.operacion="buscar";
+    Backbone.app.operacion="buscar";
     this.EmpresaModelo.valor = valor_buscado;
     this.EmpresaModelo.fetch();
   },
    empresaNuevo: function () {
-    //window.Personal.menu="empresa";
-    window.Personal.operacion="nuevo";
+    Backbone.app.operacion="nuevo";
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
     
     this.EmpresaModelo.set({"id":"-1"});
-    this.EmpresaModelo.set(this.EmpresaModelo.defaults);
+    this.EmpresaModelo.set(this.EmpresaModelo.defaults());
     
     console.log("nueva empresa");
   },
    movimiento: function () {
-    window.Personal.operacion="buscar";
+    Backbone.app.operacion="buscar";
     
-    window.Personal.menu="movimiento";
+    Backbone.app.menu="movimiento";
    
     console.log("Estas en la lista de movimientos del personal");
   },
   sucursalActiva: function(valor_buscado){
     console.log("Ver su sucursal activa");
-    window.Personal.operacion="buscar";
+    Backbone.app.operacion="buscar";
     //this.PersoBasicoModelo.valor = valor_buscado;
     //this.EmpresaModelo.fetch();
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado) {
-   // window.Personal.menu="empresas";
-    window.Personal.operacion="buscar";
+    Backbone.app.operacion="buscar";
     this.SucursalBasicoModelo.valor = valor_buscado;
     this.SucursalBasicoModelo.fetch();
     this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
@@ -1065,7 +1196,7 @@ initialize: function () {
 
 });
 
-},{"../collections/empresas":2,"../collections/personas":3,"../collections/sucursales":4,"../models/empresa":7,"../models/personal":9,"../models/personal_sucursal":10,"../views/body":27,"../views/cajaOperaciones":29,"../views/contenido":30,"../views/empresaBusqueda":33,"../views/empresaDetalle":36,"../views/iniciarSesion":37,"../views/menu":38,"../views/personalBasicos":39,"../views/personalBusqueda":40,"../views/personalDetalle":44,"../views/personalMovimiento":45,"../views/personalSucursal":46,"../views/sucursalBasicos":47,"../views/sucursalListados":50,"../views/sucursalMapa":51,"backbone":52,"jquery":89}],14:[function(require,module,exports){
+},{"../collections/empresas":2,"../collections/personas":3,"../collections/sucursales":4,"../models/empresa":7,"../models/personal":9,"../models/personal_sucursal":10,"../models/sucursal":11,"../views/body":28,"../views/cajaOperaciones":30,"../views/contenido":31,"../views/empresaBusqueda":34,"../views/empresaDetalle":37,"../views/iniciarSesion":38,"../views/menu":39,"../views/personalBasicos":40,"../views/personalBusqueda":41,"../views/personalDetalle":45,"../views/personalMovimiento":46,"../views/personalSucursal":47,"../views/sucursalBasicos":48,"../views/sucursalListados":51,"../views/sucursalMapa":52,"backbone":53,"jquery":90}],15:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1106,7 +1237,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],15:[function(require,module,exports){
+},{"hbsfy/runtime":88}],16:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1129,7 +1260,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],16:[function(require,module,exports){
+},{"hbsfy/runtime":88}],17:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1139,7 +1270,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " ";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],17:[function(require,module,exports){
+},{"hbsfy/runtime":88}],18:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1164,7 +1295,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</h5>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],18:[function(require,module,exports){
+},{"hbsfy/runtime":88}],19:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1233,7 +1364,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	<form enctype=\"multipart/form-data\">\n	    <label>File<input name='file' type='file'  id=\"imagencontrol\" /></label>\n	    <input type=\"submit\" value=\"Subir Imagen\">\n	</form>\n\n</article>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],19:[function(require,module,exports){
+},{"hbsfy/runtime":88}],20:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1264,7 +1395,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],20:[function(require,module,exports){
+},{"hbsfy/runtime":88}],21:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1277,7 +1408,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],21:[function(require,module,exports){
+},{"hbsfy/runtime":88}],22:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1290,7 +1421,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],22:[function(require,module,exports){
+},{"hbsfy/runtime":88}],23:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1303,7 +1434,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],23:[function(require,module,exports){
+},{"hbsfy/runtime":88}],24:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1322,7 +1453,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n  ";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],24:[function(require,module,exports){
+},{"hbsfy/runtime":88}],25:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1335,7 +1466,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],25:[function(require,module,exports){
+},{"hbsfy/runtime":88}],26:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1350,7 +1481,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],26:[function(require,module,exports){
+},{"hbsfy/runtime":88}],27:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1391,7 +1522,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":87}],27:[function(require,module,exports){
+},{"hbsfy/runtime":88}],28:[function(require,module,exports){
 var Backbone = require('backbone'),
     $        = require('jquery');
      
@@ -1441,7 +1572,7 @@ module.exports = Backbone.View.extend({
   //		alert("se termino la sesion");
   }
 }); 
-},{"backbone":52,"jquery":89}],28:[function(require,module,exports){
+},{"backbone":53,"jquery":90}],29:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Views.CajaBusqueda 
@@ -1485,7 +1616,7 @@ events : {
 
 });
 
-},{"backbone":52}],29:[function(require,module,exports){
+},{"backbone":53}],30:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                     = require('jquery'),
     SucursalDetalleVista   = require('../views/sucursalDetalle');
@@ -1502,32 +1633,33 @@ module.exports = Backbone.View.extend({
    },
    nuevo: function(){
       console.log("nuevo registro");
-      if(window.Personal.menu==="personal"){
+      if(Backbone.app.menu==="personal"){
          Backbone.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
        }
-      else if(window.Personal.menu==="empresa" || window.Personal.menu==="sucursal"){
+      else if(Backbone.app.menu==="empresa" || Backbone.app.menu==="sucursal"){
          Backbone.app.navigate("Empresas/nuevo/", {trigger: true, replace: true});
        }
       
    },
   guardar: function(){
     console.log("guardando");
-    
-    if(window.Personal.menu==="personal"){
+    debugger;
+
+    if(Backbone.app.menu==="personal"){
       Backbone.app.PersonalDetalle.guardar();
       console.log("guardando personal");
     }
-    if(window.Personal.menu==="empresa"){
+    if(Backbone.app.menu==="empresa"){
       Backbone.app.EmpresaDetalle.guardar();
       console.log("guardando personal");
     }
-    if(window.Personal.menu==="sucursal"){
+    if(Backbone.app.menu==="sucursal"){
       var sucursal = new SucursalDetalleVista();
       sucursal.guardar();
 
       console.log("guardando sucursal");
     }
-    if(window.Personal.menu ==="movimiento"){
+    if(Backbone.app.menu ==="movimiento"){
       Backbone.app.PersonalMovimiento.guardar();
       console.log("guardando movimiento");      
     }
@@ -1536,7 +1668,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../views/sucursalDetalle":49,"backbone":52,"jquery":89}],30:[function(require,module,exports){
+},{"../views/sucursalDetalle":50,"backbone":53,"jquery":90}],31:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                      = require('jquery'),
     PersonalBusquedasVista = require('../views/personalBusquedas'),
@@ -1557,7 +1689,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
    },
    mostrarMenuPersonal: function(){
-   			   window.Personal.menu="personal";
+   			  Backbone.app.menu="personal";
            if (this.CajaBusqueda){
             this.CajaBusqueda.close();
           }
@@ -1570,7 +1702,7 @@ module.exports = Backbone.View.extend({
           $('.contenido_personal').show();
    },
    mostrarMenuEmpresas: function(){
-        window.Personal.menu="empresa";
+        Backbone.app.menu="empresa";
           if (this.CajaBusqueda){
             this.CajaBusqueda.close();
           } 
@@ -1590,14 +1722,13 @@ module.exports = Backbone.View.extend({
           }        
    },
    mostrarMenuMovimientos:function(){
-      window.Personal.menu = "movimiento";
+      Backbone.app.menu = "movimiento";
       if (this.CajaBusquedaPersonal){
             this.CajaBusquedaPersonal.close();
           } 
          if (this.CajaBusquedaSucursal){
             this.CajaBusquedaSucursal.close();
           } 
-
 
 
 
@@ -1618,7 +1749,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":23,"../templates/resultados-sucursal-busqueda.hbs":24,"../views/cajaBusqueda":28,"../views/datoBusquedas":32,"../views/empresaBusquedas":34,"../views/personalBusquedas":41,"backbone":52,"jquery":89}],31:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":24,"../templates/resultados-sucursal-busqueda.hbs":25,"../views/cajaBusqueda":29,"../views/datoBusquedas":33,"../views/empresaBusquedas":35,"../views/personalBusquedas":42,"backbone":53,"jquery":90}],32:[function(require,module,exports){
 var Backbone    = require('backbone');
 
 //Personal.Views.DatoBusqueda 
@@ -1642,13 +1773,12 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    console.log(this.model.get('sueldo'));
     this.model.busqueda();
   }
 });
 
 
-},{"backbone":52}],32:[function(require,module,exports){
+},{"backbone":53}],33:[function(require,module,exports){
 var Backbone          = require('backbone'),
     DatoBusquedaVista = require('../views/datoBusqueda');
     
@@ -1677,7 +1807,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/datoBusqueda":31,"backbone":52}],33:[function(require,module,exports){
+},{"../views/datoBusqueda":32,"backbone":53}],34:[function(require,module,exports){
 var Backbone          = require('backbone'),
     plantilla = require("../templates/resultados-empresa-busqueda.hbs");
 
@@ -1706,7 +1836,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/resultados-empresa-busqueda.hbs":20,"backbone":52}],34:[function(require,module,exports){
+},{"../templates/resultados-empresa-busqueda.hbs":21,"backbone":53}],35:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     EmpresaBusquedaVista  = require('../views/empresaBusqueda');
@@ -1737,7 +1867,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":23,"../views/empresaBusqueda":33,"backbone":52,"jquery":89}],35:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":24,"../views/empresaBusqueda":34,"backbone":53,"jquery":90}],36:[function(require,module,exports){
 var Backbone   = require('backbone'),
     Plantilla  = require('../templates/resultados-empresa-padre.hbs')       
     app        = Backbone.app;
@@ -1769,7 +1899,7 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    window.Personal.menu="empresa";
+    Backbone.app.menu="empresa";
     $('#bloque_sucursal').hide();
     $('#bloque_empresa').show();
     Backbone.app.EmpresaMapa.zoom(12);
@@ -1784,7 +1914,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../templates/resultados-empresa-padre.hbs":21,"backbone":52}],36:[function(require,module,exports){
+},{"../templates/resultados-empresa-padre.hbs":22,"backbone":53}],37:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Sucursal                = require('../models/sucursal'),
@@ -1935,7 +2065,7 @@ guardar: function(){
     model.pk= data["id"];
     
     this.tipo='POST'
-    if(window.Personal.operacion!=="nuevo"){
+    if(Backbone.app.operacion!=="nuevo"){
       this.tipo='PUT';
     }
    
@@ -1945,7 +2075,7 @@ guardar: function(){
             $('#empresa_id').text(model.get("id"));
             self.mostrarDescripcion(model);
             self.mostrarSucursalLista(model.get("id"));
-            window.Personal.operacion="buscar";
+           Backbone.app.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
@@ -2006,7 +2136,7 @@ generarJSON: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/empresa":7,"../models/sucursal":11,"../templates/empresa-detalle.hbs":14,"../views/empresaDescripcion":35,"../views/personalCatalogos":43,"backbone":52,"jquery":89}],37:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/empresa":7,"../models/sucursal":11,"../templates/empresa-detalle.hbs":15,"../views/empresaDescripcion":36,"../views/personalCatalogos":44,"backbone":53,"jquery":90}],38:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $                     = require('jquery'),
     Login       = require('../models/login');
@@ -2038,7 +2168,7 @@ module.exports = Backbone.View.extend({
     model.save(null,{
         type: self.tipo,
         success: function(model,response) {
-            window.Personal.operacion="buscar";
+            Backbone.app.operacion="buscar";
             $("#notify_success").notify();
             localStorage.setItem("token",'Token ' + response.token);
             console.log( localStorage.token);
@@ -2059,10 +2189,9 @@ module.exports = Backbone.View.extend({
 
   });
 
-},{"../models/login":8,"backbone":52,"jquery":89}],38:[function(require,module,exports){
+},{"../models/login":8,"backbone":53,"jquery":90}],39:[function(require,module,exports){
 var Backbone = require('backbone'),
-    $           = require('jquery'), 
-    app      =  Backbone.app;
+    $           = require('jquery');
 
 //Personal.Views.Menu
 
@@ -2089,7 +2218,7 @@ module.exports = Backbone.View.extend({
       Backbone.app.navigate("Movimiento", {trigger: true,replace: false});
    },
 }); 
-},{"backbone":52,"jquery":89}],39:[function(require,module,exports){
+},{"backbone":53,"jquery":90}],40:[function(require,module,exports){
 var Backbone  = require('backbone'),
     $         = require('jquery'),
     Plantilla = require('../templates/personal-datos_basicos.hbs');
@@ -2118,7 +2247,7 @@ module.exports= Backbone.View.extend({
   },
   });
 
-},{"../templates/personal-datos_basicos.hbs":17,"backbone":52,"jquery":89}],40:[function(require,module,exports){
+},{"../templates/personal-datos_basicos.hbs":18,"backbone":53,"jquery":90}],41:[function(require,module,exports){
 var Backbone   = require('backbone'),
     $          = require('jquery'),
     Handlebars = require('handlebars'),
@@ -2153,7 +2282,7 @@ module.exports= Backbone.View.extend({
 
 
 
-},{"../templates/resultados-personal-busqueda.hbs":23,"backbone":52,"handlebars":74,"jquery":89}],41:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":24,"backbone":53,"handlebars":75,"jquery":90}],42:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalBusquedaVista = require('../views/personalBusqueda'),
@@ -2189,7 +2318,7 @@ module.exports= Backbone.View.extend({
     }
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":23,"../views/personalBusqueda":40,"backbone":52,"jquery":89}],42:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":24,"../views/personalBusqueda":41,"backbone":53,"jquery":90}],43:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/personal-catalogos.hbs');
@@ -2223,7 +2352,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/personal-catalogos.hbs":16,"backbone":52,"jquery":89}],43:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":17,"backbone":53,"jquery":90}],44:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalCatalogoVista = require('../views/personalCatalogo'),
@@ -2257,7 +2386,7 @@ module.exports = Backbone.View.extend({
   },  
 });
 
-},{"../templates/personal-catalogos.hbs":16,"../views/personalCatalogo":42,"backbone":52,"jquery":89}],44:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":17,"../views/personalCatalogo":43,"backbone":53,"jquery":90}],45:[function(require,module,exports){
 var Backbone                = require('backbone');
     $                       = require('jquery');
     $.ui                    = require('jquery-ui'),
@@ -2265,7 +2394,7 @@ var Backbone                = require('backbone');
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     Personal                = require('../models/personal');
     Plantilla               = require('../templates/personal-detalle.hbs'),
-    app                     = Backbone.app;
+    $.ua                    = require('../notificaciones');
 
 
 //Personal.Views.PersonalDetalle
@@ -2416,11 +2545,11 @@ guardar: function(){
     var data =this.generarJSON();
     var self = this;
 
-    var model = newPersonal(data);
+    var model = new Personal(data);
     model.valor = undefined;
     model.pk= data["id"];
     this.tipo='POST'
-    if(window.Personal.operacion!=="nuevo"){
+    if(Backbone.app.operacion!=="nuevo"){
         this.tipo='PUT';
     }
  
@@ -2428,7 +2557,7 @@ guardar: function(){
         type: self.tipo,
         success: function(model,response) {
             $('#persona_id').text(model.get("id"));
-            window.Personal.operacion="buscar";
+           Backbone.app.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
@@ -2527,15 +2656,13 @@ uploadFile: function(event) {
     });
   }
 });
-},{"../collections/catalogos":1,"../models/personal":9,"../templates/personal-detalle.hbs":18,"../views/personalCatalogos":43,"backbone":52,"jquery":89,"jquery-ui":88}],45:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal":9,"../notificaciones":13,"../templates/personal-detalle.hbs":19,"../views/personalCatalogos":44,"backbone":53,"jquery":90,"jquery-ui":89}],46:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     PersonalSucursal        = require('../models/personal_sucursal'),
-    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs'),
-    app                     = Backbone.app;
-
+    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs');
 
 //Personal.Views.PersonalMovimiento
 module.exports = Backbone.View.extend({
@@ -2563,6 +2690,7 @@ module.exports = Backbone.View.extend({
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
+   debugger;
    var html = this.template(detalle);
    this.$el.html(html);
 
@@ -2605,7 +2733,7 @@ module.exports = Backbone.View.extend({
         'cdu_motivo':'#movimiento_sucursal_motivo',
         'cdu_turno':'#movimiento_sucursal_turno',
         'cdu_puesto':'#movimiento_sucursal_puesto',
-        'cdu_rango':'#movimiento_sucursal_rango',
+        'cdu_rango':'#movimiento_sucursal_rango',  
         'sueldo':'#movimiento_sucursal_sueldo',
         'fecha_inicial':'#movimiento_sucursal_fecha',
         'motivo': '#movimiento_sucursal_dscmotivo',
@@ -2614,6 +2742,7 @@ module.exports = Backbone.View.extend({
       return columnasCampos;
    },
 guardar: function(){
+    debugger;
     if(this.campoValor('id_personal')===null){
         $("#notify_error").notify();
     }
@@ -2632,7 +2761,6 @@ guardar: function(){
         model.save(null,{
         type: self.tipo,
         success: function(model,response) {
-           //window.Personal.operacion="buscar";
            Backbone.app.PersoSucursalModelo.set(response);
             $("#notify_success").notify();
             $('#personal_sin_asignar').hide();
@@ -2664,7 +2792,8 @@ campoValor: function(campo){
        }
        var elemento  =$(id_control).get(0).tagName;
        var tipo = $(id_control).get(0).type;
-       if(elemento ==="H1"){
+       debugger;
+       if(elemento ==="H1" || elemento=='STRONG'){
            return $(id_control).text();
        }
        else if (elemento === "LABEL"){
@@ -2705,7 +2834,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/personal_sucursal":10,"../templates/movimiento-personal-sucursal.hbs":15,"../views/personalCatalogos":43,"backbone":52,"jquery":89}],46:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal_sucursal":10,"../templates/movimiento-personal-sucursal.hbs":16,"../views/personalCatalogos":44,"backbone":53,"jquery":90}],47:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/personal-sucursal-activa.hbs')
 
@@ -2766,7 +2895,7 @@ module.exports = Backbone.View.extend({
     },
   });
 
-},{"../templates/personal-sucursal-activa.hbs":19,"backbone":52}],47:[function(require,module,exports){
+},{"../templates/personal-sucursal-activa.hbs":20,"backbone":53}],48:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/sucursal-datos_basicos.hbs');
   
@@ -2794,7 +2923,7 @@ module.exports = Backbone.View.extend({
   },
   });
 
-},{"../templates/sucursal-datos_basicos.hbs":25,"backbone":52}],48:[function(require,module,exports){
+},{"../templates/sucursal-datos_basicos.hbs":26,"backbone":53}],49:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Sucursal              = require('../models/sucursal'),
@@ -2834,7 +2963,7 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    window.Personal.menu="sucursal";
+    Backbone.app.menu="sucursal";
     $('#bloque_empresa').hide();
     $('#bloque_sucursal').show();
  
@@ -2856,12 +2985,13 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/personal_sucursal":10,"../models/sucursal":11,"../templates/resultados-empresa-sucursal-listado.hbs":22,"../views/sucursalDetalle":49,"backbone":52,"jquery":89}],49:[function(require,module,exports){
+},{"../models/personal_sucursal":10,"../models/sucursal":11,"../templates/resultados-empresa-sucursal-listado.hbs":23,"../views/sucursalDetalle":50,"backbone":53,"jquery":90}],50:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     Sucursal                = require('../models/sucursal'),
+    Personal                = require('../models/personal'),
     Plantilla               = require('../templates/sucursal-detalle.hbs'),
     app                     = Backbone.app;
 
@@ -2982,7 +3112,7 @@ guardar: function(){
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
              Backbone.app.SucursalLista.add(response);
-            //window.Personal.operacion="buscar";
+        
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
@@ -3029,7 +3159,7 @@ generarJSON: function(){
    },
 agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var suc = new Personal.Models.sucursal();
+      var suc = new Personal();
       var listaVal = suc.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){
@@ -3052,7 +3182,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/sucursal":11,"../templates/sucursal-detalle.hbs":26,"../views/personalCatalogos":43,"backbone":52,"jquery":89}],50:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal":9,"../models/sucursal":11,"../templates/sucursal-detalle.hbs":27,"../views/personalCatalogos":44,"backbone":53,"jquery":90}],51:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     SucursalDescripcionVista = require('../views/sucursalDescripcion');
@@ -3087,7 +3217,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/sucursalDescripcion":48,"backbone":52,"jquery":89}],51:[function(require,module,exports){
+},{"../views/sucursalDescripcion":49,"backbone":53,"jquery":90}],52:[function(require,module,exports){
 var Backbone                 = require('backbone'),
     $                        = require('jquery'),
     ol                       = require('openlayers'),
@@ -3232,7 +3362,7 @@ module.exports = Backbone.View.extend({
       },
 });
 
-},{"../views/sucursalDescripcion":48,"backbone":52,"jquery":89,"openlayers":90}],52:[function(require,module,exports){
+},{"../views/sucursalDescripcion":49,"backbone":53,"jquery":90,"openlayers":91}],53:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.1
 
@@ -5109,9 +5239,9 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":89,"underscore":91}],53:[function(require,module,exports){
+},{"jquery":90,"underscore":92}],54:[function(require,module,exports){
 
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -5339,7 +5469,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":55}],55:[function(require,module,exports){
+},{"_process":56}],56:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -5431,7 +5561,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5495,7 +5625,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars.runtime":57,"./handlebars/compiler/ast":59,"./handlebars/compiler/base":60,"./handlebars/compiler/compiler":62,"./handlebars/compiler/javascript-compiler":64,"./handlebars/compiler/visitor":67,"./handlebars/no-conflict":70}],57:[function(require,module,exports){
+},{"./handlebars.runtime":58,"./handlebars/compiler/ast":60,"./handlebars/compiler/base":61,"./handlebars/compiler/compiler":63,"./handlebars/compiler/javascript-compiler":65,"./handlebars/compiler/visitor":68,"./handlebars/no-conflict":71}],58:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5556,7 +5686,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars/base":58,"./handlebars/exception":69,"./handlebars/no-conflict":70,"./handlebars/runtime":71,"./handlebars/safe-string":72,"./handlebars/utils":73}],58:[function(require,module,exports){
+},{"./handlebars/base":59,"./handlebars/exception":70,"./handlebars/no-conflict":71,"./handlebars/runtime":72,"./handlebars/safe-string":73,"./handlebars/utils":74}],59:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5830,7 +5960,7 @@ function createFrame(object) {
 }
 
 /* [args, ]options */
-},{"./exception":69,"./utils":73}],59:[function(require,module,exports){
+},{"./exception":70,"./utils":74}],60:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5983,7 +6113,7 @@ var AST = {
 // must modify the object to operate properly.
 exports['default'] = AST;
 module.exports = exports['default'];
-},{}],60:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6030,7 +6160,7 @@ function parse(input, options) {
   var strip = new _WhitespaceControl2['default']();
   return strip.accept(_parser2['default'].parse(input));
 }
-},{"../utils":73,"./ast":59,"./helpers":63,"./parser":65,"./whitespace-control":68}],61:[function(require,module,exports){
+},{"../utils":74,"./ast":60,"./helpers":64,"./parser":66,"./whitespace-control":69}],62:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6195,7 +6325,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 /* NOP */
-},{"../utils":73,"source-map":75}],62:[function(require,module,exports){
+},{"../utils":74,"source-map":76}],63:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6723,7 +6853,7 @@ function transformLiteralToPath(sexpr) {
     sexpr.path = new _AST2['default'].PathExpression(false, 0, [literal.original + ''], literal.original + '', literal.loc);
   }
 }
-},{"../exception":69,"../utils":73,"./ast":59}],63:[function(require,module,exports){
+},{"../exception":70,"../utils":74,"./ast":60}],64:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6855,7 +6985,7 @@ function prepareBlock(openBlock, program, inverseAndProgram, close, inverted, lo
 
   return new this.BlockStatement(openBlock.path, openBlock.params, openBlock.hash, program, inverse, openBlock.strip, inverseStrip, close && close.strip, this.locInfo(locInfo));
 }
-},{"../exception":69}],64:[function(require,module,exports){
+},{"../exception":70}],65:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7918,7 +8048,7 @@ function strictLookup(requireTerminal, compiler, parts, type) {
 
 exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
-},{"../base":58,"../exception":69,"../utils":73,"./code-gen":61}],65:[function(require,module,exports){
+},{"../base":59,"../exception":70,"../utils":74,"./code-gen":62}],66:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -8597,7 +8727,7 @@ var handlebars = (function () {
     return new Parser();
 })();exports["default"] = handlebars;
 module.exports = exports["default"];
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8763,7 +8893,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
   return pair.key + '=' + this.accept(pair.value);
 };
 /*eslint-enable new-cap */
-},{"./visitor":67}],67:[function(require,module,exports){
+},{"./visitor":68}],68:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8896,7 +9026,7 @@ Visitor.prototype = {
 exports['default'] = Visitor;
 module.exports = exports['default'];
 /* content */ /* comment */ /* path */ /* string */ /* number */ /* bool */ /* literal */ /* literal */
-},{"../exception":69,"./ast":59}],68:[function(require,module,exports){
+},{"../exception":70,"./ast":60}],69:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9109,7 +9239,7 @@ function omitLeft(body, i, multiple) {
 
 exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
-},{"./visitor":67}],69:[function(require,module,exports){
+},{"./visitor":68}],70:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9148,7 +9278,7 @@ Exception.prototype = new Error();
 
 exports['default'] = Exception;
 module.exports = exports['default'];
-},{}],70:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -9169,7 +9299,7 @@ exports['default'] = function (Handlebars) {
 
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9402,7 +9532,7 @@ function initData(context, data) {
   }
   return data;
 }
-},{"./base":58,"./exception":69,"./utils":73}],72:[function(require,module,exports){
+},{"./base":59,"./exception":70,"./utils":74}],73:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9417,7 +9547,7 @@ SafeString.prototype.toString = SafeString.prototype.toHTML = function () {
 
 exports['default'] = SafeString;
 module.exports = exports['default'];
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9532,7 +9662,7 @@ function blockParams(params, ids) {
 function appendContextPath(contextPath, id) {
   return (contextPath ? contextPath + '.' : '') + id;
 }
-},{}],74:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -9559,7 +9689,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":56,"../dist/cjs/handlebars/compiler/printer":66,"fs":53}],75:[function(require,module,exports){
+},{"../dist/cjs/handlebars":57,"../dist/cjs/handlebars/compiler/printer":67,"fs":54}],76:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -9569,7 +9699,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":81,"./source-map/source-map-generator":82,"./source-map/source-node":83}],76:[function(require,module,exports){
+},{"./source-map/source-map-consumer":82,"./source-map/source-map-generator":83,"./source-map/source-node":84}],77:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9668,7 +9798,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":84,"amdefine":85}],77:[function(require,module,exports){
+},{"./util":85,"amdefine":86}],78:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9812,7 +9942,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":78,"amdefine":85}],78:[function(require,module,exports){
+},{"./base64":79,"amdefine":86}],79:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9856,7 +9986,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":85}],79:[function(require,module,exports){
+},{"amdefine":86}],80:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9938,7 +10068,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":85}],80:[function(require,module,exports){
+},{"amdefine":86}],81:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -10026,7 +10156,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":84,"amdefine":85}],81:[function(require,module,exports){
+},{"./util":85,"amdefine":86}],82:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10603,7 +10733,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":76,"./base64-vlq":77,"./binary-search":79,"./util":84,"amdefine":85}],82:[function(require,module,exports){
+},{"./array-set":77,"./base64-vlq":78,"./binary-search":80,"./util":85,"amdefine":86}],83:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11005,7 +11135,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":76,"./base64-vlq":77,"./mapping-list":80,"./util":84,"amdefine":85}],83:[function(require,module,exports){
+},{"./array-set":77,"./base64-vlq":78,"./mapping-list":81,"./util":85,"amdefine":86}],84:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11421,7 +11551,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":82,"./util":84,"amdefine":85}],84:[function(require,module,exports){
+},{"./source-map-generator":83,"./util":85,"amdefine":86}],85:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11742,7 +11872,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":85}],85:[function(require,module,exports){
+},{"amdefine":86}],86:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 0.1.0 Copyright (c) 2011, The Dojo Foundation All Rights Reserved.
@@ -12047,15 +12177,15 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/handlebars/node_modules/source-map/node_modules/amdefine/amdefine.js")
-},{"_process":55,"path":54}],86:[function(require,module,exports){
+},{"_process":56,"path":55}],87:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":57}],87:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":58}],88:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":86}],88:[function(require,module,exports){
+},{"handlebars/runtime":87}],89:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*! jQuery UI - v1.10.3 - 2013-05-03
@@ -27062,7 +27192,7 @@ $.widget( "ui.tooltip", {
 
 }( jQuery ) );
 
-},{"jquery":89}],89:[function(require,module,exports){
+},{"jquery":90}],90:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.11.3
  * http://jquery.com/
@@ -37415,7 +37545,7 @@ return jQuery;
 
 }));
 
-},{}],90:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
 // Version: v3.7.0
@@ -38352,7 +38482,7 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
 }));
 
 
-},{}],91:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

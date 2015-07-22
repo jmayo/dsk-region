@@ -1,6 +1,5 @@
 var Backbone = require('backbone'),
-    $           = require('jquery'), 
-    app      =  Backbone.app;
+    $           = require('jquery');
 
 //Personal.Views.Menu
 

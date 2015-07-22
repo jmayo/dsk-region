@@ -26,3 +26,23 @@ Instalar browserify:
 	Observando los cambios automaticamente:
 	    npm install -g watchify
 	    watchify main.js -o static/bundle.js
+
+Buenas practicas:
+	(1) Minificacion de archivos:
+			Instalar uglify-js en el contexto global
+			   sudo npm install -g uglify-js
+			Minificar el archivo:
+			   uglifyjs app.js app.min.js
+			   uglifyjs sample.js -c -m -o sample.min.js
+
+	(2) Utilizar un cdn  (content delivery network);
+	    Servicios de pago: cloudfiare
+	    libre: cdnjs (tiene las librerias en sus servidores)
+	    Ejemplo para la libreria backbone; 
+	             Se cambia la ruta por: //cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js
+
+	(3) Cache:
+	          Se definen el servidor.
+
+	(4) Gzip:
+	          Comprimir los archivos estaticos.
