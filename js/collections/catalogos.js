@@ -17,6 +17,9 @@ module.exports = Backbone.Collection.extend({
   },
 
   url : function(){
+    if(this.cdu_default!=''){
+      this.cdu_default = this.cdu_default + '/';
+    }
    return window.ruta + 'catalogos_detalle/' + this.claves + '/' + this.cdu_default;
   },
   

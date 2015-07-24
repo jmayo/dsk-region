@@ -25,7 +25,7 @@ module.exports = Backbone.Collection.extend({
         this.id_empresa=0;
       }
     
-    direccion= direccion + 'empresa/' + this.id_empresa + '/sucursales';
+    direccion= direccion + 'empresa/' + this.id_empresa + '/sucursales/';
     
    return direccion;
   },

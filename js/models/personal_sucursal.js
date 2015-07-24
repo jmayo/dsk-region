@@ -23,7 +23,7 @@ module.exports = Backbone.Model.extend({
    } 
   
    if(this.id_personal!== undefined && this.id_personal!== null){
-   	 return direccion + this.id_personal + '/sucursal/activa';
+   	 return direccion + this.id_personal + '/sucursal/activa/';
    } 
 
    if(this.pk==="-1"){

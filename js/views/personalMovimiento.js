@@ -31,7 +31,6 @@ module.exports = Backbone.View.extend({
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
-   debugger;
    var html = this.template(detalle);
    this.$el.html(html);
 
@@ -44,7 +43,7 @@ module.exports = Backbone.View.extend({
     SucursalCatalogos.claves ="25,26,27,28";
   
     SucursalCatalogos.fetch(
-      {
+      { headers: {'Authorization' :localStorage.token},
         success: function(){
           self.llenadoCatalogosCombo(SucursalCatalogos.Motivo(),detalle["cdu_motivo"],"#movimiento_sucursal_motivo");
 
@@ -100,6 +99,7 @@ guardar: function(){
       this.tipo='POST'
 
         model.save(null,{
+         headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
            Backbone.app.PersoSucursalModelo.set(response);

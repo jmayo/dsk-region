@@ -70,7 +70,7 @@ var Backbone                = require('backbone');
     PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
   
     PersonalCatalogos.fetch(
-      {
+      { headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(PersonalCatalogos.Escolaridad(),detalle["cdu_escolaridad"],"#perso_escolaridad");
@@ -110,7 +110,7 @@ var Backbone                = require('backbone');
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({ headers: {'Authorization' :localStorage.token},
               success: function(){
                   var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
@@ -165,6 +165,7 @@ guardar: function(){
     }
  
     model.save(null,{
+        headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#persona_id').text(model.get("id"));
@@ -172,6 +173,7 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+              $("#notify_error").text(response) 
              $("#notify_error").notify();
               console.log(response.responseText);
              // var responseObj = $.parseJSON(response.responseText);
@@ -256,6 +258,7 @@ uploadFile: function(event) {
         data: data,
         processData: false,
        contentType: false ,
+        headers: {'Authorization' :localStorage.token},
         success: function(result){
           console.log("Exito al subir la foto");
            $("#notify_success").notify();

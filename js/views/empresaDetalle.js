@@ -47,6 +47,7 @@ module.exports = Backbone.View.extend({
      $('#bloque_sucursal').hide();
      $("#bloque_mapa_sucursal").hide();
 
+
   },
   render: function () {
    $('#bloque_sucursal').hide();
@@ -56,18 +57,19 @@ module.exports = Backbone.View.extend({
    var html = this.template(detalle);
    this.$el.html(html);
    this.mostrarDescripcion(this.model);  
-   
+  
 
    var self = this;   
    $("#empresa_fecha_alta").datepicker({dateFormat:"dd/mm/yy"});
-  
    this.agregarValidacion();
+   
 
     var EmpresaCatalogos = new Catalogos();
     EmpresaCatalogos.claves ="14,19,18";
   
     EmpresaCatalogos.fetch(
       {
+        headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(EmpresaCatalogos.Estados(),detalle["cdu_estado"],"#empresa_estado");
@@ -80,8 +82,9 @@ module.exports = Backbone.View.extend({
     });
 
 
-          this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#empresa_municipio");
-
+    this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#empresa_municipio");
+           
+    this.mostrarSucursalLista(this.model.get("id"));
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
@@ -94,21 +97,21 @@ module.exports = Backbone.View.extend({
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({headers: {'Authorization' :localStorage.token},
               success: function(){
                   var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
                   vista.render();
                 }
             });
-      this.mostrarSucursalLista(this.model.get("id"));
+   //   this.mostrarSucursalLista(this.model.get("id"));
      
       },
    mostrarSucursalLista: function(id_empresa){
         Backbone.app.SucursalLista.valor = null;
         Backbone.app.SucursalLista.id_empresa = id_empresa;
         Backbone.app.SucursalLista.reset();
-        Backbone.app.SucursalLista.fetch().always(function(){
+        Backbone.app.SucursalLista.fetch({headers: {'Authorization' :localStorage.token}}).always(function(){
              if(id_empresa!==""){
                 // Este modelo sera para crear nuevas sucursales
                var sucursal = new Sucursal();
@@ -153,6 +156,7 @@ guardar: function(){
     }
    
     model.save(null,{
+      headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#empresa_id').text(model.get("id"));
@@ -162,6 +166,7 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
         }
@@ -176,6 +181,7 @@ generarJSON: function(){
       {
         if (relacion.hasOwnProperty(campo))
         {
+           console.log(campo);
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];

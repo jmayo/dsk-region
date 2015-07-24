@@ -50,7 +50,7 @@ module.exports = Backbone.View.extend({
       this.SucursalModelo = new Sucursal();
       this.SucursalModelo.pk = this.model.get("id");
       this.SucursalDetalle = new SucursalDetalleVista({model: this.SucursalModelo});
-      this.SucursalModelo.fetch();
+      this.SucursalModelo.fetch({ headers: {'Authorization' :localStorage.token}});
       Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
     }
   }

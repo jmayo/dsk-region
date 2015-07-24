@@ -50,7 +50,8 @@ module.exports = Backbone.View.extend({
     SucursalCatalogos.claves ="14,24";
   
     SucursalCatalogos.fetch(
-      {
+      { 
+        headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(SucursalCatalogos.Estados(),detalle["cdu_estado"],"#sucursal_estado");
@@ -73,10 +74,11 @@ module.exports = Backbone.View.extend({
 
     },
    llenadoComboDependiente: function(catalogo,id_catalogo,cdu_default,cdu_seleccion,id_selector){
+
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({headers: {'Authorization' :localStorage.token},
               success: function(){
                   var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
@@ -120,6 +122,7 @@ guardar: function(){
     }
    
     model.save(null,{
+      headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
@@ -150,6 +153,7 @@ generarJSON: function(){
       {
         if (relacion.hasOwnProperty(campo))
         {
+           console.log(campo);
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];
@@ -171,7 +175,7 @@ generarJSON: function(){
    },
 agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var suc = new Personal();
+      var suc = new Sucursal ();
       var listaVal = suc.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){

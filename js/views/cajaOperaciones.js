@@ -18,14 +18,13 @@ module.exports = Backbone.View.extend({
          Backbone.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
        }
       else if(Backbone.app.menu==="empresa" || Backbone.app.menu==="sucursal"){
+         Backbone.app.menu="empresa";
          Backbone.app.navigate("Empresas/nuevo/", {trigger: true, replace: true});
        }
       
    },
   guardar: function(){
     console.log("guardando");
-    debugger;
-
     if(Backbone.app.menu==="personal"){
       Backbone.app.PersonalDetalle.guardar();
       console.log("guardando personal");

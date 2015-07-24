@@ -18,6 +18,9 @@ module.exports = Backbone.Collection.extend({
   },
 
   url : function(){
+    if(this.cdu_default!=''){
+      this.cdu_default = this.cdu_default + '/';
+    }
    return window.ruta + 'catalogos_detalle/' + this.claves + '/' + this.cdu_default;
   },
   
@@ -168,7 +171,7 @@ module.exports = Backbone.Collection.extend({
         this.id_empresa=0;
       }
     
-    direccion= direccion + 'empresa/' + this.id_empresa + '/sucursales';
+    direccion= direccion + 'empresa/' + this.id_empresa + '/sucursales/';
     
    return direccion;
   },
@@ -679,7 +682,7 @@ module.exports = Backbone.Model.extend({
    } 
   
    if(this.id_personal!== undefined && this.id_personal!== null){
-   	 return direccion + this.id_personal + '/sucursal/activa';
+   	 return direccion + this.id_personal + '/sucursal/activa/';
    } 
 
    if(this.pk==="-1"){
@@ -1114,7 +1117,7 @@ initialize: function () {
   
   },
 
- personalMatricula: function (valor_buscado) {
+ personalMatricula: function (valor_buscado,callback) {
   if(Backbone.app.menu==="personal"){
       Backbone.app.operacion="buscar";
       this.PersoModelo.valor = valor_buscado;
@@ -1130,22 +1133,28 @@ initialize: function () {
       var self = this; 
 
       
-      this.PersoBasicoModelo.fetch({
+
+      this.PersoBasicoModelo.fetch({ headers: {'Authorization' :localStorage.token},async:false,
        
           success: function(){
-              self.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
-              self.PersoSucursalModelo.fetch({
+                 self.mostrarSucursal();
+            }
+        });
+       
+    }
+  },
+   
+   mostrarSucursal: function() {
+              this.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
+
+              this.PersoSucursalModelo.fetch({headers: {'Authorization' :localStorage.token},
                 error: function(a,err){
                   if(err.status===404){
                     $('#personal_sin_asignar').show();
                   }
                 },
               });
-            }
-        });
-       }
-  },
-  
+   },
 
    personalNuevo: function () {
     Backbone.app.operacion="nuevo";
@@ -1183,7 +1192,7 @@ initialize: function () {
   empresaClave: function (valor_buscado) {
     Backbone.app.operacion="buscar";
     this.EmpresaModelo.valor = valor_buscado;
-    this.EmpresaModelo.fetch();
+    this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
   },
    empresaNuevo: function () {
     Backbone.app.operacion="nuevo";
@@ -1225,13 +1234,14 @@ initialize: function () {
   sucursalClave: function (valor_buscado) {
     Backbone.app.operacion="buscar";
     this.SucursalBasicoModelo.valor = valor_buscado;
-    this.SucursalBasicoModelo.fetch();
+    this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
     this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
     this.PersonalMovimiento.render();
   },
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
+      debugger;
       var self = this;
       var val = clave;
 
@@ -1609,7 +1619,7 @@ module.exports = Backbone.View.extend({
   },
   startTimer: function() {
     	// wait 2 seconds before calling goInactive
-    	this.timeoutID = window.setTimeout(this.goInactive, 2000);
+    	this.timeoutID = window.setTimeout(this.goInactive, 300000);
   },
   goActive: function() {
     // do something
@@ -1624,6 +1634,8 @@ module.exports = Backbone.View.extend({
     this.goActive();
   },
   goInactive: function(){
+      alert('La sesion caduco');
+     localStorage.setItem("token",'Token ');
   //		alert("se termino la sesion");
   }
 }); 
@@ -1692,14 +1704,13 @@ module.exports = Backbone.View.extend({
          Backbone.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
        }
       else if(Backbone.app.menu==="empresa" || Backbone.app.menu==="sucursal"){
+         Backbone.app.menu="empresa";
          Backbone.app.navigate("Empresas/nuevo/", {trigger: true, replace: true});
        }
       
    },
   guardar: function(){
     console.log("guardando");
-    debugger;
-
     if(Backbone.app.menu==="personal"){
       Backbone.app.PersonalDetalle.guardar();
       console.log("guardando personal");
@@ -2019,6 +2030,7 @@ module.exports = Backbone.View.extend({
      $('#bloque_sucursal').hide();
      $("#bloque_mapa_sucursal").hide();
 
+
   },
   render: function () {
    $('#bloque_sucursal').hide();
@@ -2028,18 +2040,19 @@ module.exports = Backbone.View.extend({
    var html = this.template(detalle);
    this.$el.html(html);
    this.mostrarDescripcion(this.model);  
-   
+  
 
    var self = this;   
    $("#empresa_fecha_alta").datepicker({dateFormat:"dd/mm/yy"});
-  
    this.agregarValidacion();
+   
 
     var EmpresaCatalogos = new Catalogos();
     EmpresaCatalogos.claves ="14,19,18";
   
     EmpresaCatalogos.fetch(
       {
+        headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(EmpresaCatalogos.Estados(),detalle["cdu_estado"],"#empresa_estado");
@@ -2052,8 +2065,9 @@ module.exports = Backbone.View.extend({
     });
 
 
-          this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#empresa_municipio");
-
+    this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#empresa_municipio");
+           
+    this.mostrarSucursalLista(this.model.get("id"));
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
@@ -2066,21 +2080,21 @@ module.exports = Backbone.View.extend({
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({headers: {'Authorization' :localStorage.token},
               success: function(){
                   var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
                   vista.render();
                 }
             });
-      this.mostrarSucursalLista(this.model.get("id"));
+   //   this.mostrarSucursalLista(this.model.get("id"));
      
       },
    mostrarSucursalLista: function(id_empresa){
         Backbone.app.SucursalLista.valor = null;
         Backbone.app.SucursalLista.id_empresa = id_empresa;
         Backbone.app.SucursalLista.reset();
-        Backbone.app.SucursalLista.fetch().always(function(){
+        Backbone.app.SucursalLista.fetch({headers: {'Authorization' :localStorage.token}}).always(function(){
              if(id_empresa!==""){
                 // Este modelo sera para crear nuevas sucursales
                var sucursal = new Sucursal();
@@ -2125,6 +2139,7 @@ guardar: function(){
     }
    
     model.save(null,{
+      headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#empresa_id').text(model.get("id"));
@@ -2134,6 +2149,7 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
         }
@@ -2148,6 +2164,7 @@ generarJSON: function(){
       {
         if (relacion.hasOwnProperty(campo))
         {
+           console.log(campo);
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];
@@ -2521,7 +2538,7 @@ var Backbone                = require('backbone');
     PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
   
     PersonalCatalogos.fetch(
-      {
+      { headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(PersonalCatalogos.Escolaridad(),detalle["cdu_escolaridad"],"#perso_escolaridad");
@@ -2561,7 +2578,7 @@ var Backbone                = require('backbone');
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({ headers: {'Authorization' :localStorage.token},
               success: function(){
                   var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
@@ -2616,6 +2633,7 @@ guardar: function(){
     }
  
     model.save(null,{
+        headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#persona_id').text(model.get("id"));
@@ -2623,6 +2641,7 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+              $("#notify_error").text(response) 
              $("#notify_error").notify();
               console.log(response.responseText);
              // var responseObj = $.parseJSON(response.responseText);
@@ -2707,6 +2726,7 @@ uploadFile: function(event) {
         data: data,
         processData: false,
        contentType: false ,
+        headers: {'Authorization' :localStorage.token},
         success: function(result){
           console.log("Exito al subir la foto");
            $("#notify_success").notify();
@@ -2752,7 +2772,6 @@ module.exports = Backbone.View.extend({
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
-   debugger;
    var html = this.template(detalle);
    this.$el.html(html);
 
@@ -2765,7 +2784,7 @@ module.exports = Backbone.View.extend({
     SucursalCatalogos.claves ="25,26,27,28";
   
     SucursalCatalogos.fetch(
-      {
+      { headers: {'Authorization' :localStorage.token},
         success: function(){
           self.llenadoCatalogosCombo(SucursalCatalogos.Motivo(),detalle["cdu_motivo"],"#movimiento_sucursal_motivo");
 
@@ -2821,6 +2840,7 @@ guardar: function(){
       this.tipo='POST'
 
         model.save(null,{
+         headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
            Backbone.app.PersoSucursalModelo.set(response);
@@ -3038,7 +3058,7 @@ module.exports = Backbone.View.extend({
       this.SucursalModelo = new Sucursal();
       this.SucursalModelo.pk = this.model.get("id");
       this.SucursalDetalle = new SucursalDetalleVista({model: this.SucursalModelo});
-      this.SucursalModelo.fetch();
+      this.SucursalModelo.fetch({ headers: {'Authorization' :localStorage.token}});
       Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
     }
   }
@@ -3100,7 +3120,8 @@ module.exports = Backbone.View.extend({
     SucursalCatalogos.claves ="14,24";
   
     SucursalCatalogos.fetch(
-      {
+      { 
+        headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(SucursalCatalogos.Estados(),detalle["cdu_estado"],"#sucursal_estado");
@@ -3123,10 +3144,11 @@ module.exports = Backbone.View.extend({
 
     },
    llenadoComboDependiente: function(catalogo,id_catalogo,cdu_default,cdu_seleccion,id_selector){
+
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({headers: {'Authorization' :localStorage.token},
               success: function(){
                   var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
@@ -3170,6 +3192,7 @@ guardar: function(){
     }
    
     model.save(null,{
+      headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
@@ -3200,6 +3223,7 @@ generarJSON: function(){
       {
         if (relacion.hasOwnProperty(campo))
         {
+           console.log(campo);
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];
@@ -3221,7 +3245,7 @@ generarJSON: function(){
    },
 agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var suc = new Personal();
+      var suc = new Sucursal ();
       var listaVal = suc.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){

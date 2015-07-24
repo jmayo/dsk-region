@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend({
   },
   startTimer: function() {
     	// wait 2 seconds before calling goInactive
-    	this.timeoutID = window.setTimeout(this.goInactive, 2000);
+    	this.timeoutID = window.setTimeout(this.goInactive, 300000);
   },
   goActive: function() {
     // do something
@@ -44,6 +44,8 @@ module.exports = Backbone.View.extend({
     this.goActive();
   },
   goInactive: function(){
+      alert('La sesion caduco');
+     localStorage.setItem("token",'Token ');
   //		alert("se termino la sesion");
   }
 }); 

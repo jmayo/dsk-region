@@ -147,7 +147,7 @@ initialize: function () {
   
   },
 
- personalMatricula: function (valor_buscado) {
+ personalMatricula: function (valor_buscado,callback) {
   if(Backbone.app.menu==="personal"){
       Backbone.app.operacion="buscar";
       this.PersoModelo.valor = valor_buscado;
@@ -163,22 +163,28 @@ initialize: function () {
       var self = this; 
 
       
-      this.PersoBasicoModelo.fetch({
+
+      this.PersoBasicoModelo.fetch({ headers: {'Authorization' :localStorage.token},async:false,
        
           success: function(){
-              self.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
-              self.PersoSucursalModelo.fetch({
+                 self.mostrarSucursal();
+            }
+        });
+       
+    }
+  },
+   
+   mostrarSucursal: function() {
+              this.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
+
+              this.PersoSucursalModelo.fetch({headers: {'Authorization' :localStorage.token},
                 error: function(a,err){
                   if(err.status===404){
                     $('#personal_sin_asignar').show();
                   }
                 },
               });
-            }
-        });
-       }
-  },
-  
+   },
 
    personalNuevo: function () {
     Backbone.app.operacion="nuevo";
@@ -216,7 +222,7 @@ initialize: function () {
   empresaClave: function (valor_buscado) {
     Backbone.app.operacion="buscar";
     this.EmpresaModelo.valor = valor_buscado;
-    this.EmpresaModelo.fetch();
+    this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
   },
    empresaNuevo: function () {
     Backbone.app.operacion="nuevo";
@@ -258,13 +264,14 @@ initialize: function () {
   sucursalClave: function (valor_buscado) {
     Backbone.app.operacion="buscar";
     this.SucursalBasicoModelo.valor = valor_buscado;
-    this.SucursalBasicoModelo.fetch();
+    this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
     this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
     this.PersonalMovimiento.render();
   },
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
+      debugger;
       var self = this;
       var val = clave;
 
