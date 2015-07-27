@@ -45,4 +45,12 @@ Buenas practicas:
 	          Se definen el servidor.
 
 	(4) Gzip:
-	          Comprimir los archivos estaticos.
+	          Comprimir los archivos estaticos
+
+Usar gulp.js para automatizar tareas 
+	Instalar gulp:
+		sudo npm install -g gulp
+	Registrarlo en el package.json y le indicamos que es una dependencia solo para desarrollo
+		sudo npm install gulp --save-dev
+	Se crea un archivo de configuracion
+		touch Gulpfile.js	

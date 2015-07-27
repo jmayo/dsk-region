@@ -153,7 +153,7 @@ generarJSON: function(){
       {
         if (relacion.hasOwnProperty(campo))
         {
-           console.log(campo);
+          
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];

@@ -1014,7 +1014,7 @@ module.exports = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14:8080/";
+    window.ruta="http://192.168.0.14/";
     //window.ruta="http://104.236.232.238:8080/";
     //window.ruta ="http://localhost:8080/";
  
@@ -2482,6 +2482,7 @@ var Backbone                = require('backbone');
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
      'submit form' : 'uploadFile',
+     "blur #persona_matricula": function(){console.log("saliste del control")},
   //   'change #imagencontrol':  'mostrarImagen',
    },
 
@@ -3223,7 +3224,7 @@ generarJSON: function(){
       {
         if (relacion.hasOwnProperty(campo))
         {
-           console.log(campo);
+          
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];

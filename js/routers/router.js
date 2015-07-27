@@ -44,7 +44,7 @@ module.exports = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14:8080/";
+    window.ruta="http://192.168.0.14/";
     //window.ruta="http://104.236.232.238:8080/";
     //window.ruta ="http://localhost:8080/";
  

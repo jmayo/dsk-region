@@ -14,6 +14,7 @@ var Backbone                = require('backbone');
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
      'submit form' : 'uploadFile',
+     "blur #persona_matricula": function(){console.log("saliste del control")},
   //   'change #imagencontrol':  'mostrarImagen',
    },
 
