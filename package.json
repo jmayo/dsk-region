@@ -26,7 +26,7 @@
     "jquery-ui": "^1.10.5",
     "ol": "^3.1.0-pre.1",
     "underscore": "^1.8.3",
-    "watchify": "^3.2.3"
+    "watchify": "^3.3.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
@@ -38,6 +38,7 @@
     "gulp-strip-debug": "^1.0.2",
     "gulp-uglify": "^1.2.0",
     "openlayers": "^3.7.0",
+    "uglify-js": "^2.4.24",
     "vinyl-source-stream": "^1.1.0"
   }
 }

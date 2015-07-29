@@ -1014,7 +1014,7 @@ module.exports = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14/";
+    window.ruta="http://192.168.0.14:8001/";
     //window.ruta="http://104.236.232.238:8080/";
     //window.ruta ="http://localhost:8080/";
  
@@ -2642,7 +2642,7 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
-              $("#notify_error").text(response) 
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
              // var responseObj = $.parseJSON(response.responseText);
@@ -2734,6 +2734,8 @@ uploadFile: function(event) {
           self.mostrarImagen();
       },
         error: function(model,response, options) {
+              console.log(model.responseText);
+             $("#notify_error").text(model.responseText);
              $("#notify_error").notify();
         }
     });

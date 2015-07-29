@@ -174,7 +174,7 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
-              $("#notify_error").text(response) 
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
              // var responseObj = $.parseJSON(response.responseText);
@@ -266,6 +266,8 @@ uploadFile: function(event) {
           self.mostrarImagen();
       },
         error: function(model,response, options) {
+              console.log(model.responseText);
+             $("#notify_error").text(model.responseText);
              $("#notify_error").notify();
         }
     });
