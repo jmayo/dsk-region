@@ -1,10 +1,14 @@
-Personal.Views.EmpresaBusqueda = Backbone.View.extend({
+var Backbone          = require('backbone'),
+    plantilla = require("../templates/resultados-empresa-busqueda.hbs");
+
+//Personal.Views.EmpresaBusqueda 
+module.exports = Backbone.View.extend({
   events : {
      "mousedown ": "seleccionado",
    },
   tagName: 'div',
   className: 'resultado_ind',
-  template: Handlebars.compile($("#resultados-empresa-busqueda-template").html()),
+  template: plantilla,
 
   initialize: function () {
   },
@@ -17,7 +21,7 @@ Personal.Views.EmpresaBusqueda = Backbone.View.extend({
   },
   seleccionado: function(){
     console.log(this.model.get('nombre'));
-    Personal.app.navigate("Empresa/buscar/" + this.model.get('cve_empresa'), {trigger: true});
+    Backbone.app.navigate("Empresa/buscar/" + this.model.get('cve_empresa'), {trigger: true});
   }
 });
 

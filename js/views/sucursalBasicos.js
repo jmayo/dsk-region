@@ -1,9 +1,13 @@
-Personal.Views.SucursalBasico = Backbone.View.extend({
+var Backbone  = require('backbone'),
+    Plantilla = require('../templates/sucursal-datos_basicos.hbs');
+  
+//Personal.Views.SucursalBasico
+module.exports = Backbone.View.extend({
   el: $('#sucursal_datos_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#sucursal-datos_basicos-template").html()),
-    
+  template: Plantilla,
+  
   initialize: function () {
     this.listenTo(this.model, "change", this.llenado, this);
   },

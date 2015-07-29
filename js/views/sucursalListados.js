@@ -1,4 +1,10 @@
-Personal.Views.SucursalListados = Backbone.View.extend({
+var Backbone                = require('backbone'),
+    $                     = require('jquery'),
+    SucursalDescripcionVista = require('../views/sucursalDescripcion');
+
+
+//Personal.Views.SucursalListados 
+module.exports = Backbone.View.extend({
   el: $('#sucursal_listado'),
  // template: Handlebars.compile($("#resultados-empresa-sucursal-listado-template").html()),
 
@@ -11,7 +17,7 @@ Personal.Views.SucursalListados = Backbone.View.extend({
     this.collection.forEach(this.addOne, this);
   },
   addOne: function (sucursal) {
-    var busquedaView = new Personal.Views.SucursalDescripcion({ model: sucursal }); 
+    var busquedaView = new SucursalDescripcionVista({ model: sucursal }); 
     if(sucursal.get("id")==="-1"){
       this.$el.prepend(busquedaView.render().el);  
     }

@@ -1,4 +1,7 @@
-Personal.Models.personalsucursal = Backbone.Model.extend({
+var Backbone = require('backbone'),
+    ValidacionModelo = require('./validacion');
+ 
+module.exports = Backbone.Model.extend({
   initialize: function(){
       this.id_personal = null;
   	  this.pk = null;
@@ -20,7 +23,7 @@ Personal.Models.personalsucursal = Backbone.Model.extend({
    } 
   
    if(this.id_personal!== undefined && this.id_personal!== null){
-   	 return direccion + this.id_personal + '/sucursal/activa';
+   	 return direccion + this.id_personal + '/sucursal/activa/';
    } 
 
    if(this.pk==="-1"){
@@ -29,21 +32,32 @@ Personal.Models.personalsucursal = Backbone.Model.extend({
 
    return direccion;
   },
-  defaults : {
-  "id": "",
-  "id_personal": "",
-  "id_sucursal": "",
-  "cdu_motivo": "0250000",
-  "cdu_turno": "0260000",
-  "cdu_puesto": "0270000",
-  "cdu_rango": "0280000",
-  "sueldo": "0.0",
-  "fecha_inicial": "01/01/1900",
-  "fecha_final": "01/01/1900",
-  "motivo": "",
+  defaults : function(){ 
+     var now  = new Date();
+     var dia  =  "" + now.getDate(); 
+     if (dia.length == 1) { dia = "0" + dia; };
+     var mes  =  "" + (now.getMonth() + 1); 
+     if (mes.length == 1) { mes = "0" + mes; };
+     var anio = now.getFullYear();
+     this.fecha_actual =  dia + '/' + mes + '/' + anio; 
+     
+
+    return {
+    "id": "",
+    "id_personal": "",
+    "id_sucursal": "",
+    "cdu_motivo": "0250000",
+    "cdu_turno": "0260000",
+    "cdu_puesto": "0270000",
+    "cdu_rango": "0280000",
+    "sueldo": "0.0",
+    "fecha_inicial": this.fecha_actual ,
+    "fecha_final": "01/01/1900",
+    "motivo": "",
+     }
   },
    camposValidar: function(){
-      var vali = new Personal.Models.validacion();
+      var vali = new ValidacionModelo();
       vali.Campo('sueldo',1,10,vali.Decimales());
       vali.Campo('fecha_inicial',1,10,vali.Fecha()); 
       this.listado = vali.Listado();

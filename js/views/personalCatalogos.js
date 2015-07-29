@@ -1,6 +1,12 @@
-Personal.Views.PersonalCatalogos = Backbone.View.extend({
+var Backbone              = require('backbone'),
+    $                     = require('jquery'),
+    PersonalCatalogoVista = require('../views/personalCatalogo'),
+    Plantilla             = require('../templates/personal-catalogos.hbs');
+
+//Personal.Views.PersonalCatalogos 
+module.exports = Backbone.View.extend({
   
-  template: Handlebars.compile($("#personal-catalogos-template").html()),
+  template: Plantilla,
   
   initialize: function (attrs) {
       this.options = attrs;
@@ -15,7 +21,7 @@ Personal.Views.PersonalCatalogos = Backbone.View.extend({
  
   addOne: function (catalogo) {
     var seleccionado = false;
-    var catalogoView = new Personal.Views.PersonalCatalogo({ model: catalogo , seleccionado:this.options.cdu_seleccionado }); 
+    var catalogoView = new PersonalCatalogoVista({ model: catalogo , seleccionado:this.options.cdu_seleccionado }); 
     var id_cat= catalogoView.model.get('catalogos');
     this.AgregarOpcion(catalogoView,id_cat);
   },

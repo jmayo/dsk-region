@@ -1,9 +1,17 @@
-Personal.Views.PersonalMovimiento = Backbone.View.extend({
+var Backbone                = require('backbone'),
+    $                       = require('jquery'),
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    PersonalSucursal        = require('../models/personal_sucursal'),
+    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs');
+
+//Personal.Views.PersonalMovimiento
+module.exports = Backbone.View.extend({
  
   el: $('#movimiento_personal_sucursal'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#movimiento-personal-sucursal-template").html()),
+  template: Plantilla,
 
   initialize: function () {
     if(this.model !==undefined){
@@ -31,11 +39,11 @@ Personal.Views.PersonalMovimiento = Backbone.View.extend({
  
    this.agregarValidacion();
    
-    var SucursalCatalogos = new Personal.Collections.Catalogos();
+    var SucursalCatalogos = new Catalogos();
     SucursalCatalogos.claves ="25,26,27,28";
   
     SucursalCatalogos.fetch(
-      {
+      { headers: {'Authorization' :localStorage.token},
         success: function(){
           self.llenadoCatalogosCombo(SucursalCatalogos.Motivo(),detalle["cdu_motivo"],"#movimiento_sucursal_motivo");
 
@@ -53,7 +61,7 @@ Personal.Views.PersonalMovimiento = Backbone.View.extend({
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
-          var vis = new Personal.Views.PersonalCatalogos({
+          var vis = new PersonalCatalogosVista({
             collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
           vis.render();
 
@@ -65,7 +73,7 @@ Personal.Views.PersonalMovimiento = Backbone.View.extend({
         'cdu_motivo':'#movimiento_sucursal_motivo',
         'cdu_turno':'#movimiento_sucursal_turno',
         'cdu_puesto':'#movimiento_sucursal_puesto',
-        'cdu_rango':'#movimiento_sucursal_rango',
+        'cdu_rango':'#movimiento_sucursal_rango',  
         'sueldo':'#movimiento_sucursal_sueldo',
         'fecha_inicial':'#movimiento_sucursal_fecha',
         'motivo': '#movimiento_sucursal_dscmotivo',
@@ -74,6 +82,7 @@ Personal.Views.PersonalMovimiento = Backbone.View.extend({
       return columnasCampos;
    },
 guardar: function(){
+    debugger;
     if(this.campoValor('id_personal')===null){
         $("#notify_error").notify();
     }
@@ -85,16 +94,15 @@ guardar: function(){
       var data =this.generarJSON();
       
       data.sueldo= parseFloat(data.sueldo).toFixed(7)
-      var model = new Personal.Models.personalsucursal(data);
+      var model = new PersonalSucursal(data);
       model.pk = "-1";
-      debugger;
       this.tipo='POST'
 
         model.save(null,{
+         headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
-           //window.Personal.operacion="buscar";
-           Personal.app.PersoSucursalModelo.set(response);
+           Backbone.app.PersoSucursalModelo.set(response);
             $("#notify_success").notify();
             $('#personal_sin_asignar').hide();
           },
@@ -125,7 +133,8 @@ campoValor: function(campo){
        }
        var elemento  =$(id_control).get(0).tagName;
        var tipo = $(id_control).get(0).type;
-       if(elemento ==="H1"){
+       debugger;
+       if(elemento ==="H1" || elemento=='STRONG'){
            return $(id_control).text();
        }
        else if (elemento === "LABEL"){
@@ -143,7 +152,7 @@ campoValor: function(campo){
   },
 agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var perso_suc = new Personal.Models.personalsucursal();
+      var perso_suc = new PersonalSucursal();
       var listaVal = perso_suc.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){

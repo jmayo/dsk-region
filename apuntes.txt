@@ -1,0 +1,56 @@
+Gestor de dependencias bower:
+  npm install -g bower
+
+  inicializar el archivo de manejo de paquetes:
+  	bower init
+  	bower install <paquete>
+  	bower search <paquete>
+  	bower list [--paths]
+
+Los archivos de bower_components se pueden enlazar en lib
+    ln -s /bower_components/backbone.js
+
+Para correr algun script:
+	 npm run bundle
+	 npm -ls //para ver el arbol de dependencias
+	 instalar y registrar en el package.json:
+	    npm install handlebars --save
+
+
+Instalar browserify:
+	npm install -g browserify
+
+	Uso para convertir un archivo a modulos: 
+	   browserify app/js/main.js -o app/js/app.js
+
+	Observando los cambios automaticamente:
+	    npm install -g watchify
+	    watchify main.js -o static/bundle.js
+
+Buenas practicas:
+	(1) Minificacion de archivos:
+			Instalar uglify-js en el contexto global
+			   sudo npm install -g uglify-js
+			Minificar el archivo:
+			   uglifyjs app.js app.min.js
+			   uglifyjs sample.js -c -m -o sample.min.js
+
+	(2) Utilizar un cdn  (content delivery network);
+	    Servicios de pago: cloudfiare
+	    libre: cdnjs (tiene las librerias en sus servidores)
+	    Ejemplo para la libreria backbone; 
+	             Se cambia la ruta por: //cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js
+
+	(3) Cache:
+	          Se definen el servidor.
+
+	(4) Gzip:
+	          Comprimir los archivos estaticos
+
+Usar gulp.js para automatizar tareas 
+	Instalar gulp:
+		sudo npm install -g gulp
+	Registrarlo en el package.json y le indicamos que es una dependencia solo para desarrollo
+		sudo npm install gulp --save-dev
+	Se crea un archivo de configuracion
+		touch Gulpfile.js	

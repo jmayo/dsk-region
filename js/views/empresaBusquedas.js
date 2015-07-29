@@ -1,6 +1,12 @@
-Personal.Views.EmpresaBusquedas = Backbone.View.extend({
+var Backbone              = require('backbone'),
+    $                     = require('jquery'),
+    EmpresaBusquedaVista  = require('../views/empresaBusqueda');
+    Plantilla             = require('../templates/resultados-personal-busqueda.hbs');
+
+//Personal.Views.EmpresaBusquedas 
+module.exports = Backbone.View.extend({
   el: $('#resultados_generales'),
-  template: Handlebars.compile($("#resultados-empresa-busqueda-template").html()),
+  template: Plantilla,
 
   initialize: function () {
     this.listenTo(this.collection, "add", this.addOne, this);
@@ -12,7 +18,7 @@ Personal.Views.EmpresaBusquedas = Backbone.View.extend({
   },
   addOne: function (empresa) {
     console.log("Se agrego nueva busqueda");
-    var busquedaView = new Personal.Views.EmpresaBusqueda({ model: empresa }); 
+    var busquedaView = new EmpresaBusquedaVista({ model: empresa }); 
     this.$el.append(busquedaView.render().el);
   },
    limpiarTodo:function(){

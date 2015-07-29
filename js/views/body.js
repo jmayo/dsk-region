@@ -1,4 +1,8 @@
-Personal.Views.Body = Backbone.View.extend({
+var Backbone = require('backbone'),
+    $        = require('jquery');
+     
+//Personal.Views.Body 
+module.exports = Backbone.View.extend({
   events :{
      "mousemove":"iniciarConteo",
   },
@@ -25,7 +29,7 @@ Personal.Views.Body = Backbone.View.extend({
   },
   startTimer: function() {
     	// wait 2 seconds before calling goInactive
-    	this.timeoutID = window.setTimeout(this.goInactive, 2000);
+    	this.timeoutID = window.setTimeout(this.goInactive, 300000);
   },
   goActive: function() {
     // do something
@@ -40,6 +44,8 @@ Personal.Views.Body = Backbone.View.extend({
     this.goActive();
   },
   goInactive: function(){
+      alert('La sesion caduco');
+     localStorage.setItem("token",'Token ');
   //		alert("se termino la sesion");
   }
 }); 

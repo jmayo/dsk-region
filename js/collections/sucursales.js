@@ -1,4 +1,9 @@
-Personal.Collections.Sucursales = Backbone.Collection.extend({
+var Backbone      = require('backbone'),
+    SucursalModelo = require('../models/sucursal');
+
+
+//Personal.Collections.Sucursales
+module.exports = Backbone.Collection.extend({
   initialize: function(){
   		this.id_empresa = null;
   },
@@ -20,10 +25,10 @@ Personal.Collections.Sucursales = Backbone.Collection.extend({
         this.id_empresa=0;
       }
     
-    direccion= direccion + 'empresa/' + this.id_empresa + '/sucursales';
+    direccion= direccion + 'empresa/' + this.id_empresa + '/sucursales/';
     
    return direccion;
   },
   
-  model: Personal.Models.sucursal,
+  model: SucursalModelo,
 });

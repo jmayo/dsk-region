@@ -1,4 +1,8 @@
-Personal.Views.FormView = Backbone.View.extend({
+var Backbone  = require('backbone'),
+
+//Personal.Views.FormView 
+
+module.exports= Backbone.View.extend({
 
   // some more code here
 initialize: function () {

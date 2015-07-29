@@ -1,4 +1,32 @@
-Personal.Router = Backbone.Router.extend({
+var Backbone        = require('backbone'),
+    $               = require('jquery');
+    Personas        = require('../collections/personas'),
+    Empresas        = require('../collections/empresas'),
+    Sucursales      = require('../collections/sucursales'),
+    PersonalBusquedaVista   = require('../views/personalBusqueda'),
+    EmpresaBusquedaVista    = require('../views/empresaBusqueda'),
+    SucursalListadosVista   = require('../views/sucursalListados'),
+    IniciarSesionVista      = require('../views/iniciarSesion'),
+    CajaOperacionesVista    = require('../views/cajaOperaciones'),
+    Personal                = require('../models/personal'),
+    PersonalDetalleVista    = require('../views/personalDetalle');
+    Empresa                 = require('../models/empresa'),
+    EmpresaDetalleVista     = require('../views/empresaDetalle'),
+    EmpresaMapaVista        = require('../views/sucursalMapa'),
+    PersonalBasicoVista     = require('../views/personalBasicos'),
+    PersonalSucursal        = require('../models/personal_sucursal'),
+    Sucursal                = require('../models/sucursal'),
+    SucursalBasicoVista     = require('../views/sucursalBasicos'),
+    PersonalSucursalVista   = require('../views/personalSucursal'),
+    PersonalMovimientoVista = require('../views/personalMovimiento'),
+    ContenidoVista          = require('../views/contenido'),
+    MenuVista       = require('../views/menu'),
+    BodyVista = require('../views/body');
+    MenuOpcion = require('../models/menu')
+ 
+
+//Personal.Router
+module.exports = Backbone.Router.extend({
   routes: {
     "": "root",
     "Personal": "personal",
@@ -16,66 +44,75 @@ Personal.Router = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14:8080/";
+    window.ruta="http://192.168.0.14:8001/";
     //window.ruta="http://104.236.232.238:8080/";
     //window.ruta ="http://localhost:8080/";
  
 
       
-    this.Perso = new Personal.Collections.Personas();          
-    this.Empresa = new Personal.Collections.Empresas();
-    this.Sucursal = new Personal.Collections.Sucursales();
-    this.SucursalLista = new Personal.Collections.Sucursales(); 
+    this.Perso = new Personas();          
+    this.Empresa = new Empresas();
+    this.Sucursal = new Sucursales();
+    this.SucursalLista = new Sucursales(); 
 
-    this.MenuVista = new Personal.Views.Menu(); 
+    this.MenuModelo = new MenuOpcion();
+    this.MenuVista = new MenuVista({model: this.MenuModelo}); 
 
-    this.ContenidoVista = new Personal.Views.Contenido(); 
+    this.ContenidoVista = new ContenidoVista(); 
  
        
-    this.PersonalBusquedaVista = new Personal.Views.PersonalBusqueda();
+    this.PersonalBusquedaVista = new PersonalBusquedaVista();
     
-    this.EmpresaBusquedaVista = new Personal.Views.EmpresaBusqueda();
+    this.EmpresaBusquedaVista = new EmpresaBusquedaVista();
     
-    this.SucursalListadoVista = new Personal.Views.SucursalListados({collection: this.SucursalLista});
+    this.SucursalListadoVista = new SucursalListadosVista({collection: this.SucursalLista});
 
-    this.IniciarSesion = new Personal.Views.IniciarSesion();
+    this.IniciarSesion = new IniciarSesionVista();
 
-    this.CajaOperaciones= new Personal.Views.CajaOperaciones();
+    this.CajaOperaciones= new CajaOperacionesVista();
  
-    this.PersoModelo = new Personal.Models.personal();
+    this.PersoModelo = new Personal();
     this.PersoModelo.set({"id":"-1"});
-    this.PersonalDetalle = new Personal.Views.PersonalDetalle({model: this.PersoModelo});
-    
 
-    this.EmpresaModelo = new Personal.Models.empresa();
+    this.PersonalDetalle = new PersonalDetalleVista({model: this.PersoModelo});
+    
+    this.EmpresaModelo = new Empresa();
     this.EmpresaModelo.set({"id":"-1"});
-    this.EmpresaDetalle = new Personal.Views.EmpresaDetalle({model: this.EmpresaModelo});
-    
+
+    this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
     
 
-
-    this.EmpresaMapa= new Personal.Views.SucursalMapa();
-
-    this.PersoBasicoModelo = new Personal.Models.personal();
-    this.PersoBasicoModelo.set({"id":"-1"});
-    this.PersonalBasico = new Personal.Views.PersonalBasico({model: this.PersoBasicoModelo});
-    
-    this.PersoSucursalModelo = new Personal.Models.personalsucursal();
-    this.PersoSucursalModelo.set({"id":"-1"});
-    this.PersonalSucursal = new Personal.Views.PersonalSucursal({model: this.PersoSucursalModelo});
   
-    this.SucursalBasicoModelo = new Personal.Models.sucursal();
+
+    this.EmpresaMapa= new EmpresaMapaVista();
+        
+    this.PersoBasicoModelo = new Personal();
+    this.PersoBasicoModelo.set({"id":"-1"});
+
+   
+
+    this.PersonalBasico = new PersonalBasicoVista({model: this.PersoBasicoModelo});
+    
+    this.PersoSucursalModelo = new PersonalSucursal();
+    this.PersoSucursalModelo.set({"id":"-1"});
+    this.PersonalSucursal = new PersonalSucursalVista({model: this.PersoSucursalModelo});
+  
+    this.SucursalBasicoModelo = new Sucursal();
     this.SucursalBasicoModelo.set({"id":"-1"});
-    this.SucursalBasico = new Personal.Views.SucursalBasico({model: this.SucursalBasicoModelo});
+    
+     
+
+    this.SucursalBasico = new SucursalBasicoVista({model: this.SucursalBasicoModelo});
     
 
-    this.PersonalMovimientoModelo = new Personal.Models.personalsucursal();
+    this.PersonalMovimientoModelo = new PersonalSucursal();
     this.PersonalMovimientoModelo.set({"id":"-1"});
-    this.PersonalMovimiento = new Personal.Views.PersonalMovimiento({model: this.PersonalMovimientoModelo});
+    this.PersonalMovimiento = new PersonalMovimientoVista({model: this.PersonalMovimientoModelo});
     
-    this.Body = new Personal.Views.Body();
+
+    this.Body = new BodyVista();
     
-    window.Personal.menu="root";
+    this.menu="root";
   },
 
   root: function () {
@@ -84,116 +121,157 @@ initialize: function () {
 
 
   personal: function () {
-      
-    //Si es la primera vez cambiamos el id para llenar el formulario
-//     window.Personal.menu="personal";
-    window.Personal.operacion="buscar";
-    if( this.PersoModelo.get("id")==="-1" ||  this.PersoModelo.get("id")===""){
-      this.PersoModelo.set({"id":""});
-      window.Personal.operacion="nuevo";
+    this.MenuModelo.Opcion ='personal';
+    self = this;
+    this.MenuModelo.fetch({
+              headers: {'Authorization' :localStorage.token},
+              success: function(){
+                  //Si es la primera vez cambiamos el id para llenar el formulario
+                     Backbone.app.operacion="buscar";
+                    if( self.PersoModelo.get("id")==="-1" ||  self.PersoModelo.get("id")===""){
+                      self.PersoModelo.set({"id":""});
+                      Backbone.app.operacion="nuevo";
+                  
+                    }
+                    Backbone.app.menu="personal";
+                   
+                    console.log("Estas en la lista de personal");
+                },
+              error: function(model,response, options) {
+                     $("#notify_error").text("No estas registrado en el sistema"); 
+                     $("#notify_error").notify();
+                      console.log(response.responseText);
+                }
+            });
+
   
-    }
-    window.Personal.menu="personal";
-   
-    console.log("Estas en la lista de personal");
   },
 
- personalMatricula: function (valor_buscado) {
-  //  window.Personal.menu="personal";
-  if(window.Personal.menu==="personal"){
-      window.Personal.operacion="buscar";
+ personalMatricula: function (valor_buscado,callback) {
+  if(Backbone.app.menu==="personal"){
+      Backbone.app.operacion="buscar";
       this.PersoModelo.valor = valor_buscado;
       this.PersoModelo.fetch(  { headers: {'Authorization' :localStorage.token}} );
   }
-  if(window.Personal.menu==="movimiento"){
-      window.Personal.operacion="buscar";
+  if(Backbone.app.menu==="movimiento"){
+      Backbone.app.operacion="buscar";
       $('#personal_sin_asignar').hide();
       //Ponemos vacia la sucursal, asi solo si esta asignado a una, se llenaran los datos
       this.PersonalSucursal.limpiarTodo();
       this.PersoSucursalModelo.set({"id":"-1"});
       this.PersoBasicoModelo.valor = valor_buscado;
       var self = this; 
+
       
-      this.PersoBasicoModelo.fetch({
+
+      this.PersoBasicoModelo.fetch({ headers: {'Authorization' :localStorage.token},async:false,
        
           success: function(){
-              self.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
-              self.PersoSucursalModelo.fetch({
+                 self.mostrarSucursal();
+            }
+        });
+       
+    }
+  },
+   
+   mostrarSucursal: function() {
+              this.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
+
+              this.PersoSucursalModelo.fetch({headers: {'Authorization' :localStorage.token},
                 error: function(a,err){
                   if(err.status===404){
                     $('#personal_sin_asignar').show();
                   }
                 },
               });
-            }
-        });
-       }
-  },
+   },
 
    personalNuevo: function () {
-   // window.Personal.menu="personal";
-    window.Personal.operacion="nuevo";
+    Backbone.app.operacion="nuevo";
  
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
     this.PersoModelo.set({"id":"-1"});
-    this.PersoModelo.set(this.PersoModelo.defaults);
+    this.PersoModelo.set(this.PersoModelo.defaults());
   
     console.log("nueva persona");
   },
 
   empresa: function () {
-    window.Personal.operacion="buscar";
-    //window.Personal.menu="empresa";
-    if( this.EmpresaModelo.get("id")==="-1"  ||  this.EmpresaModelo.get("id")===""){
-      this.EmpresaModelo.set({"id":""});
-      window.Personal.operacion="nuevo";
-    }
-   
-    console.log("Estas en la lista de empresas");
+    this.MenuModelo.Opcion ='sucursal';
+    self = this;
+    this.MenuModelo.fetch({
+              headers: {'Authorization' :localStorage.token},
+              success: function(){
+                 Backbone.app.operacion="buscar";
+                  if( self.EmpresaModelo.get("id")==="-1"  ||  self.EmpresaModelo.get("id")===""){
+                    self.EmpresaModelo.set({"id":""});
+                    Backbone.app.operacion="nuevo";
+                  }
+                 
+                  console.log("Estas en la lista de empresas");
+                },
+              error: function(model,response, options) {
+                     $("#notify_error").text("No estas registrado en el sistema"); 
+                     $("#notify_error").notify();
+                      console.log(response.responseText);
+                }
+            });
+
   },
   empresaClave: function (valor_buscado) {
-   // window.Personal.menu="empresas";
-    window.Personal.operacion="buscar";
+    Backbone.app.operacion="buscar";
     this.EmpresaModelo.valor = valor_buscado;
-    this.EmpresaModelo.fetch();
+    this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
   },
    empresaNuevo: function () {
-    //window.Personal.menu="empresa";
-    window.Personal.operacion="nuevo";
+    Backbone.app.operacion="nuevo";
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
     
     this.EmpresaModelo.set({"id":"-1"});
-    this.EmpresaModelo.set(this.EmpresaModelo.defaults);
+    this.EmpresaModelo.set(this.EmpresaModelo.defaults());
     
     console.log("nueva empresa");
   },
    movimiento: function () {
-    window.Personal.operacion="buscar";
-    
-    window.Personal.menu="movimiento";
-   
-    console.log("Estas en la lista de movimientos del personal");
+
+     this.MenuModelo.Opcion ='personal_sucursales';
+    self = this;
+    this.MenuModelo.fetch({
+              headers: {'Authorization' :localStorage.token},
+              success: function(){                
+                    Backbone.app.operacion="buscar";
+                    
+                    Backbone.app.menu="movimiento";
+                   
+                    console.log("Estas en la lista de movimientos del personal");
+                },
+              error: function(model,response, options) {
+                     $("#notify_error").text("No estas registrado en el sistema"); 
+                     $("#notify_error").notify();
+                      console.log(response.responseText);
+                }
+            });
   },
   sucursalActiva: function(valor_buscado){
     console.log("Ver su sucursal activa");
-    window.Personal.operacion="buscar";
+    Backbone.app.operacion="buscar";
     //this.PersoBasicoModelo.valor = valor_buscado;
     //this.EmpresaModelo.fetch();
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado) {
-   // window.Personal.menu="empresas";
-    window.Personal.operacion="buscar";
+    Backbone.app.operacion="buscar";
     this.SucursalBasicoModelo.valor = valor_buscado;
-    this.SucursalBasicoModelo.fetch();
+    this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
     this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
     this.PersonalMovimiento.render();
   },
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
+      debugger;
       var self = this;
       var val = clave;
 

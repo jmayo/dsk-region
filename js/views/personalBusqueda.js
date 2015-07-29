@@ -1,10 +1,18 @@
-Personal.Views.PersonalBusqueda = Backbone.View.extend({
+var Backbone   = require('backbone'),
+    $          = require('jquery'),
+    Handlebars = require('handlebars'),
+    app        =  Backbone.app;
+    plantilla = require("../templates/resultados-personal-busqueda.hbs");
+
+//Personal.Views.PersonalBusqueda 
+module.exports= Backbone.View.extend({
   events : {
      "mousedown ": "seleccionado",
    },
   tagName: 'div',
   className: 'resultado_ind',
-  template: Handlebars.compile($("#resultados-personal-busqueda-template").html()),
+  template: plantilla,
+  //template: Handlebars.compile(plantilla),
 
   initialize: function () {
   },
@@ -17,7 +25,7 @@ Personal.Views.PersonalBusqueda = Backbone.View.extend({
   },
   seleccionado: function(){
     console.log(this.model.get('nombre'));
-    Personal.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
+    Backbone.app.navigate("Personal/buscar/" + this.model.get('matricula'), {trigger: true});
   }
 });
 

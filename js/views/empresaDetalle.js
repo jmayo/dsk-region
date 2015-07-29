@@ -1,4 +1,15 @@
-Personal.Views.EmpresaDetalle = Backbone.View.extend({
+var Backbone                = require('backbone'),
+    $                       = require('jquery'),
+    Sucursal                = require('../models/sucursal'),
+    Empresa                 = require('../models/empresa'),  
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    EmpresaDescripcionVista = require('../views/empresaDescripcion'),
+    Plantilla               = require('../templates/empresa-detalle.hbs'),
+    app                     = Backbone.app;
+
+//Personal.Views.EmpresaDetalle 
+module.exports = Backbone.View.extend({
   events : {
      "change #empresa_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#empresa_estado").val(),'',"#empresa_municipio");},
    },
@@ -6,10 +17,10 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
   el: $('#bloque_empresa'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#empresa-detalle-template").html()),
+  template: Plantilla,
 
   initialize: function () {
-    this.catMunicipio = new Personal.Collections.Catalogos();  
+    this.catMunicipio = new Catalogos();  
     this.listenTo(this.model, "change", this.llenado, this);
   },
   reset: function()
@@ -24,7 +35,7 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
   }, 
   mostrarDescripcion: function(modelo){
      $("#sucursal_padre").empty();
-     this.empresaTitulo = new Personal.Views.EmpresaDescripcion({model: modelo});
+     this.empresaTitulo = new EmpresaDescripcionVista({model: modelo});
      $('#listado_empresa_sucursal').hide();
      if(modelo.get("id")!==""){
         $("#listado_empresa_sucursal").show();
@@ -36,6 +47,7 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
      $('#bloque_sucursal').hide();
      $("#bloque_mapa_sucursal").hide();
 
+
   },
   render: function () {
    $('#bloque_sucursal').hide();
@@ -44,20 +56,20 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
-
    this.mostrarDescripcion(this.model);  
-   
+  
 
    var self = this;   
    $("#empresa_fecha_alta").datepicker({dateFormat:"dd/mm/yy"});
-  
    this.agregarValidacion();
+   
 
-    var EmpresaCatalogos = new Personal.Collections.Catalogos();
+    var EmpresaCatalogos = new Catalogos();
     EmpresaCatalogos.claves ="14,19,18";
   
     EmpresaCatalogos.fetch(
       {
+        headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(EmpresaCatalogos.Estados(),detalle["cdu_estado"],"#empresa_estado");
@@ -70,12 +82,13 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
     });
 
 
-          this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#empresa_municipio");
-
+    this.llenadoComboDependiente(this.catMunicipio,'15', detalle["cdu_estado"],detalle["cdu_municipio"],"#empresa_municipio");
+           
+    this.mostrarSucursalLista(this.model.get("id"));
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
-          var vis = new Personal.Views.PersonalCatalogos({
+          var vis = new PersonalCatalogosVista({
             collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
           vis.render();
 
@@ -84,27 +97,27 @@ Personal.Views.EmpresaDetalle = Backbone.View.extend({
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({headers: {'Authorization' :localStorage.token},
               success: function(){
-                  var vista = new Personal.Views.PersonalCatalogos({
+                  var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
                   vista.render();
                 }
             });
-      this.mostrarSucursalLista(this.model.get("id"));
+   //   this.mostrarSucursalLista(this.model.get("id"));
      
       },
    mostrarSucursalLista: function(id_empresa){
-        Personal.app.SucursalLista.valor = null;
-        Personal.app.SucursalLista.id_empresa = id_empresa;
-        Personal.app.SucursalLista.reset();
-         Personal.app.SucursalLista.fetch().always(function(){
+        Backbone.app.SucursalLista.valor = null;
+        Backbone.app.SucursalLista.id_empresa = id_empresa;
+        Backbone.app.SucursalLista.reset();
+        Backbone.app.SucursalLista.fetch({headers: {'Authorization' :localStorage.token}}).always(function(){
              if(id_empresa!==""){
                 // Este modelo sera para crear nuevas sucursales
-               var sucursal = new Personal.Models.sucursal();
+               var sucursal = new Sucursal();
                sucursal.set(sucursal.defaults);
                sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":"AGREGAR SUCURSAL"});
-               Personal.app.SucursalLista.add(sucursal);
+               Backbone.app.SucursalLista.add(sucursal);
             }
           }
         );
@@ -133,25 +146,27 @@ relacionColumnas: function(){
 guardar: function(){
     var data =this.generarJSON();
      var self = this;
-    var model = new Personal.Models.empresa(data);
+    var model = new Empresa(data);
     model.valor = undefined;
     model.pk= data["id"];
     
     this.tipo='POST'
-    if(window.Personal.operacion!=="nuevo"){
+    if(Backbone.app.operacion!=="nuevo"){
       this.tipo='PUT';
     }
    
     model.save(null,{
+      headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#empresa_id').text(model.get("id"));
             self.mostrarDescripcion(model);
             self.mostrarSucursalLista(model.get("id"));
-            window.Personal.operacion="buscar";
+           Backbone.app.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
         }
@@ -166,6 +181,7 @@ generarJSON: function(){
       {
         if (relacion.hasOwnProperty(campo))
         {
+           console.log(campo);
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];
@@ -187,7 +203,7 @@ generarJSON: function(){
    },
   agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var listaVal = Personal.app.EmpresaModelo.validation();
+      var listaVal = Backbone.app.EmpresaModelo.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){
             var id_control = relacion[campo];

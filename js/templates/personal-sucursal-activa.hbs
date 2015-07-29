@@ -1,0 +1,24 @@
+<div class="enterprise">
+	<div class="enterprise_foto">
+		<figure class="foto_enterprise">
+			<img src="images/factory.png" alt="foto" />
+		</figure>
+	</div>
+	<div class="enterprise_datos">
+		<h2 >{{id_sucursal.cve_sucursal}}</h2>
+		<h3>{{id_sucursal.nombre}}</h3>
+		<h5>{{cdu_motivo.descripcion1}}</h5>
+		<h5>{{cdu_turno.descripcion1}}, {{cdu_puesto.descripcion1}}, {{cdu_rango.descripcion1}}, ${{sueldo}}</h5>
+		<h5>{{fecha_inicial}}</h5>
+	</div>
+</div>
+</script>
+
+<script id="sucursal-datos_basicos-template" type="text/x-handlebars-template">
+
+<div id="titulo_bloque" class="titulo_bloque">
+			Movimiento
+</div>
+<h2 class="enterprise_buscar">
+	<strong id="sucursal_basico_id" hidden>{{id}}</strong>{{cve_sucursal}} , {{nombre}}
+</h2>

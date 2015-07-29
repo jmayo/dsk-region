@@ -1,15 +1,27 @@
-Personal.Views.PersonalDetalle = Backbone.View.extend({
+var Backbone                = require('backbone');
+    $                       = require('jquery');
+    $.ui                    = require('jquery-ui'),
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    Personal                = require('../models/personal');
+    Plantilla               = require('../templates/personal-detalle.hbs'),
+    $.ua                    = require('../notificaciones');
+
+
+//Personal.Views.PersonalDetalle
+ module.exports = Backbone.View.extend({
   events : {
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
      'submit form' : 'uploadFile',
+     "blur #persona_matricula": function(){console.log("saliste del control")},
   //   'change #imagencontrol':  'mostrarImagen',
    },
 
   el: $('#personal_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Handlebars.compile($("#personal-detalle-template").html()),
+  template: Plantilla,
 
   cambioImagen: function(control){
     console.log("cambio la imagen");
@@ -28,8 +40,8 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
 },
     
   initialize: function () {
-    this.catMunicipioNac = new Personal.Collections.Catalogos();
-    this.catMunicipioDom = new Personal.Collections.Catalogos();
+    this.catMunicipioNac = new Catalogos();
+    this.catMunicipioDom = new Catalogos();
     
     this.listenTo(this.model, "change", this.llenado, this);
   },
@@ -55,11 +67,11 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
   
    this.agregarValidacion();
 
-    var PersonalCatalogos = new Personal.Collections.Catalogos();
+    var PersonalCatalogos = new Catalogos();
     PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
   
     PersonalCatalogos.fetch(
-      {
+      { headers: {'Authorization' :localStorage.token},
         success: function(){
           
           self.llenadoCatalogosCombo(PersonalCatalogos.Escolaridad(),detalle["cdu_escolaridad"],"#perso_escolaridad");
@@ -90,7 +102,7 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
-          var vis = new Personal.Views.PersonalCatalogos({
+          var vis = new PersonalCatalogosVista({
             collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
           vis.render();
 
@@ -99,9 +111,9 @@ Personal.Views.PersonalDetalle = Backbone.View.extend({
       catalogo.claves = id_catalogo;
       catalogo.cdu_default = cdu_default;
       var cat = catalogo;
-      catalogo.fetch({
+      catalogo.fetch({ headers: {'Authorization' :localStorage.token},
               success: function(){
-                  var vista = new Personal.Views.PersonalCatalogos({
+                  var vista = new PersonalCatalogosVista({
                    collection: cat,cdu_seleccionado: cdu_seleccion ,id_select: id_selector });
                   vista.render();
                 }
@@ -144,22 +156,25 @@ relacionColumnas: function(){
 guardar: function(){
     var data =this.generarJSON();
     var self = this;
-    var model = new Personal.Models.personal(data);
+
+    var model = new Personal(data);
     model.valor = undefined;
     model.pk= data["id"];
     this.tipo='POST'
-    if(window.Personal.operacion!=="nuevo"){
+    if(Backbone.app.operacion!=="nuevo"){
         this.tipo='PUT';
     }
  
     model.save(null,{
+        headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
             $('#persona_id').text(model.get("id"));
-            window.Personal.operacion="buscar";
+           Backbone.app.operacion="buscar";
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
              // var responseObj = $.parseJSON(response.responseText);
@@ -199,7 +214,7 @@ generarJSON: function(){
    },
  agregarValidacion: function(){
       var relacion =this.relacionColumnas();
-      var listaVal = Personal.app.PersoModelo.validation();
+      var listaVal = Backbone.app.PersoModelo.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){
             var id_control = relacion[campo];
@@ -244,15 +259,17 @@ uploadFile: function(event) {
         data: data,
         processData: false,
        contentType: false ,
+        headers: {'Authorization' :localStorage.token},
         success: function(result){
           console.log("Exito al subir la foto");
            $("#notify_success").notify();
           self.mostrarImagen();
       },
         error: function(model,response, options) {
+              console.log(model.responseText);
+             $("#notify_error").text(model.responseText);
              $("#notify_error").notify();
         }
     });
   }
 });
-

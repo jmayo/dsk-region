@@ -1,0 +1,24 @@
+{
+  "name": "PersoRegFrontEnd",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jmayo/dsk-region",
+  "authors": [
+    "Raul Torres <raultr@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.2.1",
+    "jquery": "~2.1.4",
+    "ol3": "~3.4.0"
+  }
+}
