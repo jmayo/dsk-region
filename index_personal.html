@@ -310,10 +310,16 @@
 					<p><i class="fa fa-spinner fa-pulse fa-5x"></i>
 				</figure>
 			</div>
-			<ul class="menu_foto">
-				<li><a class="boton_foto" href="#" title="Exáminar">Exáminar</a></li>
-				<li><a class="boton_foto" href="#" title="Subir foto">Subir foto</a></li>
-			</ul>			
+			<form enctype="multipart/form-data">
+				<ul class="menu_foto">
+					<li>
+						<div class="examinar">
+							<input name='file' type='file'  id="imagencontrol" />
+						</div>
+					</li>
+					<li><input type="submit" value="Subir foto"></li>
+				</ul>
+			</form>
 		</article>
 	</section>
 	
