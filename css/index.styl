@@ -371,7 +371,7 @@ body
 					-o-transition all 0.7s ease 0s
 					transition all 0.7s ease 0s
 					&:focus
-						width 220px
+						width 260px
 	.profiler
 		background gris_medio
 		border-radius 10px
@@ -390,7 +390,8 @@ body
 			color white
 			display inline-block
 			position absolute
-			margin 6px
+			//margin 6px
+			padding 5px
 			h2
 			h3
 			h4
@@ -402,30 +403,38 @@ body
 	.enterprise
 		background gris_medio
 		border-radius 10px
+		width 100%
 		.enterprise_foto
 			display inline-block
 			border 0
 			border-radius 10px
 			.foto_enterprise
 				background gris_medio
-				margin 5px
+				margin 10px
 				img
-					width 100px
-					height 100px
+					width 90px
+					height 90px
 					border-radius 20px
 		.enterprise_datos
 			color white
 			display inline-block
 			position absolute
-			margin 6px
+			//margin 5px
+			padding 5px
 			h2
-			h3
+			div
+				margin 0
+				width 32%
+				h3
+					display inline
 			h4
 			h5
 				font-family arial-regular
 				margin 2px
 				padding 0
 				position relative
+				&.motivo_cardex
+					color orange
 
 	.caja_bloque
 		border-radius 0 0 5px 5px
@@ -448,7 +457,7 @@ body
 						float left
 						padding 2px
 					.reducir
-						width 80px
+						width 110px
 					.etiquetas_bloque_consulta
 						color white
 						height auto
@@ -697,9 +706,8 @@ body
 		color green
 	a.eliminar_renglon
 		color red
-
 .reducir
-	width 26%
+	width 28%
 .aumentar
 	width 60%
 
