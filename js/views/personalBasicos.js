@@ -23,5 +23,6 @@ module.exports= Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
+   $('#perso_foto_basica_wait').hide();
   },
   });

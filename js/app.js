@@ -238,6 +238,7 @@ var Backbone    = require('backbone'),
 
   Handlebars.registerHelper('caja_imagen',function(contenido,options){
     img_id = 'id=' + options.hash.img_id;
+    img_idWait = 'id=' + options.hash.img_id + '_wait';
     var ruta = Handlebars.helpers.ruta_imagen(contenido);
     var clase1 = "caja_foto"
         var clase2 = "foto"
@@ -253,7 +254,7 @@ var Backbone    = require('backbone'),
     var valor =  '<div class="' + clase1 + '">'+
             '<figure class="' + clase2 + '">' +
              '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
-             '<p><i id="esperar_personal" class="fa fa-spinner fa-pulse fa-5x"></i>' +
+             '<p><i ' + img_idWait + ' class="fa fa-spinner fa-pulse fa-5x"></i>' +
             '</figure>' +
           '</div>';
     return valor;
@@ -1343,7 +1344,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "<div class=\"profiler\">\n"
-    + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"clase2":"foto_profiler","clase1":"profiler_foto","img_id":"perso_foto"},"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"clase2":"foto_profiler","clase1":"profiler_foto","img_id":"perso_foto_basica"},"data":data})) != null ? stack1 : "")
     + "\n<div class=\"profiler_datos\">\n	<h1 hidden id=\"personal_basico_id\">"
     + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
     + "</h1>\n	<h2>"
@@ -1427,7 +1428,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Ciudad/Población",{"name":"grp_perdet","hash":{"input_desc":"Ciudad/Población","label_desc":"calle_ciudad","input_id":"persona_ciudad_dom","valor":(depth0 != null ? depth0.ciudad_dom : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	</ul>\n</div>\n</div>\n</article>\n<article class=\"bloque\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
     + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"img_id":"perso_foto"},"data":data})) != null ? stack1 : "")
-    + "\n	<form enctype=\"multipart/form-data\">\n	    <label class=\"boton_foto\">File<input name='file' type='file'  id=\"imagencontrol\" /></label>\n	    <input class=\"boton_foto\" type=\"submit\" value=\"Subir Imagen\">\n	</form>			\n</article>\n";
+    + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
 
 },{"hbsfy/runtime":86}],21:[function(require,module,exports){
@@ -2324,6 +2325,7 @@ module.exports= Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
+   $('#perso_foto_basica_wait').hide();
   },
   });
 
@@ -2483,7 +2485,7 @@ var Backbone                = require('backbone');
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
      'submit form' : 'uploadFile',
-     "blur #persona_matricula": function(){console.log("saliste del control")},
+     "blur #persona_matricula": function(){this.buscarMatricula()},
   //   'change #imagencontrol':  'mostrarImagen',
    },
 
@@ -2509,10 +2511,32 @@ var Backbone                = require('backbone');
 },
     
   initialize: function () {
+    this.PersoBusqueda = new Personas();
     this.catMunicipioNac = new Catalogos();
     this.catMunicipioDom = new Catalogos();
     
     this.listenTo(this.model, "change", this.llenado, this);
+  },
+  buscarMatricula: function(matricula){
+    var self = this;
+    var mat =$(this.relacionColumnas().matricula).val();
+    var id =$(this.relacionColumnas().id).text();
+    this.PersoBusqueda.valor = mat;
+    $("#notify_warning").hide();
+    this.PersoBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(
+        function () {
+            console.log("****");
+            console.log(self.PersoBusqueda.models[0].get('matricula'));
+            console.log(id);
+            console.log(self.PersoBusqueda.models[0].get('id'));
+            console.log("****");
+            //Si hay una matricula y con un id diferente al actual
+            if(parseInt(id) !== parseInt(self.PersoBusqueda.models[0].get('id'))) {
+               var nombre_completo = self.PersoBusqueda.models[0].get('nombre')  + ' ' + self.PersoBusqueda.models[0].get('paterno') + ' ' + self.PersoBusqueda.models[0].get('materno');
+               $("#notify_warning").text("La matricula " + mat + " ya pertenece a " + nombre_completo );
+               $("#notify_warning").notify();
+            }
+          });
   },
   reset: function()
   {
@@ -2531,7 +2555,7 @@ var Backbone                = require('backbone');
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html)
-   $('#esperar_personal').hide();
+   $('#perso_foto_wait').hide();
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
@@ -2706,7 +2730,7 @@ generarJSON: function(){
 
 uploadFile: function(event) {
     event.preventDefault();
-    $('#esperar_personal').show();
+    $('#perso_foto_wait').show();
     var self = this;
     var id =$("#persona_id").text();;
     var x = document.getElementById("imagencontrol");
@@ -2732,13 +2756,13 @@ uploadFile: function(event) {
        contentType: false ,
         headers: {'Authorization' :localStorage.token},
         success: function(result){
-          $('#esperar_personal').hide();
+          $('#perso_foto_wait').hide();
           console.log("Exito al subir la foto");
            $("#notify_success").notify();
           self.mostrarImagen();
       },
         error: function(model,response, options) {
-            $('#esperar_personal').hide();
+            $('#perso_foto_wait').hide();
               console.log(model.responseText);
              $("#notify_error").text(model.responseText);
              $("#notify_error").notify();
@@ -2782,7 +2806,7 @@ module.exports = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
-
+   
    var self = this;   
    $("#movimiento_sucursal_fecha").datepicker({dateFormat:"dd/mm/yy"});
  

@@ -33,7 +33,7 @@ module.exports = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
-
+   
    var self = this;   
    $("#movimiento_sucursal_fecha").datepicker({dateFormat:"dd/mm/yy"});
  

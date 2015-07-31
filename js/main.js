@@ -56,6 +56,7 @@ var Backbone    = require('backbone'),
 
   Handlebars.registerHelper('caja_imagen',function(contenido,options){
     img_id = 'id=' + options.hash.img_id;
+    img_idWait = 'id=' + options.hash.img_id + '_wait';
     var ruta = Handlebars.helpers.ruta_imagen(contenido);
     var clase1 = "caja_foto"
         var clase2 = "foto"
@@ -71,7 +72,7 @@ var Backbone    = require('backbone'),
     var valor =  '<div class="' + clase1 + '">'+
             '<figure class="' + clase2 + '">' +
              '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
-             '<p><i id="esperar_personal" class="fa fa-spinner fa-pulse fa-5x"></i>' +
+             '<p><i ' + img_idWait + ' class="fa fa-spinner fa-pulse fa-5x"></i>' +
             '</figure>' +
           '</div>';
     return valor;

@@ -14,7 +14,7 @@ var Backbone                = require('backbone');
      "change #perso_edonac": function(){ this.llenadoComboDependiente(this.catMunicipioNac,'15', $( "#perso_edonac").val(),'',"#perso_mpionac");},
      "change #perso_estado_dom": function(){ this.llenadoComboDependiente(this.catMunicipioDom,'15', $( "#perso_estado_dom").val(),'',"#perso_municipio_dom");},
      'submit form' : 'uploadFile',
-     "blur #persona_matricula": function(){console.log("saliste del control")},
+     "blur #persona_matricula": function(){this.buscarMatricula()},
   //   'change #imagencontrol':  'mostrarImagen',
    },
 
@@ -40,10 +40,32 @@ var Backbone                = require('backbone');
 },
     
   initialize: function () {
+    this.PersoBusqueda = new Personas();
     this.catMunicipioNac = new Catalogos();
     this.catMunicipioDom = new Catalogos();
     
     this.listenTo(this.model, "change", this.llenado, this);
+  },
+  buscarMatricula: function(matricula){
+    var self = this;
+    var mat =$(this.relacionColumnas().matricula).val();
+    var id =$(this.relacionColumnas().id).text();
+    this.PersoBusqueda.valor = mat;
+    $("#notify_warning").hide();
+    this.PersoBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(
+        function () {
+            console.log("****");
+            console.log(self.PersoBusqueda.models[0].get('matricula'));
+            console.log(id);
+            console.log(self.PersoBusqueda.models[0].get('id'));
+            console.log("****");
+            //Si hay una matricula y con un id diferente al actual
+            if(parseInt(id) !== parseInt(self.PersoBusqueda.models[0].get('id'))) {
+               var nombre_completo = self.PersoBusqueda.models[0].get('nombre')  + ' ' + self.PersoBusqueda.models[0].get('paterno') + ' ' + self.PersoBusqueda.models[0].get('materno');
+               $("#notify_warning").text("La matricula " + mat + " ya pertenece a " + nombre_completo );
+               $("#notify_warning").notify();
+            }
+          });
   },
   reset: function()
   {
@@ -62,7 +84,7 @@ var Backbone                = require('backbone');
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html)
-   $('#esperar_personal').hide();
+   $('#perso_foto_wait').hide();
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
@@ -237,7 +259,7 @@ generarJSON: function(){
 
 uploadFile: function(event) {
     event.preventDefault();
-    $('#esperar_personal').show();
+    $('#perso_foto_wait').show();
     var self = this;
     var id =$("#persona_id").text();;
     var x = document.getElementById("imagencontrol");
@@ -263,13 +285,13 @@ uploadFile: function(event) {
        contentType: false ,
         headers: {'Authorization' :localStorage.token},
         success: function(result){
-          $('#esperar_personal').hide();
+          $('#perso_foto_wait').hide();
           console.log("Exito al subir la foto");
            $("#notify_success").notify();
           self.mostrarImagen();
       },
         error: function(model,response, options) {
-            $('#esperar_personal').hide();
+            $('#perso_foto_wait').hide();
               console.log(model.responseText);
              $("#notify_error").text(model.responseText);
              $("#notify_error").notify();
