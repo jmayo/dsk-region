@@ -56,12 +56,13 @@ var Backbone                = require('backbone');
     }
   }, 
   render: function () {
+
     this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html)
-
+   $('#esperar_personal').hide();
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
@@ -236,6 +237,7 @@ generarJSON: function(){
 
 uploadFile: function(event) {
     event.preventDefault();
+    $('#esperar_personal').show();
     var self = this;
     var id =$("#persona_id").text();;
     var x = document.getElementById("imagencontrol");
@@ -261,11 +263,13 @@ uploadFile: function(event) {
        contentType: false ,
         headers: {'Authorization' :localStorage.token},
         success: function(result){
+          $('#esperar_personal').hide();
           console.log("Exito al subir la foto");
            $("#notify_success").notify();
           self.mostrarImagen();
       },
         error: function(model,response, options) {
+            $('#esperar_personal').hide();
               console.log(model.responseText);
              $("#notify_error").text(model.responseText);
              $("#notify_error").notify();

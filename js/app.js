@@ -253,6 +253,7 @@ var Backbone    = require('backbone'),
     var valor =  '<div class="' + clase1 + '">'+
             '<figure class="' + clase2 + '">' +
              '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
+             '<p><i id="esperar_personal" class="fa fa-spinner fa-pulse fa-5x"></i>' +
             '</figure>' +
           '</div>';
     return valor;
@@ -1426,7 +1427,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Ciudad/Población",{"name":"grp_perdet","hash":{"input_desc":"Ciudad/Población","label_desc":"calle_ciudad","input_id":"persona_ciudad_dom","valor":(depth0 != null ? depth0.ciudad_dom : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	</ul>\n</div>\n</div>\n</article>\n<article class=\"bloque\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
     + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"img_id":"perso_foto"},"data":data})) != null ? stack1 : "")
-    + "\n	<form enctype=\"multipart/form-data\">\n	    <label>File<input name='file' type='file'  id=\"imagencontrol\" /></label>\n	    <input type=\"submit\" value=\"Subir Imagen\">\n	</form>\n\n</article>\n";
+    + "\n	<form enctype=\"multipart/form-data\">\n	    <label class=\"boton_foto\">File<input name='file' type='file'  id=\"imagencontrol\" /></label>\n	    <input class=\"boton_foto\" type=\"submit\" value=\"Subir Imagen\">\n	</form>			\n</article>\n";
 },"useData":true});
 
 },{"hbsfy/runtime":86}],21:[function(require,module,exports){
@@ -2524,12 +2525,13 @@ var Backbone                = require('backbone');
     }
   }, 
   render: function () {
+
     this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html)
-
+   $('#esperar_personal').hide();
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
@@ -2704,6 +2706,7 @@ generarJSON: function(){
 
 uploadFile: function(event) {
     event.preventDefault();
+    $('#esperar_personal').show();
     var self = this;
     var id =$("#persona_id").text();;
     var x = document.getElementById("imagencontrol");
@@ -2729,11 +2732,13 @@ uploadFile: function(event) {
        contentType: false ,
         headers: {'Authorization' :localStorage.token},
         success: function(result){
+          $('#esperar_personal').hide();
           console.log("Exito al subir la foto");
            $("#notify_success").notify();
           self.mostrarImagen();
       },
         error: function(model,response, options) {
+            $('#esperar_personal').hide();
               console.log(model.responseText);
              $("#notify_error").text(model.responseText);
              $("#notify_error").notify();

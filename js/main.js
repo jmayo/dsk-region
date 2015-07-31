@@ -71,6 +71,7 @@ var Backbone    = require('backbone'),
     var valor =  '<div class="' + clase1 + '">'+
             '<figure class="' + clase2 + '">' +
              '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
+             '<p><i id="esperar_personal" class="fa fa-spinner fa-pulse fa-5x"></i>' +
             '</figure>' +
           '</div>';
     return valor;
