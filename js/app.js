@@ -436,7 +436,7 @@ $(function() {
     Backbone.app.navigate('', true);
 });
 
-},{"./routers/router":15,"backbone":54,"hbsfy/runtime":86,"jquery":88}],6:[function(require,module,exports){
+},{"./routers/router":15,"backbone":54,"hbsfy/runtime":89,"jquery":91}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -969,7 +969,7 @@ module.exports = $(function() {
 	}
 });
 
-},{"jquery":88}],15:[function(require,module,exports){
+},{"jquery":91}],15:[function(require,module,exports){
 var Backbone        = require('backbone'),
     $               = require('jquery');
     Personas        = require('../collections/personas'),
@@ -1263,7 +1263,7 @@ initialize: function () {
 
 });
 
-},{"../collections/empresas":2,"../collections/personas":3,"../collections/sucursales":4,"../models/empresa":7,"../models/menu":9,"../models/personal":10,"../models/personal_sucursal":11,"../models/sucursal":12,"../views/body":29,"../views/cajaOperaciones":31,"../views/contenido":32,"../views/empresaBusqueda":35,"../views/empresaDetalle":38,"../views/iniciarSesion":39,"../views/menu":40,"../views/personalBasicos":41,"../views/personalBusqueda":42,"../views/personalDetalle":46,"../views/personalMovimiento":47,"../views/personalSucursal":48,"../views/sucursalBasicos":49,"../views/sucursalListados":52,"../views/sucursalMapa":53,"backbone":54,"jquery":88}],16:[function(require,module,exports){
+},{"../collections/empresas":2,"../collections/personas":3,"../collections/sucursales":4,"../models/empresa":7,"../models/menu":9,"../models/personal":10,"../models/personal_sucursal":11,"../models/sucursal":12,"../views/body":29,"../views/cajaOperaciones":31,"../views/contenido":32,"../views/empresaBusqueda":35,"../views/empresaDetalle":38,"../views/iniciarSesion":39,"../views/menu":40,"../views/personalBasicos":41,"../views/personalBusqueda":42,"../views/personalDetalle":46,"../views/personalMovimiento":47,"../views/personalSucursal":48,"../views/sucursalBasicos":49,"../views/sucursalListados":52,"../views/sucursalMapa":53,"backbone":54,"jquery":91}],16:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1304,7 +1304,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],17:[function(require,module,exports){
+},{"hbsfy/runtime":89}],17:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1327,7 +1327,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],18:[function(require,module,exports){
+},{"hbsfy/runtime":89}],18:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1337,7 +1337,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " ";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],19:[function(require,module,exports){
+},{"hbsfy/runtime":89}],19:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1362,7 +1362,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</h5>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],20:[function(require,module,exports){
+},{"hbsfy/runtime":89}],20:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1431,7 +1431,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],21:[function(require,module,exports){
+},{"hbsfy/runtime":89}],21:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1462,7 +1462,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],22:[function(require,module,exports){
+},{"hbsfy/runtime":89}],22:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1475,7 +1475,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],23:[function(require,module,exports){
+},{"hbsfy/runtime":89}],23:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1488,7 +1488,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],24:[function(require,module,exports){
+},{"hbsfy/runtime":89}],24:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1501,7 +1501,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],25:[function(require,module,exports){
+},{"hbsfy/runtime":89}],25:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1520,7 +1520,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n  ";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],26:[function(require,module,exports){
+},{"hbsfy/runtime":89}],26:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1533,7 +1533,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],27:[function(require,module,exports){
+},{"hbsfy/runtime":89}],27:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1548,7 +1548,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],28:[function(require,module,exports){
+},{"hbsfy/runtime":89}],28:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1589,7 +1589,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":86}],29:[function(require,module,exports){
+},{"hbsfy/runtime":89}],29:[function(require,module,exports){
 var Backbone = require('backbone'),
     $        = require('jquery');
      
@@ -1641,7 +1641,7 @@ module.exports = Backbone.View.extend({
   //		alert("se termino la sesion");
   }
 }); 
-},{"backbone":54,"jquery":88}],30:[function(require,module,exports){
+},{"backbone":54,"jquery":91}],30:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Views.CajaBusqueda 
@@ -1736,7 +1736,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../views/sucursalDetalle":51,"backbone":54,"jquery":88}],32:[function(require,module,exports){
+},{"../views/sucursalDetalle":51,"backbone":54,"jquery":91}],32:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                      = require('jquery'),
     PersonalBusquedasVista = require('../views/personalBusquedas'),
@@ -1817,7 +1817,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"../templates/resultados-sucursal-busqueda.hbs":26,"../views/cajaBusqueda":30,"../views/datoBusquedas":34,"../views/empresaBusquedas":36,"../views/personalBusquedas":43,"backbone":54,"jquery":88}],33:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":25,"../templates/resultados-sucursal-busqueda.hbs":26,"../views/cajaBusqueda":30,"../views/datoBusquedas":34,"../views/empresaBusquedas":36,"../views/personalBusquedas":43,"backbone":54,"jquery":91}],33:[function(require,module,exports){
 var Backbone    = require('backbone');
 
 //Personal.Views.DatoBusqueda 
@@ -1935,7 +1935,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"../views/empresaBusqueda":35,"backbone":54,"jquery":88}],37:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":25,"../views/empresaBusqueda":35,"backbone":54,"jquery":91}],37:[function(require,module,exports){
 var Backbone   = require('backbone'),
     Plantilla  = require('../templates/resultados-empresa-padre.hbs')       
     app        = Backbone.app;
@@ -2210,7 +2210,7 @@ generarJSON: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/empresa":7,"../models/sucursal":12,"../templates/empresa-detalle.hbs":16,"../views/empresaDescripcion":37,"../views/personalCatalogos":45,"backbone":54,"jquery":88}],39:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/empresa":7,"../models/sucursal":12,"../templates/empresa-detalle.hbs":16,"../views/empresaDescripcion":37,"../views/personalCatalogos":45,"backbone":54,"jquery":91}],39:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $                     = require('jquery'),
     Login       = require('../models/login');
@@ -2270,7 +2270,7 @@ module.exports = Backbone.View.extend({
 
   });
 
-},{"../models/login":8,"backbone":54,"jquery":88}],40:[function(require,module,exports){
+},{"../models/login":8,"backbone":54,"jquery":91}],40:[function(require,module,exports){
 var Backbone = require('backbone'),
     $           = require('jquery');
 
@@ -2299,7 +2299,7 @@ module.exports = Backbone.View.extend({
       Backbone.app.navigate("Movimiento", {trigger: true,replace: false});
    },
 }); 
-},{"backbone":54,"jquery":88}],41:[function(require,module,exports){
+},{"backbone":54,"jquery":91}],41:[function(require,module,exports){
 var Backbone  = require('backbone'),
     $         = require('jquery'),
     Plantilla = require('../templates/personal-datos_basicos.hbs');
@@ -2329,7 +2329,7 @@ module.exports= Backbone.View.extend({
   },
   });
 
-},{"../templates/personal-datos_basicos.hbs":19,"backbone":54,"jquery":88}],42:[function(require,module,exports){
+},{"../templates/personal-datos_basicos.hbs":19,"backbone":54,"jquery":91}],42:[function(require,module,exports){
 var Backbone   = require('backbone'),
     $          = require('jquery'),
     Handlebars = require('handlebars'),
@@ -2364,7 +2364,7 @@ module.exports= Backbone.View.extend({
 
 
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"backbone":54,"handlebars":73,"jquery":88}],43:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":25,"backbone":54,"handlebars":76,"jquery":91}],43:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalBusquedaVista = require('../views/personalBusqueda'),
@@ -2400,7 +2400,7 @@ module.exports= Backbone.View.extend({
     }
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"../views/personalBusqueda":42,"backbone":54,"jquery":88}],44:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":25,"../views/personalBusqueda":42,"backbone":54,"jquery":91}],44:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/personal-catalogos.hbs');
@@ -2434,7 +2434,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/personal-catalogos.hbs":18,"backbone":54,"jquery":88}],45:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":18,"backbone":54,"jquery":91}],45:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalCatalogoVista = require('../views/personalCatalogo'),
@@ -2468,7 +2468,7 @@ module.exports = Backbone.View.extend({
   },  
 });
 
-},{"../templates/personal-catalogos.hbs":18,"../views/personalCatalogo":44,"backbone":54,"jquery":88}],46:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":18,"../views/personalCatalogo":44,"backbone":54,"jquery":91}],46:[function(require,module,exports){
 var Backbone                = require('backbone');
     $                       = require('jquery');
     $.ui                    = require('jquery-ui'),
@@ -2770,7 +2770,7 @@ uploadFile: function(event) {
     });
   }
 });
-},{"../collections/catalogos":1,"../models/personal":10,"../notificaciones":14,"../templates/personal-detalle.hbs":20,"../views/personalCatalogos":45,"backbone":54,"jquery":88,"jquery-ui":87}],47:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal":10,"../notificaciones":14,"../templates/personal-detalle.hbs":20,"../views/personalCatalogos":45,"backbone":54,"jquery":91,"jquery-ui":90}],47:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -2948,7 +2948,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/personal_sucursal":11,"../templates/movimiento-personal-sucursal.hbs":17,"../views/personalCatalogos":45,"backbone":54,"jquery":88}],48:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal_sucursal":11,"../templates/movimiento-personal-sucursal.hbs":17,"../views/personalCatalogos":45,"backbone":54,"jquery":91}],48:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/personal-sucursal-activa.hbs')
 
@@ -3099,7 +3099,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/personal_sucursal":11,"../models/sucursal":12,"../templates/resultados-empresa-sucursal-listado.hbs":24,"../views/sucursalDetalle":51,"backbone":54,"jquery":88}],51:[function(require,module,exports){
+},{"../models/personal_sucursal":11,"../models/sucursal":12,"../templates/resultados-empresa-sucursal-listado.hbs":24,"../views/sucursalDetalle":51,"backbone":54,"jquery":91}],51:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -3300,7 +3300,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/personal":10,"../models/sucursal":12,"../templates/sucursal-detalle.hbs":28,"../views/personalCatalogos":45,"backbone":54,"jquery":88}],52:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal":10,"../models/sucursal":12,"../templates/sucursal-detalle.hbs":28,"../views/personalCatalogos":45,"backbone":54,"jquery":91}],52:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     SucursalDescripcionVista = require('../views/sucursalDescripcion');
@@ -3335,7 +3335,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/sucursalDescripcion":50,"backbone":54,"jquery":88}],53:[function(require,module,exports){
+},{"../views/sucursalDescripcion":50,"backbone":54,"jquery":91}],53:[function(require,module,exports){
 var Backbone                 = require('backbone'),
     $                        = require('jquery'),
     ol                       = require('openlayers'),
@@ -3480,7 +3480,7 @@ module.exports = Backbone.View.extend({
       },
 });
 
-},{"../views/sucursalDescripcion":50,"backbone":54,"jquery":88,"openlayers":89}],54:[function(require,module,exports){
+},{"../views/sucursalDescripcion":50,"backbone":54,"jquery":91,"openlayers":92}],54:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.1
 
@@ -5357,7 +5357,329 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":88,"underscore":90}],55:[function(require,module,exports){
+},{"jquery":91,"underscore":93}],55:[function(require,module,exports){
+
+},{}],56:[function(require,module,exports){
+(function (process){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// Split a filename into [root, dir, basename, ext], unix version
+// 'root' is just a slash, or nothing.
+var splitPathRe =
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+var splitPath = function(filename) {
+  return splitPathRe.exec(filename).slice(1);
+};
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function(path) {
+  var result = splitPath(path),
+      root = result[0],
+      dir = result[1];
+
+  if (!root && !dir) {
+    // No dirname whatsoever
+    return '.';
+  }
+
+  if (dir) {
+    // It has a dirname, strip trailing slash
+    dir = dir.substr(0, dir.length - 1);
+  }
+
+  return root + dir;
+};
+
+
+exports.basename = function(path, ext) {
+  var f = splitPath(path)[2];
+  // TODO: make this comparison case-insensitive on windows?
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+
+exports.extname = function(path) {
+  return splitPath(path)[3];
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+}).call(this,require('_process'))
+},{"_process":57}],57:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = setTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            currentQueue[queueIndex].run();
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    clearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        setTimeout(drainQueue, 0);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],58:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5421,7 +5743,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars.runtime":56,"./handlebars/compiler/ast":58,"./handlebars/compiler/base":59,"./handlebars/compiler/compiler":61,"./handlebars/compiler/javascript-compiler":63,"./handlebars/compiler/visitor":66,"./handlebars/no-conflict":69}],56:[function(require,module,exports){
+},{"./handlebars.runtime":59,"./handlebars/compiler/ast":61,"./handlebars/compiler/base":62,"./handlebars/compiler/compiler":64,"./handlebars/compiler/javascript-compiler":66,"./handlebars/compiler/visitor":69,"./handlebars/no-conflict":72}],59:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5482,7 +5804,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars/base":57,"./handlebars/exception":68,"./handlebars/no-conflict":69,"./handlebars/runtime":70,"./handlebars/safe-string":71,"./handlebars/utils":72}],57:[function(require,module,exports){
+},{"./handlebars/base":60,"./handlebars/exception":71,"./handlebars/no-conflict":72,"./handlebars/runtime":73,"./handlebars/safe-string":74,"./handlebars/utils":75}],60:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5756,7 +6078,7 @@ function createFrame(object) {
 }
 
 /* [args, ]options */
-},{"./exception":68,"./utils":72}],58:[function(require,module,exports){
+},{"./exception":71,"./utils":75}],61:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5909,7 +6231,7 @@ var AST = {
 // must modify the object to operate properly.
 exports['default'] = AST;
 module.exports = exports['default'];
-},{}],59:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5956,7 +6278,7 @@ function parse(input, options) {
   var strip = new _WhitespaceControl2['default']();
   return strip.accept(_parser2['default'].parse(input));
 }
-},{"../utils":72,"./ast":58,"./helpers":62,"./parser":64,"./whitespace-control":67}],60:[function(require,module,exports){
+},{"../utils":75,"./ast":61,"./helpers":65,"./parser":67,"./whitespace-control":70}],63:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6121,7 +6443,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 /* NOP */
-},{"../utils":72,"source-map":74}],61:[function(require,module,exports){
+},{"../utils":75,"source-map":77}],64:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6649,7 +6971,7 @@ function transformLiteralToPath(sexpr) {
     sexpr.path = new _AST2['default'].PathExpression(false, 0, [literal.original + ''], literal.original + '', literal.loc);
   }
 }
-},{"../exception":68,"../utils":72,"./ast":58}],62:[function(require,module,exports){
+},{"../exception":71,"../utils":75,"./ast":61}],65:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6781,7 +7103,7 @@ function prepareBlock(openBlock, program, inverseAndProgram, close, inverted, lo
 
   return new this.BlockStatement(openBlock.path, openBlock.params, openBlock.hash, program, inverse, openBlock.strip, inverseStrip, close && close.strip, this.locInfo(locInfo));
 }
-},{"../exception":68}],63:[function(require,module,exports){
+},{"../exception":71}],66:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7844,7 +8166,7 @@ function strictLookup(requireTerminal, compiler, parts, type) {
 
 exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
-},{"../base":57,"../exception":68,"../utils":72,"./code-gen":60}],64:[function(require,module,exports){
+},{"../base":60,"../exception":71,"../utils":75,"./code-gen":63}],67:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -8523,7 +8845,7 @@ var handlebars = (function () {
     return new Parser();
 })();exports["default"] = handlebars;
 module.exports = exports["default"];
-},{}],65:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8689,7 +9011,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
   return pair.key + '=' + this.accept(pair.value);
 };
 /*eslint-enable new-cap */
-},{"./visitor":66}],66:[function(require,module,exports){
+},{"./visitor":69}],69:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8822,7 +9144,7 @@ Visitor.prototype = {
 exports['default'] = Visitor;
 module.exports = exports['default'];
 /* content */ /* comment */ /* path */ /* string */ /* number */ /* bool */ /* literal */ /* literal */
-},{"../exception":68,"./ast":58}],67:[function(require,module,exports){
+},{"../exception":71,"./ast":61}],70:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9035,7 +9357,7 @@ function omitLeft(body, i, multiple) {
 
 exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
-},{"./visitor":66}],68:[function(require,module,exports){
+},{"./visitor":69}],71:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9074,7 +9396,7 @@ Exception.prototype = new Error();
 
 exports['default'] = Exception;
 module.exports = exports['default'];
-},{}],69:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -9095,7 +9417,7 @@ exports['default'] = function (Handlebars) {
 
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],70:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9328,7 +9650,7 @@ function initData(context, data) {
   }
   return data;
 }
-},{"./base":57,"./exception":68,"./utils":72}],71:[function(require,module,exports){
+},{"./base":60,"./exception":71,"./utils":75}],74:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9343,7 +9665,7 @@ SafeString.prototype.toString = SafeString.prototype.toHTML = function () {
 
 exports['default'] = SafeString;
 module.exports = exports['default'];
-},{}],72:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9458,7 +9780,7 @@ function blockParams(params, ids) {
 function appendContextPath(contextPath, id) {
   return (contextPath ? contextPath + '.' : '') + id;
 }
-},{}],73:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -9485,7 +9807,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":55,"../dist/cjs/handlebars/compiler/printer":65,"fs":91}],74:[function(require,module,exports){
+},{"../dist/cjs/handlebars":58,"../dist/cjs/handlebars/compiler/printer":68,"fs":55}],77:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -9495,7 +9817,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":80,"./source-map/source-map-generator":81,"./source-map/source-node":82}],75:[function(require,module,exports){
+},{"./source-map/source-map-consumer":83,"./source-map/source-map-generator":84,"./source-map/source-node":85}],78:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9594,7 +9916,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":83,"amdefine":84}],76:[function(require,module,exports){
+},{"./util":86,"amdefine":87}],79:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9738,7 +10060,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":77,"amdefine":84}],77:[function(require,module,exports){
+},{"./base64":80,"amdefine":87}],80:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9782,7 +10104,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":84}],78:[function(require,module,exports){
+},{"amdefine":87}],81:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9864,7 +10186,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":84}],79:[function(require,module,exports){
+},{"amdefine":87}],82:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -9952,7 +10274,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":83,"amdefine":84}],80:[function(require,module,exports){
+},{"./util":86,"amdefine":87}],83:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10529,7 +10851,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":75,"./base64-vlq":76,"./binary-search":78,"./util":83,"amdefine":84}],81:[function(require,module,exports){
+},{"./array-set":78,"./base64-vlq":79,"./binary-search":81,"./util":86,"amdefine":87}],84:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10931,7 +11253,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":75,"./base64-vlq":76,"./mapping-list":79,"./util":83,"amdefine":84}],82:[function(require,module,exports){
+},{"./array-set":78,"./base64-vlq":79,"./mapping-list":82,"./util":86,"amdefine":87}],85:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11347,7 +11669,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":81,"./util":83,"amdefine":84}],83:[function(require,module,exports){
+},{"./source-map-generator":84,"./util":86,"amdefine":87}],86:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11668,7 +11990,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":84}],84:[function(require,module,exports){
+},{"amdefine":87}],87:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.0 Copyright (c) 2011-2015, The Dojo Foundation All Rights Reserved.
@@ -11973,15 +12295,15 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/handlebars/node_modules/source-map/node_modules/amdefine/amdefine.js")
-},{"_process":93,"path":92}],85:[function(require,module,exports){
+},{"_process":57,"path":56}],88:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":56}],86:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":59}],89:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":85}],87:[function(require,module,exports){
+},{"handlebars/runtime":88}],90:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*! jQuery UI - v1.10.3 - 2013-05-03
@@ -26988,7 +27310,7 @@ $.widget( "ui.tooltip", {
 
 }( jQuery ) );
 
-},{"jquery":88}],88:[function(require,module,exports){
+},{"jquery":91}],91:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.11.3
  * http://jquery.com/
@@ -37341,7 +37663,7 @@ return jQuery;
 
 }));
 
-},{}],89:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
 // Version: v3.7.0
@@ -38278,7 +38600,7 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
 }));
 
 
-},{}],90:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -39827,327 +40149,5 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
     });
   }
 }.call(this));
-
-},{}],91:[function(require,module,exports){
-
-},{}],92:[function(require,module,exports){
-(function (process){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function(filename) {
-  return splitPathRe.exec(filename).slice(1);
-};
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function(path) {
-  var result = splitPath(path),
-      root = result[0],
-      dir = result[1];
-
-  if (!root && !dir) {
-    // No dirname whatsoever
-    return '.';
-  }
-
-  if (dir) {
-    // It has a dirname, strip trailing slash
-    dir = dir.substr(0, dir.length - 1);
-  }
-
-  return root + dir;
-};
-
-
-exports.basename = function(path, ext) {
-  var f = splitPath(path)[2];
-  // TODO: make this comparison case-insensitive on windows?
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-
-exports.extname = function(path) {
-  return splitPath(path)[3];
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-}).call(this,require('_process'))
-},{"_process":93}],93:[function(require,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = setTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            currentQueue[queueIndex].run();
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    clearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-// TODO(shtylman)
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
 
 },{}]},{},[5]);
