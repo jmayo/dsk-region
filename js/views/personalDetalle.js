@@ -46,7 +46,7 @@ var Backbone                = require('backbone');
     
     this.listenTo(this.model, "change", this.llenado, this);
   },
-  buscarMatricula: function(matricula){
+  buscarMatricula: function(){
     var self = this;
     var mat =$(this.relacionColumnas().matricula).val();
     var id =$(this.relacionColumnas().id).text();

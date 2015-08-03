@@ -12,6 +12,8 @@ var Backbone                = require('backbone'),
 module.exports = Backbone.View.extend({
   events : {
      "change #empresa_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#empresa_estado").val(),'',"#empresa_municipio");},
+     "blur #empresa_clave": function(){this.buscarClaveEmpresa()},
+
    },
 
   el: $('#bloque_empresa'),
@@ -20,9 +22,32 @@ module.exports = Backbone.View.extend({
   template: Plantilla,
 
   initialize: function () {
+    this.EmpresaBusqueda = new Empresa();
     this.catMunicipio = new Catalogos();  
     this.listenTo(this.model, "change", this.llenado, this);
   },
+  buscarClaveEmpresa: function(){
+    var self = this;
+    var cve_empresa =$(this.relacionColumnas().cve_empresa).val();
+    var id =$(this.relacionColumnas().id).text();
+    this.EmpresaBusqueda.valor = cve_empresa;
+    $("#notify_warning").hide();
+    this.EmpresaBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(
+        function () {
+            console.log("****");
+            console.log(self.EmpresaBusqueda.get('cve_empresa'));
+            console.log(id);
+            console.log(self.EmpresaBusqueda.get('id'));
+            console.log("****");
+            //Si hay una cve_empresa y con un id diferente al actual
+            if(parseInt(id) !== parseInt(self.EmpresaBusqueda.get('id'))) {
+               var razon_social =self.EmpresaBusqueda.get('razon_social');
+               $("#notify_warning").text("La clave " + cve_empresa + " ya pertenece a " + razon_social);
+               $("#notify_warning").notify();
+            }
+          });
+  },
+
   reset: function()
   {
     console.log("valores por defecto");

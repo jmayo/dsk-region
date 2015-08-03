@@ -37,14 +37,8 @@ module.exports= Backbone.Model.extend({
   },
 
   defaults : function() {
-       var now  = new Date();
-       var dia  =  "" + now.getDate(); 
-       if (dia.length == 1) { dia = "0" + dia; };
-       var mes  =  "" + (now.getMonth() + 1); 
-       if (mes.length == 1) { mes = "0" + mes; };
-       var anio = now.getFullYear();
-       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
-     
+      this.fecha_actual = new  funcionGenerica().fechaActual();
+      
         return{
         "id" : "",
         "matricula": "",

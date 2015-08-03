@@ -11,6 +11,8 @@ var Backbone                = require('backbone'),
 module.exports = Backbone.View.extend({
   events : {
      "change #sucursal_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#sucursal_estado").val(),'',"#sucursal_municipio");},
+    "blur #sucursal_cve_sucursal": function(){this.buscarCveSucursal()},
+
    },
 
   el: $('#bloque_sucursal'),
@@ -19,10 +21,27 @@ module.exports = Backbone.View.extend({
   template: Plantilla,
 
   initialize: function () {
+    this.SucursalBusqueda = new Sucursal();
     if(this.model !==undefined){
       this.catMunicipio = new Catalogos();  
       this.listenTo(this.model, "change", this.llenado, this);
     }
+  },
+  buscarCveSucursal: function(){
+    var self = this;
+    var cve_suc =$(this.relacionColumnas().cve_sucursal).val();
+    var id =$(this.relacionColumnas().id).text();
+    this.SucursalBusqueda.valor = cve_suc;
+    $("#notify_warning").hide();
+    this.SucursalBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(
+        function () {
+            //Si hay una cve_sucursal y con un id diferente al actual
+            if(parseInt(id) !== parseInt(self.SucursalBusqueda.get('id'))) {
+               var sucursal = self.SucursalBusqueda.get('nombre');
+               $("#notify_warning").text("La clave de sucursal " + cve_suc + " ya pertenece a " + sucursal );
+               $("#notify_warning").notify();
+            }
+          });
   },
   reset: function()
   {
@@ -131,8 +150,10 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
+ 
              // var responseObj = $.parseJSON(response.responseText);
              // console.log(responseObj);
    //           for(campo in responseObj){ console.log(campo); }

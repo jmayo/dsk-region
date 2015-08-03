@@ -29,24 +29,27 @@ module.exports= Backbone.Model.extend({
   busqueda: function(){
      Backbone.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal'), {trigger: true});
   },
-  defaults : {
-	"id": "",
-	"cve_empresa": "",
-	"cve_sucursal": "",
-	"nombre": "",
-	"calle": "",
-	"numero": "",
-	"colonia": "",
-	"cp": "",
-	"cdu_estado": "0140000",
-	"cdu_municipio": "0150000",
-	"ciudad": "",
-	"telefono": "",
-	"cdu_estatus": "0240000",
-	"fecha_alta":"01/01/1900",
-	"fecha_baja":"01/01/1900",
-	"latitud" : "19.4425",
-    "longitud" : "-99.1330",
+  defaults : function(){
+       this.fecha_actual = new  funcionGenerica().fechaActual();
+    return{  
+    	"id": "",
+    	"cve_empresa": "",
+    	"cve_sucursal": "",
+    	"nombre": "",
+    	"calle": "",
+    	"numero": "",
+    	"colonia": "",
+    	"cp": "",
+    	"cdu_estado": "0140000",
+    	"cdu_municipio": "0150000",
+    	"ciudad": "",
+    	"telefono": "",
+    	"cdu_estatus": "0240000",
+    	"fecha_alta":this.fecha_actual,
+    	"fecha_baja":"01/01/1900",
+    	"latitud" : "19.4425",
+        "longitud" : "-99.1330",
+    }
   },
    camposValidar: function(){
       var vali = new ValidacionModelo();

@@ -79,7 +79,7 @@ module.exports = Backbone.Collection.extend({
   },
 });
 
-},{"../models/catalogo":6,"backbone":54}],2:[function(require,module,exports){
+},{"../models/catalogo":7,"backbone":55}],2:[function(require,module,exports){
 var Backbone      = require('backbone'),
     empresaModelo = require('../models/empresa');
        
@@ -111,7 +111,7 @@ module.exports = Backbone.Collection.extend({
   model: empresaModelo,
 });
 
-},{"../models/empresa":7,"backbone":54}],3:[function(require,module,exports){
+},{"../models/empresa":8,"backbone":55}],3:[function(require,module,exports){
 var Backbone      = require('backbone'),
   PersonalModelo = require('../models/personal');
 
@@ -143,7 +143,7 @@ module.exports = Backbone.Collection.extend({
   model: PersonalModelo,
 });
 
-},{"../models/personal":10,"backbone":54}],4:[function(require,module,exports){
+},{"../models/personal":11,"backbone":55}],4:[function(require,module,exports){
 var Backbone      = require('backbone'),
     SucursalModelo = require('../models/sucursal');
 
@@ -179,7 +179,39 @@ module.exports = Backbone.Collection.extend({
   model: SucursalModelo,
 });
 
-},{"../models/sucursal":12,"backbone":54}],5:[function(require,module,exports){
+},{"../models/sucursal":13,"backbone":55}],5:[function(require,module,exports){
+
+var funcionesGenericas = function() {  
+  return {
+    fechaActual: function() {
+         var now  = new Date();
+       var dia  =  "" + now.getDate(); 
+       if (dia.length == 1) { dia = "0" + dia; };
+       var mes  =  "" + (now.getMonth() + 1); 
+       if (mes.length == 1) { mes = "0" + mes; };
+       var anio = now.getFullYear();
+       var fecha_actual =  dia + '/' + mes + '/' + anio; 
+       return fecha_actual;
+    },
+    fecha18Years: function(){
+    	var nueva_fec = new Date()
+    	nueva_fec.setFullYear(nueva_fec.getUTCFullYear() - 18)
+    	var nueva = this.fechaCadena(nueva_fec);
+    },
+    fechaCadena: function(fecha){
+    	 var dia  =  "" + fecha.getDate(); 
+       if (dia.length == 1) { dia = "0" + dia; };
+       var mes  =  "" + (fecha.getMonth() + 1); 
+       if (mes.length == 1) { mes = "0" + mes; };
+       var anio = fecha.getFullYear();
+       var fecha_actual =  dia + '/' + mes + '/' + anio; 
+       return fecha_actual;
+    }
+  };
+}
+
+module.exports = funcionesGenericas;  
+},{}],6:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $           = require('jquery');
     Router      = require('./routers/router'),
@@ -436,7 +468,7 @@ $(function() {
     Backbone.app.navigate('', true);
 });
 
-},{"./routers/router":15,"backbone":54,"hbsfy/runtime":89,"jquery":91}],6:[function(require,module,exports){
+},{"./routers/router":16,"backbone":55,"hbsfy/runtime":87,"jquery":89}],7:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -448,16 +480,16 @@ module.exports = Backbone.Model.extend({
     return  window.ruta +  'catalogos_detalle/' + this.claves + '/';
   },
 });
-},{"backbone":54}],7:[function(require,module,exports){
+},{"backbone":55}],8:[function(require,module,exports){
 var Backbone        = require('backbone');
     ValidacionVista = require('./validacion')
+    funcionGenerica = require('../funcionesGenericas')
 
 //Personal.Models.empresa 
 module.exports = Backbone.Model.extend({
   initialize: function(){
   		this.valor = null;
-  		this.pk = null;
-      
+  		this.pk = null;   
       this.camposValidar();
   },
  valor : function(valor){
@@ -479,33 +511,28 @@ module.exports = Backbone.Model.extend({
    return direccion;
   },
   defaults : function(){
-      var now  = new Date();
-       var dia  =  "" + now.getDate(); 
-       if (dia.length == 1) { dia = "0" + dia; };
-       var mes  =  "" + (now.getMonth() + 1); 
-       if (mes.length == 1) { mes = "0" + mes; };
-       var anio = now.getFullYear();
-       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
-     
+      this.fecha_actual = new  funcionGenerica().fecha18Years();
+       this.fecha_actual = new  funcionGenerica().fechaActual();
+ 
        return {
-    	"id": "",
-    	"cve_empresa": "",
-    	"razon_social": "",
-    	"rfc": "",
-    	"calle": "",
-    	"numero": "",
-    	"colonia": "",
-    	"cp": "",
-    	"cdu_estado": "0140000",
-    	"cdu_municipio": "0150000",
-    	"ciudad": "",
-    	"telefono1": "",
-    	"telefono2": "",
-    	"cdu_giro": "0180000",
-    	"cdu_rubro": "0190000",
-    	"fecha_alta": this.fecha_actual ,
-      "latitud" : "99.1696",
-      "longitud" :  "19.5225",
+      	"id": "",
+      	"cve_empresa": "",
+      	"razon_social": "",
+      	"rfc": "",
+      	"calle": "",
+      	"numero": "",
+      	"colonia": "",
+      	"cp": "",
+      	"cdu_estado": "0140000",
+      	"cdu_municipio": "0150000",
+      	"ciudad": "",
+      	"telefono1": "",
+      	"telefono2": "",
+      	"cdu_giro": "0180000",
+      	"cdu_rubro": "0190000",
+      	"fecha_alta": this.fecha_actual ,
+        "latitud" : "99.1696",
+        "longitud" :  "19.5225",
       }
 },
   camposValidar: function(){
@@ -528,7 +555,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./validacion":13,"backbone":54}],8:[function(require,module,exports){
+},{"../funcionesGenericas":5,"./validacion":14,"backbone":55}],9:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.login 
@@ -538,7 +565,7 @@ module.exports= Backbone.Model.extend({
   },
 });
 
-},{"backbone":54}],9:[function(require,module,exports){
+},{"backbone":55}],10:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -550,7 +577,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta + this.Opcion + '/menu/';
   },
 });
-},{"backbone":54}],10:[function(require,module,exports){
+},{"backbone":55}],11:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
  
@@ -590,14 +617,8 @@ module.exports= Backbone.Model.extend({
   },
 
   defaults : function() {
-       var now  = new Date();
-       var dia  =  "" + now.getDate(); 
-       if (dia.length == 1) { dia = "0" + dia; };
-       var mes  =  "" + (now.getMonth() + 1); 
-       if (mes.length == 1) { mes = "0" + mes; };
-       var anio = now.getFullYear();
-       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
-     
+      this.fecha_actual = new  funcionGenerica().fechaActual();
+      
         return{
         "id" : "",
         "matricula": "",
@@ -658,7 +679,7 @@ module.exports= Backbone.Model.extend({
 
 
        
-},{"../models/validacion":13,"backbone":54}],11:[function(require,module,exports){
+},{"../models/validacion":14,"backbone":55}],12:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('./validacion');
  
@@ -728,7 +749,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./validacion":13,"backbone":54}],12:[function(require,module,exports){
+},{"./validacion":14,"backbone":55}],13:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
 
@@ -760,24 +781,27 @@ module.exports= Backbone.Model.extend({
   busqueda: function(){
      Backbone.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal'), {trigger: true});
   },
-  defaults : {
-	"id": "",
-	"cve_empresa": "",
-	"cve_sucursal": "",
-	"nombre": "",
-	"calle": "",
-	"numero": "",
-	"colonia": "",
-	"cp": "",
-	"cdu_estado": "0140000",
-	"cdu_municipio": "0150000",
-	"ciudad": "",
-	"telefono": "",
-	"cdu_estatus": "0240000",
-	"fecha_alta":"01/01/1900",
-	"fecha_baja":"01/01/1900",
-	"latitud" : "19.4425",
-    "longitud" : "-99.1330",
+  defaults : function(){
+       this.fecha_actual = new  funcionGenerica().fechaActual();
+    return{  
+    	"id": "",
+    	"cve_empresa": "",
+    	"cve_sucursal": "",
+    	"nombre": "",
+    	"calle": "",
+    	"numero": "",
+    	"colonia": "",
+    	"cp": "",
+    	"cdu_estado": "0140000",
+    	"cdu_municipio": "0150000",
+    	"ciudad": "",
+    	"telefono": "",
+    	"cdu_estatus": "0240000",
+    	"fecha_alta":this.fecha_actual,
+    	"fecha_baja":"01/01/1900",
+    	"latitud" : "19.4425",
+        "longitud" : "-99.1330",
+    }
   },
    camposValidar: function(){
       var vali = new ValidacionModelo();
@@ -800,7 +824,7 @@ module.exports= Backbone.Model.extend({
       return this.listado;  
   }
 });
-},{"../models/validacion":13,"backbone":54}],13:[function(require,module,exports){
+},{"../models/validacion":14,"backbone":55}],14:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.validacion
@@ -870,7 +894,7 @@ return {
   }
 };
 
-},{"backbone":54}],14:[function(require,module,exports){
+},{"backbone":55}],15:[function(require,module,exports){
 var    $               = require('jquery');
 
 module.exports = $(function() {
@@ -969,7 +993,7 @@ module.exports = $(function() {
 	}
 });
 
-},{"jquery":91}],15:[function(require,module,exports){
+},{"jquery":89}],16:[function(require,module,exports){
 var Backbone        = require('backbone'),
     $               = require('jquery');
     Personas        = require('../collections/personas'),
@@ -1263,7 +1287,7 @@ initialize: function () {
 
 });
 
-},{"../collections/empresas":2,"../collections/personas":3,"../collections/sucursales":4,"../models/empresa":7,"../models/menu":9,"../models/personal":10,"../models/personal_sucursal":11,"../models/sucursal":12,"../views/body":29,"../views/cajaOperaciones":31,"../views/contenido":32,"../views/empresaBusqueda":35,"../views/empresaDetalle":38,"../views/iniciarSesion":39,"../views/menu":40,"../views/personalBasicos":41,"../views/personalBusqueda":42,"../views/personalDetalle":46,"../views/personalMovimiento":47,"../views/personalSucursal":48,"../views/sucursalBasicos":49,"../views/sucursalListados":52,"../views/sucursalMapa":53,"backbone":54,"jquery":91}],16:[function(require,module,exports){
+},{"../collections/empresas":2,"../collections/personas":3,"../collections/sucursales":4,"../models/empresa":8,"../models/menu":10,"../models/personal":11,"../models/personal_sucursal":12,"../models/sucursal":13,"../views/body":30,"../views/cajaOperaciones":32,"../views/contenido":33,"../views/empresaBusqueda":36,"../views/empresaDetalle":39,"../views/iniciarSesion":40,"../views/menu":41,"../views/personalBasicos":42,"../views/personalBusqueda":43,"../views/personalDetalle":47,"../views/personalMovimiento":48,"../views/personalSucursal":49,"../views/sucursalBasicos":50,"../views/sucursalListados":53,"../views/sucursalMapa":54,"backbone":55,"jquery":89}],17:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1304,7 +1328,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],17:[function(require,module,exports){
+},{"hbsfy/runtime":87}],18:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1327,7 +1351,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],18:[function(require,module,exports){
+},{"hbsfy/runtime":87}],19:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1337,7 +1361,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " ";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],19:[function(require,module,exports){
+},{"hbsfy/runtime":87}],20:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1362,7 +1386,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</h5>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],20:[function(require,module,exports){
+},{"hbsfy/runtime":87}],21:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1431,7 +1455,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],21:[function(require,module,exports){
+},{"hbsfy/runtime":87}],22:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1462,7 +1486,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],22:[function(require,module,exports){
+},{"hbsfy/runtime":87}],23:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1475,7 +1499,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],23:[function(require,module,exports){
+},{"hbsfy/runtime":87}],24:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1488,7 +1512,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],24:[function(require,module,exports){
+},{"hbsfy/runtime":87}],25:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1501,7 +1525,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],25:[function(require,module,exports){
+},{"hbsfy/runtime":87}],26:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1520,7 +1544,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n  ";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],26:[function(require,module,exports){
+},{"hbsfy/runtime":87}],27:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1533,7 +1557,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],27:[function(require,module,exports){
+},{"hbsfy/runtime":87}],28:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1548,7 +1572,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],28:[function(require,module,exports){
+},{"hbsfy/runtime":87}],29:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1589,7 +1613,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":89}],29:[function(require,module,exports){
+},{"hbsfy/runtime":87}],30:[function(require,module,exports){
 var Backbone = require('backbone'),
     $        = require('jquery');
      
@@ -1637,11 +1661,11 @@ module.exports = Backbone.View.extend({
   },
   goInactive: function(){
       alert('La sesion caduco');
-     localStorage.setItem("token",'Token ');
+     localStorage.clear();
   //		alert("se termino la sesion");
   }
 }); 
-},{"backbone":54,"jquery":91}],30:[function(require,module,exports){
+},{"backbone":55,"jquery":89}],31:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Views.CajaBusqueda 
@@ -1685,7 +1709,7 @@ events : {
 
 });
 
-},{"backbone":54}],31:[function(require,module,exports){
+},{"backbone":55}],32:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                     = require('jquery'),
     SucursalDetalleVista   = require('../views/sucursalDetalle');
@@ -1736,7 +1760,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../views/sucursalDetalle":51,"backbone":54,"jquery":91}],32:[function(require,module,exports){
+},{"../views/sucursalDetalle":52,"backbone":55,"jquery":89}],33:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                      = require('jquery'),
     PersonalBusquedasVista = require('../views/personalBusquedas'),
@@ -1817,7 +1841,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"../templates/resultados-sucursal-busqueda.hbs":26,"../views/cajaBusqueda":30,"../views/datoBusquedas":34,"../views/empresaBusquedas":36,"../views/personalBusquedas":43,"backbone":54,"jquery":91}],33:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":26,"../templates/resultados-sucursal-busqueda.hbs":27,"../views/cajaBusqueda":31,"../views/datoBusquedas":35,"../views/empresaBusquedas":37,"../views/personalBusquedas":44,"backbone":55,"jquery":89}],34:[function(require,module,exports){
 var Backbone    = require('backbone');
 
 //Personal.Views.DatoBusqueda 
@@ -1846,7 +1870,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"backbone":54}],34:[function(require,module,exports){
+},{"backbone":55}],35:[function(require,module,exports){
 var Backbone          = require('backbone'),
     DatoBusquedaVista = require('../views/datoBusqueda');
     
@@ -1875,7 +1899,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/datoBusqueda":33,"backbone":54}],35:[function(require,module,exports){
+},{"../views/datoBusqueda":34,"backbone":55}],36:[function(require,module,exports){
 var Backbone          = require('backbone'),
     plantilla = require("../templates/resultados-empresa-busqueda.hbs");
 
@@ -1904,7 +1928,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/resultados-empresa-busqueda.hbs":22,"backbone":54}],36:[function(require,module,exports){
+},{"../templates/resultados-empresa-busqueda.hbs":23,"backbone":55}],37:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     EmpresaBusquedaVista  = require('../views/empresaBusqueda');
@@ -1935,7 +1959,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"../views/empresaBusqueda":35,"backbone":54,"jquery":91}],37:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":26,"../views/empresaBusqueda":36,"backbone":55,"jquery":89}],38:[function(require,module,exports){
 var Backbone   = require('backbone'),
     Plantilla  = require('../templates/resultados-empresa-padre.hbs')       
     app        = Backbone.app;
@@ -1982,7 +2006,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../templates/resultados-empresa-padre.hbs":23,"backbone":54}],38:[function(require,module,exports){
+},{"../templates/resultados-empresa-padre.hbs":24,"backbone":55}],39:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Sucursal                = require('../models/sucursal'),
@@ -1997,6 +2021,8 @@ var Backbone                = require('backbone'),
 module.exports = Backbone.View.extend({
   events : {
      "change #empresa_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#empresa_estado").val(),'',"#empresa_municipio");},
+     "blur #empresa_clave": function(){this.buscarClaveEmpresa()},
+
    },
 
   el: $('#bloque_empresa'),
@@ -2005,9 +2031,32 @@ module.exports = Backbone.View.extend({
   template: Plantilla,
 
   initialize: function () {
+    this.EmpresaBusqueda = new Empresa();
     this.catMunicipio = new Catalogos();  
     this.listenTo(this.model, "change", this.llenado, this);
   },
+  buscarClaveEmpresa: function(){
+    var self = this;
+    var cve_empresa =$(this.relacionColumnas().cve_empresa).val();
+    var id =$(this.relacionColumnas().id).text();
+    this.EmpresaBusqueda.valor = cve_empresa;
+    $("#notify_warning").hide();
+    this.EmpresaBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(
+        function () {
+            console.log("****");
+            console.log(self.EmpresaBusqueda.get('cve_empresa'));
+            console.log(id);
+            console.log(self.EmpresaBusqueda.get('id'));
+            console.log("****");
+            //Si hay una cve_empresa y con un id diferente al actual
+            if(parseInt(id) !== parseInt(self.EmpresaBusqueda.get('id'))) {
+               var razon_social =self.EmpresaBusqueda.get('razon_social');
+               $("#notify_warning").text("La clave " + cve_empresa + " ya pertenece a " + razon_social);
+               $("#notify_warning").notify();
+            }
+          });
+  },
+
   reset: function()
   {
     console.log("valores por defecto");
@@ -2210,7 +2259,7 @@ generarJSON: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/empresa":7,"../models/sucursal":12,"../templates/empresa-detalle.hbs":16,"../views/empresaDescripcion":37,"../views/personalCatalogos":45,"backbone":54,"jquery":91}],39:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/empresa":8,"../models/sucursal":13,"../templates/empresa-detalle.hbs":17,"../views/empresaDescripcion":38,"../views/personalCatalogos":46,"backbone":55,"jquery":89}],40:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $                     = require('jquery'),
     Login       = require('../models/login');
@@ -2270,7 +2319,7 @@ module.exports = Backbone.View.extend({
 
   });
 
-},{"../models/login":8,"backbone":54,"jquery":91}],40:[function(require,module,exports){
+},{"../models/login":9,"backbone":55,"jquery":89}],41:[function(require,module,exports){
 var Backbone = require('backbone'),
     $           = require('jquery');
 
@@ -2299,7 +2348,7 @@ module.exports = Backbone.View.extend({
       Backbone.app.navigate("Movimiento", {trigger: true,replace: false});
    },
 }); 
-},{"backbone":54,"jquery":91}],41:[function(require,module,exports){
+},{"backbone":55,"jquery":89}],42:[function(require,module,exports){
 var Backbone  = require('backbone'),
     $         = require('jquery'),
     Plantilla = require('../templates/personal-datos_basicos.hbs');
@@ -2329,7 +2378,7 @@ module.exports= Backbone.View.extend({
   },
   });
 
-},{"../templates/personal-datos_basicos.hbs":19,"backbone":54,"jquery":91}],42:[function(require,module,exports){
+},{"../templates/personal-datos_basicos.hbs":20,"backbone":55,"jquery":89}],43:[function(require,module,exports){
 var Backbone   = require('backbone'),
     $          = require('jquery'),
     Handlebars = require('handlebars'),
@@ -2364,7 +2413,7 @@ module.exports= Backbone.View.extend({
 
 
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"backbone":54,"handlebars":76,"jquery":91}],43:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":26,"backbone":55,"handlebars":74,"jquery":89}],44:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalBusquedaVista = require('../views/personalBusqueda'),
@@ -2400,7 +2449,7 @@ module.exports= Backbone.View.extend({
     }
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":25,"../views/personalBusqueda":42,"backbone":54,"jquery":91}],44:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":26,"../views/personalBusqueda":43,"backbone":55,"jquery":89}],45:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/personal-catalogos.hbs');
@@ -2434,7 +2483,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/personal-catalogos.hbs":18,"backbone":54,"jquery":91}],45:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":19,"backbone":55,"jquery":89}],46:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalCatalogoVista = require('../views/personalCatalogo'),
@@ -2468,7 +2517,7 @@ module.exports = Backbone.View.extend({
   },  
 });
 
-},{"../templates/personal-catalogos.hbs":18,"../views/personalCatalogo":44,"backbone":54,"jquery":91}],46:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":19,"../views/personalCatalogo":45,"backbone":55,"jquery":89}],47:[function(require,module,exports){
 var Backbone                = require('backbone');
     $                       = require('jquery');
     $.ui                    = require('jquery-ui'),
@@ -2517,7 +2566,7 @@ var Backbone                = require('backbone');
     
     this.listenTo(this.model, "change", this.llenado, this);
   },
-  buscarMatricula: function(matricula){
+  buscarMatricula: function(){
     var self = this;
     var mat =$(this.relacionColumnas().matricula).val();
     var id =$(this.relacionColumnas().id).text();
@@ -2770,7 +2819,7 @@ uploadFile: function(event) {
     });
   }
 });
-},{"../collections/catalogos":1,"../models/personal":10,"../notificaciones":14,"../templates/personal-detalle.hbs":20,"../views/personalCatalogos":45,"backbone":54,"jquery":91,"jquery-ui":90}],47:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal":11,"../notificaciones":15,"../templates/personal-detalle.hbs":21,"../views/personalCatalogos":46,"backbone":55,"jquery":89,"jquery-ui":88}],48:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -2948,7 +2997,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/personal_sucursal":11,"../templates/movimiento-personal-sucursal.hbs":17,"../views/personalCatalogos":45,"backbone":54,"jquery":91}],48:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal_sucursal":12,"../templates/movimiento-personal-sucursal.hbs":18,"../views/personalCatalogos":46,"backbone":55,"jquery":89}],49:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/personal-sucursal-activa.hbs')
 
@@ -3009,7 +3058,7 @@ module.exports = Backbone.View.extend({
     },
   });
 
-},{"../templates/personal-sucursal-activa.hbs":21,"backbone":54}],49:[function(require,module,exports){
+},{"../templates/personal-sucursal-activa.hbs":22,"backbone":55}],50:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/sucursal-datos_basicos.hbs');
   
@@ -3037,7 +3086,7 @@ module.exports = Backbone.View.extend({
   },
   });
 
-},{"../templates/sucursal-datos_basicos.hbs":27,"backbone":54}],50:[function(require,module,exports){
+},{"../templates/sucursal-datos_basicos.hbs":28,"backbone":55}],51:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Sucursal              = require('../models/sucursal'),
@@ -3062,9 +3111,11 @@ module.exports = Backbone.View.extend({
     var descripcion = this.model.toJSON();
     var html = this.template(descripcion);
     if(this.model.get("id")==="-1"){
-      html = html + '<div class="agregar_servicio"><a href="#"></a></div>';
+      html = html + '<div class="agregar_servicio"><a href="#" title="Agregar sucursal de esta empresa"><i class="fa fa-plus fa-2x"></i></a></div>';
     }
     this.$el.html(html);
+
+
     //Personal.app.EmpresaMapa.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
     
     if (!$('#bloque_mapa_sucursal').is(':visible')) {   
@@ -3099,7 +3150,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/personal_sucursal":11,"../models/sucursal":12,"../templates/resultados-empresa-sucursal-listado.hbs":24,"../views/sucursalDetalle":51,"backbone":54,"jquery":91}],51:[function(require,module,exports){
+},{"../models/personal_sucursal":12,"../models/sucursal":13,"../templates/resultados-empresa-sucursal-listado.hbs":25,"../views/sucursalDetalle":52,"backbone":55,"jquery":89}],52:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -3113,6 +3164,8 @@ var Backbone                = require('backbone'),
 module.exports = Backbone.View.extend({
   events : {
      "change #sucursal_estado": function(){ this.llenadoComboDependiente(this.catMunicipio,'15', $( "#sucursal_estado").val(),'',"#sucursal_municipio");},
+    "blur #sucursal_cve_sucursal": function(){this.buscarCveSucursal()},
+
    },
 
   el: $('#bloque_sucursal'),
@@ -3121,10 +3174,27 @@ module.exports = Backbone.View.extend({
   template: Plantilla,
 
   initialize: function () {
+    this.SucursalBusqueda = new Sucursal();
     if(this.model !==undefined){
       this.catMunicipio = new Catalogos();  
       this.listenTo(this.model, "change", this.llenado, this);
     }
+  },
+  buscarCveSucursal: function(){
+    var self = this;
+    var cve_suc =$(this.relacionColumnas().cve_sucursal).val();
+    var id =$(this.relacionColumnas().id).text();
+    this.SucursalBusqueda.valor = cve_suc;
+    $("#notify_warning").hide();
+    this.SucursalBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(
+        function () {
+            //Si hay una cve_sucursal y con un id diferente al actual
+            if(parseInt(id) !== parseInt(self.SucursalBusqueda.get('id'))) {
+               var sucursal = self.SucursalBusqueda.get('nombre');
+               $("#notify_warning").text("La clave de sucursal " + cve_suc + " ya pertenece a " + sucursal );
+               $("#notify_warning").notify();
+            }
+          });
   },
   reset: function()
   {
@@ -3233,8 +3303,10 @@ guardar: function(){
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
+ 
              // var responseObj = $.parseJSON(response.responseText);
              // console.log(responseObj);
    //           for(campo in responseObj){ console.log(campo); }
@@ -3300,7 +3372,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/personal":10,"../models/sucursal":12,"../templates/sucursal-detalle.hbs":28,"../views/personalCatalogos":45,"backbone":54,"jquery":91}],52:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal":11,"../models/sucursal":13,"../templates/sucursal-detalle.hbs":29,"../views/personalCatalogos":46,"backbone":55,"jquery":89}],53:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     SucursalDescripcionVista = require('../views/sucursalDescripcion');
@@ -3335,7 +3407,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/sucursalDescripcion":50,"backbone":54,"jquery":91}],53:[function(require,module,exports){
+},{"../views/sucursalDescripcion":51,"backbone":55,"jquery":89}],54:[function(require,module,exports){
 var Backbone                 = require('backbone'),
     $                        = require('jquery'),
     ol                       = require('openlayers'),
@@ -3480,7 +3552,7 @@ module.exports = Backbone.View.extend({
       },
 });
 
-},{"../views/sucursalDescripcion":50,"backbone":54,"jquery":91,"openlayers":92}],54:[function(require,module,exports){
+},{"../views/sucursalDescripcion":51,"backbone":55,"jquery":89,"openlayers":90}],55:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.1
 
@@ -5357,329 +5429,7 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":91,"underscore":93}],55:[function(require,module,exports){
-
-},{}],56:[function(require,module,exports){
-(function (process){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function(filename) {
-  return splitPathRe.exec(filename).slice(1);
-};
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function(path) {
-  var result = splitPath(path),
-      root = result[0],
-      dir = result[1];
-
-  if (!root && !dir) {
-    // No dirname whatsoever
-    return '.';
-  }
-
-  if (dir) {
-    // It has a dirname, strip trailing slash
-    dir = dir.substr(0, dir.length - 1);
-  }
-
-  return root + dir;
-};
-
-
-exports.basename = function(path, ext) {
-  var f = splitPath(path)[2];
-  // TODO: make this comparison case-insensitive on windows?
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-
-exports.extname = function(path) {
-  return splitPath(path)[3];
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-}).call(this,require('_process'))
-},{"_process":57}],57:[function(require,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = setTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            currentQueue[queueIndex].run();
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    clearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-// TODO(shtylman)
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}],58:[function(require,module,exports){
+},{"jquery":89,"underscore":91}],56:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5743,7 +5493,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars.runtime":59,"./handlebars/compiler/ast":61,"./handlebars/compiler/base":62,"./handlebars/compiler/compiler":64,"./handlebars/compiler/javascript-compiler":66,"./handlebars/compiler/visitor":69,"./handlebars/no-conflict":72}],59:[function(require,module,exports){
+},{"./handlebars.runtime":57,"./handlebars/compiler/ast":59,"./handlebars/compiler/base":60,"./handlebars/compiler/compiler":62,"./handlebars/compiler/javascript-compiler":64,"./handlebars/compiler/visitor":67,"./handlebars/no-conflict":70}],57:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -5804,7 +5554,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars/base":60,"./handlebars/exception":71,"./handlebars/no-conflict":72,"./handlebars/runtime":73,"./handlebars/safe-string":74,"./handlebars/utils":75}],60:[function(require,module,exports){
+},{"./handlebars/base":58,"./handlebars/exception":69,"./handlebars/no-conflict":70,"./handlebars/runtime":71,"./handlebars/safe-string":72,"./handlebars/utils":73}],58:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6078,7 +5828,7 @@ function createFrame(object) {
 }
 
 /* [args, ]options */
-},{"./exception":71,"./utils":75}],61:[function(require,module,exports){
+},{"./exception":69,"./utils":73}],59:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6231,7 +5981,7 @@ var AST = {
 // must modify the object to operate properly.
 exports['default'] = AST;
 module.exports = exports['default'];
-},{}],62:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6278,7 +6028,7 @@ function parse(input, options) {
   var strip = new _WhitespaceControl2['default']();
   return strip.accept(_parser2['default'].parse(input));
 }
-},{"../utils":75,"./ast":61,"./helpers":65,"./parser":67,"./whitespace-control":70}],63:[function(require,module,exports){
+},{"../utils":73,"./ast":59,"./helpers":63,"./parser":65,"./whitespace-control":68}],61:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6443,7 +6193,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 /* NOP */
-},{"../utils":75,"source-map":77}],64:[function(require,module,exports){
+},{"../utils":73,"source-map":75}],62:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6971,7 +6721,7 @@ function transformLiteralToPath(sexpr) {
     sexpr.path = new _AST2['default'].PathExpression(false, 0, [literal.original + ''], literal.original + '', literal.loc);
   }
 }
-},{"../exception":71,"../utils":75,"./ast":61}],65:[function(require,module,exports){
+},{"../exception":69,"../utils":73,"./ast":59}],63:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7103,7 +6853,7 @@ function prepareBlock(openBlock, program, inverseAndProgram, close, inverted, lo
 
   return new this.BlockStatement(openBlock.path, openBlock.params, openBlock.hash, program, inverse, openBlock.strip, inverseStrip, close && close.strip, this.locInfo(locInfo));
 }
-},{"../exception":71}],66:[function(require,module,exports){
+},{"../exception":69}],64:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8166,7 +7916,7 @@ function strictLookup(requireTerminal, compiler, parts, type) {
 
 exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
-},{"../base":60,"../exception":71,"../utils":75,"./code-gen":63}],67:[function(require,module,exports){
+},{"../base":58,"../exception":69,"../utils":73,"./code-gen":61}],65:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -8845,7 +8595,7 @@ var handlebars = (function () {
     return new Parser();
 })();exports["default"] = handlebars;
 module.exports = exports["default"];
-},{}],68:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9011,7 +8761,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
   return pair.key + '=' + this.accept(pair.value);
 };
 /*eslint-enable new-cap */
-},{"./visitor":69}],69:[function(require,module,exports){
+},{"./visitor":67}],67:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9144,7 +8894,7 @@ Visitor.prototype = {
 exports['default'] = Visitor;
 module.exports = exports['default'];
 /* content */ /* comment */ /* path */ /* string */ /* number */ /* bool */ /* literal */ /* literal */
-},{"../exception":71,"./ast":61}],70:[function(require,module,exports){
+},{"../exception":69,"./ast":59}],68:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9357,7 +9107,7 @@ function omitLeft(body, i, multiple) {
 
 exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
-},{"./visitor":69}],71:[function(require,module,exports){
+},{"./visitor":67}],69:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9396,7 +9146,7 @@ Exception.prototype = new Error();
 
 exports['default'] = Exception;
 module.exports = exports['default'];
-},{}],72:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -9417,7 +9167,7 @@ exports['default'] = function (Handlebars) {
 
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],73:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9650,7 +9400,7 @@ function initData(context, data) {
   }
   return data;
 }
-},{"./base":60,"./exception":71,"./utils":75}],74:[function(require,module,exports){
+},{"./base":58,"./exception":69,"./utils":73}],72:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9665,7 +9415,7 @@ SafeString.prototype.toString = SafeString.prototype.toHTML = function () {
 
 exports['default'] = SafeString;
 module.exports = exports['default'];
-},{}],75:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9780,7 +9530,7 @@ function blockParams(params, ids) {
 function appendContextPath(contextPath, id) {
   return (contextPath ? contextPath + '.' : '') + id;
 }
-},{}],76:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -9807,7 +9557,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":58,"../dist/cjs/handlebars/compiler/printer":68,"fs":55}],77:[function(require,module,exports){
+},{"../dist/cjs/handlebars":56,"../dist/cjs/handlebars/compiler/printer":66,"fs":92}],75:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -9817,7 +9567,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":83,"./source-map/source-map-generator":84,"./source-map/source-node":85}],78:[function(require,module,exports){
+},{"./source-map/source-map-consumer":81,"./source-map/source-map-generator":82,"./source-map/source-node":83}],76:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9916,7 +9666,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":86,"amdefine":87}],79:[function(require,module,exports){
+},{"./util":84,"amdefine":85}],77:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10060,7 +9810,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":80,"amdefine":87}],80:[function(require,module,exports){
+},{"./base64":78,"amdefine":85}],78:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10104,7 +9854,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":87}],81:[function(require,module,exports){
+},{"amdefine":85}],79:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10186,7 +9936,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":87}],82:[function(require,module,exports){
+},{"amdefine":85}],80:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -10274,7 +10024,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":86,"amdefine":87}],83:[function(require,module,exports){
+},{"./util":84,"amdefine":85}],81:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10851,7 +10601,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":78,"./base64-vlq":79,"./binary-search":81,"./util":86,"amdefine":87}],84:[function(require,module,exports){
+},{"./array-set":76,"./base64-vlq":77,"./binary-search":79,"./util":84,"amdefine":85}],82:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11253,7 +11003,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":78,"./base64-vlq":79,"./mapping-list":82,"./util":86,"amdefine":87}],85:[function(require,module,exports){
+},{"./array-set":76,"./base64-vlq":77,"./mapping-list":80,"./util":84,"amdefine":85}],83:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11669,7 +11419,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":84,"./util":86,"amdefine":87}],86:[function(require,module,exports){
+},{"./source-map-generator":82,"./util":84,"amdefine":85}],84:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11990,7 +11740,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":87}],87:[function(require,module,exports){
+},{"amdefine":85}],85:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.0 Copyright (c) 2011-2015, The Dojo Foundation All Rights Reserved.
@@ -12295,15 +12045,15 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/handlebars/node_modules/source-map/node_modules/amdefine/amdefine.js")
-},{"_process":57,"path":56}],88:[function(require,module,exports){
+},{"_process":94,"path":93}],86:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":59}],89:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":57}],87:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":88}],90:[function(require,module,exports){
+},{"handlebars/runtime":86}],88:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*! jQuery UI - v1.10.3 - 2013-05-03
@@ -27310,7 +27060,7 @@ $.widget( "ui.tooltip", {
 
 }( jQuery ) );
 
-},{"jquery":91}],91:[function(require,module,exports){
+},{"jquery":89}],89:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.11.3
  * http://jquery.com/
@@ -37663,7 +37413,7 @@ return jQuery;
 
 }));
 
-},{}],92:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
 // Version: v3.7.0
@@ -38600,7 +38350,7 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
 }));
 
 
-},{}],93:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -40150,4 +39900,326 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
   }
 }.call(this));
 
-},{}]},{},[5]);
+},{}],92:[function(require,module,exports){
+
+},{}],93:[function(require,module,exports){
+(function (process){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// Split a filename into [root, dir, basename, ext], unix version
+// 'root' is just a slash, or nothing.
+var splitPathRe =
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+var splitPath = function(filename) {
+  return splitPathRe.exec(filename).slice(1);
+};
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function(path) {
+  var result = splitPath(path),
+      root = result[0],
+      dir = result[1];
+
+  if (!root && !dir) {
+    // No dirname whatsoever
+    return '.';
+  }
+
+  if (dir) {
+    // It has a dirname, strip trailing slash
+    dir = dir.substr(0, dir.length - 1);
+  }
+
+  return root + dir;
+};
+
+
+exports.basename = function(path, ext) {
+  var f = splitPath(path)[2];
+  // TODO: make this comparison case-insensitive on windows?
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+
+exports.extname = function(path) {
+  return splitPath(path)[3];
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+}).call(this,require('_process'))
+},{"_process":94}],94:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = setTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            currentQueue[queueIndex].run();
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    clearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        setTimeout(drainQueue, 0);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}]},{},[6]);

@@ -22,9 +22,11 @@ module.exports = Backbone.View.extend({
     var descripcion = this.model.toJSON();
     var html = this.template(descripcion);
     if(this.model.get("id")==="-1"){
-      html = html + '<div class="agregar_servicio"><a href="#"></a></div>';
+      html = html + '<div class="agregar_servicio"><a href="#" title="Agregar sucursal de esta empresa"><i class="fa fa-plus fa-2x"></i></a></div>';
     }
     this.$el.html(html);
+
+
     //Personal.app.EmpresaMapa.mostrarMapa(this.model.get("latitud"),this.model.get("longitud"));
     
     if (!$('#bloque_mapa_sucursal').is(':visible')) {   

@@ -1,12 +1,12 @@
 var Backbone        = require('backbone');
     ValidacionVista = require('./validacion')
+    funcionGenerica = require('../funcionesGenericas')
 
 //Personal.Models.empresa 
 module.exports = Backbone.Model.extend({
   initialize: function(){
   		this.valor = null;
-  		this.pk = null;
-      
+  		this.pk = null;   
       this.camposValidar();
   },
  valor : function(valor){
@@ -28,33 +28,28 @@ module.exports = Backbone.Model.extend({
    return direccion;
   },
   defaults : function(){
-      var now  = new Date();
-       var dia  =  "" + now.getDate(); 
-       if (dia.length == 1) { dia = "0" + dia; };
-       var mes  =  "" + (now.getMonth() + 1); 
-       if (mes.length == 1) { mes = "0" + mes; };
-       var anio = now.getFullYear();
-       this.fecha_actual =  dia + '/' + mes + '/' + anio; 
-     
+      this.fecha_actual = new  funcionGenerica().fecha18Years();
+       this.fecha_actual = new  funcionGenerica().fechaActual();
+ 
        return {
-    	"id": "",
-    	"cve_empresa": "",
-    	"razon_social": "",
-    	"rfc": "",
-    	"calle": "",
-    	"numero": "",
-    	"colonia": "",
-    	"cp": "",
-    	"cdu_estado": "0140000",
-    	"cdu_municipio": "0150000",
-    	"ciudad": "",
-    	"telefono1": "",
-    	"telefono2": "",
-    	"cdu_giro": "0180000",
-    	"cdu_rubro": "0190000",
-    	"fecha_alta": this.fecha_actual ,
-      "latitud" : "99.1696",
-      "longitud" :  "19.5225",
+      	"id": "",
+      	"cve_empresa": "",
+      	"razon_social": "",
+      	"rfc": "",
+      	"calle": "",
+      	"numero": "",
+      	"colonia": "",
+      	"cp": "",
+      	"cdu_estado": "0140000",
+      	"cdu_municipio": "0150000",
+      	"ciudad": "",
+      	"telefono1": "",
+      	"telefono2": "",
+      	"cdu_giro": "0180000",
+      	"cdu_rubro": "0190000",
+      	"fecha_alta": this.fecha_actual ,
+        "latitud" : "99.1696",
+        "longitud" :  "19.5225",
       }
 },
   camposValidar: function(){
