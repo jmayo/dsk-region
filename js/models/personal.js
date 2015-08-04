@@ -38,7 +38,7 @@ module.exports= Backbone.Model.extend({
 
   defaults : function() {
       this.fecha_actual = new  funcionGenerica().fechaActual();
-      
+      this.fec_18 = new funcionGenerica().fecha18Years();
         return{
         "id" : "",
         "matricula": "",
@@ -48,7 +48,7 @@ module.exports= Backbone.Model.extend({
         "rfc": "", 
         "curp": "", 
         "cuip": "", 
-        "fec_nacimiento":"01/01/1900", 
+        "fec_nacimiento":this.fec_18, 
         "cdu_estado_nac": "0140000", 
         "cdu_municipio_nac": "0150000", 
         "cdu_estado_civil" : "0010000",

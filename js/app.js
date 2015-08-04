@@ -197,6 +197,7 @@ var funcionesGenericas = function() {
     	var nueva_fec = new Date()
     	nueva_fec.setFullYear(nueva_fec.getUTCFullYear() - 18)
     	var nueva = this.fechaCadena(nueva_fec);
+      return nueva;
     },
     fechaCadena: function(fecha){
     	 var dia  =  "" + fecha.getDate(); 
@@ -618,7 +619,7 @@ module.exports= Backbone.Model.extend({
 
   defaults : function() {
       this.fecha_actual = new  funcionGenerica().fechaActual();
-      
+      this.fec_18 = new funcionGenerica().fecha18Years();
         return{
         "id" : "",
         "matricula": "",
@@ -628,7 +629,7 @@ module.exports= Backbone.Model.extend({
         "rfc": "", 
         "curp": "", 
         "cuip": "", 
-        "fec_nacimiento":"01/01/1900", 
+        "fec_nacimiento":this.fec_18, 
         "cdu_estado_nac": "0140000", 
         "cdu_municipio_nac": "0150000", 
         "cdu_estado_civil" : "0010000",
@@ -1450,7 +1451,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"perso_municipio_dom","select_name":"municipio_dom","label_desc":"calle_municipio"},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Ciudad/Población",{"name":"grp_perdet","hash":{"input_desc":"Ciudad/Población","label_desc":"calle_ciudad","input_id":"persona_ciudad_dom","valor":(depth0 != null ? depth0.ciudad_dom : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	</ul>\n</div>\n</div>\n</article>\n<article class=\"bloque\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
+    + "\n	</ul>\n</div>\n</div>\n</article>\n<article class=\"bloque\" id=\"contenedor_foto\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
     + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"img_id":"perso_foto"},"data":data})) != null ? stack1 : "")
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
@@ -2605,6 +2606,12 @@ var Backbone                = require('backbone');
    var html = this.template(detalle);
    this.$el.html(html)
    $('#perso_foto_wait').hide();
+   $('#contenedor_foto').hide();
+   
+   if(detalle.id !== ""){
+      $('#contenedor_foto').show();   
+   }
+
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
@@ -3432,8 +3439,8 @@ module.exports = Backbone.View.extend({
     console.log("valores por defecto");
   },
   events :{
-     "click #idubicacion": "marcar",
-     "click .obtener_cordenadas": "obtenerUbicacion",
+     "click #marcar_cordenadas": "marcar",
+     "click #idubicacion": "obtenerUbicacion",
   },
   obtenerUbicacion: function(event){
     event.preventDefault();

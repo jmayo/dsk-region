@@ -15,6 +15,7 @@ var funcionesGenericas = function() {
     	var nueva_fec = new Date()
     	nueva_fec.setFullYear(nueva_fec.getUTCFullYear() - 18)
     	var nueva = this.fechaCadena(nueva_fec);
+      return nueva;
     },
     fechaCadena: function(fecha){
     	 var dia  =  "" + fecha.getDate(); 

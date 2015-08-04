@@ -22,8 +22,8 @@ module.exports = Backbone.View.extend({
     console.log("valores por defecto");
   },
   events :{
-     "click #idubicacion": "marcar",
-     "click .obtener_cordenadas": "obtenerUbicacion",
+     "click #marcar_cordenadas": "marcar",
+     "click #idubicacion": "obtenerUbicacion",
   },
   obtenerUbicacion: function(event){
     event.preventDefault();

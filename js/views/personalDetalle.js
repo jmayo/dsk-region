@@ -85,6 +85,12 @@ var Backbone                = require('backbone');
    var html = this.template(detalle);
    this.$el.html(html)
    $('#perso_foto_wait').hide();
+   $('#contenedor_foto').hide();
+   
+   if(detalle.id !== ""){
+      $('#contenedor_foto').show();   
+   }
+
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
