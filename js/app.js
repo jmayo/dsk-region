@@ -2732,7 +2732,9 @@ guardar: function(){
         success: function(model,response) {
             $('#persona_id').text(model.get("id"));
            Backbone.app.operacion="buscar";
+            $("#notify_success").text("Los datos fueron guardados correctamente");
             $("#notify_success").notify();
+            $('#contenedor_foto').show();   
           },
         error: function(model,response, options) {
              $("#notify_error").text(response.responseText);
