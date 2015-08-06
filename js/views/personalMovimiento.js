@@ -31,6 +31,7 @@ module.exports = Backbone.View.extend({
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
+  
    var html = this.template(detalle);
    this.$el.html(html);
    

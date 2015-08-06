@@ -635,7 +635,7 @@ module.exports= Backbone.Model.extend({
         "cdu_estado_civil" : "0010000",
         "cdu_escolaridad": "0020000", 
         "cdu_religion": "0160000", 
-        "cdu_seguridad_social": "0170000", 
+        "cdu_seguridad_social": "0170001", 
         "id_seguridad_social": "", 
         "portacion": false,
         "cdu_tipo_alta": "0200000", 
@@ -660,11 +660,11 @@ module.exports= Backbone.Model.extend({
       vali.Campo('materno',1,20,vali.AlfaNumerico());
       vali.Campo('nombre',1,20,vali.AlfaNumerico());
       vali.Campo('rfc',1,13,vali.RFC());
-      vali.Campo('curp',1,18,vali.RFC());
-      vali.Campo('cuip',0,30,vali.RFC());
+      vali.Campo('curp',1,18,vali.CURP());
+      vali.Campo('cuip',0,30,vali.CUIP());
       vali.Campo('fec_nacimiento',1,10,vali.Fecha());
       vali.Campo('fec_alta',1,10,vali.Fecha());
-      vali.Campo('id_seguridad_social',1,20,vali.AlfaNumerico());
+      vali.Campo('id_seguridad_social',0,20,vali.AlfaNumerico());
       vali.Campo('condiciones_alta',1,150,vali.AlfaNumerico()); 
       vali.Campo('calle_dom',1,10,vali.AlfaNumerico());
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
@@ -861,6 +861,16 @@ return {
 	RFC: function(){
 		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
 		var mensaje= "debe ser un rfc correcto";
+		return [regex,mensaje];
+	},
+	CURP: function(){
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var mensaje= "debe ser un curp correcto";
+		return [regex,mensaje];
+	},
+	CUIP: function(){
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var mensaje= "debe ser un cuip correcto";
 		return [regex,mensaje];;
 	},
 	Fecha: function(){
@@ -1960,6 +1970,7 @@ module.exports = Backbone.View.extend({
   
 });
 
+
 },{"../templates/resultados-personal-busqueda.hbs":26,"../views/empresaBusqueda":36,"backbone":55,"jquery":89}],38:[function(require,module,exports){
 var Backbone   = require('backbone'),
     Plantilla  = require('../templates/resultados-empresa-padre.hbs')       
@@ -2860,6 +2871,7 @@ module.exports = Backbone.View.extend({
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
+  
    var html = this.template(detalle);
    this.$el.html(html);
    
@@ -3031,6 +3043,9 @@ module.exports = Backbone.View.extend({
   render: function () {
    this.$el.empty();
    var detalle = this.model.toJSON();
+   if(detalle.sueldo==="0E-7"){
+      detalle.sueldo ="0.0";
+   }
    var html = this.template(detalle);
    this.$el.html(html);
   },

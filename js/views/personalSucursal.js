@@ -24,6 +24,9 @@ module.exports = Backbone.View.extend({
   render: function () {
    this.$el.empty();
    var detalle = this.model.toJSON();
+   if(detalle.sueldo==="0E-7"){
+      detalle.sueldo ="0.0";
+   }
    var html = this.template(detalle);
    this.$el.html(html);
   },

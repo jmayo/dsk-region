@@ -33,6 +33,16 @@ return {
 	RFC: function(){
 		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
 		var mensaje= "debe ser un rfc correcto";
+		return [regex,mensaje];
+	},
+	CURP: function(){
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var mensaje= "debe ser un curp correcto";
+		return [regex,mensaje];
+	},
+	CUIP: function(){
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var mensaje= "debe ser un cuip correcto";
 		return [regex,mensaje];;
 	},
 	Fecha: function(){
