@@ -119,7 +119,6 @@ relacionColumnas: function(){
 				"cp": "#sucursal_cp",
 				"cdu_estado": "#sucursal_estado",
 				"cdu_municipio": "#sucursal_municipio",
-				"ciudad": "#sucursal_ciudad",
 				"telefono": "#sucursal_telefono",
 				"cdu_estatus": "#sucursal_estatus",
 				"fecha_alta":"#sucursal_fecha_alta",

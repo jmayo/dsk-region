@@ -159,7 +159,6 @@ relacionColumnas: function(){
 				"cp": "#empresa_cp",
 				"cdu_estado": "#empresa_estado",
 				"cdu_municipio": "#empresa_municipio",
-				"ciudad": "#empresa_ciudad",
 				"telefono1": "#empresa_telefono1",
 				"telefono2": "#empresa_telefono2",
 				"cdu_giro": "#empresa_giro",

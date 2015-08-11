@@ -526,7 +526,6 @@ module.exports = Backbone.Model.extend({
       	"cp": "",
       	"cdu_estado": "0140000",
       	"cdu_municipio": "0150000",
-      	"ciudad": "",
       	"telefono1": "",
       	"telefono2": "",
       	"cdu_giro": "0180000",
@@ -545,7 +544,6 @@ module.exports = Backbone.Model.extend({
       vali.Campo('numero',1,10,vali.AlfaNumerico()); 
       vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp',1,10,vali.Numeros()); 
-      vali.Campo('ciudad',1,100,vali.AlfaNumerico()); 
       vali.Campo('telefono1',1,10,vali.AlfaNumerico()); 
       vali.Campo('telefono2',0,10,vali.AlfaNumerico()); 
       vali.Campo('fecha_alta',1,10,vali.Fecha());
@@ -634,7 +632,6 @@ module.exports= Backbone.Model.extend({
         "cdu_municipio_nac": "0150000", 
         "cdu_estado_civil" : "0010000",
         "cdu_escolaridad": "0020000", 
-        "cdu_religion": "0160000", 
         "cdu_seguridad_social": "0170001", 
         "id_seguridad_social": "", 
         "portacion": false,
@@ -649,7 +646,6 @@ module.exports= Backbone.Model.extend({
         "cp_dom": "", 
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
-        "ciudad_dom": "",
         "imagen": ""
       };
   },
@@ -670,7 +666,6 @@ module.exports= Backbone.Model.extend({
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
       vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp_dom',1,10,vali.Numeros()); 
-      vali.Campo('ciudad_dom',1,100,vali.AlfaNumerico());
       this.listado = vali.Listado();
   },
   validation: function() {
@@ -784,6 +779,7 @@ module.exports= Backbone.Model.extend({
   },
   defaults : function(){
        this.fecha_actual = new  funcionGenerica().fechaActual();
+
     return{  
     	"id": "",
     	"cve_empresa": "",
@@ -795,7 +791,6 @@ module.exports= Backbone.Model.extend({
     	"cp": "",
     	"cdu_estado": "0140000",
     	"cdu_municipio": "0150000",
-    	"ciudad": "",
     	"telefono": "",
     	"cdu_estatus": "0240000",
     	"fecha_alta":this.fecha_actual,
@@ -813,7 +808,6 @@ module.exports= Backbone.Model.extend({
       vali.Campo('numero',1,10,vali.AlfaNumerico()); 
       vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp',1,10,vali.Numeros()); 
-      vali.Campo('ciudad',1,100,vali.AlfaNumerico()); 
       vali.Campo('telefono',1,10,vali.AlfaNumerico()); 
       vali.Campo('fecha_alta',1,10,vali.Fecha());
       vali.Campo('fecha_baja',1,10,vali.Fecha());
@@ -1325,8 +1319,6 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " \n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"empresa_municipio","select_name":"calle_municipio","label_desc":"calle_municipio"},"data":data})) != null ? stack1 : "")
     + "		\n	"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Ciudad/Población",{"name":"grp_perdet","hash":{"input_desc":"Ciudad/Población","label_desc":"calle_ciudad","input_id":"empresa_ciudad","valor":(depth0 != null ? depth0.ciudad : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Teléfono 1",{"name":"grp_perdet","hash":{"input_desc":"Teléfono 1","label_desc":"telefono1","input_id":"empresa_telefono1","valor":(depth0 != null ? depth0.telefono1 : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Teléfono 2",{"name":"grp_perdet","hash":{"input_desc":"Teléfono 2","label_desc":"telefono2","input_id":"empresa_telefono2","valor":(depth0 != null ? depth0.telefono2 : depth0)},"data":data})) != null ? stack1 : "")
@@ -1430,8 +1422,6 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Escolaridad",{"name":"grp_combo","hash":{"select_id":"perso_escolaridad","select_name":"escolaridad","label_desc":"escolaridad"},"data":data})) != null ? stack1 : "")
     + "\n		"
-    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Religión",{"name":"grp_combo","hash":{"select_id":"perso_religion","select_name":"religion","label_desc":"religion"},"data":data})) != null ? stack1 : "")
-    + "\n		"
     + ((stack1 = (helpers.grp_options || (depth0 && depth0.grp_options) || alias1).call(depth0,"Portación",{"name":"grp_options","hash":{"input_booleano":(depth0 != null ? depth0.portacion : depth0),"radio_name":"persona_portacion","op1_checado":(depth0 != null ? depth0.portacion : depth0),"op2_val":false,"op1_val":true,"op2_titulo":"No","op1_titulo":"Si","label_desc":"portacion","radio_id":"persona_portacion"},"data":data})) != null ? stack1 : "")
     + "   \n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Seguridad Social",{"name":"grp_combo","hash":{"select_id":"perso_segsoc","select_name":"seguridad_social","label_desc":"seguridad_social"},"data":data})) != null ? stack1 : "")
@@ -1459,8 +1449,6 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Estado",{"name":"grp_combo","hash":{"select_id":"perso_estado_dom","select_name":"estado_dom","label_desc":"calle_estado"},"data":data})) != null ? stack1 : "")
     + " \n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"perso_municipio_dom","select_name":"municipio_dom","label_desc":"calle_municipio"},"data":data})) != null ? stack1 : "")
-    + "\n	"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Ciudad/Población",{"name":"grp_perdet","hash":{"input_desc":"Ciudad/Población","label_desc":"calle_ciudad","input_id":"persona_ciudad_dom","valor":(depth0 != null ? depth0.ciudad_dom : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	</ul>\n</div>\n</div>\n</article>\n<article class=\"bloque\" id=\"contenedor_foto\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
     + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"img_id":"perso_foto"},"data":data})) != null ? stack1 : "")
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
@@ -1608,8 +1596,6 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " \n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"sucursal_municipio","select_name":"calle_municipio","label_desc":"calle_municipio"},"data":data})) != null ? stack1 : "")
     + "		\n	"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Ciudad/Población",{"name":"grp_perdet","hash":{"input_desc":"Ciudad/Población","label_desc":"calle_ciudad","input_id":"sucursal_ciudad","valor":(depth0 != null ? depth0.ciudad : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Teléfono",{"name":"grp_perdet","hash":{"input_desc":"Teléfono 1","label_desc":"telefono1","input_id":"sucursal_telefono","valor":(depth0 != null ? depth0.telefono : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Estatus",{"name":"grp_combo","hash":{"select_id":"sucursal_estatus","select_name":"estatus","label_desc":"estatus"},"data":data})) != null ? stack1 : "")
@@ -2180,7 +2166,6 @@ relacionColumnas: function(){
 				"cp": "#empresa_cp",
 				"cdu_estado": "#empresa_estado",
 				"cdu_municipio": "#empresa_municipio",
-				"ciudad": "#empresa_ciudad",
 				"telefono1": "#empresa_telefono1",
 				"telefono2": "#empresa_telefono2",
 				"cdu_giro": "#empresa_giro",
@@ -2637,8 +2622,6 @@ var Backbone                = require('backbone');
           
           self.llenadoCatalogosCombo(PersonalCatalogos.Escolaridad(),detalle["cdu_escolaridad"],"#perso_escolaridad");
 
-          self.llenadoCatalogosCombo(PersonalCatalogos.Religion(),detalle["cdu_religion"],"#perso_religion");
-
           self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_nac"],"#perso_edonac");
         
           self.llenadoCatalogosCombo(PersonalCatalogos.SeguridadSocial(),detalle["cdu_seguridad_social"],"#perso_segsoc");
@@ -2689,11 +2672,9 @@ relacionColumnas: function(){
         "cdu_estado_nac": '#perso_edonac', 
         "cdu_municipio_dom": '#perso_municipio_dom', 
         "cdu_municipio_nac": '#perso_mpionac', 
-        "cdu_religion": '#perso_religion', 
         "cdu_seguridad_social": '#perso_segsoc', 
         "cdu_tipo_alta":'#perso_tipo_de_alta' , 
         "cdu_tipo_empleado": '#perso_tipo_de_empleado', 
-        "ciudad_dom": '#persona_ciudad_dom',
         "colonia_dom": '#persona_colonia_dom', 
         "condicionada": '#persona_condicionada_1', 
         "condiciones_alta": '#persona_condicion_alta', 
@@ -3296,7 +3277,6 @@ relacionColumnas: function(){
 				"cp": "#sucursal_cp",
 				"cdu_estado": "#sucursal_estado",
 				"cdu_municipio": "#sucursal_municipio",
-				"ciudad": "#sucursal_ciudad",
 				"telefono": "#sucursal_telefono",
 				"cdu_estatus": "#sucursal_estatus",
 				"fecha_alta":"#sucursal_fecha_alta",

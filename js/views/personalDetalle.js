@@ -105,8 +105,6 @@ var Backbone                = require('backbone');
           
           self.llenadoCatalogosCombo(PersonalCatalogos.Escolaridad(),detalle["cdu_escolaridad"],"#perso_escolaridad");
 
-          self.llenadoCatalogosCombo(PersonalCatalogos.Religion(),detalle["cdu_religion"],"#perso_religion");
-
           self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_nac"],"#perso_edonac");
         
           self.llenadoCatalogosCombo(PersonalCatalogos.SeguridadSocial(),detalle["cdu_seguridad_social"],"#perso_segsoc");
@@ -157,11 +155,9 @@ relacionColumnas: function(){
         "cdu_estado_nac": '#perso_edonac', 
         "cdu_municipio_dom": '#perso_municipio_dom', 
         "cdu_municipio_nac": '#perso_mpionac', 
-        "cdu_religion": '#perso_religion', 
         "cdu_seguridad_social": '#perso_segsoc', 
         "cdu_tipo_alta":'#perso_tipo_de_alta' , 
         "cdu_tipo_empleado": '#perso_tipo_de_empleado', 
-        "ciudad_dom": '#persona_ciudad_dom',
         "colonia_dom": '#persona_colonia_dom', 
         "condicionada": '#persona_condicionada_1', 
         "condiciones_alta": '#persona_condicion_alta', 

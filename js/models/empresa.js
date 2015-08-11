@@ -42,7 +42,6 @@ module.exports = Backbone.Model.extend({
       	"cp": "",
       	"cdu_estado": "0140000",
       	"cdu_municipio": "0150000",
-      	"ciudad": "",
       	"telefono1": "",
       	"telefono2": "",
       	"cdu_giro": "0180000",
@@ -61,7 +60,6 @@ module.exports = Backbone.Model.extend({
       vali.Campo('numero',1,10,vali.AlfaNumerico()); 
       vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp',1,10,vali.Numeros()); 
-      vali.Campo('ciudad',1,100,vali.AlfaNumerico()); 
       vali.Campo('telefono1',1,10,vali.AlfaNumerico()); 
       vali.Campo('telefono2',0,10,vali.AlfaNumerico()); 
       vali.Campo('fecha_alta',1,10,vali.Fecha());

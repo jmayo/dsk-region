@@ -31,6 +31,7 @@ module.exports= Backbone.Model.extend({
   },
   defaults : function(){
        this.fecha_actual = new  funcionGenerica().fechaActual();
+
     return{  
     	"id": "",
     	"cve_empresa": "",
@@ -42,7 +43,6 @@ module.exports= Backbone.Model.extend({
     	"cp": "",
     	"cdu_estado": "0140000",
     	"cdu_municipio": "0150000",
-    	"ciudad": "",
     	"telefono": "",
     	"cdu_estatus": "0240000",
     	"fecha_alta":this.fecha_actual,
@@ -60,7 +60,6 @@ module.exports= Backbone.Model.extend({
       vali.Campo('numero',1,10,vali.AlfaNumerico()); 
       vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp',1,10,vali.Numeros()); 
-      vali.Campo('ciudad',1,100,vali.AlfaNumerico()); 
       vali.Campo('telefono',1,10,vali.AlfaNumerico()); 
       vali.Campo('fecha_alta',1,10,vali.Fecha());
       vali.Campo('fecha_baja',1,10,vali.Fecha());

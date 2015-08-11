@@ -1,5 +1,5 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'run', 'bundle', 'd' ]
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'run', 'bundle', 'ndle' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.37
 4 verbose node symlink /usr/bin/node
@@ -8,7 +8,7 @@
 6 error including the npm and node versions, at:
 6 error     <http://github.com/npm/npm/issues>
 7 error System Linux 3.13.0-61-generic
-8 error command "/usr/bin/node" "/usr/bin/npm" "run" "bundle" "d"
+8 error command "/usr/bin/node" "/usr/bin/npm" "run" "bundle" "ndle"
 9 error cwd /home/raultr-hp/proyectos/PersoRegFrontEnd
 10 error node -v v0.10.37
 11 error npm -v 1.4.28

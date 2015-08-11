@@ -53,7 +53,6 @@ module.exports= Backbone.Model.extend({
         "cdu_municipio_nac": "0150000", 
         "cdu_estado_civil" : "0010000",
         "cdu_escolaridad": "0020000", 
-        "cdu_religion": "0160000", 
         "cdu_seguridad_social": "0170001", 
         "id_seguridad_social": "", 
         "portacion": false,
@@ -68,7 +67,6 @@ module.exports= Backbone.Model.extend({
         "cp_dom": "", 
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
-        "ciudad_dom": "",
         "imagen": ""
       };
   },
@@ -89,7 +87,6 @@ module.exports= Backbone.Model.extend({
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
       vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp_dom',1,10,vali.Numeros()); 
-      vali.Campo('ciudad_dom',1,100,vali.AlfaNumerico());
       this.listado = vali.Listado();
   },
   validation: function() {
