@@ -333,13 +333,19 @@ body
 		margin 0
 		padding 10px 0 10px 0
 		text-align center
+	h3.enterprise_buscar
+		background gris_medio
+		color gris_claro
+		margin 0
+		padding 10px 0 10px 0
+		text-align center
 	.caja_buscar
 		border 1px solid lightblue
 		box-shadow 0 0 0 verde, 1px 2px 10px gris_claro inset
 		border-radius 5px
 		margin-top -1em
 		padding 0
-		text-align left
+		text-align center
 		width 100%
 		z-index 8
 		.lista_buscar
@@ -348,9 +354,53 @@ body
 			padding 0
 			li
 				display inline-block
-				padding-left 1em
+				//padding-left 1em
 				a
 					color gris_claro
+					text-decoration none
+				.buscar
+					background url('search-white.png') no-repeat 10px 6px #fcfcfc
+					border 1px solid lightblue
+					font bold 12px Arial,Helvetica,Sans-serif
+					color #bebebe
+					width 110px
+					padding 6px 15px 6px 35px
+					-webkit-border-radius 20px
+					-moz-border-radius 20px
+					border-radius 20px
+					text-shadow 0 2px 3px rgba(0, 0, 0, 0.1)
+					-webkit-box-shadow 0 1px 3px rgba(0, 0, 0, 0.15) inset
+					-moz-box-shadow 0 1px 3px rgba(0, 0, 0, 0.15) inset
+					box-shadow 0 1px 3px rgba(0, 0, 0, 0.15) inset
+					-webkit-transition all 0.7s ease 0s
+					-moz-transition all 0.7s ease 0s
+					-o-transition all 0.7s ease 0s
+					transition all 0.7s ease 0s
+					&:focus
+						width 260px
+	.mi_hr
+		border 0
+		height 0
+		box-shadow 0 2px 2px 1px lightblue
+		margin-bottom 2.5em
+	.caja_buscar_sola
+		//border 1px solid lightblue
+		//box-shadow 0 0 0 verde, 1px 2px 10px gris_claro inset
+		border-radius 5px
+		margin-top -1em
+		padding 0
+		text-align center
+		width 100%
+		z-index 8
+		.lista_buscar
+			overflow-x auto
+			margin 4px
+			padding 0
+			li
+				display inline-block
+				//padding-left 1em
+				a
+					color lightblue
 					text-decoration none
 				.buscar
 					background url('search-white.png') no-repeat 10px 6px #fcfcfc
@@ -375,6 +425,7 @@ body
 	.profiler
 		background gris_medio
 		border-radius 10px
+		//width 100%
 		.profiler_foto
 			display inline-block
 			border 0
@@ -393,17 +444,23 @@ body
 			//margin 6px
 			padding 5px
 			h2
-			h3
+			div
+				margin 0
+				width 32%
+				h3
+					display inline
 			h4
 			h5
 				font-family arial-regular
 				margin 2px
 				padding 0
 				position relative
+				&.motivo_cardex
+					color orange
 	.enterprise
 		background gris_medio
 		border-radius 10px
-		width 100%
+		//width 100%
 		.enterprise_foto
 			display inline-block
 			border 0

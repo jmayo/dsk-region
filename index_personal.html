@@ -202,50 +202,6 @@
 					</ul>
 				</div>
 			</div>
-		</article>
-		<article class="bloque">
-			<div class="titulo_bloque">
-				Administración
-			</div>
-			<div class="caja_bloque">
-				<div class="campos_bloque">
-					<ul class="ul_bloque">
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="tipo_de_alta">Tipo de Alta</label>
-							<select name="tipo_de_alta" class="select_bloque">
-								<option value="normal">Normal</option>
-								<option value="condicionada">Condicionada</option>
-							</select>
-							<div class="viñeta"></div>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="fecha_de_alta">Fecha de Alta</label>
-							<input id="cal_fec_alt" class="inputs_bloque" type="text" placeholder="Fecha de Alta" />
-							<div class="viñeta"></div>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="alta_condicionada">Alta Condicionada</label>
-							<input class="radio_bloque" type="radio" name="alta_condicionada" value="si">
-							<label for="portacion"><span><span></span></span>Si</label>
-							<input class="radio_bloque" type="radio" name="alta_condicionada" value="no" checked="checked">
-							<label for="alta_condicionada"><span><span></span></span>No</label>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="alta_condicionada"></label>
-							<textarea class="textarea_bloque" name="condicion_alta" placeholder="Condición(es)"></textarea>
-							<div class="viñeta"></div>
-						</li>
-						<li class="li_bloque">
-							<label class="etiquetas_bloque" for="tipo_de_empleado">Tipo de Empleado</label>
-							<select name="tipo_de_empleado" class="select_bloque">
-								<option value="operativo">Operativo</option>
-								<option value="administrativo">Administrativo</option>
-							</select>
-							<div class="viñeta"></div>
-						</li>
-					</ul>
-				</div>
-			</div>
 			<br>
 			<div class="titulo_bloque">
 				Domicilio
@@ -302,6 +258,107 @@
 		</article>
 		<article class="bloque">
 			<div class="titulo_bloque">
+				Administración
+			</div>
+			<div class="caja_bloque">
+				<div class="campos_bloque">
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="tipo_de_alta">Tipo de Alta</label>
+							<select name="tipo_de_alta" class="select_bloque">
+								<option value="normal">Normal</option>
+								<option value="condicionada">Condicionada</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="fecha_de_alta">Fecha de Alta</label>
+							<input id="cal_fec_alt" class="inputs_bloque" type="text" placeholder="Fecha de Alta" />
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="alta_condicionada">Alta Condicionada</label>
+							<input class="radio_bloque" type="radio" name="alta_condicionada" value="si">
+							<label for="portacion"><span><span></span></span>Si</label>
+							<input class="radio_bloque" type="radio" name="alta_condicionada" value="no" checked="checked">
+							<label for="alta_condicionada"><span><span></span></span>No</label>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="alta_condicionada"></label>
+							<textarea class="textarea_bloque" name="condicion_alta" placeholder="Condición(es)"></textarea>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="tipo_de_empleado">Tipo de Empleado</label>
+							<select name="tipo_de_empleado" class="select_bloque">
+								<option value="operativo">Operativo</option>
+								<option value="administrativo">Administrativo</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+					</ul>
+					<hr class="mi_hr">
+					<div class="caja_buscar_sola">
+						<ul class="lista_buscar">
+							<li><a href="#"><i class="fa fa-industry fa-1x"></i></a></li>
+							<li><input type="text" placeholder="Sucursal..." class="buscar"/></li>
+						</ul>
+						<div hidden class="divResultados divResultados3">
+						  <div class="resultado_ind">
+							<span class="name">1, Empresa Coca-Cola S.A. de C.V.</span>
+						  </div>
+					    	<div class="resultado_ind">
+							<span class="name">2, Patito S. de R. L.</span>
+					    	</div>
+					    </div>
+					</div>
+					<div id="sucursal_datos_basicos">
+						<h3 class="enterprise_buscar">200, <strong>Lagunita S.A. de C.V. Sucursal de Sal si Puedes en Tejupilco</strong></h3>
+					</div>
+					<ul class="ul_bloque">
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="puesto">Puesto</label>
+							<select name="puesto" class="select_bloque">
+								<option value="oficial">Oficial</option>
+								<option value="comandante">Comandante</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="puesto">Grado</label>
+							<select name="grado" class="select_bloque">
+								<option value="a">A</option>
+								<option value="b">B</option>
+								<option value="c">C</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="rango">Rango</label>
+							<select name="rango" class="select_bloque">
+								<option value="1">1</option>
+								<option value="2">2</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="turno">Turno</label>
+							<select name="turno" class="select_bloque">
+								<option value="12x12">12x12</option>
+								<option value="24x24">24x24</option>
+							</select>
+							<div class="viñeta"></div>
+						</li>
+						<li class="li_bloque">
+							<label class="etiquetas_bloque" for="sueldo">Sueldo</label>
+							<input class="inputs_bloque" type="text" placeholder="Sueldo" readonly />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</article>
+		<article class="bloque">
+			<div class="titulo_bloque">
 				Foto
 			</div>		
 			<div class="caja_foto">
@@ -314,7 +371,7 @@
 				<ul class="menu_foto">
 					<li>
 						<div class="examinar">
-							<input name='file' type='file'  id="imagencontrol" />
+							<input name='file' type='file' accept="image/jpeg" id="imagencontrol" />
 						</div>
 					</li>
 					<li><input type="submit" value="Subir foto"></li>
