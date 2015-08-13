@@ -25,6 +25,8 @@ module.exports = Backbone.View.extend({
           
           this.PersonalBusquedasVista = new PersonalBusquedasVista({collection: this.Perso});
           this.CajaBusqueda= new CajaBusquedaVista({collection: this.Perso,el: '.caja_acciones',divResultados: '#resultados_generales'});
+        
+
           console.log("ruta personal")
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();

@@ -3,8 +3,13 @@ var Backbone                = require('backbone');
     $.ui                    = require('jquery-ui'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
-    Personal                = require('../models/personal');
+    Personal                = require('../models/personal'),
+    Sucursales              = require('../collections/sucursales'),
+    PersonalAsignacion      = require('../models/personal_sucursal'),
     Plantilla               = require('../templates/personal-detalle.hbs'),
+    DatoBusquedasVista     = require('../views/datoBusquedas'),
+    CajaBusquedaVista      = require('../views/cajaBusqueda'),
+    PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
     $.ua                    = require('../notificaciones');
 
 
@@ -39,12 +44,14 @@ var Backbone                = require('backbone');
      }
 },
     
-  initialize: function () {
+  initialize: function (options) {
+    this.options = options || {};
     this.PersoBusqueda = new Personas();
     this.catMunicipioNac = new Catalogos();
     this.catMunicipioDom = new Catalogos();
     
     this.listenTo(this.model, "change", this.llenado, this);
+    this.listenTo(this.options.modelSucursal, "change", this.SeleccionSucursal, this);
   },
   buscarMatricula: function(){
     var self = this;
@@ -77,8 +84,23 @@ var Backbone                = require('backbone');
       this.render();
     }
   }, 
-  render: function () {
+  DetalleAsignacion: function(){
+    this.Asignacion = new PersonalAsignacion();
+    var detalle = this.Asignacion.toJSON()
+  
+    console.log(detalle);
+  },
+  SeleccionSucursal: function(){
+    var detalle = this.options.modelSucursal.toJSON();
+    var clave_sucursal = (detalle.cve_sucursal ==="") ? "" : detalle.cve_sucursal + ", "; 
+    $('#id_sucursal_personal').text(detalle.id);
+    $('#nombre_sucursal_personal').text(detalle.nombre);
+    $('#clave_sucursal_personal').text(clave_sucursal);
+    $('#perso_asignacion_puesto').focus();
 
+  },
+  render: function () {
+    this.DetalleAsignacion();
     this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
@@ -91,13 +113,19 @@ var Backbone                = require('backbone');
       $('#contenedor_foto').show();   
    }
 
+  this.Sucursal = new Sucursales();
+  this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_persona',template:PlantillaSucursal});
+  this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursal_persona',divResultados: '#resultados_sucursal_persona'});
+
+
+
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
    this.agregarValidacion();
 
     var PersonalCatalogos = new Catalogos();
-    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
+    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21,26,27,28";
   
     PersonalCatalogos.fetch(
       { headers: {'Authorization' :localStorage.token},
@@ -116,6 +144,11 @@ var Backbone                = require('backbone');
           self.llenadoCatalogosCombo(PersonalCatalogos.TipoEmpleado(),detalle["cdu_tipo_empleado"],"#perso_tipo_de_empleado");
 
           self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_dom"],"#perso_estado_dom");
+
+          //Detalle de la asignacion
+          self.llenadoCatalogosCombo(PersonalCatalogos.Puesto(),detalle["cdu_puesto"],"#perso_asignacion_puesto");
+          self.llenadoCatalogosCombo(PersonalCatalogos.Rango(),detalle["cdu_rango"],"#perso_asignacion_rango");
+          self.llenadoCatalogosCombo(PersonalCatalogos.Turno(),detalle["cdu_turno"],"#perso_asignacion_turno");
 
         }
           
@@ -175,13 +208,27 @@ relacionColumnas: function(){
         "paterno": '#persona_paterno', 
         "portacion": '#persona_portacion_1',
         "rfc": '#persona_rfc', 
+        "sueldo": "#perso_asignacion_sueldo",
       };
       return columnasCampos;
    },
 guardar: function(){
+  //var employees = {"firstName":"John", "lastName":"Doe"}
+  //var listado = [{"datos": employees},{"asignacion":data}]
+ // var listado = {"datos": [employees],"asignacion":[data]}
+//   var books = { "Pascal" : [ 
+//       { "Name"  : "Pascal Made Simple", "price" : 700 },
+//       { "Name"  : "Guide to Pascal", "price" : 400 }
+//    ],                       
+//    "Scala"  : [
+//       { "Name"  : "Scala for the Impatient", "price" : 1000 }, 
+//       { "Name"  : "Scala in Depth", "price" : 1300 }
+//    ]    
+// } 
     var data =this.generarJSON();
     var self = this;
-
+    debugger;
+    //delete data["sueldo"] 
     var model = new Personal(data);
     model.valor = undefined;
     model.pk= data["id"];

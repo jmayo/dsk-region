@@ -646,7 +646,8 @@ module.exports= Backbone.Model.extend({
         "cp_dom": "", 
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
-        "imagen": ""
+        "imagen": "",
+        "sueldo": 0.0
       };
   },
   camposValidar: function(){
@@ -666,6 +667,7 @@ module.exports= Backbone.Model.extend({
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
       vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp_dom',1,10,vali.Numeros()); 
+      vali.Campo('sueldo',1,10,vali.Decimales());
       this.listado = vali.Listado();
   },
   validation: function() {
@@ -1075,7 +1077,10 @@ initialize: function () {
     this.PersoModelo = new Personal();
     this.PersoModelo.set({"id":"-1"});
 
-    this.PersonalDetalle = new PersonalDetalleVista({model: this.PersoModelo});
+    this.SucursalModeloEnPersonal = new Sucursal();
+    this.SucursalModeloEnPersonal.set({"id":"-1"});
+    
+    this.PersonalDetalle = new PersonalDetalleVista({model: this.PersoModelo,modelSucursal:this.SucursalModeloEnPersonal});
     
     this.EmpresaModelo = new Empresa();
     this.EmpresaModelo.set({"id":"-1"});
@@ -1263,12 +1268,18 @@ initialize: function () {
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado) {
-    Backbone.app.operacion="buscar";
-    this.SucursalBasicoModelo.valor = valor_buscado;
-    this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
-    this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
-    this.PersonalMovimiento.render();
-  },
+    if(Backbone.app.menu==="personal"){
+        this.SucursalModeloEnPersonal.valor = valor_buscado;
+        this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
+    }
+    if(Backbone.app.menu==="movimiento"){
+        Backbone.app.operacion="buscar";
+        this.SucursalBasicoModelo.valor = valor_buscado;
+        this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
+        this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
+        this.PersonalMovimiento.render();
+  }
+ },
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
@@ -1427,6 +1438,18 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Seguridad Social",{"name":"grp_combo","hash":{"select_id":"perso_segsoc","select_name":"seguridad_social","label_desc":"seguridad_social"},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Id. Seguridad Social",{"name":"grp_perdet","hash":{"input_desc":"Id. Seguridad Social","label_desc":"id_seguridad_social","input_id":"persona_segsocial","valor":(depth0 != null ? depth0.id_seguridad_social : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n		</ul>\n	</div>\n	</div>\n	<br>\n	<div class=\"titulo_bloque\">\n		Domicilio\n	</div>\n	<div class=\"caja_bloque\">\n	<div class=\"campos_bloque\">\n		<ul class=\"ul_bloque\">			\n		"
+    + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"Calle",{"name":"grp_perdetTextArea","hash":{"textarea_desc":"Calle","label_desc":"","textarea_id":"perso_domicilio","valor":(depth0 != null ? depth0.calle_dom : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n		"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número",{"name":"grp_perdet","hash":{"input_desc":"Número","label_desc":"numero","input_id":"persona_numero_dom","valor":(depth0 != null ? depth0.numero_dom : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n		"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Colonia",{"name":"grp_perdet","hash":{"input_desc":"Colonia","label_desc":"colonia","input_id":"persona_colonia_dom","valor":(depth0 != null ? depth0.colonia_dom : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n		"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Código Postal",{"name":"grp_perdet","hash":{"input_desc":"Código Postal","label_desc":"codigo_postal","input_id":"persona_cp_dom","valor":(depth0 != null ? depth0.cp_dom : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n		"
+    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Estado",{"name":"grp_combo","hash":{"select_id":"perso_estado_dom","select_name":"estado_dom","label_desc":"calle_estado"},"data":data})) != null ? stack1 : "")
+    + " \n		"
+    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"perso_municipio_dom","select_name":"municipio_dom","label_desc":"calle_municipio"},"data":data})) != null ? stack1 : "")
     + "\n		</ul>\n	</div>\n	</div>\n</article>\n<article class=\"bloque\">\n<div class=\"titulo_bloque\">\n	Administración\n</div>\n<div class=\"caja_bloque\">\n	<div class=\"campos_bloque\" id=\"personal_administracion\">\n	<ul class=\"ul_bloque\"> \n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Tipo de Alta",{"name":"grp_combo","hash":{"select_id":"perso_tipo_de_alta","select_name":"tipo_de_alta","label_desc":"tipo_de_alta"},"data":data})) != null ? stack1 : "")
     + "\n	"
@@ -1437,19 +1460,15 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"",{"name":"grp_perdetTextArea","hash":{"textarea_desc":"Condición(es)","label_desc":"","valor":(depth0 != null ? depth0.condiciones_alta : depth0),"textarea_id":"persona_condicion_alta"},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Administrativo",{"name":"grp_combo","hash":{"select_id":"perso_tipo_de_empleado","select_name":"tipo_de_empleado","label_desc":"tipo_de_empleado"},"data":data})) != null ? stack1 : "")
-    + "	\n	</ul>\n	</div>\n</div>\n<br>\n<div class=\"titulo_bloque\">\n	Domicilio\n</div>\n<div class=\"caja_bloque\">\n<div class=\"campos_bloque\">\n	<ul class=\"ul_bloque\">			\n	"
-    + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"Calle",{"name":"grp_perdetTextArea","hash":{"textarea_desc":"Calle","label_desc":"","textarea_id":"perso_domicilio","valor":(depth0 != null ? depth0.calle_dom : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número",{"name":"grp_perdet","hash":{"input_desc":"Número","label_desc":"numero","input_id":"persona_numero_dom","valor":(depth0 != null ? depth0.numero_dom : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Colonia",{"name":"grp_perdet","hash":{"input_desc":"Colonia","label_desc":"colonia","input_id":"persona_colonia_dom","valor":(depth0 != null ? depth0.colonia_dom : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Código Postal",{"name":"grp_perdet","hash":{"input_desc":"Código Postal","label_desc":"codigo_postal","input_id":"persona_cp_dom","valor":(depth0 != null ? depth0.cp_dom : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	"
-    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Estado",{"name":"grp_combo","hash":{"select_id":"perso_estado_dom","select_name":"estado_dom","label_desc":"calle_estado"},"data":data})) != null ? stack1 : "")
-    + " \n	"
-    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"perso_municipio_dom","select_name":"municipio_dom","label_desc":"calle_municipio"},"data":data})) != null ? stack1 : "")
-    + "\n	</ul>\n</div>\n</div>\n</article>\n<article class=\"bloque\" id=\"contenedor_foto\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
+    + "	\n	</ul>\n	<div id=\"personal_primera_asignacion\">\n    <hr class=\"mi_hr\">\n	\n	<div class=\"caja_buscar_sola\" id=\"caja_buscar_sucursal_persona\">\n		<ul class=\"lista_buscar\">\n			<li><a href=\"#\" tabindex=\"-1\"><i class=\"fa fa-industry fa-1x\"></i></a></li>\n			<li><input type=\"text\" placeholder=\"Sucursal...\" class=\"buscar\"/></li>\n		</ul>\n	<div hidden class=\"divResultados divResultados3\" id='resultados_sucursal_persona'>\n	\n	 </div>\n	</div>\n		<div id=\"sucursal_datos_basicos\">\n		    <label id='id_sucursal_personal' hidden>0</label>\n			<h3 class=\"enterprise_buscar\"><label id=clave_sucursal_personal></label><strong><label id='nombre_sucursal_personal'></label></strong></h3>\n		</div>\n		<ul class=\"ul_bloque\">\n		"
+    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Puesto",{"name":"grp_combo","hash":{"select_id":"perso_asignacion_puesto","select_name":"puesto_de_empleado","label_desc":"puesto"},"data":data})) != null ? stack1 : "")
+    + "	\n		"
+    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Rango",{"name":"grp_combo","hash":{"select_id":"perso_asignacion_rango","select_name":"rango_de_empleado","label_desc":"rango"},"data":data})) != null ? stack1 : "")
+    + "	\n		"
+    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Turno",{"name":"grp_combo","hash":{"select_id":"perso_asignacion_turno","select_name":"turno_de_empleado","label_desc":"turno"},"data":data})) != null ? stack1 : "")
+    + "	\n		"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Sueldo",{"name":"grp_perdet","hash":{"input_desc":"sueldo","label_desc":"sueldo","input_id":"perso_asignacion_sueldo","valor":(depth0 != null ? depth0.sueldo : depth0)},"data":data})) != null ? stack1 : "")
+    + "	\n		</ul>\n	   </div>\n	</div>\n</div>\n</article>\n<article class=\"bloque\" id=\"contenedor_foto\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
     + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"img_id":"perso_foto"},"data":data})) != null ? stack1 : "")
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
@@ -1785,6 +1804,8 @@ module.exports = Backbone.View.extend({
           
           this.PersonalBusquedasVista = new PersonalBusquedasVista({collection: this.Perso});
           this.CajaBusqueda= new CajaBusquedaVista({collection: this.Perso,el: '.caja_acciones',divResultados: '#resultados_generales'});
+        
+
           console.log("ruta personal")
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
@@ -2520,8 +2541,13 @@ var Backbone                = require('backbone');
     $.ui                    = require('jquery-ui'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
-    Personal                = require('../models/personal');
+    Personal                = require('../models/personal'),
+    Sucursales              = require('../collections/sucursales'),
+    PersonalAsignacion      = require('../models/personal_sucursal'),
     Plantilla               = require('../templates/personal-detalle.hbs'),
+    DatoBusquedasVista     = require('../views/datoBusquedas'),
+    CajaBusquedaVista      = require('../views/cajaBusqueda'),
+    PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
     $.ua                    = require('../notificaciones');
 
 
@@ -2556,12 +2582,14 @@ var Backbone                = require('backbone');
      }
 },
     
-  initialize: function () {
+  initialize: function (options) {
+    this.options = options || {};
     this.PersoBusqueda = new Personas();
     this.catMunicipioNac = new Catalogos();
     this.catMunicipioDom = new Catalogos();
     
     this.listenTo(this.model, "change", this.llenado, this);
+    this.listenTo(this.options.modelSucursal, "change", this.SeleccionSucursal, this);
   },
   buscarMatricula: function(){
     var self = this;
@@ -2594,8 +2622,23 @@ var Backbone                = require('backbone');
       this.render();
     }
   }, 
-  render: function () {
+  DetalleAsignacion: function(){
+    this.Asignacion = new PersonalAsignacion();
+    var detalle = this.Asignacion.toJSON()
+  
+    console.log(detalle);
+  },
+  SeleccionSucursal: function(){
+    var detalle = this.options.modelSucursal.toJSON();
+    var clave_sucursal = (detalle.cve_sucursal ==="") ? "" : detalle.cve_sucursal + ", "; 
+    $('#id_sucursal_personal').text(detalle.id);
+    $('#nombre_sucursal_personal').text(detalle.nombre);
+    $('#clave_sucursal_personal').text(clave_sucursal);
+    $('#perso_asignacion_puesto').focus();
 
+  },
+  render: function () {
+    this.DetalleAsignacion();
     this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
@@ -2608,13 +2651,19 @@ var Backbone                = require('backbone');
       $('#contenedor_foto').show();   
    }
 
+  this.Sucursal = new Sucursales();
+  this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_persona',template:PlantillaSucursal});
+  this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursal_persona',divResultados: '#resultados_sucursal_persona'});
+
+
+
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
    this.agregarValidacion();
 
     var PersonalCatalogos = new Catalogos();
-    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
+    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21,26,27,28";
   
     PersonalCatalogos.fetch(
       { headers: {'Authorization' :localStorage.token},
@@ -2633,6 +2682,11 @@ var Backbone                = require('backbone');
           self.llenadoCatalogosCombo(PersonalCatalogos.TipoEmpleado(),detalle["cdu_tipo_empleado"],"#perso_tipo_de_empleado");
 
           self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_dom"],"#perso_estado_dom");
+
+          //Detalle de la asignacion
+          self.llenadoCatalogosCombo(PersonalCatalogos.Puesto(),detalle["cdu_puesto"],"#perso_asignacion_puesto");
+          self.llenadoCatalogosCombo(PersonalCatalogos.Rango(),detalle["cdu_rango"],"#perso_asignacion_rango");
+          self.llenadoCatalogosCombo(PersonalCatalogos.Turno(),detalle["cdu_turno"],"#perso_asignacion_turno");
 
         }
           
@@ -2692,13 +2746,27 @@ relacionColumnas: function(){
         "paterno": '#persona_paterno', 
         "portacion": '#persona_portacion_1',
         "rfc": '#persona_rfc', 
+        "sueldo": "#perso_asignacion_sueldo",
       };
       return columnasCampos;
    },
 guardar: function(){
+  //var employees = {"firstName":"John", "lastName":"Doe"}
+  //var listado = [{"datos": employees},{"asignacion":data}]
+ // var listado = {"datos": [employees],"asignacion":[data]}
+//   var books = { "Pascal" : [ 
+//       { "Name"  : "Pascal Made Simple", "price" : 700 },
+//       { "Name"  : "Guide to Pascal", "price" : 400 }
+//    ],                       
+//    "Scala"  : [
+//       { "Name"  : "Scala for the Impatient", "price" : 1000 }, 
+//       { "Name"  : "Scala in Depth", "price" : 1300 }
+//    ]    
+// } 
     var data =this.generarJSON();
     var self = this;
-
+    debugger;
+    //delete data["sueldo"] 
     var model = new Personal(data);
     model.valor = undefined;
     model.pk= data["id"];
@@ -2820,7 +2888,7 @@ uploadFile: function(event) {
     });
   }
 });
-},{"../collections/catalogos":1,"../models/personal":11,"../notificaciones":15,"../templates/personal-detalle.hbs":21,"../views/personalCatalogos":46,"backbone":55,"jquery":89,"jquery-ui":88}],48:[function(require,module,exports){
+},{"../collections/catalogos":1,"../collections/sucursales":4,"../models/personal":11,"../models/personal_sucursal":12,"../notificaciones":15,"../templates/personal-detalle.hbs":21,"../templates/resultados-sucursal-busqueda.hbs":27,"../views/cajaBusqueda":31,"../views/datoBusquedas":35,"../views/personalCatalogos":46,"backbone":55,"jquery":89,"jquery-ui":88}],48:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Catalogos               = require('../collections/catalogos'),

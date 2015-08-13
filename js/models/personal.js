@@ -67,7 +67,8 @@ module.exports= Backbone.Model.extend({
         "cp_dom": "", 
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
-        "imagen": ""
+        "imagen": "",
+        "sueldo": 0.0
       };
   },
   camposValidar: function(){
@@ -87,6 +88,7 @@ module.exports= Backbone.Model.extend({
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
       vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp_dom',1,10,vali.Numeros()); 
+      vali.Campo('sueldo',1,10,vali.Decimales());
       this.listado = vali.Listado();
   },
   validation: function() {

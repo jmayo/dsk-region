@@ -74,7 +74,10 @@ initialize: function () {
     this.PersoModelo = new Personal();
     this.PersoModelo.set({"id":"-1"});
 
-    this.PersonalDetalle = new PersonalDetalleVista({model: this.PersoModelo});
+    this.SucursalModeloEnPersonal = new Sucursal();
+    this.SucursalModeloEnPersonal.set({"id":"-1"});
+    
+    this.PersonalDetalle = new PersonalDetalleVista({model: this.PersoModelo,modelSucursal:this.SucursalModeloEnPersonal});
     
     this.EmpresaModelo = new Empresa();
     this.EmpresaModelo.set({"id":"-1"});
@@ -262,12 +265,18 @@ initialize: function () {
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado) {
-    Backbone.app.operacion="buscar";
-    this.SucursalBasicoModelo.valor = valor_buscado;
-    this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
-    this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
-    this.PersonalMovimiento.render();
-  },
+    if(Backbone.app.menu==="personal"){
+        this.SucursalModeloEnPersonal.valor = valor_buscado;
+        this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
+    }
+    if(Backbone.app.menu==="movimiento"){
+        Backbone.app.operacion="buscar";
+        this.SucursalBasicoModelo.valor = valor_buscado;
+        this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
+        this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
+        this.PersonalMovimiento.render();
+  }
+ },
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
