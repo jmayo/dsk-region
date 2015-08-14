@@ -68,7 +68,6 @@ module.exports= Backbone.Model.extend({
         "cdu_estado_dom": "0140000", 
         "cdu_municipio_dom": "0150000", 
         "imagen": "",
-        "sueldo": 0.0
       };
   },
   camposValidar: function(){

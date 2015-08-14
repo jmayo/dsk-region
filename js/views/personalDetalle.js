@@ -83,27 +83,29 @@ var Backbone                = require('backbone');
     if(this.model.get("id")!=="-1"){
       this.render();
     }
-  }, 
-  DetalleAsignacion: function(){
-    this.Asignacion = new PersonalAsignacion();
-    var detalle = this.Asignacion.toJSON()
-  
-    console.log(detalle);
   },
   SeleccionSucursal: function(){
     var detalle = this.options.modelSucursal.toJSON();
+    console.log("*** " +detalle.nombre + " ****");
     var clave_sucursal = (detalle.cve_sucursal ==="") ? "" : detalle.cve_sucursal + ", "; 
     $('#id_sucursal_personal').text(detalle.id);
     $('#nombre_sucursal_personal').text(detalle.nombre);
     $('#clave_sucursal_personal').text(clave_sucursal);
     $('#perso_asignacion_puesto').focus();
-
   },
   render: function () {
-    this.DetalleAsignacion();
+
     this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
+   var asignacion = new PersonalAsignacion();
+   var detalleAsignacion = asignacion.toJSON();
+   detalle.cdu_puesto = detalleAsignacion.cdu_puesto;
+   detalle.cdu_rango = detalleAsignacion.cdu_rango;
+   detalle.cdu_turno = detalleAsignacion.cdu_turno;
+   detalle.sueldo = detalleAsignacion.sueldo;
+
+
    var html = this.template(detalle);
    this.$el.html(html)
    $('#perso_foto_wait').hide();
@@ -149,7 +151,6 @@ var Backbone                = require('backbone');
           self.llenadoCatalogosCombo(PersonalCatalogos.Puesto(),detalle["cdu_puesto"],"#perso_asignacion_puesto");
           self.llenadoCatalogosCombo(PersonalCatalogos.Rango(),detalle["cdu_rango"],"#perso_asignacion_rango");
           self.llenadoCatalogosCombo(PersonalCatalogos.Turno(),detalle["cdu_turno"],"#perso_asignacion_turno");
-
         }
           
     });
@@ -158,7 +159,7 @@ var Backbone                = require('backbone');
           this.llenadoComboDependiente(this.catMunicipioNac,'15', detalle["cdu_estado_nac"],detalle["cdu_municipio_nac"],"#perso_mpionac");
 
           this.llenadoComboDependiente(this.catMunicipioDom,'15', detalle["cdu_estado_dom"],detalle["cdu_municipio_dom"],"#perso_municipio_dom");
-
+          
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
@@ -208,13 +209,17 @@ relacionColumnas: function(){
         "paterno": '#persona_paterno', 
         "portacion": '#persona_portacion_1',
         "rfc": '#persona_rfc', 
-        "sueldo": "#perso_asignacion_sueldo",
+        "id_sucursal": '#id_sucursal_personal',
+        "cdu_puesto": '#perso_asignacion_puesto', 
+        "cdu_rango": '#perso_asignacion_rango',
+        "cdu_turno": '#perso_asignacion_turno',
+        "sueldo": '#perso_asignacion_sueldo',
       };
+
       return columnasCampos;
    },
 guardar: function(){
   //var employees = {"firstName":"John", "lastName":"Doe"}
-  //var listado = [{"datos": employees},{"asignacion":data}]
  // var listado = {"datos": [employees],"asignacion":[data]}
 //   var books = { "Pascal" : [ 
 //       { "Name"  : "Pascal Made Simple", "price" : 700 },
@@ -225,13 +230,14 @@ guardar: function(){
 //       { "Name"  : "Scala in Depth", "price" : 1300 }
 //    ]    
 // } 
-    var data =this.generarJSON();
+  var datos_personal =this.generarJSON();
+  var asignacion = {"id_sucursal":datos_personal.id_sucursal, "cdu_turno":datos_personal.cdu_turno, "cdu_puesto": datos_personal.cdu_puesto,"cdu_rango": datos_personal.cdu_rango,"sueldo":datos_personal.sueldo }
+   var data = {"personal": [datos_personal],"asignacion":[asignacion]}
     var self = this;
-    debugger;
     //delete data["sueldo"] 
     var model = new Personal(data);
     model.valor = undefined;
-    model.pk= data["id"];
+    model.pk= data.personal[0].id; //data["id"];
     this.tipo='POST'
     if(Backbone.app.operacion!=="nuevo"){
         this.tipo='PUT';
@@ -265,8 +271,12 @@ generarJSON: function(){
       var relacion =this.relacionColumnas();
       for(var campo in relacion)
       {
+        if(campo==="id_sucursal"){
+            console.log(campo);
+          }
         if (relacion.hasOwnProperty(campo))
         {
+
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];

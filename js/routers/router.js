@@ -196,6 +196,10 @@ initialize: function () {
     //Cuando le mandamos los valores por defecto
     this.PersoModelo.set({"id":"-1"});
     this.PersoModelo.set(this.PersoModelo.defaults());
+
+    this.SucursalModeloEnPersonal.set({"id":"-1"});
+    this.SucursalModeloEnPersonal.set(this.SucursalModeloEnPersonal.defaults());
+    
   
     console.log("nueva persona");
   },
