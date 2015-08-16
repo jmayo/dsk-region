@@ -83,7 +83,6 @@ module.exports = Backbone.View.extend({
       return columnasCampos;
    },
 guardar: function(){
-    debugger;
     if(this.campoValor('id_personal')===null){
         $("#notify_error").notify();
     }
@@ -134,7 +133,6 @@ campoValor: function(campo){
        }
        var elemento  =$(id_control).get(0).tagName;
        var tipo = $(id_control).get(0).type;
-       debugger;
        if(elemento ==="H1" || elemento=='STRONG'){
            return $(id_control).text();
        }

@@ -133,8 +133,8 @@ initialize: function () {
                      Backbone.app.operacion="buscar";
                     if( self.PersoModelo.get("id")==="-1" ||  self.PersoModelo.get("id")===""){
                       self.PersoModelo.set({"id":""});
+                      $('#personal_primera_asignacion').show();
                       Backbone.app.operacion="nuevo";
-                  
                     }
                     Backbone.app.menu="personal";
                    
@@ -176,11 +176,19 @@ initialize: function () {
        
     }
   },
-   
+   //************
    mostrarSucursal: function() {
+              self = this
               this.PersoSucursalModelo.id_personal = self.PersoBasicoModelo.get("id");
 
               this.PersoSucursalModelo.fetch({headers: {'Authorization' :localStorage.token},
+                success: function(data){
+                    // Si encuentra alguna sucursal donde esta asignada la persona
+                    // Cargamos la sucursal del lado derecho
+                    if(data.attributes.id_sucursal.cve_sucursal > 0){
+                      self.sucursalClave(data.attributes.id_sucursal.cve_sucursal,data.attributes);
+                    }
+                } ,
                 error: function(a,err){
                   if(err.status===404){
                     $('#personal_sin_asignar').show();
@@ -191,7 +199,6 @@ initialize: function () {
 
    personalNuevo: function () {
     Backbone.app.operacion="nuevo";
- 
     //Cambiamos el valor del id para que detecte cambio en el modelo 
     //Cuando le mandamos los valores por defecto
     this.PersoModelo.set({"id":"-1"});
@@ -199,6 +206,7 @@ initialize: function () {
 
     this.SucursalModeloEnPersonal.set({"id":"-1"});
     this.SucursalModeloEnPersonal.set(this.SucursalModeloEnPersonal.defaults());
+  
     
   
     console.log("nueva persona");
@@ -268,23 +276,32 @@ initialize: function () {
     //this.EmpresaModelo.fetch();
     //this.PersoBasicoModelo =
   },
-  sucursalClave: function (valor_buscado) {
+  sucursalClave: function (valor_buscado, asignacion_actual) {
     if(Backbone.app.menu==="personal"){
         this.SucursalModeloEnPersonal.valor = valor_buscado;
         this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="movimiento"){
+        self =this;
+        var asignacion =asignacion_actual;
         Backbone.app.operacion="buscar";
         this.SucursalBasicoModelo.valor = valor_buscado;
-        this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
-        this.PersonalMovimientoModelo.set({model: this.PersonalMovimientoModelo.defaults});
-        this.PersonalMovimiento.render();
+        this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
+          //Llenamos el formulario con los datos del ultimo movimiento
+        success: function(data){
+            self.PersonalMovimientoModelo.set({
+                'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
+                'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
+                'sueldo': asignacion.sueldo})
+        },
+      });
   }
  },
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
-      debugger;
       var self = this;
       var val = clave;
 
