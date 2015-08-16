@@ -20,10 +20,14 @@ module.exports = Backbone.View.extend({
   },
   render: function () {
     var descripcion = this.model.toJSON();
-    var html = this.template(descripcion);
-    if(this.model.get("id")==="-1"){
-      html = html + '<div class="agregar_servicio"><a href="#" title="Agregar sucursal de esta empresa"><i class="fa fa-plus fa-2x"></i></a></div>';
+    var html = "";
+    if(this.model.get("id")!=="-1"){
+        html = this.template(descripcion);
     }
+    else{
+         html = html + '<div class="agregar_sucursal"><a href="#" title="Agregar sucursal"><i class="fa fa-plus-circle fa-2x"></i></a></div>';    
+    }
+    
     this.$el.html(html);
 
 

@@ -20,6 +20,7 @@ var Backbone        = require('backbone'),
     PersonalSucursalVista   = require('../views/personalSucursal'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
     ContenidoVista          = require('../views/contenido'),
+    funcionGenerica = require('../funcionesGenericas')
     MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body');
     MenuOpcion = require('../models/menu')
@@ -283,18 +284,25 @@ initialize: function () {
     }
     if(Backbone.app.menu==="movimiento"){
         self =this;
-        var asignacion =asignacion_actual;
+        var asignacion =asignacion_actual;      
+        var nueva_fecha = new  funcionGenerica().fechaSumarDias(asignacion.fecha_inicial,1);
         Backbone.app.operacion="buscar";
         this.SucursalBasicoModelo.valor = valor_buscado;
         this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
           //Llenamos el formulario con los datos del ultimo movimiento
         success: function(data){
+
+       //   var d = new Date();
+//d.setDate(d.getDate() + 50);
+//document.getElementById("demo").innerHTML = d;
+
             self.PersonalMovimientoModelo.set({
                 'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
                 'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
                 'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
                 'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
-                'sueldo': asignacion.sueldo})
+                'sueldo': asignacion.sueldo,
+                'fecha_inicial': nueva_fecha})
         },
       });
   }

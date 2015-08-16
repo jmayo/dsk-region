@@ -1,3 +1,4 @@
+var moment = require('../node_modules/moment/moment');
 
 var funcionesGenericas = function() {  
   return {
@@ -17,6 +18,12 @@ var funcionesGenericas = function() {
     	var nueva = this.fechaCadena(nueva_fec);
       return nueva;
     },
+    fechaSumarDias: function(fecha,dias){
+      var day = moment(fecha, "DD/MM/YYYY");
+      day.add('days', dias)
+      var fecha = day.format("DD/MM/YYYY");
+      return fecha;
+    },
     fechaCadena: function(fecha){
     	 var dia  =  "" + fecha.getDate(); 
        if (dia.length == 1) { dia = "0" + dia; };
@@ -26,7 +33,10 @@ var funcionesGenericas = function() {
        var fecha_actual =  dia + '/' + mes + '/' + anio; 
        return fecha_actual;
     }
+
+
   };
 }
 
 module.exports = funcionesGenericas;  
+

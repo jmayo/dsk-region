@@ -141,7 +141,7 @@ module.exports = Backbone.View.extend({
                 // Este modelo sera para crear nuevas sucursales
                var sucursal = new Sucursal();
                sucursal.set(sucursal.defaults);
-               sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":"AGREGAR SUCURSAL"});
+               sucursal.set({"id":"-1","cve_empresa":id_empresa,"nombre":""});
                Backbone.app.SucursalLista.add(sucursal);
             }
           }

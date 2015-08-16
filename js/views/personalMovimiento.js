@@ -3,8 +3,8 @@ var Backbone                = require('backbone'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     PersonalSucursal        = require('../models/personal_sucursal'),
-    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs');
-
+    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs'),
+    funcionGenerica = require('../funcionesGenericas');
 //Personal.Views.PersonalMovimiento
 module.exports = Backbone.View.extend({
  
@@ -102,7 +102,10 @@ guardar: function(){
          headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
+           var nueva_fecha =new  funcionGenerica().fechaSumarDias(response.fecha_inicial,1); 
+           self.model.set({'fecha_inicial':nueva_fecha});
            Backbone.app.PersoSucursalModelo.set(response);
+          
             $("#notify_success").notify();
             $('#personal_sin_asignar').hide();
           },
