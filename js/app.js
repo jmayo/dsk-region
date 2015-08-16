@@ -1426,13 +1426,13 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
     + "</h1>\n	<h2>"
     + alias3(((helper = (helper = helpers.matricula || (depth0 != null ? depth0.matricula : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"matricula","hash":{},"data":data}) : helper)))
-    + "</h2>\n	<h3>"
+    + "</h2>\n	<div><h3>"
     + alias3(((helper = (helper = helpers.nombre || (depth0 != null ? depth0.nombre : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"nombre","hash":{},"data":data}) : helper)))
     + " "
     + alias3(((helper = (helper = helpers.paterno || (depth0 != null ? depth0.paterno : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"paterno","hash":{},"data":data}) : helper)))
     + " "
     + alias3(((helper = (helper = helpers.materno || (depth0 != null ? depth0.materno : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"materno","hash":{},"data":data}) : helper)))
-    + "</h3>\n	<h5>"
+    + "</h3></div>\n	<h5>"
     + alias3(((helper = (helper = helpers.rfc || (depth0 != null ? depth0.rfc : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"rfc","hash":{},"data":data}) : helper)))
     + "</h5>\n	<h5>"
     + alias3(((helper = (helper = helpers.curp || (depth0 != null ? depth0.curp : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"curp","hash":{},"data":data}) : helper)))
@@ -1520,9 +1520,9 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 
   return "<div class=\"enterprise\">\n	<div class=\"enterprise_foto\">\n		<figure class=\"foto_enterprise\">\n			<img src=\"images/factory.png\" alt=\"foto\" />\n		</figure>\n	</div>\n	<div class=\"enterprise_datos\">\n		<h2 >"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_sucursal : depth0)) != null ? stack1.cve_sucursal : stack1), depth0))
-    + "</h2>\n		<h3>"
+    + "</h2>\n		<div><h3>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_sucursal : depth0)) != null ? stack1.nombre : stack1), depth0))
-    + "</h3>\n		<h5>"
+    + "</h3></div>\n		<h5>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.cdu_motivo : depth0)) != null ? stack1.descripcion1 : stack1), depth0))
     + "</h5>\n		<h5>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.cdu_turno : depth0)) != null ? stack1.descripcion1 : stack1), depth0))
@@ -2844,6 +2844,7 @@ guardar: function(){
             $("#notify_success").text("Los datos fueron guardados correctamente");
             $("#notify_success").notify();
             $('#contenedor_foto').show();   
+            $('#personal_primera_asignacion').hide();
           },
         error: function(model,response, options) {
              $("#notify_error").text(response.responseText);

@@ -262,6 +262,7 @@ guardar: function(){
             $("#notify_success").text("Los datos fueron guardados correctamente");
             $("#notify_success").notify();
             $('#contenedor_foto').show();   
+            $('#personal_primera_asignacion').hide();
           },
         error: function(model,response, options) {
              $("#notify_error").text(response.responseText);
