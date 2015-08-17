@@ -158,6 +158,7 @@ initialize: function () {
       this.PersoModelo.fetch(  { headers: {'Authorization' :localStorage.token}} );
   }
   if(Backbone.app.menu==="movimiento"){
+      console.log("refrescando asignaciones");
       Backbone.app.operacion="buscar";
       $('#personal_sin_asignar').hide();
       //Ponemos vacia la sucursal, asi solo si esta asignado a una, se llenaran los datos
@@ -283,26 +284,24 @@ initialize: function () {
         this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="movimiento"){
-        self =this;
+        self =this; 
         var asignacion =asignacion_actual;      
-        var nueva_fecha = new  funcionGenerica().fechaSumarDias(asignacion.fecha_inicial,1);
+        
         Backbone.app.operacion="buscar";
         this.SucursalBasicoModelo.valor = valor_buscado;
         this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
           //Llenamos el formulario con los datos del ultimo movimiento
         success: function(data){
-
-       //   var d = new Date();
-//d.setDate(d.getDate() + 50);
-//document.getElementById("demo").innerHTML = d;
-
-            self.PersonalMovimientoModelo.set({
-                'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
-                'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
-                'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
-                'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
-                'sueldo': asignacion.sueldo,
-                'fecha_inicial': nueva_fecha})
+        if(asignacion !== undefined && asignacion !==null){
+               nueva_fecha = new  funcionGenerica().fechaSumarDias(asignacion.fecha_inicial,1);       
+               self.PersonalMovimientoModelo.set({
+                  'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
+                  'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                  'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                  'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
+                  'sueldo': asignacion.sueldo,
+                  'fecha_inicial': nueva_fecha})
+          }
         },
       });
   }

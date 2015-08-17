@@ -7,6 +7,7 @@ module.exports = Backbone.View.extend({
      events: {
 	   "click .nuevo": "nuevo", 
       "click .guardar": "guardar",
+      "click .eliminar": "eliminar"
    },
     el: $('.caja_acciones'),
 
@@ -22,6 +23,11 @@ module.exports = Backbone.View.extend({
          Backbone.app.navigate("Empresas/nuevo/", {trigger: true, replace: true});
        }
       
+   },
+   eliminar: function(){
+       if(Backbone.app.menu ==="movimiento"){
+          Backbone.app.PersonalMovimiento.eliminar();
+       }
    },
   guardar: function(){
     console.log("guardando");

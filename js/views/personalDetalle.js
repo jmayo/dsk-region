@@ -230,6 +230,10 @@ console.log(columnasCampos.asignacion)
 
       return columnasCampos;
    },
+
+eliminar: function(){
+    console.log("Eliminar esta asignacion");
+},
 guardar: function(){
   var datos_personal =this.generarJSON("personal");
   var asignacion =this.generarJSON("asignacion");

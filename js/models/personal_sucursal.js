@@ -6,6 +6,7 @@ module.exports = Backbone.Model.extend({
       this.id_personal = null;
   	  this.pk = null;
       this.camposValidar();
+      this.eliminar = false;
   },
  id_personal : function(id_personal){
       this.id_personal  = id_personal;
@@ -15,20 +16,24 @@ module.exports = Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'personal/';
-  
-   if(this.pk!== undefined && this.pk!== null){
-      if(this.pk!=="-1"){
-   	    return direccion = direccion + this.pk + '/';
-      }
-   } 
-  
-   if(this.id_personal!== undefined && this.id_personal!== null){
-   	 return direccion + this.id_personal + '/sucursal/activa/';
-   } 
+   if(this.eliminar === false ){
+     if(this.pk!== undefined && this.pk!== null){
+        if(this.pk!=="-1"){
+     	    return direccion = direccion + this.pk + '/';
+        }
+     } 
+    
+     if(this.id_personal!== undefined && this.id_personal!== null){
+     	 return direccion + this.id_personal + '/sucursal/activa/';
+     } 
 
-   if(this.pk==="-1"){
-     return window.ruta + 'personal_sucursales/';
-   }
+     if(this.pk==="-1"){
+       return window.ruta + 'personal_sucursales/';
+     }     
+  }
+  else{
+      return window.ruta + 'personal_sucursales/asignacion/'+ this.pk + '/';
+  }
 
    return direccion;
   },

@@ -696,6 +696,7 @@ module.exports = Backbone.Model.extend({
       this.id_personal = null;
   	  this.pk = null;
       this.camposValidar();
+      this.eliminar = false;
   },
  id_personal : function(id_personal){
       this.id_personal  = id_personal;
@@ -705,20 +706,24 @@ module.exports = Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'personal/';
-  
-   if(this.pk!== undefined && this.pk!== null){
-      if(this.pk!=="-1"){
-   	    return direccion = direccion + this.pk + '/';
-      }
-   } 
-  
-   if(this.id_personal!== undefined && this.id_personal!== null){
-   	 return direccion + this.id_personal + '/sucursal/activa/';
-   } 
+   if(this.eliminar === false ){
+     if(this.pk!== undefined && this.pk!== null){
+        if(this.pk!=="-1"){
+     	    return direccion = direccion + this.pk + '/';
+        }
+     } 
+    
+     if(this.id_personal!== undefined && this.id_personal!== null){
+     	 return direccion + this.id_personal + '/sucursal/activa/';
+     } 
 
-   if(this.pk==="-1"){
-     return window.ruta + 'personal_sucursales/';
-   }
+     if(this.pk==="-1"){
+       return window.ruta + 'personal_sucursales/';
+     }     
+  }
+  else{
+      return window.ruta + 'personal_sucursales/asignacion/'+ this.pk + '/';
+  }
 
    return direccion;
   },
@@ -1171,6 +1176,7 @@ initialize: function () {
       this.PersoModelo.fetch(  { headers: {'Authorization' :localStorage.token}} );
   }
   if(Backbone.app.menu==="movimiento"){
+      console.log("refrescando asignaciones");
       Backbone.app.operacion="buscar";
       $('#personal_sin_asignar').hide();
       //Ponemos vacia la sucursal, asi solo si esta asignado a una, se llenaran los datos
@@ -1296,26 +1302,24 @@ initialize: function () {
         this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="movimiento"){
-        self =this;
+        self =this; 
         var asignacion =asignacion_actual;      
-        var nueva_fecha = new  funcionGenerica().fechaSumarDias(asignacion.fecha_inicial,1);
+        
         Backbone.app.operacion="buscar";
         this.SucursalBasicoModelo.valor = valor_buscado;
         this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
           //Llenamos el formulario con los datos del ultimo movimiento
         success: function(data){
-
-       //   var d = new Date();
-//d.setDate(d.getDate() + 50);
-//document.getElementById("demo").innerHTML = d;
-
-            self.PersonalMovimientoModelo.set({
-                'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
-                'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
-                'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
-                'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
-                'sueldo': asignacion.sueldo,
-                'fecha_inicial': nueva_fecha})
+        if(asignacion !== undefined && asignacion !==null){
+               nueva_fecha = new  funcionGenerica().fechaSumarDias(asignacion.fecha_inicial,1);       
+               self.PersonalMovimientoModelo.set({
+                  'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
+                  'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                  'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                  'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
+                  'sueldo': asignacion.sueldo,
+                  'fecha_inicial': nueva_fecha})
+          }
         },
       });
   }
@@ -1774,6 +1778,7 @@ module.exports = Backbone.View.extend({
      events: {
 	   "click .nuevo": "nuevo", 
       "click .guardar": "guardar",
+      "click .eliminar": "eliminar"
    },
     el: $('.caja_acciones'),
 
@@ -1789,6 +1794,11 @@ module.exports = Backbone.View.extend({
          Backbone.app.navigate("Empresas/nuevo/", {trigger: true, replace: true});
        }
       
+   },
+   eliminar: function(){
+       if(Backbone.app.menu ==="movimiento"){
+          Backbone.app.PersonalMovimiento.eliminar();
+       }
    },
   guardar: function(){
     console.log("guardando");
@@ -2812,6 +2822,10 @@ console.log(columnasCampos.asignacion)
 
       return columnasCampos;
    },
+
+eliminar: function(){
+    console.log("Eliminar esta asignacion");
+},
 guardar: function(){
   var datos_personal =this.generarJSON("personal");
   var asignacion =this.generarJSON("asignacion");
@@ -3038,7 +3052,34 @@ module.exports = Backbone.View.extend({
       };
       return columnasCampos;
    },
-guardar: function(){
+  eliminar: function(){
+      var id = Backbone.app.PersoSucursalModelo.get("id");
+      var matricula =Backbone.app.PersoBasicoModelo.get("matricula")
+      if(id==="-1"){
+        $("#notify_error").text("Esta persona no tiene asignaciones activas para eliminar") 
+        $("#notify_error").notify();
+        return;
+      }
+      self = this;
+      var model = new PersonalSucursal(Backbone.app.PersoSucursalModelo);
+      model.eliminar = true;
+      model.pk = id;
+      model.destroy({
+         headers: {'Authorization' :localStorage.token},
+        success: function(model,response) {
+            Backbone.app.personalMatricula(matricula);
+            $("#notify_success").text("Se elimino la asignacion correctamente");
+            $("#notify_success").notify();
+            $('#personal_sin_asignar').hide();
+          },
+        error: function(model,response, options) {
+             $("#notify_error").text(response.responseJSON) 
+             $("#notify_error").notify();
+              console.log(response.responseJSON);
+        }
+      });
+  },
+  guardar: function(){
     if(this.campoValor('id_personal')===null){
         $("#notify_error").notify();
     }

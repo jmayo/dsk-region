@@ -82,7 +82,34 @@ module.exports = Backbone.View.extend({
       };
       return columnasCampos;
    },
-guardar: function(){
+  eliminar: function(){
+      var id = Backbone.app.PersoSucursalModelo.get("id");
+      var matricula =Backbone.app.PersoBasicoModelo.get("matricula")
+      if(id==="-1"){
+        $("#notify_error").text("Esta persona no tiene asignaciones activas para eliminar") 
+        $("#notify_error").notify();
+        return;
+      }
+      self = this;
+      var model = new PersonalSucursal(Backbone.app.PersoSucursalModelo);
+      model.eliminar = true;
+      model.pk = id;
+      model.destroy({
+         headers: {'Authorization' :localStorage.token},
+        success: function(model,response) {
+            Backbone.app.personalMatricula(matricula);
+            $("#notify_success").text("Se elimino la asignacion correctamente");
+            $("#notify_success").notify();
+            $('#personal_sin_asignar').hide();
+          },
+        error: function(model,response, options) {
+             $("#notify_error").text(response.responseJSON) 
+             $("#notify_error").notify();
+              console.log(response.responseJSON);
+        }
+      });
+  },
+  guardar: function(){
     if(this.campoValor('id_personal')===null){
         $("#notify_error").notify();
     }
