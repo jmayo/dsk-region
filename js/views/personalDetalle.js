@@ -130,7 +130,7 @@ var Backbone                = require('backbone');
 
 
     var PersonalCatalogos = new Catalogos();
-    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21,26,27,28";
+    PersonalCatalogos.claves ="1,2,3,14,16,17,18,20,21,26,27,28";
   
     PersonalCatalogos.fetch(
       { headers: {'Authorization' :localStorage.token},
@@ -141,6 +141,8 @@ var Backbone                = require('backbone');
           self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_nac"],"#perso_edonac");
         
           self.llenadoCatalogosCombo(PersonalCatalogos.SeguridadSocial(),detalle["cdu_seguridad_social"],"#perso_segsoc");
+
+          self.llenadoCatalogosCombo(PersonalCatalogos.Genero(),detalle["cdu_genero"],"#perso_genero");
 
           self.llenadoCatalogosCombo(PersonalCatalogos.EstadoCivil(),detalle["cdu_estado_civil"],"#perso_estado_civil");
 
@@ -188,6 +190,7 @@ relacionColumnas: function(){
         "personal":{
           "calle_dom": '#perso_domicilio', 
           "cdu_escolaridad": '#perso_escolaridad', 
+          "cdu_genero" : '#perso_genero',
           "cdu_estado_civil" : '#perso_estado_civil',
           "cdu_estado_dom": '#perso_estado_dom', 
           "cdu_estado_nac": '#perso_edonac', 

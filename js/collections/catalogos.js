@@ -31,7 +31,7 @@ module.exports = Backbone.Collection.extend({
   Escolaridad: function () {
 		return this.where({catalogos: 2});
 	},
-  Sexo: function () {
+  Genero: function () {
 		return this.where({catalogos: 3});
 	},
   Pais: function () {

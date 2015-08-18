@@ -32,7 +32,7 @@ module.exports = Backbone.Collection.extend({
   Escolaridad: function () {
 		return this.where({catalogos: 2});
 	},
-  Sexo: function () {
+  Genero: function () {
 		return this.where({catalogos: 3});
 	},
   Pais: function () {
@@ -1472,6 +1472,8 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " \n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"perso_mpionac","select_name":"municipio","label_desc":"lugar_nacimiento_municipio"},"data":data})) != null ? stack1 : "")
     + "\n		"
+    + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Genero",{"name":"grp_combo","hash":{"select_id":"perso_genero","select_name":"genero","label_desc":"genero"},"data":data})) != null ? stack1 : "")
+    + "\n		\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Estado Civil",{"name":"grp_combo","hash":{"select_id":"perso_estado_civil","select_name":"estado_civil","label_desc":"estado_civil"},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Escolaridad",{"name":"grp_combo","hash":{"select_id":"perso_escolaridad","select_name":"escolaridad","label_desc":"escolaridad"},"data":data})) != null ? stack1 : "")
@@ -2722,7 +2724,7 @@ var Backbone                = require('backbone');
 
 
     var PersonalCatalogos = new Catalogos();
-    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21,26,27,28";
+    PersonalCatalogos.claves ="1,2,3,14,16,17,18,20,21,26,27,28";
   
     PersonalCatalogos.fetch(
       { headers: {'Authorization' :localStorage.token},
@@ -2733,6 +2735,8 @@ var Backbone                = require('backbone');
           self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_nac"],"#perso_edonac");
         
           self.llenadoCatalogosCombo(PersonalCatalogos.SeguridadSocial(),detalle["cdu_seguridad_social"],"#perso_segsoc");
+
+          self.llenadoCatalogosCombo(PersonalCatalogos.Genero(),detalle["cdu_genero"],"#perso_genero");
 
           self.llenadoCatalogosCombo(PersonalCatalogos.EstadoCivil(),detalle["cdu_estado_civil"],"#perso_estado_civil");
 
@@ -2780,6 +2784,7 @@ relacionColumnas: function(){
         "personal":{
           "calle_dom": '#perso_domicilio', 
           "cdu_escolaridad": '#perso_escolaridad', 
+          "cdu_genero" : '#perso_genero',
           "cdu_estado_civil" : '#perso_estado_civil',
           "cdu_estado_dom": '#perso_estado_dom', 
           "cdu_estado_nac": '#perso_edonac', 
