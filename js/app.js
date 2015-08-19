@@ -645,6 +645,7 @@ module.exports= Backbone.Model.extend({
         "cdu_escolaridad": "0020000", 
         "cdu_seguridad_social": "0170001", 
         "id_seguridad_social": "", 
+        "telefono": "",
         "portacion": false,
         "cdu_tipo_alta": "0200000", 
         "fec_alta": this.fecha_actual , 
@@ -672,8 +673,9 @@ module.exports= Backbone.Model.extend({
       vali.Campo('fec_nacimiento',1,10,vali.Fecha());
       vali.Campo('fec_alta',1,10,vali.Fecha());
       vali.Campo('id_seguridad_social',0,20,vali.AlfaNumerico());
+      vali.Campo('telefono',0,50,vali.Generico());
       vali.Campo('condiciones_alta',1,150,vali.AlfaNumerico()); 
-      vali.Campo('calle_dom',1,10,vali.AlfaNumerico());
+      vali.Campo('calle_dom',1,100,vali.AlfaNumerico());
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
       vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp_dom',1,10,vali.Numeros()); 
@@ -1473,10 +1475,12 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"perso_mpionac","select_name":"municipio","label_desc":"lugar_nacimiento_municipio"},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Genero",{"name":"grp_combo","hash":{"select_id":"perso_genero","select_name":"genero","label_desc":"genero"},"data":data})) != null ? stack1 : "")
-    + "\n		\n		"
+    + "\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Estado Civil",{"name":"grp_combo","hash":{"select_id":"perso_estado_civil","select_name":"estado_civil","label_desc":"estado_civil"},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Escolaridad",{"name":"grp_combo","hash":{"select_id":"perso_escolaridad","select_name":"escolaridad","label_desc":"escolaridad"},"data":data})) != null ? stack1 : "")
+    + "\n		"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Telefono/Cel",{"name":"grp_perdet","hash":{"input_desc":"Telefono/Celular","label_desc":"telefono","input_id":"persona_telefono","valor":(depth0 != null ? depth0.telefono : depth0)},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_options || (depth0 && depth0.grp_options) || alias1).call(depth0,"Portación",{"name":"grp_options","hash":{"input_booleano":(depth0 != null ? depth0.portacion : depth0),"radio_name":"persona_portacion","op1_checado":(depth0 != null ? depth0.portacion : depth0),"op2_val":false,"op1_val":true,"op2_titulo":"No","op1_titulo":"Si","label_desc":"portacion","radio_id":"persona_portacion"},"data":data})) != null ? stack1 : "")
     + "   \n		"
@@ -1756,7 +1760,8 @@ events : {
   },
    mostrarBusqueda: function(){
     //this.$(".divResultados").show();
-     this.$(this.divResultados).show(); 
+     this.$(this.divResultados).show();
+     this.$('.buscar').select() 
   },
   close: function(){
       // Cuando se asigna una nueva instancia en ocaciones quedan objetos zombies
@@ -1861,6 +1866,10 @@ module.exports = Backbone.View.extend({
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_personal').show();
+          $('#busqueda_generico').show();
+          $('#nuevo_generico').show();
+          $('#eliminar_generico').hide();
+
    },
    mostrarMenuEmpresas: function(){
         Backbone.app.menu="empresa";
@@ -1873,7 +1882,10 @@ module.exports = Backbone.View.extend({
           $('.contenido_personal').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_empresa').show();
-          
+          $('#busqueda_generico').show();
+          $('#nuevo_generico').show();
+          $('#eliminar_generico').hide();
+
           if(Backbone.app.SucursalListadoVista.collection.length>0){
             $('#bloque_mapa_sucursal').show();
           }
@@ -1904,6 +1916,9 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').show();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').show();
 
 
    },
@@ -2808,6 +2823,7 @@ relacionColumnas: function(){
           "nombre":'#persona_nombre', 
           "numero_dom": '#persona_numero_dom', 
           "paterno": '#persona_paterno', 
+          "telefono": '#persona_telefono', 
           "portacion": '#persona_portacion_1',
           "rfc": '#persona_rfc', 
         },

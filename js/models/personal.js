@@ -55,6 +55,7 @@ module.exports= Backbone.Model.extend({
         "cdu_escolaridad": "0020000", 
         "cdu_seguridad_social": "0170001", 
         "id_seguridad_social": "", 
+        "telefono": "",
         "portacion": false,
         "cdu_tipo_alta": "0200000", 
         "fec_alta": this.fecha_actual , 
@@ -82,8 +83,9 @@ module.exports= Backbone.Model.extend({
       vali.Campo('fec_nacimiento',1,10,vali.Fecha());
       vali.Campo('fec_alta',1,10,vali.Fecha());
       vali.Campo('id_seguridad_social',0,20,vali.AlfaNumerico());
+      vali.Campo('telefono',0,50,vali.Generico());
       vali.Campo('condiciones_alta',1,150,vali.AlfaNumerico()); 
-      vali.Campo('calle_dom',1,10,vali.AlfaNumerico());
+      vali.Campo('calle_dom',1,100,vali.AlfaNumerico());
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
       vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp_dom',1,10,vali.Numeros()); 

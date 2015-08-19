@@ -31,6 +31,10 @@ module.exports = Backbone.View.extend({
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_personal').show();
+          $('#busqueda_generico').show();
+          $('#nuevo_generico').show();
+          $('#eliminar_generico').hide();
+
    },
    mostrarMenuEmpresas: function(){
         Backbone.app.menu="empresa";
@@ -43,7 +47,10 @@ module.exports = Backbone.View.extend({
           $('.contenido_personal').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_empresa').show();
-          
+          $('#busqueda_generico').show();
+          $('#nuevo_generico').show();
+          $('#eliminar_generico').hide();
+
           if(Backbone.app.SucursalListadoVista.collection.length>0){
             $('#bloque_mapa_sucursal').show();
           }
@@ -74,6 +81,9 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').show();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').show();
 
 
    },

@@ -64,10 +64,10 @@
 	</nav>
 	<div class="caja_acciones">
 		<ul class="menu_acciones">
-			<li><a class="nuevo ico_acciones" href="#"><i class="fa fa-file fa-2x"></i></a></li>
-			<li><a class="eliminar ico_acciones" href="#"><i class="fa fa-remove fa-2x"></i></a></li>
-			<li><a class="guardar ico_acciones" href="#"><i class="fa fa-save fa-2x"></i></a></li>
-			<li><input type="text" placeholder="Buscar" class="buscar"/></li>
+			<li><a id="nuevo_generico" class="nuevo ico_acciones" href="#"><i class="fa fa-file fa-2x"></i></a></li>
+			<li><a id="elminar_generico" class="eliminar ico_acciones" href="#"><i class="fa fa-remove fa-2x"></i></a></li>
+			<li><a id="guarda_generico" class="guardar ico_acciones" href="#"><i class="fa fa-save fa-2x"></i></a></li>
+			<li><input id="busqueda_generico" type="text" placeholder="Buscar" class="buscar"/></li>
 		</ul><a href=""></a>
 		<div hidden class="divResultados" id="resultados_generales">
 				<!-- Template:	resultados-busqueda-template	 -->
@@ -111,7 +111,7 @@
 			
 			<div class="caja_buscar" id="caja_buscar_personas">
 				<ul class="lista_buscar">
-					<li><a class="personal" href="#"></a></li>
+					<li><a class="personal" href="#"><i class="fa fa-group fa-1x"></i></a></li>
 					<li><input type="text" placeholder="Empleado..." class="buscar"/></li>
 				</ul>
 				  <div hidden class="divResultados divResultados2" id="resultados_personal_movimiento" >
@@ -131,7 +131,7 @@
 	    <article class="bloque reducir">
 			<div class="caja_buscar" id="caja_buscar_sucursales">
 				<ul class="lista_buscar">
-					<li><a class="empresa" href="#"></a></li>
+					<li><a class="empresa" href="#"><i class="fa fa-industry fa-1x"></i></a></li>
 					<li><input type="text" placeholder="Sucursal..." class="buscar"/></li>
 				</ul>
 				  <div hidden class="divResultados divResultados3" id="resultados_sucursal_movimiento" >

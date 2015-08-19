@@ -214,6 +214,7 @@ relacionColumnas: function(){
           "nombre":'#persona_nombre', 
           "numero_dom": '#persona_numero_dom', 
           "paterno": '#persona_paterno', 
+          "telefono": '#persona_telefono', 
           "portacion": '#persona_portacion_1',
           "rfc": '#persona_rfc', 
         },
