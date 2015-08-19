@@ -48,6 +48,9 @@ module.exports = Backbone.View.extend({
     $('#bloque_sucursal').show();
  
     if(this.model.get("id")==="-1"){
+      var a= Backbone.app.EmpresaModelo.toJSON();
+      this.model.set({"nombre": a.razon_social,"calle":a.calle,"numero":a.numero,"colonia":a.colonia,  "cp":a.cp, "cdu_estado":a.cdu_estado,"cdu_municipio":a.cdu_municipio ,"telefono": "telefono1"});
+    
       this.SucursalDetalle = new SucursalDetalleVista({model: this.model});
       this.SucursalDetalle.llenado();
       Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));

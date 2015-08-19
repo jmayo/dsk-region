@@ -86,8 +86,6 @@ initialize: function () {
     this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
     
 
-  
-
     this.EmpresaMapa= new EmpresaMapaVista();
         
     this.PersoBasicoModelo = new Personal();

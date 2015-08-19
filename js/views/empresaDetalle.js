@@ -54,6 +54,8 @@ module.exports = Backbone.View.extend({
   },
   llenado: function(){
     console.log("llenando el formulario");
+
+    Backbone.app.menu="empresa"
     if(this.model.get("id")!=="-1"){
       this.render();
     }
@@ -170,24 +172,30 @@ relacionColumnas: function(){
 guardar: function(){
     var data =this.generarJSON();
      var self = this;
-    var model = new Empresa(data);
-    model.valor = undefined;
-    model.pk= data["id"];
+    var modelo = new Empresa(data);
+    modelo.valor = undefined;
+    modelo.pk= data["id"];
     
     this.tipo='POST'
     if(Backbone.app.operacion!=="nuevo"){
       this.tipo='PUT';
     }
    
-    model.save(null,{
+    modelo.save(null,{
       headers: {'Authorization' :localStorage.token},
         type: self.tipo,
-        success: function(model,response) {
-            $('#empresa_id').text(model.get("id"));
-            self.mostrarDescripcion(model);
-            self.mostrarSucursalLista(model.get("id"));
+        success: function(modelo,response) {
+            $('#empresa_id').text(modelo.get("id"));
+           // self.mostrarDescripcion(modelo);
+          //  self.mostrarSucursalLista(modelo.get("id"));
            Backbone.app.operacion="buscar";
             $("#notify_success").notify();
+           self.model.set({"id":modelo.get("id"),"cve_empresa":modelo.get("cve_empresa"), "razon_social": modelo.get("razon_social"),
+                        "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"colonia":modelo.get("colonia"),
+                          "cp":modelo.get("cp"), "cdu_estado":modelo.get("cdu_estado"),"cdu_municipio":modelo.get("cdu_municipio") ,
+                          "telefono1": modelo.get("telefono1"), "telefono2": modelo.get("telefono2"), "cdu_giro": modelo.get("cdu_giro"),
+                          "cdu_rubro": modelo.get("cdu_rubro"),"fecha_alta": modelo.get("fecha_alta")
+                        });
           },
         error: function(model,response, options) {
              $("#notify_error").text(response.responseText);

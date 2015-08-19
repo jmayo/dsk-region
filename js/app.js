@@ -1106,8 +1106,6 @@ initialize: function () {
     this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
     
 
-  
-
     this.EmpresaMapa= new EmpresaMapaVista();
         
     this.PersoBasicoModelo = new Personal();
@@ -1932,15 +1930,21 @@ var Backbone    = require('backbone');
 module.exports = Backbone.View.extend({
   events : {
      "mousedown ": "seleccionado",
+     "keyup": "cambiar",
    },
   tagName: 'div',
   className: 'resultado_ind',
   template: null,
+  attributes: { tabindex: 1 },
+
   rutas: function(rutas){
     this.rutas = ruta;
   },
   initialize: function (opciones) {
     this.template = opciones.template;
+    this.attributes.tabindex =  opciones.id ;
+    this.id = "opcion_busqueda_" + opciones.id;
+   // debugger;
   },
   render: function () {
     var busqueda = this.model.toJSON();
@@ -1950,7 +1954,10 @@ module.exports = Backbone.View.extend({
   },
   seleccionado: function(){
     this.model.busqueda();
-  }
+  },
+  cambiar: function(){
+    console.log("cambiar");
+  },
 });
 
 
@@ -1961,28 +1968,39 @@ var Backbone          = require('backbone'),
 //Personal.Views.DatoBusquedas 
 module.exports = Backbone.View.extend({
   template: null,
+   el:  $('#resultados_sucursal_movimiento'),
+
+    events : {
+     "keyup #resultados_sucursal_movimiento": "cambiar",
+   },
   initialize: function (opciones) {
     this.setElement(opciones.el);
     this.template =opciones.template;
     this.listenTo(this.collection, "add", this.addOne, this);
     this.listenTo(this.collection, "reset", this.limpiarTodo, this);
+    this.id = 1;
   },
 
   render: function () {
     this.collection.forEach(this.addOne, this);
   },
   addOne: function (modelo) {
-    console.log("Se agrego nueva busqueda generica");
-    var busquedaView = new DatoBusquedaVista({ model: modelo, template:  this.template}); 
+    this.id = this.id + 1;
+    var busquedaView = new DatoBusquedaVista({ model: modelo, template:  this.template, id: this.id}); 
     this.$el.append(busquedaView.render().el);
   },
    limpiarTodo:function(){
+    this.id =0;
     console.log("limpiando resultados");
      this.$el.empty();
-  }
+  },
+   cambiar: function(){
+    console.log("cambiar");
+  },
   
 });
 
+//   $('#resultados_sucursal_movimiento').scrollTop($this.index() * $this.outerHeight());
 },{"../views/datoBusqueda":34,"backbone":55}],36:[function(require,module,exports){
 var Backbone          = require('backbone'),
     plantilla = require("../templates/resultados-empresa-busqueda.hbs");
@@ -2148,6 +2166,8 @@ module.exports = Backbone.View.extend({
   },
   llenado: function(){
     console.log("llenando el formulario");
+
+    Backbone.app.menu="empresa"
     if(this.model.get("id")!=="-1"){
       this.render();
     }
@@ -2264,24 +2284,30 @@ relacionColumnas: function(){
 guardar: function(){
     var data =this.generarJSON();
      var self = this;
-    var model = new Empresa(data);
-    model.valor = undefined;
-    model.pk= data["id"];
+    var modelo = new Empresa(data);
+    modelo.valor = undefined;
+    modelo.pk= data["id"];
     
     this.tipo='POST'
     if(Backbone.app.operacion!=="nuevo"){
       this.tipo='PUT';
     }
    
-    model.save(null,{
+    modelo.save(null,{
       headers: {'Authorization' :localStorage.token},
         type: self.tipo,
-        success: function(model,response) {
-            $('#empresa_id').text(model.get("id"));
-            self.mostrarDescripcion(model);
-            self.mostrarSucursalLista(model.get("id"));
+        success: function(modelo,response) {
+            $('#empresa_id').text(modelo.get("id"));
+           // self.mostrarDescripcion(modelo);
+          //  self.mostrarSucursalLista(modelo.get("id"));
            Backbone.app.operacion="buscar";
             $("#notify_success").notify();
+           self.model.set({"id":modelo.get("id"),"cve_empresa":modelo.get("cve_empresa"), "razon_social": modelo.get("razon_social"),
+                        "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"colonia":modelo.get("colonia"),
+                          "cp":modelo.get("cp"), "cdu_estado":modelo.get("cdu_estado"),"cdu_municipio":modelo.get("cdu_municipio") ,
+                          "telefono1": modelo.get("telefono1"), "telefono2": modelo.get("telefono2"), "cdu_giro": modelo.get("cdu_giro"),
+                          "cdu_rubro": modelo.get("cdu_rubro"),"fecha_alta": modelo.get("fecha_alta")
+                        });
           },
         error: function(model,response, options) {
              $("#notify_error").text(response.responseText);
@@ -3338,6 +3364,9 @@ module.exports = Backbone.View.extend({
     $('#bloque_sucursal').show();
  
     if(this.model.get("id")==="-1"){
+      var a= Backbone.app.EmpresaModelo.toJSON();
+      this.model.set({"nombre": a.razon_social,"calle":a.calle,"numero":a.numero,"colonia":a.colonia,  "cp":a.cp, "cdu_estado":a.cdu_estado,"cdu_municipio":a.cdu_municipio ,"telefono": "telefono1"});
+    
       this.SucursalDetalle = new SucursalDetalleVista({model: this.model});
       this.SucursalDetalle.llenado();
       Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
