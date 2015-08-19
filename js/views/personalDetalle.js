@@ -3,8 +3,13 @@ var Backbone                = require('backbone');
     $.ui                    = require('jquery-ui'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
-    Personal                = require('../models/personal');
+    Personal                = require('../models/personal'),
+    Sucursales              = require('../collections/sucursales'),
+    PersonalAsignacion      = require('../models/personal_sucursal'),
     Plantilla               = require('../templates/personal-detalle.hbs'),
+    DatoBusquedasVista     = require('../views/datoBusquedas'),
+    CajaBusquedaVista      = require('../views/cajaBusqueda'),
+    PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
     $.ua                    = require('../notificaciones');
 
 
@@ -39,17 +44,20 @@ var Backbone                = require('backbone');
      }
 },
     
-  initialize: function () {
+  initialize: function (options) {
+    this.options = options || {};
     this.PersoBusqueda = new Personas();
     this.catMunicipioNac = new Catalogos();
     this.catMunicipioDom = new Catalogos();
     
     this.listenTo(this.model, "change", this.llenado, this);
+    this.listenTo(this.options.modelSucursal, "change", this.SeleccionSucursal, this);
   },
   buscarMatricula: function(){
     var self = this;
-    var mat =$(this.relacionColumnas().matricula).val();
-    var id =$(this.relacionColumnas().id).text();
+    var mat =$(this.relacionColumnas()['personal'].matricula).val();
+    var id =$(this.relacionColumnas()['personal'].id).text();
+    debugger;
     this.PersoBusqueda.valor = mat;
     $("#notify_warning").hide();
     this.PersoBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(
@@ -76,28 +84,53 @@ var Backbone                = require('backbone');
     if(this.model.get("id")!=="-1"){
       this.render();
     }
-  }, 
+  },
+  SeleccionSucursal: function(){
+    var detalle = this.options.modelSucursal.toJSON();
+    console.log("*** " +detalle.nombre + " ****");
+    var clave_sucursal = (detalle.cve_sucursal ==="") ? "" : detalle.cve_sucursal + ", "; 
+    $('#id_sucursal_personal').text(detalle.id);
+    $('#nombre_sucursal_personal').text(detalle.nombre);
+    $('#clave_sucursal_personal').text(clave_sucursal);
+    $('#perso_asignacion_puesto').focus();
+  },
   render: function () {
-
-    this.$el.empty();
+   this.$el.empty();
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
+   console.log("el id es " + detalle.id)
+   var asignacion = new PersonalAsignacion();
+   var detalleAsignacion = asignacion.toJSON();
+   detalle.cdu_puesto = detalleAsignacion.cdu_puesto;
+   detalle.cdu_rango = detalleAsignacion.cdu_rango;
+   detalle.cdu_turno = detalleAsignacion.cdu_turno;
+   detalle.sueldo = detalleAsignacion.sueldo;
    var html = this.template(detalle);
    this.$el.html(html)
    $('#perso_foto_wait').hide();
    $('#contenedor_foto').hide();
-   
+   $('#personal_primera_asignacion').show();
+   console.log("aqui es:" +detalle.id)
    if(detalle.id !== ""){
       $('#contenedor_foto').show();   
+      $('#personal_primera_asignacion').hide();
    }
+
+  this.Sucursal = new Sucursales();
+  this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_persona',template:PlantillaSucursal});
+  this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursal_persona',divResultados: '#resultados_sucursal_persona'});
+
+
 
    var self = this;   
    $("#persona_fec_nac, #persona_fec_alta").datepicker({dateFormat:"dd/mm/yy"});
   
-   this.agregarValidacion();
+   this.agregarValidacion('personal');
+   this.agregarValidacion('asignacion');
+
 
     var PersonalCatalogos = new Catalogos();
-    PersonalCatalogos.claves ="1,2,14,16,17,18,20,21";
+    PersonalCatalogos.claves ="1,2,3,14,16,17,18,20,21,26,27,28";
   
     PersonalCatalogos.fetch(
       { headers: {'Authorization' :localStorage.token},
@@ -109,6 +142,8 @@ var Backbone                = require('backbone');
         
           self.llenadoCatalogosCombo(PersonalCatalogos.SeguridadSocial(),detalle["cdu_seguridad_social"],"#perso_segsoc");
 
+          self.llenadoCatalogosCombo(PersonalCatalogos.Genero(),detalle["cdu_genero"],"#perso_genero");
+
           self.llenadoCatalogosCombo(PersonalCatalogos.EstadoCivil(),detalle["cdu_estado_civil"],"#perso_estado_civil");
 
           self.llenadoCatalogosCombo(PersonalCatalogos.TipoAlta(),detalle["cdu_tipo_alta"],"#perso_tipo_de_alta");
@@ -117,6 +152,10 @@ var Backbone                = require('backbone');
 
           self.llenadoCatalogosCombo(PersonalCatalogos.Estados(),detalle["cdu_estado_dom"],"#perso_estado_dom");
 
+          //Detalle de la asignacion
+          self.llenadoCatalogosCombo(PersonalCatalogos.Puesto(),detalle["cdu_puesto"],"#perso_asignacion_puesto");
+          self.llenadoCatalogosCombo(PersonalCatalogos.Rango(),detalle["cdu_rango"],"#perso_asignacion_rango");
+          self.llenadoCatalogosCombo(PersonalCatalogos.Turno(),detalle["cdu_turno"],"#perso_asignacion_turno");
         }
           
     });
@@ -125,7 +164,7 @@ var Backbone                = require('backbone');
           this.llenadoComboDependiente(this.catMunicipioNac,'15', detalle["cdu_estado_nac"],detalle["cdu_municipio_nac"],"#perso_mpionac");
 
           this.llenadoComboDependiente(this.catMunicipioDom,'15', detalle["cdu_estado_dom"],detalle["cdu_municipio_dom"],"#perso_municipio_dom");
-
+          
     },
     llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
           var cat = new Backbone.Collection(catalogo);
@@ -148,43 +187,75 @@ var Backbone                = require('backbone');
    },
 relacionColumnas: function(){ 
       var columnasCampos ={
-        "calle_dom": '#perso_domicilio', 
-        "cdu_escolaridad": '#perso_escolaridad', 
-        "cdu_estado_civil" : '#perso_estado_civil',
-        "cdu_estado_dom": '#perso_estado_dom', 
-        "cdu_estado_nac": '#perso_edonac', 
-        "cdu_municipio_dom": '#perso_municipio_dom', 
-        "cdu_municipio_nac": '#perso_mpionac', 
-        "cdu_seguridad_social": '#perso_segsoc', 
-        "cdu_tipo_alta":'#perso_tipo_de_alta' , 
-        "cdu_tipo_empleado": '#perso_tipo_de_empleado', 
-        "colonia_dom": '#persona_colonia_dom', 
-        "condicionada": '#persona_condicionada_1', 
-        "condiciones_alta": '#persona_condicion_alta', 
-        "cp_dom": '#persona_cp_dom', 
-        "cuip": '#persona_cuip', 
-        "curp": '#persona_curp', 
-        "fec_alta": '#persona_fec_alta', 
-        "fec_nacimiento":'#persona_fec_nac', 
-        "id":'#persona_id',
-        "id_seguridad_social": '#persona_segsocial', 
-        "materno":'#persona_materno', 
-        "matricula":'#persona_matricula',
-        "nombre":'#persona_nombre', 
-        "numero_dom": '#persona_numero_dom', 
-        "paterno": '#persona_paterno', 
-        "portacion": '#persona_portacion_1',
-        "rfc": '#persona_rfc', 
+        "personal":{
+          "calle_dom": '#perso_domicilio', 
+          "cdu_escolaridad": '#perso_escolaridad', 
+          "cdu_genero" : '#perso_genero',
+          "cdu_estado_civil" : '#perso_estado_civil',
+          "cdu_estado_dom": '#perso_estado_dom', 
+          "cdu_estado_nac": '#perso_edonac', 
+          "cdu_municipio_dom": '#perso_municipio_dom', 
+          "cdu_municipio_nac": '#perso_mpionac', 
+          "cdu_seguridad_social": '#perso_segsoc', 
+          "cdu_tipo_alta":'#perso_tipo_de_alta' , 
+          "cdu_tipo_empleado": '#perso_tipo_de_empleado', 
+          "colonia_dom": '#persona_colonia_dom', 
+          "condicionada": '#persona_condicionada_1', 
+          "condiciones_alta": '#persona_condicion_alta', 
+          "cp_dom": '#persona_cp_dom', 
+          "cuip": '#persona_cuip', 
+          "curp": '#persona_curp', 
+          "fec_alta": '#persona_fec_alta', 
+          "fec_nacimiento":'#persona_fec_nac', 
+          "id":'#persona_id',
+          "id_seguridad_social": '#persona_segsocial', 
+          "materno":'#persona_materno', 
+          "matricula":'#persona_matricula',
+          "nombre":'#persona_nombre', 
+          "numero_dom": '#persona_numero_dom', 
+          "paterno": '#persona_paterno', 
+          "telefono": '#persona_telefono', 
+          "portacion": '#persona_portacion_1',
+          "rfc": '#persona_rfc', 
+        },
+      'asignacion':{
+          "id_sucursal": '#id_sucursal_personal',
+          "cdu_puesto": '#perso_asignacion_puesto', 
+          "cdu_rango": '#perso_asignacion_rango',
+          "cdu_turno": '#perso_asignacion_turno',
+          "sueldo": '#perso_asignacion_sueldo',
+        }
       };
+
+console.log(columnasCampos)
+
+console.log(columnasCampos.personal)
+console.log(columnasCampos.asignacion)
+
       return columnasCampos;
    },
+
+eliminar: function(){
+    console.log("Eliminar esta asignacion");
+},
 guardar: function(){
-    var data =this.generarJSON();
+  var datos_personal =this.generarJSON("personal");
+  var asignacion =this.generarJSON("asignacion");
+  //var asignacion = {"id_sucursal":datos_personal.id_sucursal, "cdu_turno":datos_personal.cdu_turno, "cdu_puesto": datos_personal.cdu_puesto,"cdu_rango": datos_personal.cdu_rango,"sueldo":datos_personal.sueldo }
+   var data = {"personal": [datos_personal],"asignacion":[asignacion]}
     var self = this;
 
+   if( Backbone.app.operacion==="nuevo" && ($('#id_sucursal_personal').text()==="" || $('#id_sucursal_personal').text()==="0" )){
+       $("#notify_error").text("no has seleccionado una sucursal donde sera asignado")
+       $("#notify_error").notify();
+        console.log(response.responseText);
+     return;
+  }
+
+    //delete data["sueldo"] 
     var model = new Personal(data);
     model.valor = undefined;
-    model.pk= data["id"];
+    model.pk= data.personal[0].id; //data["id"];
     this.tipo='POST'
     if(Backbone.app.operacion!=="nuevo"){
         this.tipo='PUT';
@@ -199,6 +270,7 @@ guardar: function(){
             $("#notify_success").text("Los datos fueron guardados correctamente");
             $("#notify_success").notify();
             $('#contenedor_foto').show();   
+            $('#personal_primera_asignacion').hide();
           },
         error: function(model,response, options) {
              $("#notify_error").text(response.responseText);
@@ -213,13 +285,17 @@ guardar: function(){
 
 },
   
-generarJSON: function(){
+generarJSON: function(nodo){
       var data ={};
-      var relacion =this.relacionColumnas();
+      var relacion =this.relacionColumnas()[nodo];
       for(var campo in relacion)
       {
+        if(campo==="id_sucursal"){
+            console.log(campo);
+          }
         if (relacion.hasOwnProperty(campo))
         {
+
            var elemento  =$(relacion[campo]).get(0).tagName;
            var tipo = $(relacion[campo]).get(0).type;
            var id_control = relacion[campo];
@@ -239,8 +315,8 @@ generarJSON: function(){
       }
       return data;
    },
- agregarValidacion: function(){
-      var relacion =this.relacionColumnas();
+ agregarValidacion: function(nodo){
+      var relacion =this.relacionColumnas()[nodo];
       var listaVal = Backbone.app.PersoModelo.validation();
       for(var campo in relacion){
           if (relacion.hasOwnProperty(campo)){

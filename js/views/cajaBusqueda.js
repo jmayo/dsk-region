@@ -27,7 +27,8 @@ events : {
   },
    mostrarBusqueda: function(){
     //this.$(".divResultados").show();
-     this.$(this.divResultados).show(); 
+     this.$(this.divResultados).show();
+     this.$('.buscar').select() 
   },
   close: function(){
       // Cuando se asigna una nueva instancia en ocaciones quedan objetos zombies

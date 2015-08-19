@@ -20,10 +20,14 @@ module.exports = Backbone.View.extend({
   },
   render: function () {
     var descripcion = this.model.toJSON();
-    var html = this.template(descripcion);
-    if(this.model.get("id")==="-1"){
-      html = html + '<div class="agregar_servicio"><a href="#" title="Agregar sucursal de esta empresa"><i class="fa fa-plus fa-2x"></i></a></div>';
+    var html = "";
+    if(this.model.get("id")!=="-1"){
+        html = this.template(descripcion);
     }
+    else{
+         html = html + '<div class="agregar_sucursal"><a href="#" title="Agregar sucursal"><i class="fa fa-plus-circle fa-2x"></i></a></div>';    
+    }
+    
     this.$el.html(html);
 
 
@@ -44,6 +48,9 @@ module.exports = Backbone.View.extend({
     $('#bloque_sucursal').show();
  
     if(this.model.get("id")==="-1"){
+      var a= Backbone.app.EmpresaModelo.toJSON();
+      this.model.set({"nombre": a.razon_social,"calle":a.calle,"numero":a.numero,"colonia":a.colonia,  "cp":a.cp, "cdu_estado":a.cdu_estado,"cdu_municipio":a.cdu_municipio ,"telefono": "telefono1"});
+    
       this.SucursalDetalle = new SucursalDetalleVista({model: this.model});
       this.SucursalDetalle.llenado();
       Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));

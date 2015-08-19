@@ -16,11 +16,29 @@
 		{{{grp_perdet "Fecha de Nac." valor=fec_nacimiento input_id="persona_fec_nac" label_desc='fecha_nacimiento' input_desc='Fecha de Nacimiento'}}}
 		{{{grp_combo "Lugar de Nac."    label_desc='etiquetas_bloque' select_name='select_bloque' select_id='perso_edonac'}}} 
 		{{{grp_combo "Municipio"   label_desc='lugar_nacimiento_municipio' select_name='municipio' select_id='perso_mpionac'}}}
+		{{{grp_combo "Genero"   label_desc='genero' select_name='genero' select_id='perso_genero'}}}
 		{{{grp_combo "Estado Civil"   label_desc='estado_civil' select_name='estado_civil' select_id='perso_estado_civil'}}}
 		{{{grp_combo "Escolaridad"   label_desc='escolaridad' select_name='escolaridad' select_id='perso_escolaridad'}}}
+		{{{grp_perdet "Telefono/Cel" valor=telefono  input_id='persona_telefono' label_desc='telefono' input_desc='Telefono/Celular'}}}
 		{{{grp_options "Portación"  radio_id='persona_portacion' label_desc='portacion' op1_titulo="Si" op2_titulo="No" op1_val=true op2_val=false  op1_checado=portacion radio_name='persona_portacion' input_booleano=portacion}}}   
 		{{{grp_combo "Seguridad Social"   label_desc='seguridad_social' select_name='seguridad_social' select_id='perso_segsoc'}}}
 		{{{grp_perdet "Id. Seguridad Social" valor=id_seguridad_social  input_id='persona_segsocial' label_desc='id_seguridad_social' input_desc='Id. Seguridad Social'}}}
+		</ul>
+	</div>
+	</div>
+	<br>
+	<div class="titulo_bloque">
+		Domicilio
+	</div>
+	<div class="caja_bloque">
+	<div class="campos_bloque">
+		<ul class="ul_bloque">			
+		{{{grp_perdetTextArea "Calle" valor=calle_dom textarea_id='perso_domicilio'  label_desc='' textarea_desc='Calle'}}}
+		{{{grp_perdet "Número" valor=numero_dom  input_id='persona_numero_dom' label_desc='numero' input_desc='Número'}}}
+		{{{grp_perdet "Colonia" valor=colonia_dom  input_id='persona_colonia_dom' label_desc='colonia' input_desc='Colonia'}}}
+		{{{grp_perdet "Código Postal" valor=cp_dom  input_id='persona_cp_dom' label_desc='codigo_postal' input_desc='Código Postal'}}}
+		{{{grp_combo "Estado"    label_desc='calle_estado' select_name='estado_dom' select_id='perso_estado_dom'}}} 
+		{{{grp_combo "Municipio"   label_desc='calle_municipio' select_name='municipio_dom' select_id='perso_municipio_dom'}}}
 		</ul>
 	</div>
 	</div>
@@ -38,23 +56,30 @@
 	{{{grp_perdetTextArea "" textarea_id='persona_condicion_alta' valor=condiciones_alta   label_desc='' textarea_desc='Condición(es)'}}}
 	{{{grp_combo "Administrativo"   label_desc='tipo_de_empleado' select_name='tipo_de_empleado' select_id='perso_tipo_de_empleado'}}}	
 	</ul>
+	<div id="personal_primera_asignacion">
+    <hr class="mi_hr">
+	
+	<div class="caja_buscar_sola" id="caja_buscar_sucursal_persona">
+		<ul class="lista_buscar">
+			<li><a href="#" tabindex="-1"><i class="fa fa-industry fa-1x"></i></a></li>
+			<li><input type="text" placeholder="Sucursal..." class="buscar"/></li>
+		</ul>
+	<div hidden class="divResultados divResultados3" id='resultados_sucursal_persona'>
+	
+	 </div>
 	</div>
-</div>
-<br>
-<div class="titulo_bloque">
-	Domicilio
-</div>
-<div class="caja_bloque">
-<div class="campos_bloque">
-	<ul class="ul_bloque">			
-	{{{grp_perdetTextArea "Calle" valor=calle_dom textarea_id='perso_domicilio'  label_desc='' textarea_desc='Calle'}}}
-	{{{grp_perdet "Número" valor=numero_dom  input_id='persona_numero_dom' label_desc='numero' input_desc='Número'}}}
-	{{{grp_perdet "Colonia" valor=colonia_dom  input_id='persona_colonia_dom' label_desc='colonia' input_desc='Colonia'}}}
-	{{{grp_perdet "Código Postal" valor=cp_dom  input_id='persona_cp_dom' label_desc='codigo_postal' input_desc='Código Postal'}}}
-	{{{grp_combo "Estado"    label_desc='calle_estado' select_name='estado_dom' select_id='perso_estado_dom'}}} 
-	{{{grp_combo "Municipio"   label_desc='calle_municipio' select_name='municipio_dom' select_id='perso_municipio_dom'}}}
-	</ul>
-</div>
+		<div id="sucursal_datos_basicos">
+		    <label id='id_sucursal_personal' hidden>0</label>
+			<h3 class="enterprise_buscar"><label id=clave_sucursal_personal></label><strong><label id='nombre_sucursal_personal'>dadasdas</label></strong></h3>
+		</div>
+		<ul class="ul_bloque">
+		{{{grp_combo "Puesto"   label_desc='puesto' select_name='puesto_de_empleado' select_id='perso_asignacion_puesto'}}}	
+		{{{grp_combo "Rango"   label_desc='rango' select_name='rango_de_empleado' select_id='perso_asignacion_rango'}}}	
+		{{{grp_combo "Turno"   label_desc='turno' select_name='turno_de_empleado' select_id='perso_asignacion_turno'}}}	
+		{{{grp_perdet "Sueldo" valor=sueldo  input_id='perso_asignacion_sueldo'   label_desc='sueldo' input_desc='sueldo'}}}	
+		</ul>
+	   </div>
+	</div>
 </div>
 </article>
 <article class="bloque" id="contenedor_foto">

@@ -7,6 +7,7 @@ module.exports = Backbone.View.extend({
 
 	events: {
       "click #iniciar_sesion": "login",
+      "keyup #login_password": "loginEnter",
    },
 
   el: $('.login'),
@@ -21,7 +22,11 @@ module.exports = Backbone.View.extend({
     this.pass = $('#login_password').val();
     this.guardar();
   },
-
+  loginEnter: function(event){
+      if(event.keyCode == 13){
+        this.login();
+      } 
+  },
   guardar: function(){
     console.log(this.usuario)
     console.log(this.pass)

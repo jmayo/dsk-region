@@ -4,15 +4,21 @@ var Backbone    = require('backbone');
 module.exports = Backbone.View.extend({
   events : {
      "mousedown ": "seleccionado",
+     "keyup": "cambiar",
    },
   tagName: 'div',
   className: 'resultado_ind',
   template: null,
+  attributes: { tabindex: 1 },
+
   rutas: function(rutas){
     this.rutas = ruta;
   },
   initialize: function (opciones) {
     this.template = opciones.template;
+    this.attributes.tabindex =  opciones.id ;
+    this.id = "opcion_busqueda_" + opciones.id;
+   // debugger;
   },
   render: function () {
     var busqueda = this.model.toJSON();
@@ -22,6 +28,9 @@ module.exports = Backbone.View.extend({
   },
   seleccionado: function(){
     this.model.busqueda();
-  }
+  },
+  cambiar: function(){
+    console.log("cambiar");
+  },
 });
 

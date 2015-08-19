@@ -3,8 +3,8 @@ var Backbone                = require('backbone'),
     Catalogos               = require('../collections/catalogos'),
     PersonalCatalogosVista  = require('../views/personalCatalogos'),
     PersonalSucursal        = require('../models/personal_sucursal'),
-    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs');
-
+    Plantilla               = require('../templates/movimiento-personal-sucursal.hbs'),
+    funcionGenerica = require('../funcionesGenericas');
 //Personal.Views.PersonalMovimiento
 module.exports = Backbone.View.extend({
  
@@ -82,8 +82,34 @@ module.exports = Backbone.View.extend({
       };
       return columnasCampos;
    },
-guardar: function(){
-    debugger;
+  eliminar: function(){
+      var id = Backbone.app.PersoSucursalModelo.get("id");
+      var matricula =Backbone.app.PersoBasicoModelo.get("matricula")
+      if(id==="-1"){
+        $("#notify_error").text("Esta persona no tiene asignaciones activas para eliminar") 
+        $("#notify_error").notify();
+        return;
+      }
+      self = this;
+      var model = new PersonalSucursal(Backbone.app.PersoSucursalModelo);
+      model.eliminar = true;
+      model.pk = id;
+      model.destroy({
+         headers: {'Authorization' :localStorage.token},
+        success: function(model,response) {
+            Backbone.app.personalMatricula(matricula);
+            $("#notify_success").text("Se elimino la asignacion correctamente");
+            $("#notify_success").notify();
+            $('#personal_sin_asignar').hide();
+          },
+        error: function(model,response, options) {
+             $("#notify_error").text(response.responseJSON) 
+             $("#notify_error").notify();
+              console.log(response.responseJSON);
+        }
+      });
+  },
+  guardar: function(){
     if(this.campoValor('id_personal')===null){
         $("#notify_error").notify();
     }
@@ -103,7 +129,10 @@ guardar: function(){
          headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(model,response) {
+           var nueva_fecha =new  funcionGenerica().fechaSumarDias(response.fecha_inicial,1); 
+           self.model.set({'fecha_inicial':nueva_fecha});
            Backbone.app.PersoSucursalModelo.set(response);
+          
             $("#notify_success").notify();
             $('#personal_sin_asignar').hide();
           },
@@ -134,7 +163,6 @@ campoValor: function(campo){
        }
        var elemento  =$(id_control).get(0).tagName;
        var tipo = $(id_control).get(0).type;
-       debugger;
        if(elemento ==="H1" || elemento=='STRONG'){
            return $(id_control).text();
        }
