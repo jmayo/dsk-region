@@ -16,6 +16,10 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<link rel="stylesheet" href="bootstrap-3.3.2-dist/js/bootstrap.min.css">
 	<script src="bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+	<!-- para popup -->
+	<script src="js/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/popup.js"></script> <!-- Resource jQuery -->
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
 </head>
 <body>
 	<!-- para notificaciones -->
@@ -307,10 +311,10 @@
 						  <div class="resultado_ind">
 							<span class="name">1, Empresa Coca-Cola S.A. de C.V.</span>
 						  </div>
-					    	<div class="resultado_ind">
+							<div class="resultado_ind">
 							<span class="name">2, Patito S. de R. L.</span>
-					    	</div>
-					    </div>
+							</div>
+						</div>
 					</div>
 					<div id="sucursal_datos_basicos">
 						<h3 class="enterprise_buscar">200, <strong>Lagunita S.A. de C.V. Sucursal de Sal si Puedes en Tejupilco</strong></h3>
@@ -379,6 +383,19 @@
 			</form>
 		</article>
 	</section>
+
+	<a href="#" class="cd-popup-trigger">pop-up</a>
+	<div class="cd-popup" role="alert">
+		<div class="cd-popup-container">
+			<p>¿Esta seguro de eliminar este elemento?</p>
+			<ul class="cd-buttons">
+				<li><a href="#0">Si</a></li>
+				<!-- por si se necesita otro boton
+				<li><a href="#0">No</a></li>-->
+			</ul>
+			<a href="#0" class="cd-popup-close img-replace">Cerrar</a>
+		</div>
+	</div>
 	
 	<footer>
 		<ul class="redes_sociales">
