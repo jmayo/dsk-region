@@ -225,25 +225,6 @@ body
 		margin-bottom 0.5em
 		margin 4px
 		padding 4px
-	a.lnk_catalogo
-		text-decoration none
-		display inline-block
-		position relative
-		overflow hidden
-		width 80%
-		&:hover
-			background-color verde
-		&:active
-			position relative
-			top 4px
-	.div_catalogo
-		border 1px solid gris_medio
-		box-shadow 0 0 0 verde, 1px 2px 10px gris_claro inset
-		border-radius 5px
-		color white
-		font-size 12px
-		text-align left
-		padding 8px 20px
 	a.lnk_servicio
 		text-decoration none
 	.div_servicio
@@ -254,7 +235,7 @@ body
 		padding 2px 20px
 		&:hover
 			text-shadow 4px 4px 2px rgba(150, 150, 150, 1)
-	hr
+	.hr_servicio
 		height 10px
 		border-style solid
 		border-color rosa
@@ -269,6 +250,36 @@ body
 			border-color rosa
 			border-width 0 0 1px 0
 			border-radius 20px
+	.div_catalogos
+		//border 1px solid gris_oscuro
+		position relative
+		background gris_claro
+		display inline-block
+		width 20%
+		vertical-align top
+		margin-right 1%
+		margin-left 1%
+		margin-top 4em
+		border-radius 5px
+		padding 0.2em
+		.catalogos
+			padding 2px
+			position relative
+	a.lnk_catalogo
+		text-decoration none
+	.div_catalogo
+		opacity 0.8
+		border-radius 4px
+		background verde
+		color white
+		text-align left
+		margin-bottom 0.5em
+		margin-top 0.5em
+		padding 2px 20px
+		&:hover
+			opacity 0.6
+			background rosa
+			text-shadow 4px 4px 2px rgba(30, 30, 30, 1)
 #bloque_contacto
 	//display none
 .bloque_mapa
@@ -695,16 +706,18 @@ body
 		border-bottom-left-radius 0px
 	.bloque_catalogo tr:hover td {}
 	.bloque_catalogo tr:nth-child(odd)
-		background-color gris_medio
+		background-color gris_claro
+		border 1px solid gris_medio
 	.bloque_catalogo tr:nth-child(even)
 		background-color gris_claro
+		border 1px solid gris_medio
 	.bloque_catalogo td
 		vertical-align middle
-		//border 1px solid #000000
-		border-width 0px 1px 1px 0px
+		//border 1px solid gris_medio
+		//border-width 0px 1px 1px 0px
 		text-align left
-		padding 5px
-		font-size 10px
+		padding 2px
+		font-size 12px
 		font-family Arial
 		font-weight normal
 		color #000000 //color de letra tabla
@@ -716,11 +729,11 @@ body
 		border-width 0px 0px 0px 0px
 	.bloque_catalogo tr:first-child td
 		background-color gris_oscuro
-		text-align center
+		text-align left
 		border-width 0px 0px 1px 1px
 		font-size 14px
 		font-family Arial
-		font-weight bold
+		//font-weight bold
 		color #ffffff
 	.bloque_catalogo tr:first-child td:first-child
 		border-width 0px 0px 1px 0px
@@ -734,6 +747,80 @@ body
 		color green
 	a.eliminar_renglon
 		color red
+	// lista de empleados en sucursal
+	.lista_empleados_sucursal
+		margin-top 3.1em
+		-moz-border-radius-bottomleft 0px
+		-webkit-border-bottom-left-radius 0px
+		border-bottom-left-radius 0px
+		-moz-border-radius-bottomright 0px
+		-webkit-border-bottom-right-radius 0px
+		border-bottom-right-radius 0px
+		-moz-border-radius-topright 0px
+		-webkit-border-top-right-radius 0px
+		border-top-right-radius 0px
+		-moz-border-radius-topleft 0px
+		-webkit-border-top-left-radius 0px
+		border-top-left-radius 0px
+		.tabla_empleados_sucursal
+			border-collapse collapse
+			border-spacing 0
+			width 100%
+			height 100%
+			//margin 10px
+			//padding 0px
+	.lista_empleados_sucursal tr:last-child td:last-child
+		-moz-border-radius-bottomright 0px
+		-webkit-border-bottom-right-radius 0px
+		border-bottom-right-radius 0px
+	.lista_empleados_sucursal table tr:first-child td:first-child
+		-moz-border-radius-topleft 0px
+		-webkit-border-top-left-radius 0px
+		border-top-left-radius 0px
+	.lista_empleados_sucursal table tr:first-child td:last-child
+		-moz-border-radius-topright 0px
+		-webkit-border-top-right-radius 0px
+		border-top-right-radius 0px
+	.lista_empleados_sucursal tr:last-child td:first-child
+		-moz-border-radius-bottomleft 0px
+		-webkit-border-bottom-left-radius 0px
+		border-bottom-left-radius 0px
+	.lista_empleados_sucursal tr:hover td {}
+	.lista_empleados_sucursal tr:nth-child(odd)
+		background-color gris_claro
+		//border 1px solid gris_medio
+	.lista_empleados_sucursal tr:nth-child(even)
+		background-color gris_claro
+		//border 1px solid gris_medio
+	.lista_empleados_sucursal td
+		vertical-align middle
+		//border 1px solid gris_medio
+		//border-width 0px 1px 1px 0px
+		text-align left
+		padding 2px
+		//font-size 12px
+		//font-family Arial
+		//font-weight normal
+		color #000000 //color de letra tabla
+	.lista_empleados_sucursal tr:last-child td
+		border-width 0px 1px 0px 0px
+	.lista_empleados_sucursal tr td:last-child
+		border-width 0px 0px 1px 0px
+	.lista_empleados_sucursal tr:last-child td:last-child
+		border-width 0px 0px 0px 0px
+	.lista_empleados_sucursal tr:first-child td
+		background-color rosa
+		text-align left
+		border-width 0px 0px 1px 1px
+		//font-size 14px
+		//font-family Arial
+		//font-weight bold
+		color #ffffff
+	.lista_empleados_sucursal tr:first-child td:first-child
+		border-width 0px 0px 1px 0px
+	.lista_empleados_sucursal tr:first-child td:last-child
+		border-width0px 0px 1px 1px
+	// termina lista de empleados en sucursal
 .reducir
 	width 28%
 .aumentar
