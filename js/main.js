@@ -68,13 +68,14 @@ var Backbone    = require('backbone'),
       if (options.hash.clase2 !== undefined){
           clase2 =  options.hash.clase2 ;
          }
-
-    var valor =  '<div class="' + clase1 + '">'+
+     debugger;
+     var valor ='';
+   valor =((options.hash.simple === true) ? '' : '<div class="' + clase1 + '">') +
             '<figure class="' + clase2 + '">' +
              '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
              '<p><i ' + img_idWait + ' class="fa fa-spinner fa-pulse fa-5x"></i>' +
             '</figure>' +
-          '</div>';
+          ((options.hash.simple === true) ? '' : '</div>');
     return valor;
       });
 

@@ -294,13 +294,14 @@ var Backbone    = require('backbone'),
       if (options.hash.clase2 !== undefined){
           clase2 =  options.hash.clase2 ;
          }
-
-    var valor =  '<div class="' + clase1 + '">'+
+     debugger;
+     var valor ='';
+   valor =((options.hash.simple === true) ? '' : '<div class="' + clase1 + '">') +
             '<figure class="' + clase2 + '">' +
              '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
              '<p><i ' + img_idWait + ' class="fa fa-spinner fa-pulse fa-5x"></i>' +
             '</figure>' +
-          '</div>';
+          ((options.hash.simple === true) ? '' : '</div>');
     return valor;
       });
 
@@ -571,6 +572,7 @@ var Backbone = require('backbone');
 //Personal.Models.login 
 module.exports= Backbone.Model.extend({
   url : function(){
+  	debugger;
     return  window.ruta +  'api-token-auth/';
   },
 });
@@ -1065,7 +1067,7 @@ module.exports = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14:8001/";
+    window.ruta="http://192.168.0.116:8001/";
     //window.ruta="http://104.236.232.238:8080/";
     //window.ruta ="http://localhost:8080/";
  
@@ -1425,22 +1427,22 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "<div class=\"profiler\">\n"
-    + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"clase2":"foto_profiler","clase1":"profiler_foto","img_id":"perso_foto_basica"},"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"simple":true,"clase2":"profiler_foto","img_id":"perso_foto_basica"},"data":data})) != null ? stack1 : "")
     + "\n<div class=\"profiler_datos\">\n	<h1 hidden id=\"personal_basico_id\">"
     + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
     + "</h1>\n	<h2>"
     + alias3(((helper = (helper = helpers.matricula || (depth0 != null ? depth0.matricula : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"matricula","hash":{},"data":data}) : helper)))
-    + "</h2>\n	<div><h3>"
+    + "</h2>\n	<h3>"
     + alias3(((helper = (helper = helpers.nombre || (depth0 != null ? depth0.nombre : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"nombre","hash":{},"data":data}) : helper)))
     + " "
     + alias3(((helper = (helper = helpers.paterno || (depth0 != null ? depth0.paterno : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"paterno","hash":{},"data":data}) : helper)))
     + " "
     + alias3(((helper = (helper = helpers.materno || (depth0 != null ? depth0.materno : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"materno","hash":{},"data":data}) : helper)))
-    + "</h3></div>\n	<h5>"
+    + "</h3>\n	<h5>"
     + alias3(((helper = (helper = helpers.rfc || (depth0 != null ? depth0.rfc : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"rfc","hash":{},"data":data}) : helper)))
     + "</h5>\n	<h5>"
     + alias3(((helper = (helper = helpers.curp || (depth0 != null ? depth0.curp : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"curp","hash":{},"data":data}) : helper)))
-    + "</h5>\n</div>\n</div>\n";
+    + "</h5>\n</div>\n</div>\n\n";
 },"useData":true});
 
 },{"hbsfy/runtime":87}],21:[function(require,module,exports){
@@ -1526,11 +1528,11 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=this.lambda, alias2=this.escapeExpression, alias3=helpers.helperMissing, alias4="function";
 
-  return "<div class=\"enterprise\">\n	<div class=\"enterprise_foto\">\n		<figure class=\"foto_enterprise\">\n			<img src=\"images/factory.png\" alt=\"foto\" />\n		</figure>\n	</div>\n	<div class=\"enterprise_datos\">\n		<h2 >"
+  return "<div class=\"enterprise\">\n		<figure class=\"enterprise_foto\">\n			<img src=\"images/factory.png\" alt=\"foto\" />\n		</figure>\n	<div class=\"enterprise_datos\">\n		<h2 >"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_sucursal : depth0)) != null ? stack1.cve_sucursal : stack1), depth0))
-    + "</h2>\n		<div><h3>"
+    + "</h2>\n		<h3>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_sucursal : depth0)) != null ? stack1.nombre : stack1), depth0))
-    + "</h3></div>\n		<h5>"
+    + "</h3>\n		<h5>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.cdu_motivo : depth0)) != null ? stack1.descripcion1 : stack1), depth0))
     + "</h5>\n		<h5>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.cdu_turno : depth0)) != null ? stack1.descripcion1 : stack1), depth0))
