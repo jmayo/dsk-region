@@ -68,7 +68,7 @@ var Backbone    = require('backbone'),
       if (options.hash.clase2 !== undefined){
           clase2 =  options.hash.clase2 ;
          }
-     debugger;
+
      var valor ='';
    valor =((options.hash.simple === true) ? '' : '<div class="' + clase1 + '">') +
             '<figure class="' + clase2 + '">' +

@@ -31,7 +31,6 @@ module.exports = Backbone.View.extend({
   render: function () {
    console.log("buscando en el render");
    var detalle = this.model.toJSON();
-  
    var html = this.template(detalle);
    this.$el.html(html);
    
@@ -132,6 +131,7 @@ module.exports = Backbone.View.extend({
            var nueva_fecha =new  funcionGenerica().fechaSumarDias(response.fecha_inicial,1); 
            self.model.set({'fecha_inicial':nueva_fecha});
            Backbone.app.PersoSucursalModelo.set(response);
+           Backbone.app.listadoPersonasEnSucursal(response.id_sucursal.cve_sucursal);
           
             $("#notify_success").notify();
             $('#personal_sin_asignar').hide();

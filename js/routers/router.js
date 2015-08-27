@@ -6,6 +6,7 @@ var Backbone        = require('backbone'),
     PersonalBusquedaVista   = require('../views/personalBusqueda'),
     EmpresaBusquedaVista    = require('../views/empresaBusqueda'),
     SucursalListadosVista   = require('../views/sucursalListados'),
+    PersonalListadosVista   = require('../views/personalListados')
     IniciarSesionVista      = require('../views/iniciarSesion'),
     CajaOperacionesVista    = require('../views/cajaOperaciones'),
     Personal                = require('../models/personal'),
@@ -55,6 +56,7 @@ initialize: function () {
     this.Empresa = new Empresas();
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
+    this.PersonalLista = new Personas();
 
     this.MenuModelo = new MenuOpcion();
     this.MenuVista = new MenuVista({model: this.MenuModelo}); 
@@ -67,6 +69,9 @@ initialize: function () {
     this.EmpresaBusquedaVista = new EmpresaBusquedaVista();
     
     this.SucursalListadoVista = new SucursalListadosVista({collection: this.SucursalLista});
+
+    this.PersonalListadoVista = new PersonalListadosVista({collection: this.PersonalLista});
+
 
     this.IniciarSesion = new IniciarSesionVista();
 
@@ -287,22 +292,37 @@ initialize: function () {
         
         Backbone.app.operacion="buscar";
         this.SucursalBasicoModelo.valor = valor_buscado;
-        this.SucursalBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
-          //Llenamos el formulario con los datos del ultimo movimiento
-        success: function(data){
-        if(asignacion !== undefined && asignacion !==null){
-               nueva_fecha = new  funcionGenerica().fechaSumarDias(asignacion.fecha_inicial,1);       
-               self.PersonalMovimientoModelo.set({
-                  'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
-                  'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
-                  'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
-                  'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
-                  'sueldo': asignacion.sueldo,
-                  'fecha_inicial': nueva_fecha})
-          }
-        },
-      });
+        this.SucursalBasicoModelo.fetch({
+          headers: {'Authorization' :localStorage.token},
+            //Llenamos el formulario con los datos del ultimo movimiento
+          success: function(data){
+          if(asignacion !== undefined && asignacion !==null){
+                 nueva_fecha = new  funcionGenerica().fechaSumarDias(asignacion.fecha_inicial,1);       
+                 self.PersonalMovimientoModelo.set({
+                    'cdu_turno': asignacion.cdu_turno.cdu_catalogo,
+                    'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                    'cdu_puesto': asignacion.cdu_puesto.cdu_catalogo,
+                    'cdu_rango': asignacion.cdu_rango.cdu_catalogo,
+                    'sueldo': asignacion.sueldo,
+                    'fecha_inicial': nueva_fecha
+                  })   
+            }
+                 self.listadoPersonasEnSucursal(valor_buscado);     
+        }
+    });
   }
+ },
+ listadoPersonasEnSucursal: function(valor_buscado){
+      var self= this;
+      this.PersonalLista.id_sucursal = valor_buscado;
+      this.PersonalLista.reset();
+      this.PersonalLista.fetch({headers: {'Authorization' :localStorage.token},
+        success: function(){
+          if(self.PersonalLista.length>0){
+                   self.PersonalLista.add({id: "-1", id_personal: {matricula:"Id Empleado", nombre:"Nombre(s)"}});
+          }
+        }
+      });
  },
 
 //***** FUNCIONES GENERICAS ****************

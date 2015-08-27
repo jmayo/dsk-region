@@ -4,12 +4,16 @@ var Backbone = require('backbone'),
 module.exports = Backbone.Model.extend({
   initialize: function(){
       this.id_personal = null;
+      this.id_sucursal = null;
   	  this.pk = null;
       this.camposValidar();
       this.eliminar = false;
   },
  id_personal : function(id_personal){
       this.id_personal  = id_personal;
+  },
+  id_sucursal : function(id_sucursal){
+      this.id_sucursal  = id_sucursal;
   },
   pk : function(pk){
       this.pk  = pk;
