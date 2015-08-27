@@ -474,7 +474,6 @@ body
 				color white
 				margin 0
 				padding 0
-
 	.caja_bloque
 		border-radius 0 0 5px 5px
 		background gris_medio
@@ -1087,58 +1086,123 @@ footer
 	margin 0
 	text-align center
 
-@media screen and (max-width: 768px)
+// @media screen and (max-width: 768px)
+// 	.contenido
+// 		.div_empresa_servicio
+// 			margin-top 5em
+// 			width 100%
+// 		.agregar_servicio
+// 			margin-left 17.6em
+// 			margin-top -2.8em
+// 		.bloque_mapa
+// 		.bloque
+// 			margin-top 4em
+// 			margin-bottom -4em
+// 			width 100%
+// 			.titulo_mapa
+// 			.titulo_bloque
+// 				font-size 14px
+// 			.caja_foto
+// 				.foto
+// 					img
+// 						width 120px
+// 						height 120px
+// 			.caja_bloque
+// 				width 100%
+// 			br
+// 				display none
+// 			.campos_bloque
+// 				display flex
+// 			.caja_mapa
+// 				height 14.5em
+// 			.caja_buscar
+// 				margin-bottom 1em
+// 			.profiler
+// 				margin-bottom 1em
+// 			.enterprise
+// 				margin-top 1em
+// 				margin-bottom 2em
+// 		#bloque_empresa
+// 			margin-top 0
+// 	.caja_acciones
+// 		.menu_acciones
+// 		li
+// 			.buscar
+// 				height 15px
+// 				width 250px
+
+// para celulares
+@media only screen and (min-width : 320px) and (max-width : 767px)
 	.contenido
+		.div_catalogos
 		.div_empresa_servicio
-			margin-top 5em
-			width 100%
-		.agregar_servicio
-			margin-left 17.6em
-			margin-top -2.8em
+		.bloque_mapa
+		.div_catalogos
+		.bloque
+			margin-bottom -4em
+			width 132%
+			br
+				display none
+			.bloque_catalogo
+				margin-top 1em
+			.caja_foto
+				.foto
+					img
+						width 100px
+						height 100px
+				.foto i
+					margin-top -1.3em
+			.caja_buscar
+				margin-bottom 0.1em
+			.profiler
+				margin-bottom 0.1em
+			.enterprise
+				margin-top 0.1em
+				margin-bottom 1.1em
+			.lista_empleados_sucursal
+				margin-top 0.1em
+		.caja_acciones
+			.menu_acciones
+				li
+					.buscar
+						height 12px
+						width 140px
+
+// para tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px)
+	.contenido
+		.div_catalogos
+		.div_empresa_servicio
 		.bloque_mapa
 		.bloque
-			margin-top 4em
 			margin-bottom -4em
-			width 100%
-			.titulo_mapa
-			.titulo_bloque
-				font-size 14px
+			width 54%
+			br
+				display none
+			.bloque_catalogo
+				margin-top 1em
 			.caja_foto
 				.foto
 					img
 						width 120px
 						height 120px
-			.caja_bloque
-				width 100%
-			br
-				display none
-			.campos_bloque
-				display flex
-			.caja_mapa
-				height 14.5em
+				.foto i
+					margin-top -1.5em
 			.caja_buscar
-				margin-bottom 1em
+				margin-bottom 0.1em
 			.profiler
-				margin-bottom 1em
+				margin-bottom 0.1em
 			.enterprise
-				margin-top 1em
-				margin-bottom 2em
-		#bloque_empresa
-			margin-top 0
-	.caja_acciones
-		.menu_acciones
-		li
-			.buscar
-				height 15px
-				width 250px
+				margin-top 0.1em
+				margin-bottom 1.1em
+			.lista_empleados_sucursal
+				margin-top 0.1em
 
+// para pop-up
 @media only screen and (min-width: 1170px) {
 	.cd-popup-trigger {
 		margin 6em auto
 	}
-}
-
-@media only screen and (min-width: 1170px) {
 	.cd-popup-container {
 		margin 8em auto
 	}
