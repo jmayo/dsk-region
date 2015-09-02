@@ -35,12 +35,12 @@
 	<header>
 	</header>
 	<nav>
-		<ul class="menu">
-			<li><a class="personal ico_nav" href="#"><i class="fa fa-group fa-3x"></i></a></li>
-			<li><a class="empresas ico_nav" href="#"><i class="fa fa-industry fa-3x"></i></a></li>
-			<li><a class="movimientos catalogos ico_nav" href="#"><i class="fa fa-user-plus fa-3x"></i></a></li>
-			<li><a class="ico_nav" href="#"><i class="fa fa-th fa-3x"></i></a></li>
-			<li><a class="cerrar_sesion ico_logout" href="#"><i class="fa fa-sign-out fa-2x"></i></a></li>
+		<ul class="menu" >
+			<li class="li_menu" hidden><a class="personal ico_nav" href="#"><i class="fa fa-group fa-3x"></i></a></li>
+			<li class="li_menu" hidden><a class="empresas ico_nav" href="#"><i class="fa fa-industry fa-3x"></i></a></li>
+			<li class="li_menu" hidden><a class="movimientos catalogos ico_nav" href="#"><i class="fa fa-user-plus fa-3x"></i></a></li>
+			<li class="li_menu" hidden><a class="catalogosli ico_nav" href="#"><i class="fa fa-th fa-3x"></i></a></li>
+			<li class="li_menu" hidden><a class="cerrar_sesion ico_logout" href="#"><i class="fa fa-sign-out fa-2x"></i></a></li>
 		</ul>
 		<div class="login">
 		<div class="bloque_login">
@@ -62,7 +62,7 @@
 		</div>
 	</div>
 	</nav>
-	<div class="caja_acciones">
+	<div class="caja_acciones" hidden>
 		<ul class="menu_acciones">
 			<li><a id="nuevo_generico" class="nuevo ico_acciones" href="#"><i class="fa fa-file fa-2x"></i></a></li>
 			<li><a id="elminar_generico" class="eliminar ico_acciones" href="#"><i class="fa fa-remove fa-2x"></i></a></li>
@@ -77,7 +77,7 @@
 		 <section class="contenido contenido_personal" id="personal_basicos" hidden>	
 				<!-- Template:	personal-detalle-template	 -->
 		 </section>	
-		  <section class="contenido contenido_empresa">	  
+		  <section class="contenido contenido_empresa" hidden>	  
 		  	   <article class="div_empresa_servicio" id="listado_empresa_sucursal">
 		  	   	<div id="sucursal_padre">
 		  	   	</div>
@@ -92,8 +92,8 @@
 		  	   </article>
 
 
-		<article id="bloque_mapa_sucursal"  class="bloque_mapa">
-				<div class="titulo_mapa" id="idubicacion">
+		<article id="bloque_mapa_sucursal"  class="bloque_mapa" >
+				<div class="titulo_mapa" id="idubicacion" >
 					Ubicación
 				</div>
 				<div id="mapa" class="caja_mapa"></div>
@@ -157,6 +157,61 @@
 			</div>
 		</article>
 	</section>	
+	<section class="contenido" id="catalogo_movimientos">
+		<article class="div_catalogos">
+			<div class="catalogos"  id="catalogo_lista">
+			  <!--  Template catalogo-basico-hbs -->
+			</div>
+		</article>
+		<article class="bloque aumentar">
+			<div class="bloque_catalogo">
+				<table class="tabla_catalogo">
+					<tr>
+						<td>Descripción 1</td>
+						<td>Descripción 2</td>
+						<td>Monto 1</td>
+						<td>Monto 2</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td contenteditable='true'></td>
+						<td contenteditable='true'></td>
+						<td contenteditable='true'></td>
+						<td contenteditable='true'></td>
+						<td><a class="guardar_renglon" href="#"><i class="fa fa-check fa-2x"></i></a></td>
+					</tr>
+					<tr>
+						<td contenteditable='true'>Row 1</td>
+						<td contenteditable='true'>Row 1</td>
+						<td contenteditable='true'>Row 1</td>
+						<td contenteditable='true'>Row 1</td>
+						<td><a class="eliminar_renglon" href="#"><i class="fa fa-remove fa-2x"></i></a></td>
+					</tr>
+					<tr>
+						<td contenteditable='true'>Row 2</td>
+						<td contenteditable='true'>Row 2</td>
+						<td contenteditable='true'>Row 2</td>
+						<td contenteditable='true'>Row 2</td>
+						<td><a class="eliminar_renglon" href="#"><i class="fa fa-remove fa-2x"></i></a></td>
+					</tr>
+					<tr>
+						<td contenteditable='true'>Row 3</td>
+						<td contenteditable='true'>Row 3</td>
+						<td contenteditable='true'>Row 3</td>
+						<td contenteditable='true'>Row 3</td>
+						<td><a class="eliminar_renglon" href="#"><i class="fa fa-remove fa-2x"></i></a></td>
+					</tr>
+					<tr>
+						<td contenteditable='true'>Row 4</td>
+						<td contenteditable='true'>Row 4</td>
+						<td contenteditable='true'>Row 4</td>
+						<td contenteditable='true'>Row 4</td>
+						<td><a class="eliminar_renglon" href="#"><i class="fa fa-remove fa-2x"></i></a></td>
+					</tr>
+				</table>
+			</div>
+		</article>
+	</section>
 	<footer>
 		<ul class="redes_sociales">
 			<li><a class="ico_redes" href="#"><i class="fa fa-twitter fa-1x"></i></a></li>

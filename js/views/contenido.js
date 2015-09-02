@@ -16,7 +16,9 @@ module.exports = Backbone.View.extend({
       $('.contenido_personal').hide();
       $('.contenido_empresa').hide();
       $('.contenido_movimientos').hide();
-      $('.menu').hide();
+      $(".li_menu").css("visibility", "hidden");
+      $('.caja_acciones').hide();
+      $('#catalogo_movimientos').hide();
    },
    mostrarMenuPersonal: function(){
    			  Backbone.app.menu="personal";
@@ -35,6 +37,7 @@ module.exports = Backbone.View.extend({
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
           $('#eliminar_generico').hide();
+          $('#catalogo_movimientos').hide();
 
    },
    mostrarMenuEmpresas: function(){
@@ -51,6 +54,7 @@ module.exports = Backbone.View.extend({
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
           $('#eliminar_generico').hide();
+          $('#catalogo_movimientos').hide();
 
           if(Backbone.app.SucursalListadoVista.collection.length>0){
             $('#bloque_mapa_sucursal').show();
@@ -84,9 +88,37 @@ module.exports = Backbone.View.extend({
         $('.contenido_movimientos').show();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
+        $('#catalogo_movimientos').hide();
         $('#eliminar_generico').show();
 
 
    },
+   mostrarMenuCatalogos:function(){
+      debugger;
+      Backbone.app.menu = "catalogo";
+      if (this.CajaBusquedaPersonal){
+            this.CajaBusquedaPersonal.close();
+          } 
+         if (this.CajaBusquedaSucursal){
+            this.CajaBusquedaSucursal.close();
+          } 
 
+        
+
+       // this.PersonalMBusquedasVista = new DatoBusquedasVista({collection: this.Perso,el: '#resultados_personal_movimiento',template:PlantillaPersonal});
+       // this.CajaBusquedaPersonal= new CajaBusquedaVista({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
+
+       // this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
+       // this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
+
+
+        console.log("ruta movimientos")
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').hide();
+        $('#catalogo_movimientos').show();
+   },
 });

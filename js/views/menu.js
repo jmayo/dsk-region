@@ -8,6 +8,7 @@ module.exports = Backbone.View.extend({
      "click .personal": "opcion_personal",
      "click .empresas": "opcion_empresa",
      "click .movimientos": "opcion_movimientos",
+     "click .catalogosli": "opcion_catalogos"
   },
 
   el: $('.menu'),
@@ -24,5 +25,8 @@ module.exports = Backbone.View.extend({
    },
    opcion_movimientos: function(){
       Backbone.app.navigate("Movimiento", {trigger: true,replace: false});
+   },
+   opcion_catalogos: function(){
+      Backbone.app.navigate("Catalogo", {trigger: true,replace: false});
    },
 }); 

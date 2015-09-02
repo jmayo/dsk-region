@@ -244,6 +244,7 @@ $(function() {
   Backbone.app.on("route:personal",Backbone.app.ContenidoVista.mostrarMenuPersonal);   
   Backbone.app.on("route:empresa",Backbone.app.ContenidoVista.mostrarMenuEmpresas);
   Backbone.app.on("route:movimiento",Backbone.app.ContenidoVista.mostrarMenuMovimientos);
+  Backbone.app.on("route:catalogo",Backbone.app.ContenidoVista.mostrarMenuCatalogos);  
   
   // Backbone.history.stop(); 
    Backbone.history.start({

@@ -1,5 +1,6 @@
 var Backbone        = require('backbone'),
     $               = require('jquery');
+    CatalogosLista  = require('../collections/catalogosLista'),
     Personas        = require('../collections/personas'),
     Empresas        = require('../collections/empresas'),
     Sucursales      = require('../collections/sucursales'),
@@ -10,8 +11,11 @@ var Backbone        = require('backbone'),
     IniciarSesionVista      = require('../views/iniciarSesion'),
     CajaOperacionesVista    = require('../views/cajaOperaciones'),
     Personal                = require('../models/personal'),
+    CatalogoLista           = require('../models/catalogoLista'),    
     PersonalDetalleVista    = require('../views/personalDetalle');
     Empresa                 = require('../models/empresa'),
+    CatalogoDescripcionVista = require('../views/catalogoDescripcion'),
+    CatalogoListadoVista     = require('../views/catalogosListado'),    
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
     EmpresaMapaVista        = require('../views/sucursalMapa'),
     PersonalBasicoVista     = require('../views/personalBasicos'),
@@ -41,6 +45,7 @@ module.exports = Backbone.Router.extend({
     
     "Movimiento": "movimiento",
     "Personal/:valor_buscado/sucursal/activa": "sucursalActiva",
+    "Catalogo": "catalogo",
   //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
@@ -51,7 +56,7 @@ initialize: function () {
     //window.ruta ="http://localhost:8080/";
  
 
-      
+    this.Catalogos = new CatalogosLista()
     this.Perso = new Personas();          
     this.Empresa = new Empresas();
     this.Sucursal = new Sucursales();
@@ -63,7 +68,9 @@ initialize: function () {
 
     this.ContenidoVista = new ContenidoVista(); 
  
-       
+
+    this.CatalogoVista = new CatalogoListadoVista({collection: this.Catalogos});
+
     this.PersonalBusquedaVista = new PersonalBusquedaVista();
     
     this.EmpresaBusquedaVista = new EmpresaBusquedaVista();
@@ -323,6 +330,36 @@ initialize: function () {
           }
         }
       });
+ },
+ catalogo: function(){
+    debugger;
+     Backbone.app.operacion="buscar";
+     this.Catalogos.fetch(  { headers: {'Authorization' :localStorage.token}} );
+
+    // this.MenuModelo.Opcion ='catalogo';
+    // self = this;
+    // this.MenuModelo.fetch({
+    //           headers: {'Authorization' :localStorage.token},
+    //           success: function(){
+    //               //Si es la primera vez cambiamos el id para llenar el formulario
+    //                  Backbone.app.operacion="buscar";
+    //                 if( self.PersoModelo.get("id")==="-1" ||  self.PersoModelo.get("id")===""){
+    //                   self.PersoModelo.set({"id":""});
+    //                   $('#personal_primera_asignacion').show();
+    //                   Backbone.app.operacion="nuevo";
+    //                 }
+    //                 Backbone.app.menu="personal";
+                   
+    //                 console.log("Estas en la lista de personal");
+    //             },
+    //           error: function(model,response, options) {
+    //                  $("#notify_error").text("No estas registrado en el sistema"); 
+    //                  $("#notify_error").notify();
+    //                   console.log(response.responseText);
+    //             }
+    //         });
+
+  
  },
 
 //***** FUNCIONES GENERICAS ****************
