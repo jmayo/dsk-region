@@ -582,7 +582,6 @@ var Backbone = require('backbone');
 //Personal.Models.login 
 module.exports= Backbone.Model.extend({
   url : function(){
-  	debugger;
     return  window.ruta +  'api-token-auth/';
   },
 });
@@ -1082,7 +1081,7 @@ module.exports = Backbone.Router.extend({
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.116:8001/";
+    window.ruta="http://192.168.0.14:8001/";
     //window.ruta="http://104.236.232.238:8080/";
     //window.ruta ="http://localhost:8080/";
  
@@ -1778,6 +1777,8 @@ module.exports = Backbone.View.extend({
   goInactive: function(){
       alert('La sesion caduco');
      localStorage.clear();
+      $('.login').show();
+      $('.menu').hide();
   //		alert("se termino la sesion");
   }
 }); 
@@ -1902,6 +1903,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_personal').hide();
       $('.contenido_empresa').hide();
       $('.contenido_movimientos').hide();
+      $('.menu').hide();
    },
    mostrarMenuPersonal: function(){
    			  Backbone.app.menu="personal";
@@ -2469,6 +2471,8 @@ module.exports = Backbone.View.extend({
             $("#notify_success").notify();
             localStorage.setItem("token",'Token ' + response.token);
             console.log( localStorage.token);
+            $('.login').hide();
+            $('.menu').show();
           },
         error: function(model,response, options) {
            $("#notify_error").text("El usuario o contraseña son incorrectos") 

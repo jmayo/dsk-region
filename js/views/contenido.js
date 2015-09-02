@@ -16,6 +16,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_personal').hide();
       $('.contenido_empresa').hide();
       $('.contenido_movimientos').hide();
+      $('.menu').hide();
    },
    mostrarMenuPersonal: function(){
    			  Backbone.app.menu="personal";

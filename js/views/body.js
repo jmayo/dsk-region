@@ -46,6 +46,8 @@ module.exports = Backbone.View.extend({
   goInactive: function(){
       alert('La sesion caduco');
      localStorage.clear();
+      $('.login').show();
+      $('.menu').hide();
   //		alert("se termino la sesion");
   }
 }); 

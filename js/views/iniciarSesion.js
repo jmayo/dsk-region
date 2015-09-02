@@ -44,6 +44,8 @@ module.exports = Backbone.View.extend({
             $("#notify_success").notify();
             localStorage.setItem("token",'Token ' + response.token);
             console.log( localStorage.token);
+            $('.login').hide();
+            $('.menu').show();
           },
         error: function(model,response, options) {
            $("#notify_error").text("El usuario o contraseña son incorrectos") 
