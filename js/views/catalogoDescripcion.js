@@ -23,25 +23,14 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    // Backbone.app.menu="sucursal";
-    // $('#bloque_empresa').hide();
-    // $('#bloque_sucursal').show();
- 
-    // if(this.model.get("id")==="-1"){
-    //   var a= Backbone.app.EmpresaModelo.toJSON();
-    //   this.model.set({"nombre": a.razon_social,"calle":a.calle,"numero":a.numero,"colonia":a.colonia,  "cp":a.cp, "cdu_estado":a.cdu_estado,"cdu_municipio":a.cdu_municipio ,"telefono": "telefono1"});
-    
-    //   this.SucursalDetalle = new SucursalDetalleVista({model: this.model});
-    //   this.SucursalDetalle.llenado();
-    //   Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
-    // }
-    // else{  
-    //   this.SucursalModelo = new Sucursal();
-    //   this.SucursalModelo.pk = this.model.get("id");
-    //   this.SucursalDetalle = new SucursalDetalleVista({model: this.SucursalModelo});
-    //   this.SucursalModelo.fetch({ headers: {'Authorization' :localStorage.token}});
-    //   Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
-    // }
+    Backbone.app.CatalogosDet.claves=this.model.id;
+    Backbone.app.CatalogosDet.reset()
+    Backbone.app.CatalogosDet.add({id:"",descripcion1:"a",descripcion2:"b",monto1:"1.0",monto2:"2.0",ico: "fa-check",clase:"guardar_renglon"});
+    Backbone.app.CatalogosDet.fetch();
+    var titulo = '<tr><td>Descripción 1</td><td>Descripción 2</td> <td>Monto 1</td><td>Monto 2</td><td></td></tr>';
+    //var editable ='<tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td><a class="guardar_renglon" href="#"><i class="fa fa-check fa-2x"></i></a></td></tr>' 
+   // $('#catalogo_detalle_lista').prepend(editable);
+    $('#catalogo_detalle_lista').prepend(titulo);
   }
 });
 

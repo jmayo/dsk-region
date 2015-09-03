@@ -94,7 +94,6 @@ module.exports = Backbone.View.extend({
 
    },
    mostrarMenuCatalogos:function(){
-      debugger;
       Backbone.app.menu = "catalogo";
       if (this.CajaBusquedaPersonal){
             this.CajaBusquedaPersonal.close();

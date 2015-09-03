@@ -1,11 +1,11 @@
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
-    CatalogoDescripcionVista = require('../views/catalogoDescripcion');
+    CatalogoDetalleVista = require('../views/catalogoDetalleDescripcion');
 
 
 //Personal.Views.SucursalListados 
 module.exports = Backbone.View.extend({
-  el: $('#catalogo_lista'),
+  el: $('#catalogo_detalle_lista'),
  // template: Handlebars.compile($("#resultados-empresa-sucursal-listado-template").html()),
 
   initialize: function () {
@@ -16,15 +16,14 @@ module.exports = Backbone.View.extend({
   render: function () {
     this.collection.forEach(this.addOne, this);
   },
-  addOne: function (catalogo) {
-    var busquedaView = new CatalogoDescripcionVista({ model: catalogo }); 
-   
-    if(catalogo.get("id")==="-1"){
-      this.$el.prepend(busquedaView.render().el);  
-    }
-    else{
-      this.$el.append(busquedaView.render().el);
-    }
+  addOne: function (catalogoDet) {     
+  	if(catalogoDet.id!==""){
+  		   catalogoDet.set({ico: "fa-remove",clase:"eliminar_renglon"});
+ 
+  	}
+    var busquedaView = new CatalogoDetalleVista({ model: catalogoDet }); 
+    console.log(catalogoDet.toJSON()) 
+    this.$el.append(busquedaView.render().el);
   },
    limpiarTodo:function(){
     console.log("limpiando resultados");

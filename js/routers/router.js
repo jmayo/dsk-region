@@ -1,9 +1,10 @@
-var Backbone        = require('backbone'),
-    $               = require('jquery');
-    CatalogosLista  = require('../collections/catalogosLista'),
-    Personas        = require('../collections/personas'),
-    Empresas        = require('../collections/empresas'),
-    Sucursales      = require('../collections/sucursales'),
+var Backbone                = require('backbone'),
+    $                       = require('jquery');
+    CatalogosLista          = require('../collections/catalogosLista'),
+    CatalogosDetalleLista   =  require('../collections/catalogos'),
+    Personas                = require('../collections/personas'),
+    Empresas                = require('../collections/empresas'),
+    Sucursales              = require('../collections/sucursales'),
     PersonalBusquedaVista   = require('../views/personalBusqueda'),
     EmpresaBusquedaVista    = require('../views/empresaBusqueda'),
     SucursalListadosVista   = require('../views/sucursalListados'),
@@ -15,7 +16,12 @@ var Backbone        = require('backbone'),
     PersonalDetalleVista    = require('../views/personalDetalle');
     Empresa                 = require('../models/empresa'),
     CatalogoDescripcionVista = require('../views/catalogoDescripcion'),
-    CatalogoListadoVista     = require('../views/catalogosListado'),    
+    CatalogoListadoVista     = require('../views/catalogosListado'), 
+
+    CatalogoDetDescripcionVista = require('../views/catalogoDetalleDescripcion'),
+    CatalogoDetListadoVista     = require('../views/catalogosDetalleListado'), 
+    
+
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
     EmpresaMapaVista        = require('../views/sucursalMapa'),
     PersonalBasicoVista     = require('../views/personalBasicos'),
@@ -57,6 +63,7 @@ initialize: function () {
  
 
     this.Catalogos = new CatalogosLista()
+    this.CatalogosDet = new CatalogosDetalleLista()
     this.Perso = new Personas();          
     this.Empresa = new Empresas();
     this.Sucursal = new Sucursales();
@@ -70,6 +77,7 @@ initialize: function () {
  
 
     this.CatalogoVista = new CatalogoListadoVista({collection: this.Catalogos});
+    this.CatalogoDetVista = new CatalogoDetListadoVista({collection: this.CatalogosDet})
 
     this.PersonalBusquedaVista = new PersonalBusquedaVista();
     
@@ -332,7 +340,6 @@ initialize: function () {
       });
  },
  catalogo: function(){
-    debugger;
      Backbone.app.operacion="buscar";
      this.Catalogos.fetch(  { headers: {'Authorization' :localStorage.token}} );
 
