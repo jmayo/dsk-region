@@ -61,7 +61,7 @@ module.exports= Backbone.Model.extend({
         "fec_alta": this.fecha_actual , 
         "condicionada": false, 
         "condiciones_alta": "", 
-        "cdu_tipo_empleado": "0210000", 
+        "cdu_tipo_empleado": "0210001", 
         "calle_dom": "", 
         "numero_dom": "", 
         "colonia_dom": "", 
