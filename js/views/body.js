@@ -29,7 +29,7 @@ module.exports = Backbone.View.extend({
   },
   startTimer: function() {
     	// wait 2 seconds before calling goInactive
-    	this.timeoutID = window.setTimeout(this.goInactive, 300000);
+    	this.timeoutID = window.setTimeout(this.goInactive, 900000);
   },
   goActive: function() {
     // do something

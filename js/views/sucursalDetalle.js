@@ -145,7 +145,7 @@ guardar: function(){
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
              Backbone.app.SucursalLista.add(response);
-        
+            $("#notify_success").text("La sucursal se guardo correctamente");
             $("#notify_success").notify();
           },
         error: function(model,response, options) {

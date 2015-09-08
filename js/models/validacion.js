@@ -31,7 +31,7 @@ return {
 		return [regex,mensaje];
 	},
 	RFC: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var regex = '^(([A-Z]|[a-z]){3,4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
 		var mensaje= "debe ser un rfc correcto";
 		return [regex,mensaje];
 	},

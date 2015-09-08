@@ -17,9 +17,8 @@ module.exports = Backbone.View.extend({
     this.collection.forEach(this.addOne, this);
   },
   addOne: function (catalogoDet) {     
-  	if(catalogoDet.id!==""){
+  	if(catalogoDet.get("cdu_catalogo")!==""){
   		   catalogoDet.set({ico: "fa-remove",clase:"eliminar_renglon"});
- 
   	}
     var busquedaView = new CatalogoDetalleVista({ model: catalogoDet }); 
     console.log(catalogoDet.toJSON()) 

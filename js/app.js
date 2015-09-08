@@ -582,8 +582,8 @@ module.exports = Backbone.Model.extend({
       	"numero": "",
       	"colonia": "",
       	"cp": "",
-      	"cdu_estado": "0140000",
-      	"cdu_municipio": "0150000",
+      	"cdu_estado": "0140015",
+      	"cdu_municipio": "0150737",
       	"telefono1": "",
       	"telefono2": "",
       	"cdu_giro": "0180000",
@@ -686,8 +686,8 @@ module.exports= Backbone.Model.extend({
         "curp": "", 
         "cuip": "", 
         "fec_nacimiento":this.fec_18, 
-        "cdu_estado_nac": "0140000", 
-        "cdu_municipio_nac": "0150000", 
+        "cdu_estado_nac": "0140015", 
+        "cdu_municipio_nac": "0150737", 
         "cdu_estado_civil" : "0010000",
         "cdu_escolaridad": "0020000", 
         "cdu_seguridad_social": "0170001", 
@@ -703,8 +703,8 @@ module.exports= Backbone.Model.extend({
         "numero_dom": "", 
         "colonia_dom": "", 
         "cp_dom": "", 
-        "cdu_estado_dom": "0140000", 
-        "cdu_municipio_dom": "0150000", 
+        "cdu_estado_dom": "0140015", 
+        "cdu_municipio_dom": "0150737", 
         "imagen": "",
       };
   },
@@ -859,8 +859,8 @@ module.exports= Backbone.Model.extend({
     	"numero": "",
     	"colonia": "",
     	"cp": "",
-    	"cdu_estado": "0140000",
-    	"cdu_municipio": "0150000",
+    	"cdu_estado": "0140015",
+    	"cdu_municipio": "0150737",
     	"telefono": "",
     	"cdu_estatus": "0240000",
     	"fecha_alta":this.fecha_actual,
@@ -923,7 +923,7 @@ return {
 		return [regex,mensaje];
 	},
 	RFC: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var regex = '^(([A-Z]|[a-z]){3,4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
 		var mensaje= "debe ser un rfc correcto";
 		return [regex,mensaje];
 	},
@@ -1478,13 +1478,21 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "<td contenteditable='true'>"
+  return "<td contenteditable='true' id='desc1_"
+    + alias3(((helper = (helper = helpers.cdu_catalogo || (depth0 != null ? depth0.cdu_catalogo : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"cdu_catalogo","hash":{},"data":data}) : helper)))
+    + "' \">"
     + alias3(((helper = (helper = helpers.descripcion1 || (depth0 != null ? depth0.descripcion1 : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"descripcion1","hash":{},"data":data}) : helper)))
-    + "</td>\n<td contenteditable='true'>"
+    + "</td>\n<td contenteditable='true' id='desc2_"
+    + alias3(((helper = (helper = helpers.cdu_catalogo || (depth0 != null ? depth0.cdu_catalogo : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"cdu_catalogo","hash":{},"data":data}) : helper)))
+    + "'>"
     + alias3(((helper = (helper = helpers.descripcion2 || (depth0 != null ? depth0.descripcion2 : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"descripcion2","hash":{},"data":data}) : helper)))
-    + "</td>\n<td contenteditable='true'>"
+    + "</td>\n<td contenteditable='true' id='monto1_"
+    + alias3(((helper = (helper = helpers.cdu_catalogo || (depth0 != null ? depth0.cdu_catalogo : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"cdu_catalogo","hash":{},"data":data}) : helper)))
+    + "'>"
     + alias3(((helper = (helper = helpers.monto1 || (depth0 != null ? depth0.monto1 : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"monto1","hash":{},"data":data}) : helper)))
-    + "</td>\n<td contenteditable='true'>"
+    + "</td>\n<td contenteditable='true' id='monto2_"
+    + alias3(((helper = (helper = helpers.cdu_catalogo || (depth0 != null ? depth0.cdu_catalogo : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"cdu_catalogo","hash":{},"data":data}) : helper)))
+    + "'>"
     + alias3(((helper = (helper = helpers.monto2 || (depth0 != null ? depth0.monto2 : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"monto2","hash":{},"data":data}) : helper)))
     + "</td>\n<td><a class = \" "
     + alias3(((helper = (helper = helpers.clase || (depth0 != null ? depth0.clase : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"clase","hash":{},"data":data}) : helper)))
@@ -1872,7 +1880,7 @@ module.exports = Backbone.View.extend({
   },
   startTimer: function() {
     	// wait 2 seconds before calling goInactive
-    	this.timeoutID = window.setTimeout(this.goInactive, 300000);
+    	this.timeoutID = window.setTimeout(this.goInactive, 900000);
   },
   goActive: function() {
     // do something
@@ -2024,7 +2032,7 @@ module.exports = Backbone.View.extend({
   seleccionado: function(){
     Backbone.app.CatalogosDet.claves=this.model.id;
     Backbone.app.CatalogosDet.reset()
-    Backbone.app.CatalogosDet.add({id:"",descripcion1:"a",descripcion2:"b",monto1:"1.0",monto2:"2.0",ico: "fa-check",clase:"guardar_renglon"});
+    Backbone.app.CatalogosDet.add({catalogos: this.model.id,cdu_catalogo:"",descripcion1:"",descripcion2:"",monto1:"0.00",monto2:"0.00",ico: "fa-check",clase:"guardar_renglon"});
     Backbone.app.CatalogosDet.fetch();
     var titulo = '<tr><td>Descripción 1</td><td>Descripción 2</td> <td>Monto 1</td><td>Monto 2</td><td></td></tr>';
     //var editable ='<tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td><a class="guardar_renglon" href="#"><i class="fa fa-check fa-2x"></i></a></td></tr>' 
@@ -2041,6 +2049,7 @@ var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/catalogos-detalle.hbs'),
     app                   = Backbone.app;
+    CatalogoDetalle       = require('../models/catalogo'),
 
 //Personal.Views.SucursalDescripcion
 module.exports = Backbone.View.extend({
@@ -2056,11 +2065,53 @@ module.exports = Backbone.View.extend({
   render: function () {
   	
     var descripcion = this.model.toJSON();
+    console.log(descripcion);
     var html = this.template(descripcion);
     this.$el.html(html);
     return this;
   },
   seleccionado: function(){
+    //console.log("seleccionado " + this.model.get("cdu_catalogo"))
+    var cdu =  this.model.get('cdu_catalogo');
+    var val_cat = this.model.get('catalogos');
+    var val_desc1='#desc1_' + cdu;
+    var val_desc2='#desc2_' + cdu;
+    var val_monto1='#monto1_' + cdu;
+    var val_monto2='#monto2_' + cdu;
+    
+    //cdu_catalogo,catalogos,num_dcatalogo,descripcion1,descripcion2,monto1,monto2,cdu_default
+    var data ={};
+    data['cdu_catalogo'] = cdu;
+    data['catalogos'] = val_cat;
+    data['descripcion1'] = $(val_desc1).text();
+    data['descripcion2'] = $(val_desc2).text();
+    data['monto1'] = $(val_monto1).text();
+    data['monto2'] = $(val_monto2).text();
+    data['cdu_default'] = '';
+    console.log(data);
+
+   //   this.tipo='POST'
+   // if(Backbone.app.operacion!=="nuevo"){
+      this.tipo='PUT';
+   // }
+   
+   var modelo = new CatalogoDetalle(data);
+
+    modelo.save(null,{
+      headers: {'Authorization' :localStorage.token},
+        type: self.tipo,
+        success: function(modelo,response) {
+          console.log("Exito");
+          },
+        error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
+             $("#notify_error").notify();
+              console.log(response.responseText);
+        }
+      });
+
+
+    //console.log(this.$el('desc1_').text());
     // Backbone.app.menu="sucursal";
     // $('#bloque_empresa').hide();
     // $('#bloque_sucursal').show();
@@ -2080,13 +2131,51 @@ module.exports = Backbone.View.extend({
     //   this.SucursalModelo.fetch({ headers: {'Authorization' :localStorage.token}});
     //   Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
     // }
-  }
+  },
+  guardar: function(){
+   // { cdu_catalogo: "0280001", num_dcatalogo: 1, descripcion1: "2", descripcion2: "", monto1: "0.00", monto2: "0.00", cdu_default: "", catalogos: 28, ico: "fa-remove", clase: "eliminar_renglon" }
+    // var data =this.generarJSON();
+    //  var self = this;
+    // var modelo = new Empresa(data);
+    // modelo.valor = undefined;
+    // modelo.pk= data["id"];
+    
+    // this.tipo='POST'
+    // if(Backbone.app.operacion!=="nuevo"){
+    //   this.tipo='PUT';
+    // }
+   
+    // modelo.save(null,{
+    //   headers: {'Authorization' :localStorage.token},
+    //     type: self.tipo,
+    //     success: function(modelo,response) {
+    //         $('#empresa_id').text(modelo.get("id"));
+    //        // self.mostrarDescripcion(modelo);
+    //       //  self.mostrarSucursalLista(modelo.get("id"));
+    //        Backbone.app.operacion="buscar";
+    //         $("#notify_success").notify();
+    //        self.model.set({"id":modelo.get("id"),"cve_empresa":modelo.get("cve_empresa"), "razon_social": modelo.get("razon_social"),
+    //                     "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"colonia":modelo.get("colonia"),
+    //                       "cp":modelo.get("cp"), "cdu_estado":modelo.get("cdu_estado"),"cdu_municipio":modelo.get("cdu_municipio") ,
+    //                       "telefono1": modelo.get("telefono1"), "telefono2": modelo.get("telefono2"), "cdu_giro": modelo.get("cdu_giro"),
+    //                       "cdu_rubro": modelo.get("cdu_rubro"),"fecha_alta": modelo.get("fecha_alta")
+    //                     });
+    //       },
+    //     error: function(model,response, options) {
+    //          $("#notify_error").text(response.responseText);
+    //          $("#notify_error").notify();
+    //           console.log(response.responseText);
+    //     }
+
+    // });
+  },
+  
 });
 
 
 
 
-},{"../templates/catalogos-detalle.hbs":20,"backbone":66,"jquery":100}],40:[function(require,module,exports){
+},{"../models/catalogo":8,"../templates/catalogos-detalle.hbs":20,"backbone":66,"jquery":100}],40:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     CatalogoDetalleVista = require('../views/catalogoDetalleDescripcion');
@@ -2106,9 +2195,8 @@ module.exports = Backbone.View.extend({
     this.collection.forEach(this.addOne, this);
   },
   addOne: function (catalogoDet) {     
-  	if(catalogoDet.id!==""){
+  	if(catalogoDet.get("cdu_catalogo")!==""){
   		   catalogoDet.set({ico: "fa-remove",clase:"eliminar_renglon"});
- 
   	}
     var busquedaView = new CatalogoDetalleVista({ model: catalogoDet }); 
     console.log(catalogoDet.toJSON()) 
@@ -3974,7 +4062,7 @@ guardar: function(){
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
              Backbone.app.SucursalLista.add(response);
-        
+            $("#notify_success").text("La sucursal se guardo correctamente");
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
