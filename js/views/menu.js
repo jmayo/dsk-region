@@ -8,7 +8,8 @@ module.exports = Backbone.View.extend({
      "click .personal": "opcion_personal",
      "click .empresas": "opcion_empresa",
      "click .movimientos": "opcion_movimientos",
-     "click .catalogosli": "opcion_catalogos"
+     "click .catalogosli": "opcion_catalogos",
+     "click .cerrar_sesion": "opcion_cerrarsesion",
   },
 
   el: $('.menu'),
@@ -29,4 +30,14 @@ module.exports = Backbone.View.extend({
    opcion_catalogos: function(){
       Backbone.app.navigate("Catalogo", {trigger: true,replace: false});
    },
+   opcion_cerrarsesion: function(){
+     //alert('La sesion caduco');
+     localStorage.clear();
+      $('.login').css("visibility", "visible");
+      $(".li_menu").css("visibility", "hidden");
+      $('.caja_acciones').hide();
+      $('.contenido_personal').hide();
+      $('.contenido_empresa').hide();
+      $('.contenido_movimientos').hide();
+   }
 }); 

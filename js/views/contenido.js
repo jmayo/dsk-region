@@ -120,4 +120,14 @@ module.exports = Backbone.View.extend({
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').show();
    },
+   mostrarCerrarSesion: function(){
+        alert('La sesion caduco');
+        localStorage.clear();
+        $('.login').css("visibility", "visible");
+        $(".li_menu").css("visibility", "hidden");
+        $('.caja_acciones').hide();
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+   },
 });

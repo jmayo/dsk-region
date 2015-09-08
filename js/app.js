@@ -2368,6 +2368,16 @@ module.exports = Backbone.View.extend({
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').show();
    },
+   mostrarCerrarSesion: function(){
+        alert('La sesion caduco');
+        localStorage.clear();
+        $('.login').css("visibility", "visible");
+        $(".li_menu").css("visibility", "hidden");
+        $('.caja_acciones').hide();
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+   },
 });
 
 },{"../templates/resultados-personal-busqueda.hbs":31,"../templates/resultados-sucursal-busqueda.hbs":32,"../views/cajaBusqueda":36,"../views/datoBusquedas":44,"../views/empresaBusquedas":46,"../views/personalBusquedas":53,"backbone":66,"jquery":100}],43:[function(require,module,exports){
@@ -2895,7 +2905,8 @@ module.exports = Backbone.View.extend({
      "click .personal": "opcion_personal",
      "click .empresas": "opcion_empresa",
      "click .movimientos": "opcion_movimientos",
-     "click .catalogosli": "opcion_catalogos"
+     "click .catalogosli": "opcion_catalogos",
+     "click .cerrar_sesion": "opcion_cerrarsesion",
   },
 
   el: $('.menu'),
@@ -2916,6 +2927,16 @@ module.exports = Backbone.View.extend({
    opcion_catalogos: function(){
       Backbone.app.navigate("Catalogo", {trigger: true,replace: false});
    },
+   opcion_cerrarsesion: function(){
+     //alert('La sesion caduco');
+     localStorage.clear();
+      $('.login').css("visibility", "visible");
+      $(".li_menu").css("visibility", "hidden");
+      $('.caja_acciones').hide();
+      $('.contenido_personal').hide();
+      $('.contenido_empresa').hide();
+      $('.contenido_movimientos').hide();
+   }
 }); 
 },{"backbone":66,"jquery":100}],51:[function(require,module,exports){
 var Backbone  = require('backbone'),
