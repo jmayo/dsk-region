@@ -59,12 +59,12 @@ module.exports = Backbone.View.extend({
    var html = this.template(detalle);
    this.$el.html(html);
 
-
+   
    var self = this;   
    $("#sucursal_fecha_alta, #sucursal_fecha_baja").datepicker({dateFormat:"dd/mm/yy"});
  
    this.agregarValidacion();
-   
+   $('#sucursal_id').hide()
     var SucursalCatalogos = new Catalogos();
     SucursalCatalogos.claves ="14,24";
   
@@ -129,6 +129,28 @@ relacionColumnas: function(){
       };
       return columnasCampos;
 },
+ eliminar: function(id_eliminar){
+      self = this;
+      var model = new Sucursal();
+      model.eliminar = true;
+      model.pk =id_eliminar;
+      model.destroy({
+         headers: {'Authorization' :localStorage.token},
+        success: function(model,response) {
+            //Backbone.app.personalMatricula(matricula);
+            $("#notify_success").text("Se elimino la asignacion correctamente");
+            $("#notify_success").notify();
+            $('#personal_sin_asignar').hide();;
+            Backbone.app.EmpresaDetalle.render()
+             //Backbone.app.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
+          },
+        error: function(model,response, options) {
+             $("#notify_error").text(response.responseJSON) 
+             $("#notify_error").notify();
+              console.log(response.responseJSON);
+        }
+      });
+  },
 guardar: function(){
     var data =this.generarJSON();
     var self = this;

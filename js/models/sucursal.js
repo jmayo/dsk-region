@@ -7,6 +7,7 @@ module.exports= Backbone.Model.extend({
   		this.valor = null;
   		this.pk = null;
       this.camposValidar();
+      this.eliminar = false;
   },
  valor : function(valor){
       this.valor  = valor;
@@ -16,6 +17,13 @@ module.exports= Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'sucursal/';
+   if(this.eliminar === true ){
+     if(this.pk!== undefined && this.pk!== null){
+        if(this.pk!=="-1"){
+          return direccion = direccion + this.pk + '/';
+        }
+     } 
+   }
    if(this.pk!== undefined && this.pk!== null){
       if(this.pk!=="-1"){
    	    return direccion = direccion + this.pk + '/';

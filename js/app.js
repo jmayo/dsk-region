@@ -829,6 +829,7 @@ module.exports= Backbone.Model.extend({
   		this.valor = null;
   		this.pk = null;
       this.camposValidar();
+      this.eliminar = false;
   },
  valor : function(valor){
       this.valor  = valor;
@@ -838,6 +839,13 @@ module.exports= Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'sucursal/';
+   if(this.eliminar === true ){
+     if(this.pk!== undefined && this.pk!== null){
+        if(this.pk!=="-1"){
+          return direccion = direccion + this.pk + '/';
+        }
+     } 
+   }
    if(this.pk!== undefined && this.pk!== null){
       if(this.pk!=="-1"){
    	    return direccion = direccion + this.pk + '/';
@@ -1105,6 +1113,7 @@ var Backbone                = require('backbone'),
     PersonalSucursal        = require('../models/personal_sucursal'),
     Sucursal                = require('../models/sucursal'),
     SucursalBasicoVista     = require('../views/sucursalBasicos'),
+    
     PersonalSucursalVista   = require('../views/personalSucursal'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
     ContenidoVista          = require('../views/contenido'),
@@ -1989,6 +1998,10 @@ module.exports = Backbone.View.extend({
    eliminar: function(){
        if(Backbone.app.menu ==="movimiento"){
           Backbone.app.PersonalMovimiento.eliminar();
+       }
+        if(Backbone.app.menu ==="sucursal"){
+          var suc = new SucursalDetalleVista();
+          suc.eliminar($('#sucursal_id').text());
        }
    },
   guardar: function(){
@@ -4011,12 +4024,12 @@ module.exports = Backbone.View.extend({
    var html = this.template(detalle);
    this.$el.html(html);
 
-
+   
    var self = this;   
    $("#sucursal_fecha_alta, #sucursal_fecha_baja").datepicker({dateFormat:"dd/mm/yy"});
  
    this.agregarValidacion();
-   
+   $('#sucursal_id').hide()
     var SucursalCatalogos = new Catalogos();
     SucursalCatalogos.claves ="14,24";
   
@@ -4081,6 +4094,28 @@ relacionColumnas: function(){
       };
       return columnasCampos;
 },
+ eliminar: function(id_eliminar){
+      self = this;
+      var model = new Sucursal();
+      model.eliminar = true;
+      model.pk =id_eliminar;
+      model.destroy({
+         headers: {'Authorization' :localStorage.token},
+        success: function(model,response) {
+            //Backbone.app.personalMatricula(matricula);
+            $("#notify_success").text("Se elimino la asignacion correctamente");
+            $("#notify_success").notify();
+            $('#personal_sin_asignar').hide();;
+            Backbone.app.EmpresaDetalle.render()
+             //Backbone.app.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
+          },
+        error: function(model,response, options) {
+             $("#notify_error").text(response.responseJSON) 
+             $("#notify_error").notify();
+              console.log(response.responseJSON);
+        }
+      });
+  },
 guardar: function(){
     var data =this.generarJSON();
     var self = this;

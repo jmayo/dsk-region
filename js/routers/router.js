@@ -28,6 +28,7 @@ var Backbone                = require('backbone'),
     PersonalSucursal        = require('../models/personal_sucursal'),
     Sucursal                = require('../models/sucursal'),
     SucursalBasicoVista     = require('../views/sucursalBasicos'),
+    
     PersonalSucursalVista   = require('../views/personalSucursal'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
     ContenidoVista          = require('../views/contenido'),

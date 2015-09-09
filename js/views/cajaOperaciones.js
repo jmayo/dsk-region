@@ -28,6 +28,10 @@ module.exports = Backbone.View.extend({
        if(Backbone.app.menu ==="movimiento"){
           Backbone.app.PersonalMovimiento.eliminar();
        }
+        if(Backbone.app.menu ==="sucursal"){
+          var suc = new SucursalDetalleVista();
+          suc.eliminar($('#sucursal_id').text());
+       }
    },
   guardar: function(){
     console.log("guardando");
