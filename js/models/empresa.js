@@ -38,6 +38,7 @@ module.exports = Backbone.Model.extend({
       	"rfc": "",
       	"calle": "",
       	"numero": "",
+        "numero_int": "",
       	"colonia": "",
       	"cp": "",
       	"cdu_estado": "0140015",
@@ -58,6 +59,7 @@ module.exports = Backbone.Model.extend({
       vali.Campo('rfc',1,13,vali.RFC());
       vali.Campo('calle',1,100,vali.Generico());
       vali.Campo('numero',1,10,vali.AlfaNumerico()); 
+      vali.Campo('numero_int',0,10,vali.AlfaNumerico()); 
       vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp',1,10,vali.Numeros()); 
       vali.Campo('telefono1',1,10,vali.AlfaNumerico()); 

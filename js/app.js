@@ -580,6 +580,7 @@ module.exports = Backbone.Model.extend({
       	"rfc": "",
       	"calle": "",
       	"numero": "",
+        "numero_int": "",
       	"colonia": "",
       	"cp": "",
       	"cdu_estado": "0140015",
@@ -600,6 +601,7 @@ module.exports = Backbone.Model.extend({
       vali.Campo('rfc',1,13,vali.RFC());
       vali.Campo('calle',1,100,vali.Generico());
       vali.Campo('numero',1,10,vali.AlfaNumerico()); 
+      vali.Campo('numero_int',0,10,vali.AlfaNumerico()); 
       vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp',1,10,vali.Numeros()); 
       vali.Campo('telefono1',1,10,vali.AlfaNumerico()); 
@@ -701,6 +703,7 @@ module.exports= Backbone.Model.extend({
         "cdu_tipo_empleado": "0210001", 
         "calle_dom": "", 
         "numero_dom": "", 
+        "numero_int_dom": "",        
         "colonia_dom": "", 
         "cp_dom": "", 
         "cdu_estado_dom": "0140015", 
@@ -716,7 +719,7 @@ module.exports= Backbone.Model.extend({
       vali.Campo('nombre',1,20,vali.AlfaNumerico());
       vali.Campo('rfc',1,13,vali.RFC());
       vali.Campo('curp',1,18,vali.CURP());
-      vali.Campo('cuip',0,30,vali.CUIP());
+      vali.Campo('cuip',0,20,vali.CUIP());
       vali.Campo('fec_nacimiento',1,10,vali.Fecha());
       vali.Campo('fec_alta',1,10,vali.Fecha());
       vali.Campo('id_seguridad_social',0,20,vali.AlfaNumerico());
@@ -724,6 +727,7 @@ module.exports= Backbone.Model.extend({
       vali.Campo('condiciones_alta',1,150,vali.AlfaNumerico()); 
       vali.Campo('calle_dom',1,100,vali.AlfaNumerico());
       vali.Campo('numero_dom',1,100,vali.AlfaNumerico());
+      vali.Campo('numero_int_dom',0,100,vali.AlfaNumerico());
       vali.Campo('colonia_dom',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp_dom',1,10,vali.Numeros()); 
       vali.Campo('sueldo',1,10,vali.Decimales());
@@ -857,6 +861,7 @@ module.exports= Backbone.Model.extend({
     	"nombre": "",
     	"calle": "",
     	"numero": "",
+      "numero_int": "",
     	"colonia": "",
     	"cp": "",
     	"cdu_estado": "0140015",
@@ -876,6 +881,7 @@ module.exports= Backbone.Model.extend({
       vali.Campo('nombre',1,150,vali.Generico());
       vali.Campo('calle',1,100,vali.Generico());
       vali.Campo('numero',1,10,vali.AlfaNumerico()); 
+      vali.Campo('numero_int',0,10,vali.AlfaNumerico()); 
       vali.Campo('colonia',1,100,vali.AlfaNumerico()); 
       vali.Campo('cp',1,10,vali.Numeros()); 
       vali.Campo('telefono',1,10,vali.AlfaNumerico()); 
@@ -928,12 +934,12 @@ return {
 		return [regex,mensaje];
 	},
 	CURP: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){8}))';
 		var mensaje= "debe ser un curp correcto";
 		return [regex,mensaje];
 	},
 	CUIP: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){10}))';
 		var mensaje= "debe ser un cuip correcto";
 		return [regex,mensaje];;
 	},
@@ -1518,8 +1524,10 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n		"
     + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"Calle",{"name":"grp_perdetTextArea","hash":{"textarea_desc":"Calle","label_desc":"calle","valor":(depth0 != null ? depth0.calle : depth0),"textarea_id":"empresa_calle"},"data":data})) != null ? stack1 : "")
     + "		\n	 "
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número",{"name":"grp_perdet","hash":{"input_desc":"Número","label_desc":"numero","input_id":"empresa_numero","valor":(depth0 != null ? depth0.numero : depth0)},"data":data})) != null ? stack1 : "")
-    + "\n	"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número Ext",{"name":"grp_perdet","hash":{"input_desc":"Número Exterior","label_desc":"numero","input_id":"empresa_numero","valor":(depth0 != null ? depth0.numero : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n	 "
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número Int",{"name":"grp_perdet","hash":{"input_desc":"Número Interior","label_desc":"numero interior","input_id":"empresa_numero_int","valor":(depth0 != null ? depth0.numero_int : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n	 \n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Colonia",{"name":"grp_perdet","hash":{"input_desc":"Colonia","label_desc":"colonia","input_id":"empresa_colonia","valor":(depth0 != null ? depth0.colonia : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Código Postal",{"name":"grp_perdet","hash":{"input_desc":"Código Postal","label_desc":"codigo_postal","input_id":"empresa_cp","valor":(depth0 != null ? depth0.cp : depth0)},"data":data})) != null ? stack1 : "")
@@ -1643,7 +1651,9 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n		</ul>\n	</div>\n	</div>\n	<br>\n	<div class=\"titulo_bloque\">\n		Domicilio\n	</div>\n	<div class=\"caja_bloque\">\n	<div class=\"campos_bloque\">\n		<ul class=\"ul_bloque\">			\n		"
     + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"Calle",{"name":"grp_perdetTextArea","hash":{"textarea_desc":"Calle","label_desc":"","textarea_id":"perso_domicilio","valor":(depth0 != null ? depth0.calle_dom : depth0)},"data":data})) != null ? stack1 : "")
     + "\n		"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número",{"name":"grp_perdet","hash":{"input_desc":"Número","label_desc":"numero","input_id":"persona_numero_dom","valor":(depth0 != null ? depth0.numero_dom : depth0)},"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número Ext",{"name":"grp_perdet","hash":{"input_desc":"Número Exterior","label_desc":"numero","input_id":"persona_numero_dom","valor":(depth0 != null ? depth0.numero_dom : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n		"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número Int",{"name":"grp_perdet","hash":{"input_desc":"Número Interior","label_desc":"numero","input_id":"persona_numero_int_dom","valor":(depth0 != null ? depth0.numero_int_dom : depth0)},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Colonia",{"name":"grp_perdet","hash":{"input_desc":"Colonia","label_desc":"colonia","input_id":"persona_colonia_dom","valor":(depth0 != null ? depth0.colonia_dom : depth0)},"data":data})) != null ? stack1 : "")
     + "\n		"
@@ -1824,8 +1834,10 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	"
     + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"Calle",{"name":"grp_perdetTextArea","hash":{"textarea_desc":"Calle","label_desc":"calle","valor":(depth0 != null ? depth0.calle : depth0),"textarea_id":"sucursal_calle"},"data":data})) != null ? stack1 : "")
     + "\n	"
-    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número",{"name":"grp_perdet","hash":{"input_desc":"Número","label_desc":"numero","input_id":"sucursal_numero","valor":(depth0 != null ? depth0.numero : depth0)},"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número Exterior",{"name":"grp_perdet","hash":{"input_desc":"Número Exterior","label_desc":"numero","input_id":"sucursal_numero","valor":(depth0 != null ? depth0.numero : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Número Interior",{"name":"grp_perdet","hash":{"input_desc":"Número Interior","label_desc":"numero","input_id":"sucursal_numero_int","valor":(depth0 != null ? depth0.numero_int : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n	\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Colonia",{"name":"grp_perdet","hash":{"input_desc":"Colonia","label_desc":"colonia","input_id":"sucursal_colonia","valor":(depth0 != null ? depth0.colonia : depth0)},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Código Postal",{"name":"grp_perdet","hash":{"input_desc":"Código Postal","label_desc":"codigo_postal","input_id":"sucursal_cp","valor":(depth0 != null ? depth0.cp : depth0)},"data":data})) != null ? stack1 : "")
@@ -2726,6 +2738,7 @@ relacionColumnas: function(){
 				"rfc": "#empresa_rfc",
 				"calle": "#empresa_calle",
 				"numero": "#empresa_numero",
+        "numero_int": "#empresa_numero_int",
 				"colonia": "#empresa_colonia",
 				"cp": "#empresa_cp",
 				"cdu_estado": "#empresa_estado",
@@ -2760,7 +2773,7 @@ guardar: function(){
            Backbone.app.operacion="buscar";
             $("#notify_success").notify();
            self.model.set({"id":modelo.get("id"),"cve_empresa":modelo.get("cve_empresa"), "razon_social": modelo.get("razon_social"),
-                        "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"colonia":modelo.get("colonia"),
+                        "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"numero_int":modelo.get("numero_int"),"colonia":modelo.get("colonia"),
                           "cp":modelo.get("cp"), "cdu_estado":modelo.get("cdu_estado"),"cdu_municipio":modelo.get("cdu_municipio") ,
                           "telefono1": modelo.get("telefono1"), "telefono2": modelo.get("telefono2"), "cdu_giro": modelo.get("cdu_giro"),
                           "cdu_rubro": modelo.get("cdu_rubro"),"fecha_alta": modelo.get("fecha_alta")
@@ -3364,6 +3377,7 @@ relacionColumnas: function(){
           "matricula":'#persona_matricula',
           "nombre":'#persona_nombre', 
           "numero_dom": '#persona_numero_dom', 
+          "numero_int_dom": '#persona_numero_int_dom', 
           "paterno": '#persona_paterno', 
           "telefono": '#persona_telefono', 
           "portacion": '#persona_portacion_1',
@@ -4053,6 +4067,7 @@ relacionColumnas: function(){
         "nombre": "#sucursal_nombre",
 				"calle": "#sucursal_calle",
 				"numero": "#sucursal_numero",
+        "numero_int": "#sucursal_numero_int",    
 				"colonia": "#sucursal_colonia",
 				"cp": "#sucursal_cp",
 				"cdu_estado": "#sucursal_estado",

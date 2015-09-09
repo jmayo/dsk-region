@@ -115,6 +115,7 @@ relacionColumnas: function(){
         "nombre": "#sucursal_nombre",
 				"calle": "#sucursal_calle",
 				"numero": "#sucursal_numero",
+        "numero_int": "#sucursal_numero_int",    
 				"colonia": "#sucursal_colonia",
 				"cp": "#sucursal_cp",
 				"cdu_estado": "#sucursal_estado",

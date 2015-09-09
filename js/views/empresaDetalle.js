@@ -157,6 +157,7 @@ relacionColumnas: function(){
 				"rfc": "#empresa_rfc",
 				"calle": "#empresa_calle",
 				"numero": "#empresa_numero",
+        "numero_int": "#empresa_numero_int",
 				"colonia": "#empresa_colonia",
 				"cp": "#empresa_cp",
 				"cdu_estado": "#empresa_estado",
@@ -191,7 +192,7 @@ guardar: function(){
            Backbone.app.operacion="buscar";
             $("#notify_success").notify();
            self.model.set({"id":modelo.get("id"),"cve_empresa":modelo.get("cve_empresa"), "razon_social": modelo.get("razon_social"),
-                        "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"colonia":modelo.get("colonia"),
+                        "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"numero_int":modelo.get("numero_int"),"colonia":modelo.get("colonia"),
                           "cp":modelo.get("cp"), "cdu_estado":modelo.get("cdu_estado"),"cdu_municipio":modelo.get("cdu_municipio") ,
                           "telefono1": modelo.get("telefono1"), "telefono2": modelo.get("telefono2"), "cdu_giro": modelo.get("cdu_giro"),
                           "cdu_rubro": modelo.get("cdu_rubro"),"fecha_alta": modelo.get("fecha_alta")

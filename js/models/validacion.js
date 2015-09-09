@@ -36,12 +36,12 @@ return {
 		return [regex,mensaje];
 	},
 	CURP: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){8}))';
 		var mensaje= "debe ser un curp correcto";
 		return [regex,mensaje];
 	},
 	CUIP: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){10}))';
 		var mensaje= "debe ser un cuip correcto";
 		return [regex,mensaje];;
 	},

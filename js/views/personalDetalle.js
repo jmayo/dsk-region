@@ -213,6 +213,7 @@ relacionColumnas: function(){
           "matricula":'#persona_matricula',
           "nombre":'#persona_nombre', 
           "numero_dom": '#persona_numero_dom', 
+          "numero_int_dom": '#persona_numero_int_dom', 
           "paterno": '#persona_paterno', 
           "telefono": '#persona_telefono', 
           "portacion": '#persona_portacion_1',
