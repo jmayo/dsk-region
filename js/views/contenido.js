@@ -53,7 +53,7 @@ module.exports = Backbone.View.extend({
           $('.contenido_empresa').show();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
-          $('#eliminar_generico').hide();
+          $('#eliminar_generico').show();
           $('#catalogo_movimientos').hide();
 
           if(Backbone.app.SucursalListadoVista.collection.length>0){

@@ -41,7 +41,7 @@ return {
 		return [regex,mensaje];
 	},
 	CUIP: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){10}))';
+		var regex = '';
 		var mensaje= "debe ser un cuip correcto";
 		return [regex,mensaje];;
 	},

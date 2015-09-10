@@ -25,6 +25,9 @@ module.exports = Backbone.View.extend({
       
    },
    eliminar: function(){
+       if(Backbone.app.menu ==="personal"){
+          Backbone.app.PersonalDetalle.eliminar();
+       }
        if(Backbone.app.menu ==="movimiento"){
           Backbone.app.PersonalMovimiento.eliminar();
        }

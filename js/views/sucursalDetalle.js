@@ -147,7 +147,7 @@ relacionColumnas: function(){
         error: function(model,response, options) {
              $("#notify_error").text(response.responseJSON) 
              $("#notify_error").notify();
-              console.log(response.responseJSON);
+            
         }
       });
   },

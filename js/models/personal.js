@@ -17,6 +17,14 @@ module.exports= Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'personal/';
+
+   if(this.eliminar === true ){
+     if(this.pk!== undefined && this.pk!== null){
+        if(this.pk!=="-1"){
+          return direccion = direccion + this.pk + '/';
+        }
+     } 
+   }
    if(this.pk!== undefined && this.pk!== null){
       if(Backbone.app.operacion==='buscar' && this.pk!==""){
    	    direccion = direccion + this.pk + '/';
@@ -80,7 +88,7 @@ module.exports= Backbone.Model.extend({
       vali.Campo('nombre',1,20,vali.AlfaNumerico());
       vali.Campo('rfc',1,13,vali.RFC());
       vali.Campo('curp',1,18,vali.CURP());
-      vali.Campo('cuip',0,20,vali.CUIP());
+      vali.Campo('cuip',0,30,vali.CUIP());
       vali.Campo('fec_nacimiento',1,10,vali.Fecha());
       vali.Campo('fec_alta',1,10,vali.Fecha());
       vali.Campo('id_seguridad_social',0,20,vali.AlfaNumerico());

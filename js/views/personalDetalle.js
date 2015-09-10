@@ -236,9 +236,28 @@ console.log(columnasCampos.asignacion)
       return columnasCampos;
    },
 
-eliminar: function(){
-    console.log("Eliminar esta asignacion");
-},
+ eliminar: function(){
+      console.log("no se puede eliminar a una persona");
+      // self = this;
+      // var model = new Personal();
+      // model.eliminar = true;
+      // model.pk =this.model.id;
+      // debugger;
+      // model.destroy({
+      //    headers: {'Authorization' :localStorage.token},
+      //   success: function(model,response) {
+      //       $("#notify_success").text("Se elimino el registro correctamente");
+      //       $("#notify_success").notify();
+      //       $('#personal_sin_asignar').hide();;
+      //       Backbone.app.EmpresaDetalle.render()
+      //     },
+      //   error: function(model,response, options) {
+      //        $("#notify_error").text(response.responseJSON) 
+      //        $("#notify_error").notify();
+            
+      //   }
+      // });
+  },
 guardar: function(){
   var datos_personal =this.generarJSON("personal");
   var asignacion =this.generarJSON("asignacion");

@@ -12,6 +12,13 @@ jQuery(document).ready(function($){
 			$(this).removeClass('is-visible');
 		}
 	});
+	$('.cd-buttons').on('click', function(event){
+			event.preventDefault();
+			console.log("aceptaste")
+			$('.cd-popup').removeClass('is-visible');
+	});
+
+
 	//close popup when clicking the esc keyboard button
 	$(document).keyup(function(event){
     	if(event.which=='27'){

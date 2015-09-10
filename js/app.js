@@ -656,6 +656,14 @@ module.exports= Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'personal/';
+
+   if(this.eliminar === true ){
+     if(this.pk!== undefined && this.pk!== null){
+        if(this.pk!=="-1"){
+          return direccion = direccion + this.pk + '/';
+        }
+     } 
+   }
    if(this.pk!== undefined && this.pk!== null){
       if(Backbone.app.operacion==='buscar' && this.pk!==""){
    	    direccion = direccion + this.pk + '/';
@@ -719,7 +727,7 @@ module.exports= Backbone.Model.extend({
       vali.Campo('nombre',1,20,vali.AlfaNumerico());
       vali.Campo('rfc',1,13,vali.RFC());
       vali.Campo('curp',1,18,vali.CURP());
-      vali.Campo('cuip',0,20,vali.CUIP());
+      vali.Campo('cuip',0,30,vali.CUIP());
       vali.Campo('fec_nacimiento',1,10,vali.Fecha());
       vali.Campo('fec_alta',1,10,vali.Fecha());
       vali.Campo('id_seguridad_social',0,20,vali.AlfaNumerico());
@@ -947,7 +955,7 @@ return {
 		return [regex,mensaje];
 	},
 	CUIP: function(){
-		var regex = '^(([A-Z]|[a-z]){4})([0-9]{6})((([A-Z]|[a-z]|[0-9]){10}))';
+		var regex = '';
 		var mensaje= "debe ser un cuip correcto";
 		return [regex,mensaje];;
 	},
@@ -1996,6 +2004,9 @@ module.exports = Backbone.View.extend({
       
    },
    eliminar: function(){
+       if(Backbone.app.menu ==="personal"){
+          Backbone.app.PersonalDetalle.eliminar();
+       }
        if(Backbone.app.menu ==="movimiento"){
           Backbone.app.PersonalMovimiento.eliminar();
        }
@@ -2326,7 +2337,7 @@ module.exports = Backbone.View.extend({
           $('.contenido_empresa').show();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
-          $('#eliminar_generico').hide();
+          $('#eliminar_generico').show();
           $('#catalogo_movimientos').hide();
 
           if(Backbone.app.SucursalListadoVista.collection.length>0){
@@ -3413,9 +3424,28 @@ console.log(columnasCampos.asignacion)
       return columnasCampos;
    },
 
-eliminar: function(){
-    console.log("Eliminar esta asignacion");
-},
+ eliminar: function(){
+      console.log("no se puede eliminar a una persona");
+      // self = this;
+      // var model = new Personal();
+      // model.eliminar = true;
+      // model.pk =this.model.id;
+      // debugger;
+      // model.destroy({
+      //    headers: {'Authorization' :localStorage.token},
+      //   success: function(model,response) {
+      //       $("#notify_success").text("Se elimino el registro correctamente");
+      //       $("#notify_success").notify();
+      //       $('#personal_sin_asignar').hide();;
+      //       Backbone.app.EmpresaDetalle.render()
+      //     },
+      //   error: function(model,response, options) {
+      //        $("#notify_error").text(response.responseJSON) 
+      //        $("#notify_error").notify();
+            
+      //   }
+      // });
+  },
 guardar: function(){
   var datos_personal =this.generarJSON("personal");
   var asignacion =this.generarJSON("asignacion");
@@ -4112,7 +4142,7 @@ relacionColumnas: function(){
         error: function(model,response, options) {
              $("#notify_error").text(response.responseJSON) 
              $("#notify_error").notify();
-              console.log(response.responseJSON);
+            
         }
       });
   },
