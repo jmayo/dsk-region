@@ -167,7 +167,8 @@ guardar: function(){
         type: self.tipo,
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
-             Backbone.app.SucursalLista.add(response);
+             Backbone.app.SucursalLista.add(response, {merge: true})
+            // Backbone.app.SucursalListadoVista
             $("#notify_success").text("La sucursal se guardo correctamente");
             $("#notify_success").notify();
           },
@@ -175,10 +176,6 @@ guardar: function(){
              $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
- 
-             // var responseObj = $.parseJSON(response.responseText);
-             // console.log(responseObj);
-   //           for(campo in responseObj){ console.log(campo); }
         }
 
     });

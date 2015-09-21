@@ -21,7 +21,6 @@ var Backbone                = require('backbone'),
     CatalogoDetDescripcionVista = require('../views/catalogoDetalleDescripcion'),
     CatalogoDetListadoVista     = require('../views/catalogosDetalleListado'), 
     
-
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
     EmpresaMapaVista        = require('../views/sucursalMapa'),
     PersonalBasicoVista     = require('../views/personalBasicos'),

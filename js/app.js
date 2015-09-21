@@ -1114,7 +1114,6 @@ var Backbone                = require('backbone'),
     CatalogoDetDescripcionVista = require('../views/catalogoDetalleDescripcion'),
     CatalogoDetListadoVista     = require('../views/catalogosDetalleListado'), 
     
-
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
     EmpresaMapaVista        = require('../views/sucursalMapa'),
     PersonalBasicoVista     = require('../views/personalBasicos'),
@@ -3974,7 +3973,6 @@ module.exports = Backbone.View.extend({
     if(this.model.get("id")==="-1"){
       var a= Backbone.app.EmpresaModelo.toJSON();
       this.model.set({"nombre": a.razon_social,"calle":a.calle,"numero":a.numero,"colonia":a.colonia,  "cp":a.cp, "cdu_estado":a.cdu_estado,"cdu_municipio":a.cdu_municipio ,"telefono": "telefono1"});
-    
       this.SucursalDetalle = new SucursalDetalleVista({model: this.model});
       this.SucursalDetalle.llenado();
       Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
@@ -4162,7 +4160,8 @@ guardar: function(){
         type: self.tipo,
         success: function(model,response) {
             $('#sucursal_id').text(model.get("id"));
-             Backbone.app.SucursalLista.add(response);
+             Backbone.app.SucursalLista.add(response, {merge: true})
+            // Backbone.app.SucursalListadoVista
             $("#notify_success").text("La sucursal se guardo correctamente");
             $("#notify_success").notify();
           },
@@ -4170,10 +4169,6 @@ guardar: function(){
              $("#notify_error").text(response.responseText);
              $("#notify_error").notify();
               console.log(response.responseText);
- 
-             // var responseObj = $.parseJSON(response.responseText);
-             // console.log(responseObj);
-   //           for(campo in responseObj){ console.log(campo); }
         }
 
     });
@@ -4256,18 +4251,18 @@ module.exports = Backbone.View.extend({
     this.collection.forEach(this.addOne, this);
   },
   addOne: function (sucursal) {
-    var busquedaView = new SucursalDescripcionVista({ model: sucursal }); 
+    this.DescripcionView = new SucursalDescripcionVista({ model: sucursal }); 
     if(sucursal.get("id")==="-1"){
-      this.$el.prepend(busquedaView.render().el);  
+      this.$el.prepend(this.DescripcionView.render().el);  
     }
     else{
-      this.$el.append(busquedaView.render().el);
+      this.$el.append(this.DescripcionView.render().el);
     }
   },
    limpiarTodo:function(){
     console.log("limpiando resultados");
      this.$el.empty();
-  }
+  },
   
 });
 

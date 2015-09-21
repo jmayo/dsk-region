@@ -17,17 +17,17 @@ module.exports = Backbone.View.extend({
     this.collection.forEach(this.addOne, this);
   },
   addOne: function (sucursal) {
-    var busquedaView = new SucursalDescripcionVista({ model: sucursal }); 
+    this.DescripcionView = new SucursalDescripcionVista({ model: sucursal }); 
     if(sucursal.get("id")==="-1"){
-      this.$el.prepend(busquedaView.render().el);  
+      this.$el.prepend(this.DescripcionView.render().el);  
     }
     else{
-      this.$el.append(busquedaView.render().el);
+      this.$el.append(this.DescripcionView.render().el);
     }
   },
    limpiarTodo:function(){
     console.log("limpiando resultados");
      this.$el.empty();
-  }
+  },
   
 });
