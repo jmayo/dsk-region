@@ -856,6 +856,8 @@ body
 .carousel-wrapper
 	position relative
 	.carousel-item
+		margin-right 100px
+		margin-left 100px
 		position absolute
 		top 0
 		bottom 0
@@ -871,21 +873,25 @@ body
 			width 50px
 			height 100%
 			-webkit-tap-highlight-color rgba(0,0,0,0)
-			background url('arrow.png') 50% 50% / 20px no-repeat
+			background url('arrow.png') 50% 50% / 45px no-repeat
 			&.arrow-prev
 				left 0
 			&.arrow-next
 				right 0
 				-webkit-transform rotate(180deg)
 				transform rotate(180deg)
+		// para una flecha blanca
 		&.light
 			color white
 			.arrow
-				background: url('arrow.png') 50% 50% / 20px no-repeat
-		@media (max-width: 480px)
-			.arrow, &.light .arrow
-				background-size 10px
-				background-position 10px 50%
+				background: url('arrow-light.png') 50% 50% / 45px no-repeat
+		//
+		.foto-item
+			img
+				width 600px
+				height 400px
+		.foto-item p
+			text-align center
 
 [id^="target-item"]
 	display none
@@ -1135,6 +1141,9 @@ footer
 		.div_catalogos
 		.div_empresa_servicio
 		.bloque_mapa
+			width 132%
+			.caja_mapa
+				height 12em
 		.div_catalogos
 		.bloque
 			margin-bottom -4em
@@ -1164,6 +1173,18 @@ footer
 					.buscar
 						height 12px
 						width 140px
+	.carousel-wrapper
+		.carousel-item
+			margin-right 10px
+			margin-left 10px
+			.arrow, &.light .arrow
+				background-size 25px
+				background-position 10px 50%
+			.foto-item
+				margin-top 100px
+				img
+					width 200px
+					height 150px
 
 // para tablets
 @media only screen and (min-width : 768px) and (max-width : 1024px)
@@ -1193,6 +1214,18 @@ footer
 				margin-bottom 1.8em
 			.lista_empleados_sucursal
 				margin-top 0.8em
+	.carousel-wrapper
+		.carousel-item
+			margin-right 50px
+			margin-left 50px
+			.arrow, &.light .arrow
+				background-size 40px
+				background-position 10px 50%
+			.foto-item
+				margin-top 50px
+				img
+					width 320px
+					height 250px
 
 // para pop-up
 @media only screen and (min-width: 1170px) {
