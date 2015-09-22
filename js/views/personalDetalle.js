@@ -11,6 +11,7 @@ var Backbone                = require('backbone');
     CajaBusquedaVista      = require('../views/cajaBusqueda'),
     PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
     $.ua                    = require('../notificaciones');
+    
 
 
 //Personal.Views.PersonalDetalle

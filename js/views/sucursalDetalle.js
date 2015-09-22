@@ -130,6 +130,7 @@ relacionColumnas: function(){
       return columnasCampos;
 },
  eliminar: function(id_eliminar){
+      debugger;
       self = this;
       var model = new Sucursal();
       model.eliminar = true;

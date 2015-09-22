@@ -33,8 +33,9 @@ var Backbone                = require('backbone'),
     ContenidoVista          = require('../views/contenido'),
     funcionGenerica = require('../funcionesGenericas')
     MenuVista       = require('../views/menu'),
-    BodyVista = require('../views/body');
-    MenuOpcion = require('../models/menu')
+    BodyVista = require('../views/body'),
+    MenuOpcion = require('../models/menu'),
+    popup                  = require('../popup');
  
 
 //Personal.Router
@@ -131,6 +132,7 @@ initialize: function () {
     this.PersonalMovimientoModelo.set({"id":"-1"});
     this.PersonalMovimiento = new PersonalMovimientoVista({model: this.PersonalMovimientoModelo});
     
+    popup.initialize();
 
     this.Body = new BodyVista();
     

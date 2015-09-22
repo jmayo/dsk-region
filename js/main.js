@@ -2,7 +2,7 @@ var Backbone    = require('backbone'),
     $           = require('jquery');
     Router      = require('./routers/router'),
     //Handlerbars = require("./templates/funciones.hbs");
-    Handlebars = require("hbsfy/runtime");
+    Handlebars  = require("hbsfy/runtime"),
 
        // Funciones generales para los templates
   Handlebars.registerHelper('if', function(conditional, options) {

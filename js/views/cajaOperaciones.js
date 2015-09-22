@@ -1,7 +1,8 @@
 var Backbone               = require('backbone'),
     $                     = require('jquery'),
-    SucursalDetalleVista   = require('../views/sucursalDetalle');
- 
+    SucursalDetalleVista   = require('../views/sucursalDetalle'),
+    popup                  = require('../popup');
+
 //Personal.Views.CajaOperaciones 
 module.exports = Backbone.View.extend({
      events: {
@@ -12,8 +13,10 @@ module.exports = Backbone.View.extend({
     el: $('.caja_acciones'),
 
     initialize: function (){
+    
    },
    nuevo: function(){
+      popup.mostrarMensaje();
       console.log("nuevo registro");
       if(Backbone.app.menu==="personal"){
          Backbone.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
@@ -25,15 +28,26 @@ module.exports = Backbone.View.extend({
       
    },
    eliminar: function(){
+       debugger;
        if(Backbone.app.menu ==="personal"){
-          Backbone.app.PersonalDetalle.eliminar();
+          popup.valor = null;
+          popup.operacion = Backbone.app.PersonalDetalle.eliminar;
+          popup.mostrarMensaje();
+          //Backbone.app.PersonalDetalle.eliminar();
        }
        if(Backbone.app.menu ==="movimiento"){
-          Backbone.app.PersonalMovimiento.eliminar();
+          popup.valor = null;
+          popup.operacion = Backbone.app.PersonalMovimiento.eliminar;
+          popup.mostrarMensaje();
+         // Backbone.app.PersonalMovimiento.eliminar();
        }
         if(Backbone.app.menu ==="sucursal"){
           var suc = new SucursalDetalleVista();
-          suc.eliminar($('#sucursal_id').text());
+          valor = $('#sucursal_id').text();
+          popup.valor = valor;
+          popup.operacion = suc.eliminar;
+          popup.mostrarMensaje();
+          //suc.eliminar($('#sucursal_id').text());
        }
    },
   guardar: function(){

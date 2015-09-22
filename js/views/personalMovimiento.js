@@ -82,6 +82,7 @@ module.exports = Backbone.View.extend({
       return columnasCampos;
    },
   eliminar: function(){
+     debugger;
       var id = Backbone.app.PersoSucursalModelo.get("id");
       var matricula =Backbone.app.PersoBasicoModelo.get("matricula")
       if(id==="-1"){
