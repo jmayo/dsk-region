@@ -41,7 +41,6 @@ module.exports = Backbone.View.extend({
 
    },
    mostrarMenuEmpresas: function(){
-        debugger;
         if(Backbone.app.menu!=="sucursal"){
             Backbone.app.menu="empresa";
          }

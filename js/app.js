@@ -2084,15 +2084,15 @@ module.exports = Backbone.View.extend({
       
    },
    eliminar: function(){
-       debugger;
        if(Backbone.app.menu ==="personal"){
           popup.valor = null;
-          popup.operacion = Backbone.app.PersonalDetalle.eliminar;
-          popup.mostrarMensaje();
+          //popup.operacion = Backbone.app.PersonalDetalle.eliminar;
+          //popup.mostrarMensaje();
           //Backbone.app.PersonalDetalle.eliminar();
        }
        if(Backbone.app.menu ==="movimiento"){
           popup.valor = null;
+           $("#popup_confirmacion").text("Desea eliminar la asignación");
           popup.operacion = Backbone.app.PersonalMovimiento.eliminar;
           popup.mostrarMensaje();
          // Backbone.app.PersonalMovimiento.eliminar();
@@ -2100,6 +2100,7 @@ module.exports = Backbone.View.extend({
         if(Backbone.app.menu ==="sucursal"){
           var suc = new SucursalDetalleVista();
           valor = $('#sucursal_id').text();
+           $("#popup_confirmacion").text("Desea eliminar la sucursal");
           popup.valor = valor;
           popup.operacion = suc.eliminar;
           popup.mostrarMensaje();
@@ -2416,7 +2417,6 @@ module.exports = Backbone.View.extend({
 
    },
    mostrarMenuEmpresas: function(){
-        debugger;
         if(Backbone.app.menu!=="sucursal"){
             Backbone.app.menu="empresa";
          }
@@ -3802,7 +3802,6 @@ module.exports = Backbone.View.extend({
       return columnasCampos;
    },
   eliminar: function(){
-     debugger;
       var id = Backbone.app.PersoSucursalModelo.get("id");
       var matricula =Backbone.app.PersoBasicoModelo.get("matricula")
       if(id==="-1"){
@@ -4220,7 +4219,6 @@ relacionColumnas: function(){
       return columnasCampos;
 },
  eliminar: function(id_eliminar){
-      debugger;
       self = this;
       var model = new Sucursal();
       model.eliminar = true;
