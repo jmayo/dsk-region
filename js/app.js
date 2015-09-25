@@ -1596,7 +1596,9 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + alias3(((helper = (helper = helpers.monto2 || (depth0 != null ? depth0.monto2 : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"monto2","hash":{},"data":data}) : helper)))
     + "</td>\n<td><a class = \" "
     + alias3(((helper = (helper = helpers.clase || (depth0 != null ? depth0.clase : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"clase","hash":{},"data":data}) : helper)))
-    + " \" href=\"#\"><i class=\"fa "
+    + " \" "
+    + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
+    + " href=\"#\"><i class=\"fa "
     + alias3(((helper = (helper = helpers.ico || (depth0 != null ? depth0.ico : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"ico","hash":{},"data":data}) : helper)))
     + " fa-2x\"></i></a></td>";
 },"useData":true});
@@ -2160,15 +2162,14 @@ module.exports = Backbone.View.extend({
   seleccionado: function(){
     Backbone.app.CatalogosDet.claves=this.model.id;
     Backbone.app.CatalogosDet.reset()
-    Backbone.app.CatalogosDet.add({catalogos: this.model.id,cdu_catalogo:"",descripcion1:"",descripcion2:"",monto1:"0.00",monto2:"0.00",ico: "fa-check",clase:"guardar_renglon"});
-    Backbone.app.CatalogosDet.fetch();
+    Backbone.app.CatalogosDet.add({catalogos: this.model.id,cdu_catalogo:"",descripcion1:"",descripcion2:"",monto1:"0.00",monto2:"0.00",ico: "fa-check",clase:"guardar_renglon",id:"id=catdet_guardar"});
+    Backbone.app.CatalogosDet.fetch({headers: {'Authorization' :localStorage.token}});
     var titulo = '<tr><td>Descripción 1</td><td>Descripción 2</td> <td>Monto 1</td><td>Monto 2</td><td></td></tr>';
     //var editable ='<tr><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td><a class="guardar_renglon" href="#"><i class="fa fa-check fa-2x"></i></a></td></tr>' 
    // $('#catalogo_detalle_lista').prepend(editable);
     $('#catalogo_detalle_lista').prepend(titulo);
   }
 });
-
 
 
 
@@ -2187,8 +2188,23 @@ module.exports = Backbone.View.extend({
   initialize: function () {
      this.listenTo(this.model, "change", this.render, this);
   },
-  events:{
-    "mousedown ": "seleccionado",
+  events: function(){
+        var _events = {};
+        _events["click " + "#catdet_guardar"] = "guardar";
+        _events["focusout " + "#desc1_" +this.model.get('cdu_catalogo')] = "cambio";
+        console.log("************" +this.model.get('cdu_catalogo'));
+        return _events;
+    },
+  //events:{
+   //"mousedown ": "seleccionado",
+   // "click #catdet_guardar": "guardar",
+   // this.eventos() : "cambio",
+      //var _events = {};
+       // _events["click " + "#button-" + this.options.count] = "buttonClick";
+       // return _events;
+  //},
+  cambio: function(){
+    console.log("salio");
   },
   render: function () {
   	
@@ -2216,27 +2232,27 @@ module.exports = Backbone.View.extend({
     data['monto1'] = $(val_monto1).text();
     data['monto2'] = $(val_monto2).text();
     data['cdu_default'] = '';
-    console.log(data);
+   // console.log(data);
 
    //   this.tipo='POST'
    // if(Backbone.app.operacion!=="nuevo"){
       this.tipo='PUT';
    // }
    
-   var modelo = new CatalogoDetalle(data);
+   // var modelo = new CatalogoDetalle(data);
 
-    modelo.save(null,{
-      headers: {'Authorization' :localStorage.token},
-        type: self.tipo,
-        success: function(modelo,response) {
-          console.log("Exito");
-          },
-        error: function(model,response, options) {
-             $("#notify_error").text(response.responseText);
-             $("#notify_error").notify();
-              console.log(response.responseText);
-        }
-      });
+   //  modelo.save(null,{
+   //    headers: {'Authorization' :localStorage.token},
+   //      type: self.tipo,
+   //      success: function(modelo,response) {
+   //        console.log("Exito");
+   //        },
+   //      error: function(model,response, options) {
+   //           $("#notify_error").text(response.responseText);
+   //           $("#notify_error").notify();
+   //            console.log(response.responseText);
+   //      }
+   //    });
 
 
     //console.log(this.$el('desc1_').text());
@@ -2261,6 +2277,7 @@ module.exports = Backbone.View.extend({
     // }
   },
   guardar: function(){
+    console.log("guardando")
    // { cdu_catalogo: "0280001", num_dcatalogo: 1, descripcion1: "2", descripcion2: "", monto1: "0.00", monto2: "0.00", cdu_default: "", catalogos: 28, ico: "fa-remove", clase: "eliminar_renglon" }
     // var data =this.generarJSON();
     //  var self = this;

@@ -12,8 +12,23 @@ module.exports = Backbone.View.extend({
   initialize: function () {
      this.listenTo(this.model, "change", this.render, this);
   },
-  events:{
-    "mousedown ": "seleccionado",
+  events: function(){
+        var _events = {};
+        _events["click " + "#catdet_guardar"] = "guardar";
+        _events["focusout " + "#desc1_" +this.model.get('cdu_catalogo')] = "cambio";
+        console.log("************" +this.model.get('cdu_catalogo'));
+        return _events;
+    },
+  //events:{
+   //"mousedown ": "seleccionado",
+   // "click #catdet_guardar": "guardar",
+   // this.eventos() : "cambio",
+      //var _events = {};
+       // _events["click " + "#button-" + this.options.count] = "buttonClick";
+       // return _events;
+  //},
+  cambio: function(){
+    console.log("salio");
   },
   render: function () {
   	
@@ -41,27 +56,27 @@ module.exports = Backbone.View.extend({
     data['monto1'] = $(val_monto1).text();
     data['monto2'] = $(val_monto2).text();
     data['cdu_default'] = '';
-    console.log(data);
+   // console.log(data);
 
    //   this.tipo='POST'
    // if(Backbone.app.operacion!=="nuevo"){
       this.tipo='PUT';
    // }
    
-   var modelo = new CatalogoDetalle(data);
+   // var modelo = new CatalogoDetalle(data);
 
-    modelo.save(null,{
-      headers: {'Authorization' :localStorage.token},
-        type: self.tipo,
-        success: function(modelo,response) {
-          console.log("Exito");
-          },
-        error: function(model,response, options) {
-             $("#notify_error").text(response.responseText);
-             $("#notify_error").notify();
-              console.log(response.responseText);
-        }
-      });
+   //  modelo.save(null,{
+   //    headers: {'Authorization' :localStorage.token},
+   //      type: self.tipo,
+   //      success: function(modelo,response) {
+   //        console.log("Exito");
+   //        },
+   //      error: function(model,response, options) {
+   //           $("#notify_error").text(response.responseText);
+   //           $("#notify_error").notify();
+   //            console.log(response.responseText);
+   //      }
+   //    });
 
 
     //console.log(this.$el('desc1_').text());
@@ -86,6 +101,7 @@ module.exports = Backbone.View.extend({
     // }
   },
   guardar: function(){
+    console.log("guardando")
    // { cdu_catalogo: "0280001", num_dcatalogo: 1, descripcion1: "2", descripcion2: "", monto1: "0.00", monto2: "0.00", cdu_default: "", catalogos: 28, ico: "fa-remove", clase: "eliminar_renglon" }
     // var data =this.generarJSON();
     //  var self = this;
