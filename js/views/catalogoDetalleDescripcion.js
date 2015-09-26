@@ -13,27 +13,44 @@ module.exports = Backbone.View.extend({
      this.listenTo(this.model, "change", this.render, this);
   },
   events: function(){
+        var col1 =  "#desc1_" +this.model.get('cdu_catalogo');
+        var col2 =  "#desc2_" +this.model.get('cdu_catalogo');
+        var col3 =  "#monto1_" +this.model.get('cdu_catalogo');
+        var col4 =  "#monto2_" +this.model.get('cdu_catalogo');
+        
         var _events = {};
         _events["click " + "#catdet_guardar"] = "guardar";
-        _events["focusout " + "#desc1_" +this.model.get('cdu_catalogo')] = "cambio";
-        console.log("************" +this.model.get('cdu_catalogo'));
+        _events["focusout " + col1] = function(){this.cambio(1,col1)}
+        _events["focusout " + col2] = function(){this.cambio(2,col2)}
+        _events["focusout " + col3] = function(){this.cambio(3,col3)}
+        _events["focusout " + col4] = function(){this.cambio(4,col4)}
+        
         return _events;
     },
-  //events:{
-   //"mousedown ": "seleccionado",
-   // "click #catdet_guardar": "guardar",
-   // this.eventos() : "cambio",
-      //var _events = {};
-       // _events["click " + "#button-" + this.options.count] = "buttonClick";
-       // return _events;
-  //},
-  cambio: function(){
-    console.log("salio");
+  cambio: function(num,campo){
+      if(num===1  ){
+         this.descripcion1 =  $(campo).text();
+      }
+
+       if(num===2 ){
+         this.descripcion2 = $(campo).text();
+      }
+
+       if(num===3 ){
+         this.monto1       = $(campo).text();
+      }
+
+       if(num===4 ){
+         this.monto2       = $(campo).text();
+      }
+      console.log(this.descripcion1);
+      console.log(this.descripcion2);
+        
   },
   render: function () {
   	
     var descripcion = this.model.toJSON();
-    console.log(descripcion);
+    //console.log(descripcion);
     var html = this.template(descripcion);
     this.$el.html(html);
     return this;

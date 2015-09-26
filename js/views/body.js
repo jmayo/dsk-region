@@ -37,7 +37,7 @@ module.exports = Backbone.View.extend({
     this.startTimer();
 },
   iniciarConteo: function(){
-  	console.log("Estas moviendo el mouse");
+  	//console.log("Estas moviendo el mouse");
 
     window.clearTimeout(this.timeoutID);
  

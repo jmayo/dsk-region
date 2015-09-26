@@ -16,7 +16,6 @@ module.exports = Backbone.View.extend({
     
    },
    nuevo: function(){
-      popup.mostrarMensaje();
       console.log("nuevo registro");
       if(Backbone.app.menu==="personal"){
          Backbone.app.navigate("Personas/nuevo/", {trigger: true, replace: true});
