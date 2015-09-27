@@ -10,47 +10,38 @@ module.exports = Backbone.View.extend({
   className: '',
   template: Plantilla,
   initialize: function () {
-     this.listenTo(this.model, "change", this.render, this);
+    this.listenTo(this.model, "change:descripcion1 change:descripcion1:descripcion2 change:monto1 change:monto2", this.render, this);
   },
   events: function(){
-        var col1 =  "#desc1_" +this.model.get('cdu_catalogo');
-        var col2 =  "#desc2_" +this.model.get('cdu_catalogo');
-        var col3 =  "#monto1_" +this.model.get('cdu_catalogo');
-        var col4 =  "#monto2_" +this.model.get('cdu_catalogo');
+        this.col1 =  "#desc1_" +this.model.get('cdu_catalogo');
+        this.col2 =  "#desc2_" +this.model.get('cdu_catalogo');
+        this.col3 =  "#monto1_" +this.model.get('cdu_catalogo');
+        this.col4 =  "#monto2_" +this.model.get('cdu_catalogo');
         
         var _events = {};
         _events["click " + "#catdet_guardar"] = "guardar";
-        _events["focusout " + col1] = function(){this.cambio(1,col1)}
-        _events["focusout " + col2] = function(){this.cambio(2,col2)}
-        _events["focusout " + col3] = function(){this.cambio(3,col3)}
-        _events["focusout " + col4] = function(){this.cambio(4,col4)}
+        _events["focusout " + this.col1] = function(){this.cambio()}
+        _events["focusout " + this.col2] = function(){this.cambio()}
+        _events["focusout " + this.col3] = function(){this.cambio()}
+        _events["focusout " + this.col4] = function(){this.cambio()}
         
         return _events;
-    },
-  cambio: function(num,campo){
-      if(num===1  ){
-         this.descripcion1 =  $(campo).text();
+    }, 
+  cambio: function(){
+  
+     if(   this.model.get("descripcion1")!== $(this.col1).text() 
+        || this.model.get("descripcion2")!== $(this.col2).text() 
+        || this.model.get("monto1")!== $(this.col3).text() 
+        || this.model.get("monto2")!== $(this.col4).text()      ){
+              this.model.set({cambio: true});
       }
-
-       if(num===2 ){
-         this.descripcion2 = $(campo).text();
+      else{
+              this.model.set({cambio: false});
       }
-
-       if(num===3 ){
-         this.monto1       = $(campo).text();
-      }
-
-       if(num===4 ){
-         this.monto2       = $(campo).text();
-      }
-      console.log(this.descripcion1);
-      console.log(this.descripcion2);
-        
   },
   render: function () {
-  	
+    console.log("se agrega")
     var descripcion = this.model.toJSON();
-    //console.log(descripcion);
     var html = this.template(descripcion);
     this.$el.html(html);
     return this;

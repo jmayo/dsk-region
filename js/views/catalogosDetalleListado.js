@@ -21,7 +21,6 @@ module.exports = Backbone.View.extend({
   		   catalogoDet.set({ico: "fa-remove",clase:"eliminar_renglon"});
   	}
     var busquedaView = new CatalogoDetalleVista({ model: catalogoDet }); 
-    console.log(catalogoDet.toJSON()) 
     this.$el.append(busquedaView.render().el);
   },
    limpiarTodo:function(){
