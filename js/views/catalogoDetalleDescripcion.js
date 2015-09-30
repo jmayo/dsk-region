@@ -9,6 +9,14 @@ module.exports = Backbone.View.extend({
   tagName: 'tr',
   className: '',
   template: Plantilla,
+  attributes : function () {
+       if(this.model.id==="")
+       {
+        return{
+          id : "catdet_nuevo"
+        };
+       }
+  },
   initialize: function () {
     this.listenTo(this.model, "change:descripcion1 change:descripcion1:descripcion2 change:monto1 change:monto2", this.render, this);
   },

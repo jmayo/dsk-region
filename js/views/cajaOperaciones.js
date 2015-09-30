@@ -71,8 +71,8 @@ module.exports = Backbone.View.extend({
       console.log("guardando movimiento");      
     }
     if(Backbone.app.menu ==="catalogo"){
-      var modificados=Backbone.app.CatalogosDet.where({cambio: true})
-      console.log("catalogos modificados " + modificados.length);
+      Backbone.app.CatalogoDetVista.guardar();
+      console.log("catalogos guardados");
     }
 
   },
