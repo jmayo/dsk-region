@@ -22,8 +22,11 @@ module.exports = Backbone.View.extend({
   	}
 
     var busquedaView = new CatalogoDetalleVista({ model: catalogoDet }); 
-    if(catalogoDet.id=="0000000"){
+    if(catalogoDet.attributes.nuevo===true){
+      ;
+      var a= this.collection.get(catalogoDet.pk)
       this.$("#catdet_nuevo").after(busquedaView.render().el);
+
     }
     else{
       this.$el.append(busquedaView.render().el);
@@ -33,25 +36,7 @@ module.exports = Backbone.View.extend({
     console.log("limpiando resultados");
      this.$el.empty();
   },
-  nuevo: function(){
-       var nuevo_catalogo = new CatalogoDetalle();
-       var num_cat = this.collection.claves; // catalogo.attributes.cdu_catalogo.substring(0, 3); 
-       if($( "#desc1_").text().trim() !== "" || $( "#desc2_").text().trim() !== "" 
-              || $("#monto1_").text().trim() !=="0.00" || $("#monto2_").text().trim() !=="0.00" ){
-           
-            nuevo_catalogo.set({cdu_catalogo: "0000000",
-                           catalogos:num_cat, descripcion1: $( "#desc1_").text().trim(), descripcion2: $("#desc2_").text().trim(),
-                           monto1: $("#monto1_").text().trim(),monto2: $("#monto2_").text().trim(),cdu_default:"", cambio:true});
-            
-            this.collection.add(nuevo_catalogo);
-            $( "#desc1_").text("");
-            $( "#desc2_").text("");
-            $("#monto1_").text("0.00");
-            $("#monto2_").text("0.00");   
-       }
-  },
   guardar: function(){
-    this.nuevo();
      var self = this;
      var modificados=this.collection.where({cambio: true})
       console.log("catalogos modificados " + modificados.length);
@@ -69,10 +54,9 @@ module.exports = Backbone.View.extend({
           catalogo.set({descripcion1: $(this.col1).text(), descripcion2: $(this.col2).text(),
                         monto1: $(this.col3).text(),monto2: $(this.col4).text(),cambio:false })
           console.log(catalogo.toJSON());
-          var tipo = (catalogo.id==="0000000") ? 'POST': 'PUT';
           catalogo.save(null,{
             headers: {'Authorization' :localStorage.token},
-            type: tipo,
+            type: 'PUT',
             success: function(model,response) {
               self.collection.add(catalogo, {merge: true});
               $("#notify_success").text("Los datos fueron guardados correctamente");

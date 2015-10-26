@@ -2211,7 +2211,7 @@ module.exports = Backbone.View.extend({
         this.col4 =  "#monto2_" +this.model.get('cdu_catalogo');
         
         var _events = {};
-        _events["click " + "#catdet_guardar"] = "guardar";
+        _events["click " + "#catdet_guardar"] = "nuevo";
         _events["focusout " + this.col1] = function(){this.cambio()}
         _events["focusout " + this.col2] = function(){this.cambio()}
         _events["focusout " + this.col3] = function(){this.cambio()}
@@ -2238,107 +2238,53 @@ module.exports = Backbone.View.extend({
     this.$el.html(html);
     return this;
   },
-  seleccionado: function(){
-    //console.log("seleccionado " + this.model.get("cdu_catalogo"))
-    var cdu =  this.model.get('cdu_catalogo');
-    var val_cat = this.model.get('catalogos');
-    var val_desc1='#desc1_' + cdu;
-    var val_desc2='#desc2_' + cdu;
-    var val_monto1='#monto1_' + cdu;
-    var val_monto2='#monto2_' + cdu;
-    
-    //cdu_catalogo,catalogos,num_dcatalogo,descripcion1,descripcion2,monto1,monto2,cdu_default
-    var data ={};
-    data['cdu_catalogo'] = cdu;
-    data['catalogos'] = val_cat;
-    data['descripcion1'] = $(val_desc1).text();
-    data['descripcion2'] = $(val_desc2).text();
-    data['monto1'] = $(val_monto1).text();
-    data['monto2'] = $(val_monto2).text();
-    data['cdu_default'] = '';
-   // console.log(data);
-
-   //   this.tipo='POST'
-   // if(Backbone.app.operacion!=="nuevo"){
-      this.tipo='PUT';
-   // }
-   
-   // var modelo = new CatalogoDetalle(data);
-
-   //  modelo.save(null,{
-   //    headers: {'Authorization' :localStorage.token},
-   //      type: self.tipo,
-   //      success: function(modelo,response) {
-   //        console.log("Exito");
-   //        },
-   //      error: function(model,response, options) {
-   //           $("#notify_error").text(response.responseText);
-   //           $("#notify_error").notify();
-   //            console.log(response.responseText);
-   //      }
-   //    });
-
-
-    //console.log(this.$el('desc1_').text());
-    // Backbone.app.menu="sucursal";
-    // $('#bloque_empresa').hide();
-    // $('#bloque_sucursal').show();
+  nuevo: function(){
+       console.log("nuevo catalogo");
+       var nuevo_catalogo = new CatalogoDetalle();
+       var num_cat =Backbone.app.CatalogosDet.claves 
+       if($( "#desc1_").text().trim() !== "" || $( "#desc2_").text().trim() !== "" 
+              || $("#monto1_").text().trim() !=="0.00" || $("#monto2_").text().trim() !=="0.00" ){
+           
+            nuevo_catalogo.set({cdu_catalogo: "0000000",
+                           catalogos:num_cat, descripcion1: $( "#desc1_").text().trim(), descripcion2: $("#desc2_").text().trim(),
+                           monto1: $("#monto1_").text().trim(),monto2: $("#monto2_").text().trim(),cdu_default:"", cambio:true});
+            
+           // Backbone.app.CatalogosDet.add(nuevo_catalogo);
+          
+            this.guardar(nuevo_catalogo);   
+       }
+  },
  
-    // if(this.model.get("id")==="-1"){
-    //   var a= Backbone.app.EmpresaModelo.toJSON();
-    //   this.model.set({"nombre": a.razon_social,"calle":a.calle,"numero":a.numero,"colonia":a.colonia,  "cp":a.cp, "cdu_estado":a.cdu_estado,"cdu_municipio":a.cdu_municipio ,"telefono": "telefono1"});
-    
-    //   this.SucursalDetalle = new SucursalDetalleVista({model: this.model});
-    //   this.SucursalDetalle.llenado();
-    //   Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
-    // }
-    // else{  
-    //   this.SucursalModelo = new Sucursal();
-    //   this.SucursalModelo.pk = this.model.get("id");
-    //   this.SucursalDetalle = new SucursalDetalleVista({model: this.SucursalModelo});
-    //   this.SucursalModelo.fetch({ headers: {'Authorization' :localStorage.token}});
-    //   Backbone.app.EmpresaMapa.posicionar(this.model.get("latitud"),this.model.get("longitud"));
-    // }
+  guardar: function(catalogo){
+          var self = this;
+          console.log("guardando");
+         
+          catalogo.valor = undefined;
+          catalogo.modificar = true;
+          catalogo.claves = this.model.attributes.catalogos;
+          catalogo.pk =this.model.attributes.catalogos;
+          catalogo.set({descripcion1: $("#desc1_").text(), descripcion2: $("#desc2_").text(),
+                        monto1: $("#monto1_").text(),monto2: $("#monto2_").text(),cambio:false })
+          catalogo.save(null,{
+            headers: {'Authorization' :localStorage.token},
+            type: 'POST',
+            success: function(model,response) {
+               response.nuevo = true;
+               Backbone.app.CatalogosDet.add(response);
+               $( "#desc1_").text("");
+               $( "#desc2_").text("");
+               $("#monto1_").text("0.00");
+               $("#monto2_").text("0.00");
+              $("#notify_success").text("Los datos fueron guardados correctamente");
+              $("#notify_success").notify();
+              console.log(response);
+            },
+             error: function(model,response, options) {
+                 $("#notify_error").text(response.responseText);
+                 $("#notify_error").notify();
+             },
+          });
   },
-  guardar: function(){
-    console.log("guardando")
-   // { cdu_catalogo: "0280001", num_dcatalogo: 1, descripcion1: "2", descripcion2: "", monto1: "0.00", monto2: "0.00", cdu_default: "", catalogos: 28, ico: "fa-remove", clase: "eliminar_renglon" }
-    // var data =this.generarJSON();
-    //  var self = this;
-    // var modelo = new Empresa(data);
-    // modelo.valor = undefined;
-    // modelo.pk= data["id"];
-    
-    // this.tipo='POST'
-    // if(Backbone.app.operacion!=="nuevo"){
-    //   this.tipo='PUT';
-    // }
-   
-    // modelo.save(null,{
-    //   headers: {'Authorization' :localStorage.token},
-    //     type: self.tipo,
-    //     success: function(modelo,response) {
-    //         $('#empresa_id').text(modelo.get("id"));
-    //        // self.mostrarDescripcion(modelo);
-    //       //  self.mostrarSucursalLista(modelo.get("id"));
-    //        Backbone.app.operacion="buscar";
-    //         $("#notify_success").notify();
-    //        self.model.set({"id":modelo.get("id"),"cve_empresa":modelo.get("cve_empresa"), "razon_social": modelo.get("razon_social"),
-    //                     "rfc": modelo.get("rfc"),"calle":modelo.get("calle"),"numero":modelo.get("numero"),"colonia":modelo.get("colonia"),
-    //                       "cp":modelo.get("cp"), "cdu_estado":modelo.get("cdu_estado"),"cdu_municipio":modelo.get("cdu_municipio") ,
-    //                       "telefono1": modelo.get("telefono1"), "telefono2": modelo.get("telefono2"), "cdu_giro": modelo.get("cdu_giro"),
-    //                       "cdu_rubro": modelo.get("cdu_rubro"),"fecha_alta": modelo.get("fecha_alta")
-    //                     });
-    //       },
-    //     error: function(model,response, options) {
-    //          $("#notify_error").text(response.responseText);
-    //          $("#notify_error").notify();
-    //           console.log(response.responseText);
-    //     }
-
-    // });
-  },
-  
 });
 
 
@@ -2369,8 +2315,11 @@ module.exports = Backbone.View.extend({
   	}
 
     var busquedaView = new CatalogoDetalleVista({ model: catalogoDet }); 
-    if(catalogoDet.id=="0000000"){
+    if(catalogoDet.attributes.nuevo===true){
+      ;
+      var a= this.collection.get(catalogoDet.pk)
       this.$("#catdet_nuevo").after(busquedaView.render().el);
+
     }
     else{
       this.$el.append(busquedaView.render().el);
@@ -2380,25 +2329,7 @@ module.exports = Backbone.View.extend({
     console.log("limpiando resultados");
      this.$el.empty();
   },
-  nuevo: function(){
-       var nuevo_catalogo = new CatalogoDetalle();
-       var num_cat = this.collection.claves; // catalogo.attributes.cdu_catalogo.substring(0, 3); 
-       if($( "#desc1_").text().trim() !== "" || $( "#desc2_").text().trim() !== "" 
-              || $("#monto1_").text().trim() !=="0.00" || $("#monto2_").text().trim() !=="0.00" ){
-           
-            nuevo_catalogo.set({cdu_catalogo: "0000000",
-                           catalogos:num_cat, descripcion1: $( "#desc1_").text().trim(), descripcion2: $("#desc2_").text().trim(),
-                           monto1: $("#monto1_").text().trim(),monto2: $("#monto2_").text().trim(),cdu_default:"", cambio:true});
-            
-            this.collection.add(nuevo_catalogo);
-            $( "#desc1_").text("");
-            $( "#desc2_").text("");
-            $("#monto1_").text("0.00");
-            $("#monto2_").text("0.00");   
-       }
-  },
   guardar: function(){
-    this.nuevo();
      var self = this;
      var modificados=this.collection.where({cambio: true})
       console.log("catalogos modificados " + modificados.length);
@@ -2416,10 +2347,9 @@ module.exports = Backbone.View.extend({
           catalogo.set({descripcion1: $(this.col1).text(), descripcion2: $(this.col2).text(),
                         monto1: $(this.col3).text(),monto2: $(this.col4).text(),cambio:false })
           console.log(catalogo.toJSON());
-          var tipo = (catalogo.id==="0000000") ? 'POST': 'PUT';
           catalogo.save(null,{
             headers: {'Authorization' :localStorage.token},
-            type: tipo,
+            type: 'PUT',
             success: function(model,response) {
               self.collection.add(catalogo, {merge: true});
               $("#notify_success").text("Los datos fueron guardados correctamente");
