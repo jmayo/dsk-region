@@ -53,14 +53,15 @@ module.exports = Backbone.Router.extend({
     "Movimiento": "movimiento",
     "Personal/:valor_buscado/sucursal/activa": "sucursalActiva",
     "Catalogo": "catalogo",
+    "ConsultaEmpPerso": "cons_empperso",
   //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14:8001/";
+    window.ruta="http://192.168.0.15:8001/";
     //window.ruta="http://104.236.232.238:8080/";
-    //window.ruta ="http://localhost:8080/";
+    //window.ruta ="http://localhost:8001/";
  
 
     this.Catalogos = new CatalogosLista()
@@ -370,6 +371,36 @@ initialize: function () {
 
   
  },
+
+
+ cons_empperso: function () {
+    this.MenuModelo.Opcion ='consulta_empresaperso';
+    self = this;
+    console.log("Estas en el modulo de consulta de empresas y personal")
+    // this.MenuModelo.fetch({
+    //           headers: {'Authorization' :localStorage.token},
+    //           success: function(){
+    //               //Si es la primera vez cambiamos el id para llenar el formulario
+    //                  Backbone.app.operacion="buscar";
+    //                 if( self.PersoModelo.get("id")==="-1" ||  self.PersoModelo.get("id")===""){
+    //                   self.PersoModelo.set({"id":""});
+    //                   $('#personal_primera_asignacion').show();
+    //                   Backbone.app.operacion="nuevo";
+    //                 }
+    //                 Backbone.app.menu="personal";
+                   
+    //                 console.log("Estas en la lista de personal");
+    //             },
+    //           error: function(model,response, options) {
+    //                  $("#notify_error").text("No estas registrado en el sistema"); 
+    //                  $("#notify_error").notify();
+    //                   console.log(response.responseText);
+    //             }
+    //         });
+
+  
+  },
+
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){

@@ -504,6 +504,7 @@ $(function() {
   Backbone.app.on("route:empresa",Backbone.app.ContenidoVista.mostrarMenuEmpresas);
   Backbone.app.on("route:movimiento",Backbone.app.ContenidoVista.mostrarMenuMovimientos);
   Backbone.app.on("route:catalogo",Backbone.app.ContenidoVista.mostrarMenuCatalogos);  
+  Backbone.app.on("route:cons_empperso",Backbone.app.ContenidoVista.mostrarMenuConsEmpPerso);  
   
   // Backbone.history.stop(); 
    Backbone.history.start({
@@ -1227,14 +1228,15 @@ module.exports = Backbone.Router.extend({
     "Movimiento": "movimiento",
     "Personal/:valor_buscado/sucursal/activa": "sucursalActiva",
     "Catalogo": "catalogo",
+    "ConsultaEmpPerso": "cons_empperso",
   //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.14:8001/";
+    window.ruta="http://192.168.0.15:8001/";
     //window.ruta="http://104.236.232.238:8080/";
-    //window.ruta ="http://localhost:8080/";
+    //window.ruta ="http://localhost:8001/";
  
 
     this.Catalogos = new CatalogosLista()
@@ -1544,6 +1546,36 @@ initialize: function () {
 
   
  },
+
+
+ cons_empperso: function () {
+    this.MenuModelo.Opcion ='consulta_empresaperso';
+    self = this;
+    console.log("Estas en el modulo de consulta de empresas y personal")
+    // this.MenuModelo.fetch({
+    //           headers: {'Authorization' :localStorage.token},
+    //           success: function(){
+    //               //Si es la primera vez cambiamos el id para llenar el formulario
+    //                  Backbone.app.operacion="buscar";
+    //                 if( self.PersoModelo.get("id")==="-1" ||  self.PersoModelo.get("id")===""){
+    //                   self.PersoModelo.set({"id":""});
+    //                   $('#personal_primera_asignacion').show();
+    //                   Backbone.app.operacion="nuevo";
+    //                 }
+    //                 Backbone.app.menu="personal";
+                   
+    //                 console.log("Estas en la lista de personal");
+    //             },
+    //           error: function(model,response, options) {
+    //                  $("#notify_error").text("No estas registrado en el sistema"); 
+    //                  $("#notify_error").notify();
+    //                   console.log(response.responseText);
+    //             }
+    //         });
+
+  
+  },
+
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
@@ -2425,6 +2457,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
       $(".li_menu").css("visibility", "hidden");
       $('.caja_acciones').hide();
+      $('#consulta_empresa_personal').hide();
       $('#catalogo_movimientos').hide();
    },
    mostrarMenuPersonal: function(){
@@ -2441,6 +2474,7 @@ module.exports = Backbone.View.extend({
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_personal').show();
+          $('#consulta_empresa_personal').hide();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
           $('#eliminar_generico').hide();
@@ -2459,6 +2493,7 @@ module.exports = Backbone.View.extend({
           console.log("ruta empresa")
           $('.contenido_personal').hide();
           $('.contenido_movimientos').hide();
+          $('#consulta_empresa_personal').hide();
           $('.contenido_empresa').show();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
@@ -2494,6 +2529,7 @@ module.exports = Backbone.View.extend({
         console.log("ruta movimientos")
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
+        $('#consulta_empresa_personal').hide();
         $('.contenido_movimientos').show();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
@@ -2524,10 +2560,24 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
+        $('#consulta_empresa_personal').hide();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').show();
+   },
+    mostrarMenuConsEmpPerso:function(){
+      Backbone.app.menu = "consulta_empresaperso";
+
+        console.log("ruta consulta empresa personal")
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').hide();
+        $('#catalogo_movimientos').hide();
+        $('#consulta_empresa_personal').show();
    },
    mostrarCerrarSesion: function(){
         alert('La sesion caduco');
@@ -2538,6 +2588,7 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
+        $('#consulta_empresa_personal').hide();
    },
 });
 
@@ -3068,6 +3119,7 @@ module.exports = Backbone.View.extend({
      "click .empresas": "opcion_empresa",
      "click .movimientos": "opcion_movimientos",
      "click .catalogosli": "opcion_catalogos",
+     "click .conempresapersona": "opcion_consulta_empresa_personas",     
      "click .cerrar_sesion": "opcion_cerrarsesion",
   },
 
@@ -3089,6 +3141,10 @@ module.exports = Backbone.View.extend({
    opcion_catalogos: function(){
       Backbone.app.navigate("Catalogo", {trigger: true,replace: false});
    },
+   opcion_consulta_empresa_personas: function(){
+      Backbone.app.navigate("ConsultaEmpPerso", {trigger: true,replace: false});
+   },
+   
    opcion_cerrarsesion: function(){
      //alert('La sesion caduco');
      localStorage.clear();
@@ -3098,6 +3154,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_personal').hide();
       $('.contenido_empresa').hide();
       $('.contenido_movimientos').hide();
+      $('.consulta_empresa_personal').hide();
    }
 }); 
 },{"backbone":67,"jquery":101}],52:[function(require,module,exports){

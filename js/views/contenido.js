@@ -18,6 +18,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
       $(".li_menu").css("visibility", "hidden");
       $('.caja_acciones').hide();
+      $('#consulta_empresa_personal').hide();
       $('#catalogo_movimientos').hide();
    },
    mostrarMenuPersonal: function(){
@@ -34,6 +35,7 @@ module.exports = Backbone.View.extend({
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_personal').show();
+          $('#consulta_empresa_personal').hide();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
           $('#eliminar_generico').hide();
@@ -52,6 +54,7 @@ module.exports = Backbone.View.extend({
           console.log("ruta empresa")
           $('.contenido_personal').hide();
           $('.contenido_movimientos').hide();
+          $('#consulta_empresa_personal').hide();
           $('.contenido_empresa').show();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
@@ -87,6 +90,7 @@ module.exports = Backbone.View.extend({
         console.log("ruta movimientos")
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
+        $('#consulta_empresa_personal').hide();
         $('.contenido_movimientos').show();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
@@ -117,10 +121,24 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
+        $('#consulta_empresa_personal').hide();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').show();
+   },
+    mostrarMenuConsEmpPerso:function(){
+      Backbone.app.menu = "consulta_empresaperso";
+
+        console.log("ruta consulta empresa personal")
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').hide();
+        $('#catalogo_movimientos').hide();
+        $('#consulta_empresa_personal').show();
    },
    mostrarCerrarSesion: function(){
         alert('La sesion caduco');
@@ -131,5 +149,6 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
+        $('#consulta_empresa_personal').hide();
    },
 });
