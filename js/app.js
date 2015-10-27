@@ -575,6 +575,9 @@ module.exports = Backbone.Model.extend({
    } 
    return direccion;
   },
+   busqueda: function(){
+     Backbone.app.navigate("Empresa/buscar/" + this.get('cve_empresa'), {trigger: true});
+  },
   defaults : function(){
       this.fecha_actual = new  funcionGenerica().fecha18Years();
        this.fecha_actual = new  funcionGenerica().fechaActual();
@@ -871,7 +874,7 @@ module.exports= Backbone.Model.extend({
    return direccion;
   },
   busqueda: function(){
-     Backbone.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal'), {trigger: true});
+     Backbone.app.navigate("Sucursal/buscar/" + this.get('id'), {trigger: true});
   },
   defaults : function(){
        this.fecha_actual = new  funcionGenerica().fechaActual();
@@ -1243,6 +1246,8 @@ initialize: function () {
     this.CatalogosDet = new CatalogosDetalleLista()
     this.Perso = new Personas();          
     this.Empresa = new Empresas();
+    this.EmpresaConsulta = new Empresas();
+    
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
     this.PersonalLista = new Personas();
@@ -1433,9 +1438,14 @@ initialize: function () {
 
   },
   empresaClave: function (valor_buscado) {
-    Backbone.app.operacion="buscar";
-    this.EmpresaModelo.valor = valor_buscado;
-    this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
+    if(Backbone.app.menu==="movimiento"){
+      Backbone.app.operacion="buscar";
+      this.EmpresaModelo.valor = valor_buscado;
+      this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
+    }
+    if(Backbone.app.menu==="consulta_empresaperso"){
+      console.log("consulta empresas reportes");
+    }
   },
    empresaNuevo: function () {
     Backbone.app.operacion="nuevo";
@@ -2445,6 +2455,8 @@ var Backbone               = require('backbone'),
     CajaBusquedaVista      = require('../views/cajaBusqueda'),
     PlantillaPersonal      = require('../templates/resultados-personal-busqueda.hbs'),
     PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
+    PlantillaEmpresa       = require("../templates/resultados-empresa-busqueda.hbs");
+
 
 
 //Personal.Views.Contenido
@@ -2547,14 +2559,6 @@ module.exports = Backbone.View.extend({
             this.CajaBusquedaSucursal.close();
           } 
 
-        
-
-       // this.PersonalMBusquedasVista = new DatoBusquedasVista({collection: this.Perso,el: '#resultados_personal_movimiento',template:PlantillaPersonal});
-       // this.CajaBusquedaPersonal= new CajaBusquedaVista({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
-
-       // this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
-       // this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
-
 
         console.log("ruta movimientos")
         $('.contenido_personal').hide();
@@ -2567,13 +2571,21 @@ module.exports = Backbone.View.extend({
         $('#catalogo_movimientos').show();
    },
     mostrarMenuConsEmpPerso:function(){
-      Backbone.app.menu = "consulta_empresaperso";
+          Backbone.app.menu = "consulta_empresaperso";
+          if (this.CajaBusqueda){
+            this.CajaBusqueda.close();
+          } 
+       
+//        this.EmpresaConsultaBusquedasVista = new EmpresaBusquedasVista({collection: this.EmpresaConsulta}); 
+        this.EmpresaConsultaBusquedasVista = new DatoBusquedasVista({collection: this.EmpresaConsulta,el: '#resultados_generales',template:PlantillaEmpresa});
+        this.CajaBusqueda=  new CajaBusquedaVista({collection: this.EmpresaConsulta,el: '.caja_acciones',divResultados: '#resultados_generales'});
+        
 
         console.log("ruta consulta empresa personal")
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
-        $('#busqueda_generico').hide();
+        $('#busqueda_generico').show();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();
@@ -2592,7 +2604,7 @@ module.exports = Backbone.View.extend({
    },
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":32,"../templates/resultados-sucursal-busqueda.hbs":33,"../views/cajaBusqueda":37,"../views/datoBusquedas":45,"../views/empresaBusquedas":47,"../views/personalBusquedas":54,"backbone":67,"jquery":101}],44:[function(require,module,exports){
+},{"../templates/resultados-empresa-busqueda.hbs":29,"../templates/resultados-personal-busqueda.hbs":32,"../templates/resultados-sucursal-busqueda.hbs":33,"../views/cajaBusqueda":37,"../views/datoBusquedas":45,"../views/empresaBusquedas":47,"../views/personalBusquedas":54,"backbone":67,"jquery":101}],44:[function(require,module,exports){
 var Backbone    = require('backbone');
 
 //Personal.Views.DatoBusqueda 
@@ -2622,6 +2634,7 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
+    debugger;
     this.model.busqueda();
   },
   cambiar: function(){

@@ -6,6 +6,8 @@ var Backbone               = require('backbone'),
     CajaBusquedaVista      = require('../views/cajaBusqueda'),
     PlantillaPersonal      = require('../templates/resultados-personal-busqueda.hbs'),
     PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
+    PlantillaEmpresa       = require("../templates/resultados-empresa-busqueda.hbs");
+
 
 
 //Personal.Views.Contenido
@@ -108,14 +110,6 @@ module.exports = Backbone.View.extend({
             this.CajaBusquedaSucursal.close();
           } 
 
-        
-
-       // this.PersonalMBusquedasVista = new DatoBusquedasVista({collection: this.Perso,el: '#resultados_personal_movimiento',template:PlantillaPersonal});
-       // this.CajaBusquedaPersonal= new CajaBusquedaVista({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
-
-       // this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
-       // this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
-
 
         console.log("ruta movimientos")
         $('.contenido_personal').hide();
@@ -128,13 +122,21 @@ module.exports = Backbone.View.extend({
         $('#catalogo_movimientos').show();
    },
     mostrarMenuConsEmpPerso:function(){
-      Backbone.app.menu = "consulta_empresaperso";
+          Backbone.app.menu = "consulta_empresaperso";
+          if (this.CajaBusqueda){
+            this.CajaBusqueda.close();
+          } 
+       
+//        this.EmpresaConsultaBusquedasVista = new EmpresaBusquedasVista({collection: this.EmpresaConsulta}); 
+        this.EmpresaConsultaBusquedasVista = new DatoBusquedasVista({collection: this.EmpresaConsulta,el: '#resultados_generales',template:PlantillaEmpresa});
+        this.CajaBusqueda=  new CajaBusquedaVista({collection: this.EmpresaConsulta,el: '.caja_acciones',divResultados: '#resultados_generales'});
+        
 
         console.log("ruta consulta empresa personal")
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
-        $('#busqueda_generico').hide();
+        $('#busqueda_generico').show();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();

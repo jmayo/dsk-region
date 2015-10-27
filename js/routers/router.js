@@ -68,6 +68,8 @@ initialize: function () {
     this.CatalogosDet = new CatalogosDetalleLista()
     this.Perso = new Personas();          
     this.Empresa = new Empresas();
+    this.EmpresaConsulta = new Empresas();
+    
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
     this.PersonalLista = new Personas();
@@ -258,9 +260,14 @@ initialize: function () {
 
   },
   empresaClave: function (valor_buscado) {
-    Backbone.app.operacion="buscar";
-    this.EmpresaModelo.valor = valor_buscado;
-    this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
+    if(Backbone.app.menu==="movimiento"){
+      Backbone.app.operacion="buscar";
+      this.EmpresaModelo.valor = valor_buscado;
+      this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
+    }
+    if(Backbone.app.menu==="consulta_empresaperso"){
+      console.log("consulta empresas reportes");
+    }
   },
    empresaNuevo: function () {
     Backbone.app.operacion="nuevo";

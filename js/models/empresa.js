@@ -27,6 +27,9 @@ module.exports = Backbone.Model.extend({
    } 
    return direccion;
   },
+   busqueda: function(){
+     Backbone.app.navigate("Empresa/buscar/" + this.get('cve_empresa'), {trigger: true});
+  },
   defaults : function(){
       this.fecha_actual = new  funcionGenerica().fecha18Years();
        this.fecha_actual = new  funcionGenerica().fechaActual();
