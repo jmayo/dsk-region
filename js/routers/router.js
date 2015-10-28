@@ -22,7 +22,10 @@ var Backbone                = require('backbone'),
     CatalogoDetListadoVista     = require('../views/catalogosDetalleListado'), 
     
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
+    EmpresaReporteVista     = require('../views/empresaListadoReporte'),
+    
     EmpresaMapaVista        = require('../views/sucursalMapa'),
+
     PersonalBasicoVista     = require('../views/personalBasicos'),
     PersonalSucursal        = require('../models/personal_sucursal'),
     Sucursal                = require('../models/sucursal'),
@@ -106,8 +109,13 @@ initialize: function () {
     
     this.EmpresaModelo = new Empresa();
     this.EmpresaModelo.set({"id":"-1"});
-
     this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
+    
+    this.EmpresaReporteModelo = new Empresa();
+    this.EmpresaReporteModelo.set({"id":"-1"});
+    this.EmpresaReporteDetalle = new EmpresaReporteVista({model: this.EmpresaReporteModelo});
+    
+    
     
 
     this.EmpresaMapa= new EmpresaMapaVista();
@@ -260,12 +268,16 @@ initialize: function () {
 
   },
   empresaClave: function (valor_buscado) {
-    if(Backbone.app.menu==="movimiento"){
+    console.log(Backbone.app.menu);
+    if(Backbone.app.menu==="empresa"){
       Backbone.app.operacion="buscar";
       this.EmpresaModelo.valor = valor_buscado;
       this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="consulta_empresaperso"){
+      Backbone.app.operacion="buscar";
+      this.EmpresaReporteModelo.valor = valor_buscado;
+      this.EmpresaReporteModelo.fetch({headers: {'Authorization' :localStorage.token}});
       console.log("consulta empresas reportes");
     }
   },
@@ -307,11 +319,12 @@ initialize: function () {
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado, asignacion_actual) {
-    if(Backbone.app.menu==="personal"){
+   if(Backbone.app.menu==="personal"){
         this.SucursalModeloEnPersonal.valor = valor_buscado;
         this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="movimiento"){
+
         self =this; 
         var asignacion =asignacion_actual;      
         

@@ -27,7 +27,6 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    debugger;
     this.model.busqueda();
   },
   cambiar: function(){

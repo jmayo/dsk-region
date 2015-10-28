@@ -35,7 +35,7 @@ module.exports= Backbone.Model.extend({
    return direccion;
   },
   busqueda: function(){
-     Backbone.app.navigate("Sucursal/buscar/" + this.get('id'), {trigger: true});
+     Backbone.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal') , {trigger: true});
   },
   defaults : function(){
        this.fecha_actual = new  funcionGenerica().fechaActual();

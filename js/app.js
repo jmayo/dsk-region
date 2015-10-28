@@ -79,7 +79,7 @@ module.exports = Backbone.Collection.extend({
   },
 });
 
-},{"../models/catalogo":8,"backbone":67}],2:[function(require,module,exports){
+},{"../models/catalogo":8,"backbone":69}],2:[function(require,module,exports){
 var Backbone      = require('backbone'),
     CatalogoModelo = require('../models/catalogoLista');
 
@@ -102,7 +102,7 @@ module.exports = Backbone.Collection.extend({
  
 });
 
-},{"../models/catalogoLista":9,"backbone":67}],3:[function(require,module,exports){
+},{"../models/catalogoLista":9,"backbone":69}],3:[function(require,module,exports){
 var Backbone      = require('backbone'),
     empresaModelo = require('../models/empresa');
        
@@ -134,7 +134,7 @@ module.exports = Backbone.Collection.extend({
   model: empresaModelo,
 });
 
-},{"../models/empresa":10,"backbone":67}],4:[function(require,module,exports){
+},{"../models/empresa":10,"backbone":69}],4:[function(require,module,exports){
 var Backbone      = require('backbone'),
   PersonalModelo = require('../models/personal');
 
@@ -176,7 +176,7 @@ module.exports = Backbone.Collection.extend({
   model: PersonalModelo,
 });
 
-},{"../models/personal":13,"backbone":67}],5:[function(require,module,exports){
+},{"../models/personal":13,"backbone":69}],5:[function(require,module,exports){
 var Backbone      = require('backbone'),
     SucursalModelo = require('../models/sucursal');
 
@@ -212,7 +212,7 @@ module.exports = Backbone.Collection.extend({
   model: SucursalModelo,
 });
 
-},{"../models/sucursal":15,"backbone":67}],6:[function(require,module,exports){
+},{"../models/sucursal":15,"backbone":69}],6:[function(require,module,exports){
 var moment = require('../node_modules/moment/moment');
 
 var funcionesGenericas = function() {  
@@ -256,7 +256,7 @@ var funcionesGenericas = function() {
 module.exports = funcionesGenericas;  
 
 
-},{"../node_modules/moment/moment":102}],7:[function(require,module,exports){
+},{"../node_modules/moment/moment":104}],7:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $           = require('jquery');
     Router      = require('./routers/router'),
@@ -516,7 +516,7 @@ $(function() {
     Backbone.app.navigate('', true);
 });
 
-},{"./routers/router":19,"backbone":67,"hbsfy/runtime":99,"jquery":101}],8:[function(require,module,exports){
+},{"./routers/router":19,"backbone":69,"hbsfy/runtime":101,"jquery":103}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -533,7 +533,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta +  'catalogos_detalle/' + this.claves + '/';
   },
 });
-},{"backbone":67}],9:[function(require,module,exports){
+},{"backbone":69}],9:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -545,7 +545,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta +  'catalogos/editables/';
   },
 });
-},{"backbone":67}],10:[function(require,module,exports){
+},{"backbone":69}],10:[function(require,module,exports){
 var Backbone        = require('backbone');
     ValidacionVista = require('./validacion')
     funcionGenerica = require('../funcionesGenericas')
@@ -623,7 +623,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"../funcionesGenericas":6,"./validacion":16,"backbone":67}],11:[function(require,module,exports){
+},{"../funcionesGenericas":6,"./validacion":16,"backbone":69}],11:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.login 
@@ -633,7 +633,7 @@ module.exports= Backbone.Model.extend({
   },
 });
 
-},{"backbone":67}],12:[function(require,module,exports){
+},{"backbone":69}],12:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -645,7 +645,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta + this.Opcion + '/menu/';
   },
 });
-},{"backbone":67}],13:[function(require,module,exports){
+},{"backbone":69}],13:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
  
@@ -757,7 +757,7 @@ module.exports= Backbone.Model.extend({
 
 
        
-},{"../models/validacion":16,"backbone":67}],14:[function(require,module,exports){
+},{"../models/validacion":16,"backbone":69}],14:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('./validacion');
  
@@ -836,7 +836,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./validacion":16,"backbone":67}],15:[function(require,module,exports){
+},{"./validacion":16,"backbone":69}],15:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
 
@@ -874,7 +874,7 @@ module.exports= Backbone.Model.extend({
    return direccion;
   },
   busqueda: function(){
-     Backbone.app.navigate("Sucursal/buscar/" + this.get('id'), {trigger: true});
+     Backbone.app.navigate("Sucursal/buscar/" + this.get('cve_sucursal') , {trigger: true});
   },
   defaults : function(){
        this.fecha_actual = new  funcionGenerica().fechaActual();
@@ -920,7 +920,7 @@ module.exports= Backbone.Model.extend({
       return this.listado;  
   }
 });
-},{"../models/validacion":16,"backbone":67}],16:[function(require,module,exports){
+},{"../models/validacion":16,"backbone":69}],16:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.validacion
@@ -1000,7 +1000,7 @@ return {
   }
 };
 
-},{"backbone":67}],17:[function(require,module,exports){
+},{"backbone":69}],17:[function(require,module,exports){
 var    $               = require('jquery');
 
 module.exports = $(function() {
@@ -1099,7 +1099,7 @@ module.exports = $(function() {
 	}
 });
 
-},{"jquery":101}],18:[function(require,module,exports){
+},{"jquery":103}],18:[function(require,module,exports){
 
 var    $               = require('jquery');
 
@@ -1175,7 +1175,7 @@ var popup ={
 
 module.exports = popup;
 
-},{"jquery":101}],19:[function(require,module,exports){
+},{"jquery":103}],19:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery');
     CatalogosLista          = require('../collections/catalogosLista'),
@@ -1200,7 +1200,10 @@ var Backbone                = require('backbone'),
     CatalogoDetListadoVista     = require('../views/catalogosDetalleListado'), 
     
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
+    EmpresaReporteVista     = require('../views/empresaListadoReporte'),
+    
     EmpresaMapaVista        = require('../views/sucursalMapa'),
+
     PersonalBasicoVista     = require('../views/personalBasicos'),
     PersonalSucursal        = require('../models/personal_sucursal'),
     Sucursal                = require('../models/sucursal'),
@@ -1284,8 +1287,13 @@ initialize: function () {
     
     this.EmpresaModelo = new Empresa();
     this.EmpresaModelo.set({"id":"-1"});
-
     this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
+    
+    this.EmpresaReporteModelo = new Empresa();
+    this.EmpresaReporteModelo.set({"id":"-1"});
+    this.EmpresaReporteDetalle = new EmpresaReporteVista({model: this.EmpresaReporteModelo});
+    
+    
     
 
     this.EmpresaMapa= new EmpresaMapaVista();
@@ -1438,12 +1446,16 @@ initialize: function () {
 
   },
   empresaClave: function (valor_buscado) {
-    if(Backbone.app.menu==="movimiento"){
+    console.log(Backbone.app.menu);
+    if(Backbone.app.menu==="empresa"){
       Backbone.app.operacion="buscar";
       this.EmpresaModelo.valor = valor_buscado;
       this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="consulta_empresaperso"){
+      Backbone.app.operacion="buscar";
+      this.EmpresaReporteModelo.valor = valor_buscado;
+      this.EmpresaReporteModelo.fetch({headers: {'Authorization' :localStorage.token}});
       console.log("consulta empresas reportes");
     }
   },
@@ -1485,11 +1497,12 @@ initialize: function () {
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado, asignacion_actual) {
-    if(Backbone.app.menu==="personal"){
+   if(Backbone.app.menu==="personal"){
         this.SucursalModeloEnPersonal.valor = valor_buscado;
         this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="movimiento"){
+
         self =this; 
         var asignacion =asignacion_actual;      
         
@@ -1608,7 +1621,7 @@ initialize: function () {
 
 });
 
-},{"../collections/catalogos":1,"../collections/catalogosLista":2,"../collections/empresas":3,"../collections/personas":4,"../collections/sucursales":5,"../funcionesGenericas":6,"../models/catalogoLista":9,"../models/empresa":10,"../models/menu":12,"../models/personal":13,"../models/personal_sucursal":14,"../models/sucursal":15,"../popup":18,"../views/body":36,"../views/cajaOperaciones":38,"../views/catalogoDescripcion":39,"../views/catalogoDetalleDescripcion":40,"../views/catalogosDetalleListado":41,"../views/catalogosListado":42,"../views/contenido":43,"../views/empresaBusqueda":46,"../views/empresaDetalle":49,"../views/iniciarSesion":50,"../views/menu":51,"../views/personalBasicos":52,"../views/personalBusqueda":53,"../views/personalDetalle":58,"../views/personalListados":59,"../views/personalMovimiento":60,"../views/personalSucursal":61,"../views/sucursalBasicos":62,"../views/sucursalListados":65,"../views/sucursalMapa":66,"backbone":67,"jquery":101}],20:[function(require,module,exports){
+},{"../collections/catalogos":1,"../collections/catalogosLista":2,"../collections/empresas":3,"../collections/personas":4,"../collections/sucursales":5,"../funcionesGenericas":6,"../models/catalogoLista":9,"../models/empresa":10,"../models/menu":12,"../models/personal":13,"../models/personal_sucursal":14,"../models/sucursal":15,"../popup":18,"../views/body":37,"../views/cajaOperaciones":39,"../views/catalogoDescripcion":40,"../views/catalogoDetalleDescripcion":41,"../views/catalogosDetalleListado":42,"../views/catalogosListado":43,"../views/contenido":44,"../views/empresaBusqueda":47,"../views/empresaDetalle":50,"../views/empresaListadoReporte":51,"../views/iniciarSesion":52,"../views/menu":53,"../views/personalBasicos":54,"../views/personalBusqueda":55,"../views/personalDetalle":60,"../views/personalListados":61,"../views/personalMovimiento":62,"../views/personalSucursal":63,"../views/sucursalBasicos":64,"../views/sucursalListados":67,"../views/sucursalMapa":68,"backbone":69,"jquery":103}],20:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1619,7 +1632,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " \n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],21:[function(require,module,exports){
+},{"hbsfy/runtime":101}],21:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1650,7 +1663,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " fa-2x\"></i></a></td>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],22:[function(require,module,exports){
+},{"hbsfy/runtime":101}],22:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1691,7 +1704,18 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],23:[function(require,module,exports){
+},{"hbsfy/runtime":101}],23:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"empresa_scroll\">\n   <div class=\"y_empresa\">"
+    + this.escapeExpression(((helper = (helper = helpers.razon_social || (depth0 != null ? depth0.razon_social : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"razon_social","hash":{},"data":data}) : helper)))
+    + "</div>\n   <div class=\"x_empresa\">\n	<a href=\"#\" title=\"Quitar\">\n		<i class=\"fa fa-close fa-1x\"></i>\n	</a>\n    </div>\n</div>";
+},"useData":true});
+
+},{"hbsfy/runtime":101}],24:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1714,7 +1738,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],24:[function(require,module,exports){
+},{"hbsfy/runtime":101}],25:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1724,7 +1748,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " ";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],25:[function(require,module,exports){
+},{"hbsfy/runtime":101}],26:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1749,7 +1773,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</h5>\n</div>\n</div>\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],26:[function(require,module,exports){
+},{"hbsfy/runtime":101}],27:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1828,7 +1852,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],27:[function(require,module,exports){
+},{"hbsfy/runtime":101}],28:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1845,7 +1869,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</td>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],28:[function(require,module,exports){
+},{"hbsfy/runtime":101}],29:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1876,7 +1900,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],29:[function(require,module,exports){
+},{"hbsfy/runtime":101}],30:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1889,7 +1913,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],30:[function(require,module,exports){
+},{"hbsfy/runtime":101}],31:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1902,7 +1926,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],31:[function(require,module,exports){
+},{"hbsfy/runtime":101}],32:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1915,7 +1939,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>\n<hr>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],32:[function(require,module,exports){
+},{"hbsfy/runtime":101}],33:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1934,7 +1958,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n  ";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],33:[function(require,module,exports){
+},{"hbsfy/runtime":101}],34:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1947,7 +1971,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],34:[function(require,module,exports){
+},{"hbsfy/runtime":101}],35:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1962,7 +1986,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],35:[function(require,module,exports){
+},{"hbsfy/runtime":101}],36:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2003,7 +2027,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":99}],36:[function(require,module,exports){
+},{"hbsfy/runtime":101}],37:[function(require,module,exports){
 var Backbone = require('backbone'),
     $        = require('jquery');
      
@@ -2057,7 +2081,7 @@ module.exports = Backbone.View.extend({
       $('.caja_acciones').hide();
   }
 }); 
-},{"backbone":67,"jquery":101}],37:[function(require,module,exports){
+},{"backbone":69,"jquery":103}],38:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Views.CajaBusqueda 
@@ -2102,7 +2126,7 @@ events : {
 
 });
 
-},{"backbone":67}],38:[function(require,module,exports){
+},{"backbone":69}],39:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                     = require('jquery'),
     SucursalDetalleVista   = require('../views/sucursalDetalle'),
@@ -2184,7 +2208,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../popup":18,"../views/sucursalDetalle":64,"backbone":67,"jquery":101}],39:[function(require,module,exports){
+},{"../popup":18,"../views/sucursalDetalle":66,"backbone":69,"jquery":103}],40:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Catalogo              = require('../models/catalogoLista'),
@@ -2223,7 +2247,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/catalogoLista":9,"../templates/catalogos-basico.hbs":20,"backbone":67,"jquery":101}],40:[function(require,module,exports){
+},{"../models/catalogoLista":9,"../templates/catalogos-basico.hbs":20,"backbone":69,"jquery":103}],41:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/catalogos-detalle.hbs'),
@@ -2332,7 +2356,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/catalogo":8,"../templates/catalogos-detalle.hbs":21,"backbone":67,"jquery":101}],41:[function(require,module,exports){
+},{"../models/catalogo":8,"../templates/catalogos-detalle.hbs":21,"backbone":69,"jquery":103}],42:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     CatalogoDetalleVista = require('../views/catalogoDetalleDescripcion'),
@@ -2410,7 +2434,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../models/catalogo":8,"../views/catalogoDetalleDescripcion":40,"backbone":67,"jquery":101}],42:[function(require,module,exports){
+},{"../models/catalogo":8,"../views/catalogoDetalleDescripcion":41,"backbone":69,"jquery":103}],43:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     CatalogoDescripcionVista = require('../views/catalogoDescripcion');
@@ -2446,7 +2470,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/catalogoDescripcion":39,"backbone":67,"jquery":101}],43:[function(require,module,exports){
+},{"../views/catalogoDescripcion":40,"backbone":69,"jquery":103}],44:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                      = require('jquery'),
     PersonalBusquedasVista = require('../views/personalBusquedas'),
@@ -2604,7 +2628,7 @@ module.exports = Backbone.View.extend({
    },
 });
 
-},{"../templates/resultados-empresa-busqueda.hbs":29,"../templates/resultados-personal-busqueda.hbs":32,"../templates/resultados-sucursal-busqueda.hbs":33,"../views/cajaBusqueda":37,"../views/datoBusquedas":45,"../views/empresaBusquedas":47,"../views/personalBusquedas":54,"backbone":67,"jquery":101}],44:[function(require,module,exports){
+},{"../templates/resultados-empresa-busqueda.hbs":30,"../templates/resultados-personal-busqueda.hbs":33,"../templates/resultados-sucursal-busqueda.hbs":34,"../views/cajaBusqueda":38,"../views/datoBusquedas":46,"../views/empresaBusquedas":48,"../views/personalBusquedas":56,"backbone":69,"jquery":103}],45:[function(require,module,exports){
 var Backbone    = require('backbone');
 
 //Personal.Views.DatoBusqueda 
@@ -2634,7 +2658,6 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    debugger;
     this.model.busqueda();
   },
   cambiar: function(){
@@ -2643,7 +2666,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"backbone":67}],45:[function(require,module,exports){
+},{"backbone":69}],46:[function(require,module,exports){
 var Backbone          = require('backbone'),
     DatoBusquedaVista = require('../views/datoBusqueda');
     
@@ -2683,7 +2706,7 @@ module.exports = Backbone.View.extend({
 });
 
 //   $('#resultados_sucursal_movimiento').scrollTop($this.index() * $this.outerHeight());
-},{"../views/datoBusqueda":44,"backbone":67}],46:[function(require,module,exports){
+},{"../views/datoBusqueda":45,"backbone":69}],47:[function(require,module,exports){
 var Backbone          = require('backbone'),
     plantilla = require("../templates/resultados-empresa-busqueda.hbs");
 
@@ -2712,7 +2735,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/resultados-empresa-busqueda.hbs":29,"backbone":67}],47:[function(require,module,exports){
+},{"../templates/resultados-empresa-busqueda.hbs":30,"backbone":69}],48:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     EmpresaBusquedaVista  = require('../views/empresaBusqueda');
@@ -2744,7 +2767,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/resultados-personal-busqueda.hbs":32,"../views/empresaBusqueda":46,"backbone":67,"jquery":101}],48:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":33,"../views/empresaBusqueda":47,"backbone":69,"jquery":103}],49:[function(require,module,exports){
 var Backbone   = require('backbone'),
     Plantilla  = require('../templates/resultados-empresa-padre.hbs')       
     app        = Backbone.app;
@@ -2791,7 +2814,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../templates/resultados-empresa-padre.hbs":30,"backbone":67}],49:[function(require,module,exports){
+},{"../templates/resultados-empresa-padre.hbs":31,"backbone":69}],50:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Sucursal                = require('../models/sucursal'),
@@ -3052,7 +3075,49 @@ generarJSON: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/empresa":10,"../models/sucursal":15,"../templates/empresa-detalle.hbs":22,"../views/empresaDescripcion":48,"../views/personalCatalogos":56,"backbone":67,"jquery":101}],50:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/empresa":10,"../models/sucursal":15,"../templates/empresa-detalle.hbs":22,"../views/empresaDescripcion":49,"../views/personalCatalogos":58,"backbone":69,"jquery":103}],51:[function(require,module,exports){
+var Backbone                = require('backbone'),
+    $                       = require('jquery'),
+    Sucursal                = require('../models/sucursal'),
+    Empresa                 = require('../models/empresa'),  
+    Catalogos               = require('../collections/catalogos'),
+    PersonalCatalogosVista  = require('../views/personalCatalogos'),
+    EmpresaDescripcionVista = require('../views/empresaDescripcion'),
+    Plantilla               = require('../templates/empresa-listado-reportes.hbs'),
+    app                     = Backbone.app;
+
+//Personal.Views.EmpresaDetalle 
+module.exports = Backbone.View.extend({
+
+  el: $('#bloque_empresa_reporte'),
+  className: 'empresa_scroll',
+  tagName: 'div',
+  template: Plantilla,
+
+  initialize: function () {
+    this.listenTo(this.model, "change", this.llenado, this);
+  },
+ 
+  reset: function()
+  {
+    console.log("valores por defecto");
+  },
+  llenado: function(){
+    console.log("llenando el formulario reportes");
+    if(this.model.get("id")!=="-1"){
+	    this.render();
+    }
+  }, 
+  render: function () {
+   console.log("buscando en el render");
+   var detalle = this.model.toJSON();
+   var html = this.template(detalle);
+   this.$el.html(html);
+	},
+});
+
+
+},{"../collections/catalogos":1,"../models/empresa":10,"../models/sucursal":15,"../templates/empresa-listado-reportes.hbs":23,"../views/empresaDescripcion":49,"../views/personalCatalogos":58,"backbone":69,"jquery":103}],52:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $                     = require('jquery'),
     Login       = require('../models/login');
@@ -3120,7 +3185,7 @@ module.exports = Backbone.View.extend({
 
   });
 
-},{"../models/login":11,"backbone":67,"jquery":101}],51:[function(require,module,exports){
+},{"../models/login":11,"backbone":69,"jquery":103}],53:[function(require,module,exports){
 var Backbone = require('backbone'),
     $           = require('jquery');
 
@@ -3170,7 +3235,7 @@ module.exports = Backbone.View.extend({
       $('.consulta_empresa_personal').hide();
    }
 }); 
-},{"backbone":67,"jquery":101}],52:[function(require,module,exports){
+},{"backbone":69,"jquery":103}],54:[function(require,module,exports){
 var Backbone  = require('backbone'),
     $         = require('jquery'),
     Plantilla = require('../templates/personal-datos_basicos.hbs');
@@ -3200,7 +3265,7 @@ module.exports= Backbone.View.extend({
   },
   });
 
-},{"../templates/personal-datos_basicos.hbs":25,"backbone":67,"jquery":101}],53:[function(require,module,exports){
+},{"../templates/personal-datos_basicos.hbs":26,"backbone":69,"jquery":103}],55:[function(require,module,exports){
 var Backbone   = require('backbone'),
     $          = require('jquery'),
     Handlebars = require('handlebars'),
@@ -3235,7 +3300,7 @@ module.exports= Backbone.View.extend({
 
 
 
-},{"../templates/resultados-personal-busqueda.hbs":32,"backbone":67,"handlebars":86,"jquery":101}],54:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":33,"backbone":69,"handlebars":88,"jquery":103}],56:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalBusquedaVista = require('../views/personalBusqueda'),
@@ -3271,7 +3336,7 @@ module.exports= Backbone.View.extend({
     }
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":32,"../views/personalBusqueda":53,"backbone":67,"jquery":101}],55:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":33,"../views/personalBusqueda":55,"backbone":69,"jquery":103}],57:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/personal-catalogos.hbs');
@@ -3305,7 +3370,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/personal-catalogos.hbs":24,"backbone":67,"jquery":101}],56:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":25,"backbone":69,"jquery":103}],58:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalCatalogoVista = require('../views/personalCatalogo'),
@@ -3339,7 +3404,7 @@ module.exports = Backbone.View.extend({
   },  
 });
 
-},{"../templates/personal-catalogos.hbs":24,"../views/personalCatalogo":55,"backbone":67,"jquery":101}],57:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":25,"../views/personalCatalogo":57,"backbone":69,"jquery":103}],59:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Personal              = require('../models/personal'),
@@ -3380,7 +3445,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/personal":13,"../templates/personal-en-sucursal.hbs":27,"backbone":67,"jquery":101}],58:[function(require,module,exports){
+},{"../models/personal":13,"../templates/personal-en-sucursal.hbs":28,"backbone":69,"jquery":103}],60:[function(require,module,exports){
 var Backbone                = require('backbone');
     $                       = require('jquery');
     $.ui                    = require('jquery-ui'),
@@ -3783,7 +3848,7 @@ uploadFile: function(event) {
     });
   }
 });
-},{"../collections/catalogos":1,"../collections/sucursales":5,"../models/personal":13,"../models/personal_sucursal":14,"../notificaciones":17,"../templates/personal-detalle.hbs":26,"../templates/resultados-sucursal-busqueda.hbs":33,"../views/cajaBusqueda":37,"../views/datoBusquedas":45,"../views/personalCatalogos":56,"backbone":67,"jquery":101,"jquery-ui":100}],59:[function(require,module,exports){
+},{"../collections/catalogos":1,"../collections/sucursales":5,"../models/personal":13,"../models/personal_sucursal":14,"../notificaciones":17,"../templates/personal-detalle.hbs":27,"../templates/resultados-sucursal-busqueda.hbs":34,"../views/cajaBusqueda":38,"../views/datoBusquedas":46,"../views/personalCatalogos":58,"backbone":69,"jquery":103,"jquery-ui":102}],61:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     PersonalDescripcionVista = require('../views/personalDescripcion');
@@ -3818,7 +3883,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/personalDescripcion":57,"backbone":67,"jquery":101}],60:[function(require,module,exports){
+},{"../views/personalDescripcion":59,"backbone":69,"jquery":103}],62:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -4025,7 +4090,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../funcionesGenericas":6,"../models/personal_sucursal":14,"../templates/movimiento-personal-sucursal.hbs":23,"../views/personalCatalogos":56,"backbone":67,"jquery":101}],61:[function(require,module,exports){
+},{"../collections/catalogos":1,"../funcionesGenericas":6,"../models/personal_sucursal":14,"../templates/movimiento-personal-sucursal.hbs":24,"../views/personalCatalogos":58,"backbone":69,"jquery":103}],63:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/personal-sucursal-activa.hbs')
 
@@ -4089,7 +4154,7 @@ module.exports = Backbone.View.extend({
     },
   });
 
-},{"../templates/personal-sucursal-activa.hbs":28,"backbone":67}],62:[function(require,module,exports){
+},{"../templates/personal-sucursal-activa.hbs":29,"backbone":69}],64:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/sucursal-datos_basicos.hbs');
   
@@ -4117,7 +4182,7 @@ module.exports = Backbone.View.extend({
   },
   });
 
-},{"../templates/sucursal-datos_basicos.hbs":34,"backbone":67}],63:[function(require,module,exports){
+},{"../templates/sucursal-datos_basicos.hbs":35,"backbone":69}],65:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Sucursal              = require('../models/sucursal'),
@@ -4187,7 +4252,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/personal_sucursal":14,"../models/sucursal":15,"../templates/resultados-empresa-sucursal-listado.hbs":31,"../views/sucursalDetalle":64,"backbone":67,"jquery":101}],64:[function(require,module,exports){
+},{"../models/personal_sucursal":14,"../models/sucursal":15,"../templates/resultados-empresa-sucursal-listado.hbs":32,"../views/sucursalDetalle":66,"backbone":69,"jquery":103}],66:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -4428,7 +4493,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":1,"../models/personal":13,"../models/sucursal":15,"../templates/sucursal-detalle.hbs":35,"../views/personalCatalogos":56,"backbone":67,"jquery":101}],65:[function(require,module,exports){
+},{"../collections/catalogos":1,"../models/personal":13,"../models/sucursal":15,"../templates/sucursal-detalle.hbs":36,"../views/personalCatalogos":58,"backbone":69,"jquery":103}],67:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     SucursalDescripcionVista = require('../views/sucursalDescripcion');
@@ -4463,7 +4528,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/sucursalDescripcion":63,"backbone":67,"jquery":101}],66:[function(require,module,exports){
+},{"../views/sucursalDescripcion":65,"backbone":69,"jquery":103}],68:[function(require,module,exports){
 var Backbone                 = require('backbone'),
     $                        = require('jquery'),
     ol                       = require('openlayers'),
@@ -4608,7 +4673,7 @@ module.exports = Backbone.View.extend({
       },
 });
 
-},{"../views/sucursalDescripcion":63,"backbone":67,"jquery":101,"openlayers":103}],67:[function(require,module,exports){
+},{"../views/sucursalDescripcion":65,"backbone":69,"jquery":103,"openlayers":105}],69:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.1
 
@@ -6485,7 +6550,7 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":101,"underscore":104}],68:[function(require,module,exports){
+},{"jquery":103,"underscore":106}],70:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6549,7 +6614,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars.runtime":69,"./handlebars/compiler/ast":71,"./handlebars/compiler/base":72,"./handlebars/compiler/compiler":74,"./handlebars/compiler/javascript-compiler":76,"./handlebars/compiler/visitor":79,"./handlebars/no-conflict":82}],69:[function(require,module,exports){
+},{"./handlebars.runtime":71,"./handlebars/compiler/ast":73,"./handlebars/compiler/base":74,"./handlebars/compiler/compiler":76,"./handlebars/compiler/javascript-compiler":78,"./handlebars/compiler/visitor":81,"./handlebars/no-conflict":84}],71:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6610,7 +6675,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars/base":70,"./handlebars/exception":81,"./handlebars/no-conflict":82,"./handlebars/runtime":83,"./handlebars/safe-string":84,"./handlebars/utils":85}],70:[function(require,module,exports){
+},{"./handlebars/base":72,"./handlebars/exception":83,"./handlebars/no-conflict":84,"./handlebars/runtime":85,"./handlebars/safe-string":86,"./handlebars/utils":87}],72:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -6884,7 +6949,7 @@ function createFrame(object) {
 }
 
 /* [args, ]options */
-},{"./exception":81,"./utils":85}],71:[function(require,module,exports){
+},{"./exception":83,"./utils":87}],73:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7037,7 +7102,7 @@ var AST = {
 // must modify the object to operate properly.
 exports['default'] = AST;
 module.exports = exports['default'];
-},{}],72:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7084,7 +7149,7 @@ function parse(input, options) {
   var strip = new _WhitespaceControl2['default']();
   return strip.accept(_parser2['default'].parse(input));
 }
-},{"../utils":85,"./ast":71,"./helpers":75,"./parser":77,"./whitespace-control":80}],73:[function(require,module,exports){
+},{"../utils":87,"./ast":73,"./helpers":77,"./parser":79,"./whitespace-control":82}],75:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7249,7 +7314,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 /* NOP */
-},{"../utils":85,"source-map":87}],74:[function(require,module,exports){
+},{"../utils":87,"source-map":89}],76:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7777,7 +7842,7 @@ function transformLiteralToPath(sexpr) {
     sexpr.path = new _AST2['default'].PathExpression(false, 0, [literal.original + ''], literal.original + '', literal.loc);
   }
 }
-},{"../exception":81,"../utils":85,"./ast":71}],75:[function(require,module,exports){
+},{"../exception":83,"../utils":87,"./ast":73}],77:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7909,7 +7974,7 @@ function prepareBlock(openBlock, program, inverseAndProgram, close, inverted, lo
 
   return new this.BlockStatement(openBlock.path, openBlock.params, openBlock.hash, program, inverse, openBlock.strip, inverseStrip, close && close.strip, this.locInfo(locInfo));
 }
-},{"../exception":81}],76:[function(require,module,exports){
+},{"../exception":83}],78:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8972,7 +9037,7 @@ function strictLookup(requireTerminal, compiler, parts, type) {
 
 exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
-},{"../base":70,"../exception":81,"../utils":85,"./code-gen":73}],77:[function(require,module,exports){
+},{"../base":72,"../exception":83,"../utils":87,"./code-gen":75}],79:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -9651,7 +9716,7 @@ var handlebars = (function () {
     return new Parser();
 })();exports["default"] = handlebars;
 module.exports = exports["default"];
-},{}],78:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9817,7 +9882,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
   return pair.key + '=' + this.accept(pair.value);
 };
 /*eslint-enable new-cap */
-},{"./visitor":79}],79:[function(require,module,exports){
+},{"./visitor":81}],81:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9950,7 +10015,7 @@ Visitor.prototype = {
 exports['default'] = Visitor;
 module.exports = exports['default'];
 /* content */ /* comment */ /* path */ /* string */ /* number */ /* bool */ /* literal */ /* literal */
-},{"../exception":81,"./ast":71}],80:[function(require,module,exports){
+},{"../exception":83,"./ast":73}],82:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -10163,7 +10228,7 @@ function omitLeft(body, i, multiple) {
 
 exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
-},{"./visitor":79}],81:[function(require,module,exports){
+},{"./visitor":81}],83:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -10202,7 +10267,7 @@ Exception.prototype = new Error();
 
 exports['default'] = Exception;
 module.exports = exports['default'];
-},{}],82:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -10223,7 +10288,7 @@ exports['default'] = function (Handlebars) {
 
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],83:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -10456,7 +10521,7 @@ function initData(context, data) {
   }
   return data;
 }
-},{"./base":70,"./exception":81,"./utils":85}],84:[function(require,module,exports){
+},{"./base":72,"./exception":83,"./utils":87}],86:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -10471,7 +10536,7 @@ SafeString.prototype.toString = SafeString.prototype.toHTML = function () {
 
 exports['default'] = SafeString;
 module.exports = exports['default'];
-},{}],85:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -10586,7 +10651,7 @@ function blockParams(params, ids) {
 function appendContextPath(contextPath, id) {
   return (contextPath ? contextPath + '.' : '') + id;
 }
-},{}],86:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -10613,7 +10678,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":68,"../dist/cjs/handlebars/compiler/printer":78,"fs":105}],87:[function(require,module,exports){
+},{"../dist/cjs/handlebars":70,"../dist/cjs/handlebars/compiler/printer":80,"fs":107}],89:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -10623,7 +10688,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":93,"./source-map/source-map-generator":94,"./source-map/source-node":95}],88:[function(require,module,exports){
+},{"./source-map/source-map-consumer":95,"./source-map/source-map-generator":96,"./source-map/source-node":97}],90:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10722,7 +10787,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":96,"amdefine":97}],89:[function(require,module,exports){
+},{"./util":98,"amdefine":99}],91:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10866,7 +10931,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":90,"amdefine":97}],90:[function(require,module,exports){
+},{"./base64":92,"amdefine":99}],92:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10910,7 +10975,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":97}],91:[function(require,module,exports){
+},{"amdefine":99}],93:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10992,7 +11057,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":97}],92:[function(require,module,exports){
+},{"amdefine":99}],94:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -11080,7 +11145,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":96,"amdefine":97}],93:[function(require,module,exports){
+},{"./util":98,"amdefine":99}],95:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11657,7 +11722,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":88,"./base64-vlq":89,"./binary-search":91,"./util":96,"amdefine":97}],94:[function(require,module,exports){
+},{"./array-set":90,"./base64-vlq":91,"./binary-search":93,"./util":98,"amdefine":99}],96:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -12059,7 +12124,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":88,"./base64-vlq":89,"./mapping-list":92,"./util":96,"amdefine":97}],95:[function(require,module,exports){
+},{"./array-set":90,"./base64-vlq":91,"./mapping-list":94,"./util":98,"amdefine":99}],97:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -12475,7 +12540,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":94,"./util":96,"amdefine":97}],96:[function(require,module,exports){
+},{"./source-map-generator":96,"./util":98,"amdefine":99}],98:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -12796,7 +12861,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":97}],97:[function(require,module,exports){
+},{"amdefine":99}],99:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.0 Copyright (c) 2011-2015, The Dojo Foundation All Rights Reserved.
@@ -13101,15 +13166,15 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/handlebars/node_modules/source-map/node_modules/amdefine/amdefine.js")
-},{"_process":107,"path":106}],98:[function(require,module,exports){
+},{"_process":109,"path":108}],100:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":69}],99:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":71}],101:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":98}],100:[function(require,module,exports){
+},{"handlebars/runtime":100}],102:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*! jQuery UI - v1.10.3 - 2013-05-03
@@ -28116,7 +28181,7 @@ $.widget( "ui.tooltip", {
 
 }( jQuery ) );
 
-},{"jquery":101}],101:[function(require,module,exports){
+},{"jquery":103}],103:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.11.3
  * http://jquery.com/
@@ -38469,7 +38534,7 @@ return jQuery;
 
 }));
 
-},{}],102:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -41665,7 +41730,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],103:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
 // Version: v3.7.0
@@ -42602,7 +42667,7 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
 }));
 
 
-},{}],104:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -44152,9 +44217,9 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
   }
 }.call(this));
 
-},{}],105:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 
-},{}],106:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -44382,7 +44447,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":107}],107:[function(require,module,exports){
+},{"_process":109}],109:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
