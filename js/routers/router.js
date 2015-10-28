@@ -22,7 +22,9 @@ var Backbone                = require('backbone'),
     CatalogoDetListadoVista     = require('../views/catalogosDetalleListado'), 
     
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
-    EmpresaReporteVista     = require('../views/empresaListadoReporte'),
+   // EmpresaReporteVista     = require('../views/empresaListadoReporte'),
+    EmpresaReporteVista     = require('../views/empresaListaReportes'),
+    
     
     EmpresaMapaVista        = require('../views/sucursalMapa'),
 
@@ -72,6 +74,7 @@ initialize: function () {
     this.Perso = new Personas();          
     this.Empresa = new Empresas();
     this.EmpresaConsulta = new Empresas();
+    this.EmpresaReporte = new Empresas();
     
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
@@ -113,8 +116,8 @@ initialize: function () {
     
     this.EmpresaReporteModelo = new Empresa();
     this.EmpresaReporteModelo.set({"id":"-1"});
-    this.EmpresaReporteDetalle = new EmpresaReporteVista({model: this.EmpresaReporteModelo});
-    
+    //this.EmpresaReporteDetalle = new EmpresaReporteVista({model: this.EmpresaReporteModelo});
+    this.EmpresaReporteDetalle = new EmpresaReporteVista({collection: this.EmpresaReporte});
     
     
 
@@ -277,7 +280,14 @@ initialize: function () {
     if(Backbone.app.menu==="consulta_empresaperso"){
       Backbone.app.operacion="buscar";
       this.EmpresaReporteModelo.valor = valor_buscado;
-      this.EmpresaReporteModelo.fetch({headers: {'Authorization' :localStorage.token}});
+      this.EmpresaReporteModelo.fetch({
+        headers: {'Authorization' :localStorage.token},
+        success: function(){
+             this.EmpresaReporte.add(this.EmpresaReporteModelo);
+      //       this.EmpresaReporte.render();
+        }
+      });
+      
       console.log("consulta empresas reportes");
     }
   },
