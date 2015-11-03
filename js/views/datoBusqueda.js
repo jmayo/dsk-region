@@ -18,7 +18,6 @@ module.exports = Backbone.View.extend({
     this.template = opciones.template;
     this.attributes.tabindex =  opciones.id ;
     this.id = "opcion_busqueda_" + opciones.id;
-   // debugger;
   },
   render: function () {
     var busqueda = this.model.toJSON();

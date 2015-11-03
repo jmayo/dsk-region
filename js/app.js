@@ -577,6 +577,10 @@ module.exports = Backbone.Model.extend({
   },
    busqueda: function(){
      Backbone.app.navigate("Empresa/buscar/" + this.get('cve_empresa'), {trigger: true});
+//router.navigate(Backbone.history.fragment, true);
+     Backbone.history.loadUrl( Backbone.history.fragment );
+     router.refresh(true);
+
   },
   defaults : function(){
       this.fecha_actual = new  funcionGenerica().fecha18Years();
@@ -1292,9 +1296,6 @@ initialize: function () {
     this.EmpresaModelo.set({"id":"-1"});
     this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
     
-    this.EmpresaReporteModelo = new Empresa();
-    this.EmpresaReporteModelo.set({"id":"-1"});
-    //this.EmpresaReporteDetalle = new EmpresaReporteVista({model: this.EmpresaReporteModelo});
     this.EmpresaReporteDetalle = new EmpresaReporteVista({collection: this.EmpresaReporte});
     
     
@@ -1451,19 +1452,22 @@ initialize: function () {
   empresaClave: function (valor_buscado) {
     console.log(Backbone.app.menu);
     if(Backbone.app.menu==="empresa"){
+       console.log("**2")
       Backbone.app.operacion="buscar";
       this.EmpresaModelo.valor = valor_buscado;
       this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="consulta_empresaperso"){
       Backbone.app.operacion="buscar";
-      this.EmpresaReporteModelo.valor = valor_buscado;
-      this.EmpresaReporteModelo.fetch({
+      var empresaModelo = new Empresa();
+      empresaModelo.valor = valor_buscado;
+      self = this;
+      empresaModelo.fetch({ 
         headers: {'Authorization' :localStorage.token},
         success: function(){
-             this.EmpresaReporte.add(this.EmpresaReporteModelo);
-      //       this.EmpresaReporte.render();
-        }
+             self.EmpresaReporte.add(empresaModelo,{merge: true});
+             
+        },
       });
       
       console.log("consulta empresas reportes");
@@ -1507,6 +1511,8 @@ initialize: function () {
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado, asignacion_actual) {
+    console.log("busco una sucursal");
+
    if(Backbone.app.menu==="personal"){
         this.SucursalModeloEnPersonal.valor = valor_buscado;
         this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
@@ -2659,7 +2665,6 @@ module.exports = Backbone.View.extend({
     this.template = opciones.template;
     this.attributes.tabindex =  opciones.id ;
     this.id = "opcion_busqueda_" + opciones.id;
-   // debugger;
   },
   render: function () {
     var busqueda = this.model.toJSON();
@@ -3130,14 +3135,25 @@ var Backbone                = require('backbone'),
 //Personal.Views.EmpresaDetalle 
 module.exports = Backbone.View.extend({
 
+//fa fa-close fa-1x
   className: 'empresa_scroll',
   tagName: 'div',
   template: Plantilla,
 
   initialize: function () {
-  //  this.listenTo(this.model, "change", this.llenado, this);
+   this.listenTo(this.model, "change", this.llenado, this);
+   this.listenTo(this.model, "remove", this.quitarVista, this);
   },
- 
+  events:{
+    "mousedown .x_empresa": "eliminar",
+  },
+  eliminar: function(){
+    Backbone.app.EmpresaReporte.remove(this.model.get("id"));
+  },
+  quitarVista: function(){
+      this.$el.remove();
+  },
+
   reset: function()
   {
     console.log("valores por defecto");

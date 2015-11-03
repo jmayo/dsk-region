@@ -114,9 +114,6 @@ initialize: function () {
     this.EmpresaModelo.set({"id":"-1"});
     this.EmpresaDetalle = new EmpresaDetalleVista({model: this.EmpresaModelo});
     
-    this.EmpresaReporteModelo = new Empresa();
-    this.EmpresaReporteModelo.set({"id":"-1"});
-    //this.EmpresaReporteDetalle = new EmpresaReporteVista({model: this.EmpresaReporteModelo});
     this.EmpresaReporteDetalle = new EmpresaReporteVista({collection: this.EmpresaReporte});
     
     
@@ -273,19 +270,22 @@ initialize: function () {
   empresaClave: function (valor_buscado) {
     console.log(Backbone.app.menu);
     if(Backbone.app.menu==="empresa"){
+       console.log("**2")
       Backbone.app.operacion="buscar";
       this.EmpresaModelo.valor = valor_buscado;
       this.EmpresaModelo.fetch({headers: {'Authorization' :localStorage.token}});
     }
     if(Backbone.app.menu==="consulta_empresaperso"){
       Backbone.app.operacion="buscar";
-      this.EmpresaReporteModelo.valor = valor_buscado;
-      this.EmpresaReporteModelo.fetch({
+      var empresaModelo = new Empresa();
+      empresaModelo.valor = valor_buscado;
+      self = this;
+      empresaModelo.fetch({ 
         headers: {'Authorization' :localStorage.token},
         success: function(){
-             this.EmpresaReporte.add(this.EmpresaReporteModelo);
-      //       this.EmpresaReporte.render();
-        }
+             self.EmpresaReporte.add(empresaModelo,{merge: true});
+             
+        },
       });
       
       console.log("consulta empresas reportes");
@@ -329,6 +329,8 @@ initialize: function () {
     //this.PersoBasicoModelo =
   },
   sucursalClave: function (valor_buscado, asignacion_actual) {
+    console.log("busco una sucursal");
+
    if(Backbone.app.menu==="personal"){
         this.SucursalModeloEnPersonal.valor = valor_buscado;
         this.SucursalModeloEnPersonal.fetch({headers: {'Authorization' :localStorage.token}});
