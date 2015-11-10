@@ -2219,6 +2219,13 @@ module.exports = Backbone.View.extend({
       Backbone.app.CatalogoDetVista.guardar();
       console.log("catalogos guardados");
     }
+    if(Backbone.app.menu==="consulta_empresaperso"){
+      Backbone.app.EmpresaReporte
+      Backbone.app.EmpresaReporte.each(function(log) {
+        console.log('log item.', log);
+        //console.log('log item.', log.toJSON());
+    });
+    }
 
   },
 
