@@ -75,11 +75,20 @@ module.exports = Backbone.View.extend({
       console.log("catalogos guardados");
     }
     if(Backbone.app.menu==="consulta_empresaperso"){
-      Backbone.app.EmpresaReporte
+      var id_empresas ="";
       Backbone.app.EmpresaReporte.each(function(log) {
         console.log('log item.', log);
+        id_empresas += log.id +",";
         //console.log('log item.', log.toJSON());
     });
+
+      id_empresas = id_empresas.replace(/,\s*$/, "");
+
+      var reporte = new  PersoActEmpresas();
+      reporte.id_empresas =id_empresas;
+      reporte.fetch({headers: {'Authorization' :localStorage.token}});
+      debugger;
+
     }
 
   },
