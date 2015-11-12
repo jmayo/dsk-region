@@ -1209,7 +1209,7 @@ var Backbone                = require('backbone'),
     Personas                = require('../collections/personas'),
     Empresas                = require('../collections/empresas'),
     Sucursales              = require('../collections/sucursales'),
-    PersoActEmpresas        = require('../collections/personal_activo_empresas'),
+ //   PersoActEmpresas        = require('../collections/personal_activo_empresas'),
     PersonalBusquedaVista   = require('../views/personalBusqueda'),
     EmpresaBusquedaVista    = require('../views/empresaBusqueda'),
     SucursalListadosVista   = require('../views/sucursalListados'),
@@ -1229,7 +1229,7 @@ var Backbone                = require('backbone'),
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
    // EmpresaReporteVista     = require('../views/empresaListadoReporte'),
     EmpresaReporteVista     = require('../views/empresaListaReportes'),
-    
+   // PersoXEmpresaRepVista    = require('../views/personalXEmpresaReportes'),
     
     EmpresaMapaVista        = require('../views/sucursalMapa'),
 
@@ -1280,7 +1280,8 @@ initialize: function () {
     this.Empresa = new Empresas();
     this.EmpresaConsulta = new Empresas();
     this.EmpresaReporte = new Empresas();
-    
+   // this.PersoActEmpresa = PersoActEmpresas();
+
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
     this.PersonalLista = new Personas();
@@ -1321,7 +1322,7 @@ initialize: function () {
     
     this.EmpresaReporteDetalle = new EmpresaReporteVista({collection: this.EmpresaReporte});
     
-    
+  //  this.PersoXEmpresaRep = new PersoXEmpresaRepVista({collection: this.PersoActEmpresa});
 
     this.EmpresaMapa= new EmpresaMapaVista();
         
@@ -1660,7 +1661,7 @@ initialize: function () {
 
 });
 
-},{"../collections/catalogos":1,"../collections/catalogosLista":2,"../collections/empresas":3,"../collections/personal_activo_empresas":4,"../collections/personas":5,"../collections/sucursales":6,"../funcionesGenericas":7,"../models/catalogoLista":10,"../models/empresa":11,"../models/menu":13,"../models/personal":14,"../models/personal_sucursal":15,"../models/sucursal":16,"../popup":19,"../views/body":38,"../views/cajaOperaciones":40,"../views/catalogoDescripcion":41,"../views/catalogoDetalleDescripcion":42,"../views/catalogosDetalleListado":43,"../views/catalogosListado":44,"../views/contenido":45,"../views/empresaBusqueda":48,"../views/empresaDetalle":51,"../views/empresaListaReportes":52,"../views/iniciarSesion":54,"../views/menu":55,"../views/personalBasicos":56,"../views/personalBusqueda":57,"../views/personalDetalle":62,"../views/personalListados":63,"../views/personalMovimiento":64,"../views/personalSucursal":65,"../views/sucursalBasicos":66,"../views/sucursalListados":69,"../views/sucursalMapa":70,"backbone":71,"jquery":105}],21:[function(require,module,exports){
+},{"../collections/catalogos":1,"../collections/catalogosLista":2,"../collections/empresas":3,"../collections/personas":5,"../collections/sucursales":6,"../funcionesGenericas":7,"../models/catalogoLista":10,"../models/empresa":11,"../models/menu":13,"../models/personal":14,"../models/personal_sucursal":15,"../models/sucursal":16,"../popup":19,"../views/body":38,"../views/cajaOperaciones":40,"../views/catalogoDescripcion":41,"../views/catalogoDetalleDescripcion":42,"../views/catalogosDetalleListado":43,"../views/catalogosListado":44,"../views/contenido":45,"../views/empresaBusqueda":48,"../views/empresaDetalle":51,"../views/empresaListaReportes":52,"../views/iniciarSesion":54,"../views/menu":55,"../views/personalBasicos":56,"../views/personalBusqueda":57,"../views/personalDetalle":62,"../views/personalListados":63,"../views/personalMovimiento":64,"../views/personalSucursal":65,"../views/sucursalBasicos":66,"../views/sucursalListados":69,"../views/sucursalMapa":70,"backbone":71,"jquery":105}],21:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2167,6 +2168,8 @@ events : {
 
 },{"backbone":71}],40:[function(require,module,exports){
 var Backbone               = require('backbone'),
+    _                       =require('underscore'),
+    PersoActEmpresas       = require('../collections/personal_activo_empresas'),
     $                     = require('jquery'),
     SucursalDetalleVista   = require('../views/sucursalDetalle'),
     popup                  = require('../popup');
@@ -2245,17 +2248,41 @@ module.exports = Backbone.View.extend({
     if(Backbone.app.menu==="consulta_empresaperso"){
       var id_empresas ="";
       Backbone.app.EmpresaReporte.each(function(log) {
-        console.log('log item.', log);
-        id_empresas += log.id +",";
-        //console.log('log item.', log.toJSON());
-    });
+          //console.log('log item.', log);
+          id_empresas += log.id +",";
+         //console.log('log item.', log.toJSON());
+        });
 
       id_empresas = id_empresas.replace(/,\s*$/, "");
 
       var reporte = new  PersoActEmpresas();
       reporte.id_empresas =id_empresas;
-      reporte.fetch({headers: {'Authorization' :localStorage.token}});
-      debugger;
+      reporte.fetch({headers: {'Authorization' :localStorage.token},
+        success: function(){
+            var por_empresas= reporte.groupBy( function(model){
+                            return model.get('id_sucursal__cve_empresa');
+                        });
+
+            _.each(por_empresas,function(log){
+              console.log(log[0].toJSON());
+              var porsucursales =  _.groupBy(log, function(model){
+                     return model.get('id_sucursal__nombre')
+                   });
+
+                //console.log(log.toJSON());
+                console.log(porsucursales);
+        
+               });             
+        }
+    });
+      
+     
+     //var porsucursales =  _.groupBy(por_empresas[7], function(model){
+    // return model.get('id_sucursal__nombre')
+      //  });
+
+      
+
 
     }
 
@@ -2263,7 +2290,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../popup":19,"../views/sucursalDetalle":68,"backbone":71,"jquery":105}],41:[function(require,module,exports){
+},{"../collections/personal_activo_empresas":4,"../popup":19,"../views/sucursalDetalle":68,"backbone":71,"jquery":105,"underscore":108}],41:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Catalogo              = require('../models/catalogoLista'),

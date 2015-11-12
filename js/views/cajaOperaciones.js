@@ -1,4 +1,6 @@
 var Backbone               = require('backbone'),
+    _                       =require('underscore'),
+    PersoActEmpresas       = require('../collections/personal_activo_empresas'),
     $                     = require('jquery'),
     SucursalDetalleVista   = require('../views/sucursalDetalle'),
     popup                  = require('../popup');
@@ -77,17 +79,41 @@ module.exports = Backbone.View.extend({
     if(Backbone.app.menu==="consulta_empresaperso"){
       var id_empresas ="";
       Backbone.app.EmpresaReporte.each(function(log) {
-        console.log('log item.', log);
-        id_empresas += log.id +",";
-        //console.log('log item.', log.toJSON());
-    });
+          //console.log('log item.', log);
+          id_empresas += log.id +",";
+         //console.log('log item.', log.toJSON());
+        });
 
       id_empresas = id_empresas.replace(/,\s*$/, "");
 
       var reporte = new  PersoActEmpresas();
       reporte.id_empresas =id_empresas;
-      reporte.fetch({headers: {'Authorization' :localStorage.token}});
-      debugger;
+      reporte.fetch({headers: {'Authorization' :localStorage.token},
+        success: function(){
+            var por_empresas= reporte.groupBy( function(model){
+                            return model.get('id_sucursal__cve_empresa');
+                        });
+
+            _.each(por_empresas,function(log){
+              console.log(log[0].toJSON());
+              var porsucursales =  _.groupBy(log, function(model){
+                     return model.get('id_sucursal__nombre')
+                   });
+
+                //console.log(log.toJSON());
+                console.log(porsucursales);
+        
+               });             
+        }
+    });
+      
+     
+     //var porsucursales =  _.groupBy(por_empresas[7], function(model){
+    // return model.get('id_sucursal__nombre')
+      //  });
+
+      
+
 
     }
 
