@@ -5,7 +5,7 @@ var Backbone                = require('backbone'),
     Personas                = require('../collections/personas'),
     Empresas                = require('../collections/empresas'),
     Sucursales              = require('../collections/sucursales'),
- //   PersoActEmpresas        = require('../collections/personal_activo_empresas'),
+    PersoActivoEmpresas     = require('../collections/personal_activo_empresas'),
     PersonalBusquedaVista   = require('../views/personalBusqueda'),
     EmpresaBusquedaVista    = require('../views/empresaBusqueda'),
     SucursalListadosVista   = require('../views/sucursalListados'),
@@ -23,9 +23,8 @@ var Backbone                = require('backbone'),
     CatalogoDetListadoVista     = require('../views/catalogosDetalleListado'), 
     
     EmpresaDetalleVista     = require('../views/empresaDetalle'),
-   // EmpresaReporteVista     = require('../views/empresaListadoReporte'),
     EmpresaReporteVista     = require('../views/empresaListaReportes'),
-   // PersoXEmpresaRepVista    = require('../views/personalXEmpresaReportes'),
+    PersoXEmpresaRepVista    = require('../views/personalXEmpresaReportes'),
     
     EmpresaMapaVista        = require('../views/sucursalMapa'),
 
@@ -76,7 +75,7 @@ initialize: function () {
     this.Empresa = new Empresas();
     this.EmpresaConsulta = new Empresas();
     this.EmpresaReporte = new Empresas();
-   // this.PersoActEmpresa = PersoActEmpresas();
+    this.PersoActEmpresa = new PersoActivoEmpresas();
 
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
@@ -118,7 +117,7 @@ initialize: function () {
     
     this.EmpresaReporteDetalle = new EmpresaReporteVista({collection: this.EmpresaReporte});
     
-  //  this.PersoXEmpresaRep = new PersoXEmpresaRepVista({collection: this.PersoActEmpresa});
+    this.PersoXEmpresaRep = new PersoXEmpresaRepVista({collection: this.PersoActEmpresa});
 
     this.EmpresaMapa= new EmpresaMapaVista();
         

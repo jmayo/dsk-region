@@ -78,6 +78,7 @@ module.exports = Backbone.View.extend({
     }
     if(Backbone.app.menu==="consulta_empresaperso"){
       var id_empresas ="";
+
       Backbone.app.EmpresaReporte.each(function(log) {
           //console.log('log item.', log);
           id_empresas += log.id +",";
@@ -85,27 +86,29 @@ module.exports = Backbone.View.extend({
         });
 
       id_empresas = id_empresas.replace(/,\s*$/, "");
+     Backbone.app.PersoActEmpresa.id_empresas = id_empresas;
 
-      var reporte = new  PersoActEmpresas();
-      reporte.id_empresas =id_empresas;
-      reporte.fetch({headers: {'Authorization' :localStorage.token},
-        success: function(){
-            var por_empresas= reporte.groupBy( function(model){
-                            return model.get('id_sucursal__cve_empresa');
-                        });
+     Backbone.app.PersoActEmpresa.fetch({headers: {'Authorization' :localStorage.token}});
+     // var reporte = new  PersoActEmpresas();
+      // reporte.id_empresas =id_empresas;
+      // reporte.fetch({headers: {'Authorization' :localStorage.token},
+      //   success: function(){
+      //       var por_empresas= reporte.groupBy( function(model){
+      //                       return model.get('id_sucursal__cve_empresa');
+      //                   });
 
-            _.each(por_empresas,function(log){
-              console.log(log[0].toJSON());
-              var porsucursales =  _.groupBy(log, function(model){
-                     return model.get('id_sucursal__nombre')
-                   });
+      //       _.each(por_empresas,function(log){
+      //         console.log(log[0].toJSON());
+      //         var porsucursales =  _.groupBy(log, function(model){
+      //                return model.get('id_sucursal__nombre')
+      //              });
 
-                //console.log(log.toJSON());
-                console.log(porsucursales);
+      //           //console.log(log.toJSON());
+      //           console.log(porsucursales);
         
-               });             
-        }
-    });
+      //          });             
+        //}
+    //});
       
      
      //var porsucursales =  _.groupBy(por_empresas[7], function(model){
