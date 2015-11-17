@@ -76,50 +76,6 @@ module.exports = Backbone.View.extend({
       Backbone.app.CatalogoDetVista.guardar();
       console.log("catalogos guardados");
     }
-    if(Backbone.app.menu==="consulta_empresaperso"){
-      var id_empresas ="";
-
-      Backbone.app.EmpresaReporte.each(function(log) {
-          //console.log('log item.', log);
-          id_empresas += log.id +",";
-         //console.log('log item.', log.toJSON());
-        });
-
-      id_empresas = id_empresas.replace(/,\s*$/, "");
-     Backbone.app.PersoActEmpresa.id_empresas = id_empresas;
-
-     Backbone.app.PersoActEmpresa.fetch({headers: {'Authorization' :localStorage.token}});
-     // var reporte = new  PersoActEmpresas();
-      // reporte.id_empresas =id_empresas;
-      // reporte.fetch({headers: {'Authorization' :localStorage.token},
-      //   success: function(){
-      //       var por_empresas= reporte.groupBy( function(model){
-      //                       return model.get('id_sucursal__cve_empresa');
-      //                   });
-
-      //       _.each(por_empresas,function(log){
-      //         console.log(log[0].toJSON());
-      //         var porsucursales =  _.groupBy(log, function(model){
-      //                return model.get('id_sucursal__nombre')
-      //              });
-
-      //           //console.log(log.toJSON());
-      //           console.log(porsucursales);
-        
-      //          });             
-        //}
-    //});
-      
-     
-     //var porsucursales =  _.groupBy(por_empresas[7], function(model){
-    // return model.get('id_sucursal__nombre')
-      //  });
-
-      
-
-
-    }
-
   },
 
 });

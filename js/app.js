@@ -2257,50 +2257,6 @@ module.exports = Backbone.View.extend({
       Backbone.app.CatalogoDetVista.guardar();
       console.log("catalogos guardados");
     }
-    if(Backbone.app.menu==="consulta_empresaperso"){
-      var id_empresas ="";
-
-      Backbone.app.EmpresaReporte.each(function(log) {
-          //console.log('log item.', log);
-          id_empresas += log.id +",";
-         //console.log('log item.', log.toJSON());
-        });
-
-      id_empresas = id_empresas.replace(/,\s*$/, "");
-     Backbone.app.PersoActEmpresa.id_empresas = id_empresas;
-
-     Backbone.app.PersoActEmpresa.fetch({headers: {'Authorization' :localStorage.token}});
-     // var reporte = new  PersoActEmpresas();
-      // reporte.id_empresas =id_empresas;
-      // reporte.fetch({headers: {'Authorization' :localStorage.token},
-      //   success: function(){
-      //       var por_empresas= reporte.groupBy( function(model){
-      //                       return model.get('id_sucursal__cve_empresa');
-      //                   });
-
-      //       _.each(por_empresas,function(log){
-      //         console.log(log[0].toJSON());
-      //         var porsucursales =  _.groupBy(log, function(model){
-      //                return model.get('id_sucursal__nombre')
-      //              });
-
-      //           //console.log(log.toJSON());
-      //           console.log(porsucursales);
-        
-      //          });             
-        //}
-    //});
-      
-     
-     //var porsucursales =  _.groupBy(por_empresas[7], function(model){
-    // return model.get('id_sucursal__nombre')
-      //  });
-
-      
-
-
-    }
-
   },
 
 });
@@ -3232,6 +3188,11 @@ module.exports = Backbone.View.extend({
     Backbone.app.EmpresaReporte.remove(this.model.get("id"));
   },
   quitarVista: function(){
+      console.log("pum me volaron")
+      var modeloEmpresas = Backbone.app.PersoActEmpresa.where({id_sucursal__cve_empresa: this.model.id});
+      Backbone.app.PersoActEmpresa.remove(modeloEmpresas)
+      var el_id_empresa="#reporte_empresa_cve_" + this.model.id;
+      $(el_id_empresa).remove();
       this.$el.remove();
   },
 
@@ -3250,6 +3211,11 @@ module.exports = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
+   
+  var id_empresas = this.model.id;
+  Backbone.app.PersoActEmpresa.id_empresas = id_empresas;
+  Backbone.app.PersoActEmpresa.fetch({headers: {'Authorization' :localStorage.token}});
+   
    return this;
 	},
 });
@@ -4322,16 +4288,15 @@ module.exports = Backbone.View.extend({
    var el_id_sucursal="reporte_sucursal_cve_" + detalle.id_sucursal__id;
    var tabla_sucursal ="tabla_sucursal_cve_" + detalle.id_sucursal__id;
    var el_id_empleado="reporte_empleado_cve_" + detalle.id_personal__matricula;
- 
-    if( $("#" + el_id_empresa).length == 0) {
-   			this.$el.attr('id', el_id_empresa).addClass('tabla_titulo_empresa').append(  this.model.get('id_sucursal__cve_empresa__razon_social'));
+  
+    if( $("#" + el_id_empresa).length === 0) {
+   			this.$el.attr('id', el_id_empresa).addClass('tabla_titulo_empresa').append('<br/> <h3>' + this.model.get('id_sucursal__cve_empresa__razon_social') +'</h3>');
    	    return this;
 	  }
   
-
-   if( $("#" + el_id_sucursal).length == 0)  {
-       var html_tabla_sucursal ='<div class="lista_empleados_sucursal"><table class="tabla_empleados_sucursal" id="' + tabla_sucursal + '"><tr><td>Id Empleado</td><td>Nombre(s)</td></tr></table></div>'
-       this.$el.attr('id', el_id_sucursal).addClass('tabla_titulo_sucursal').append( this.model.get('id_sucursal__nombre') + html_tabla_sucursal );
+   if( $("#" + el_id_sucursal).length === 0)  {
+       var html_tabla_sucursal ='<div id="'+ el_id_sucursal + '" class="lista_empleados_sucursal"><table class="tabla_empleados_sucursal" id="' + tabla_sucursal + '"><tr><td>Id Empleado</td><td>Nombre(s)</td></tr></table></div>'
+      $("#" + el_id_empresa).append('<h4>' + this.model.get('id_sucursal__nombre') + '</h4> ' + html_tabla_sucursal );
       return this;
    }
 
@@ -4356,7 +4321,7 @@ var Backbone              = require('backbone'),
     Plantilla             = require('../templates/personalXEmpresa_empresa.hbs');
 //Personal.Views.PersonalBusquedas 
 module.exports= Backbone.View.extend({
-  el: $('#lista_empleados_sucursal'),
+  el: $('#quitafondo_lista_empleados_sucursal'),
   template: Plantilla,
 
   initialize: function () {
@@ -4371,11 +4336,14 @@ module.exports= Backbone.View.extend({
   addOne: function (resultados) {
     console.log("Se agregaron datos al reporte de personas por empresa");
     
+   var el_id_empresa="reporte_empresa_cve_" + resultados.id_sucursal__cve_empresa;
+ 
+
     //Primero intentara insertar la empresa sino existe
     var busquedaView1 = new EmpresaReporte({ model: resultados }); 
     this.$el.append(busquedaView1.render().el);
     //Despues intentara insertar la sucursal sino existe
-     var busquedaView2 = new EmpresaReporte({ model: resultados }); 
+    var busquedaView2 = new EmpresaReporte({ model: resultados }); 
     this.$el.append(busquedaView2.render().el);
     //  //Despues  insertar al personal en su sucursal correspondiente
     var busquedaView3 = new EmpresaReporte({ model: resultados }); 

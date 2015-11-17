@@ -27,16 +27,15 @@ module.exports = Backbone.View.extend({
    var el_id_sucursal="reporte_sucursal_cve_" + detalle.id_sucursal__id;
    var tabla_sucursal ="tabla_sucursal_cve_" + detalle.id_sucursal__id;
    var el_id_empleado="reporte_empleado_cve_" + detalle.id_personal__matricula;
- 
-    if( $("#" + el_id_empresa).length == 0) {
-   			this.$el.attr('id', el_id_empresa).addClass('tabla_titulo_empresa').append(  this.model.get('id_sucursal__cve_empresa__razon_social'));
+  
+    if( $("#" + el_id_empresa).length === 0) {
+   			this.$el.attr('id', el_id_empresa).addClass('tabla_titulo_empresa').append('<br/> <h3>' + this.model.get('id_sucursal__cve_empresa__razon_social') +'</h3>');
    	    return this;
 	  }
   
-
-   if( $("#" + el_id_sucursal).length == 0)  {
-       var html_tabla_sucursal ='<div class="lista_empleados_sucursal"><table class="tabla_empleados_sucursal" id="' + tabla_sucursal + '"><tr><td>Id Empleado</td><td>Nombre(s)</td></tr></table></div>'
-       this.$el.attr('id', el_id_sucursal).addClass('tabla_titulo_sucursal').append( this.model.get('id_sucursal__nombre') + html_tabla_sucursal );
+   if( $("#" + el_id_sucursal).length === 0)  {
+       var html_tabla_sucursal ='<div id="'+ el_id_sucursal + '" class="lista_empleados_sucursal"><table class="tabla_empleados_sucursal" id="' + tabla_sucursal + '"><tr><td>Id Empleado</td><td>Nombre(s)</td></tr></table></div>'
+      $("#" + el_id_empresa).append('<h4>' + this.model.get('id_sucursal__nombre') + '</h4> ' + html_tabla_sucursal );
       return this;
    }
 

@@ -22,6 +22,11 @@ module.exports = Backbone.View.extend({
     Backbone.app.EmpresaReporte.remove(this.model.get("id"));
   },
   quitarVista: function(){
+      console.log("pum me volaron")
+      var modeloEmpresas = Backbone.app.PersoActEmpresa.where({id_sucursal__cve_empresa: this.model.id});
+      Backbone.app.PersoActEmpresa.remove(modeloEmpresas)
+      var el_id_empresa="#reporte_empresa_cve_" + this.model.id;
+      $(el_id_empresa).remove();
       this.$el.remove();
   },
 
@@ -40,6 +45,11 @@ module.exports = Backbone.View.extend({
    var detalle = this.model.toJSON();
    var html = this.template(detalle);
    this.$el.html(html);
+   
+  var id_empresas = this.model.id;
+  Backbone.app.PersoActEmpresa.id_empresas = id_empresas;
+  Backbone.app.PersoActEmpresa.fetch({headers: {'Authorization' :localStorage.token}});
+   
    return this;
 	},
 });
