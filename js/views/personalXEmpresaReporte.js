@@ -34,7 +34,7 @@ module.exports = Backbone.View.extend({
 	  }
   
    if( $("#" + el_id_sucursal).length === 0)  {
-       var html_tabla_sucursal ='<div id="'+ el_id_sucursal + '" class="lista_empleados_sucursal"><table class="tabla_empleados_sucursal" id="' + tabla_sucursal + '"><tr><td>Id Empleado</td><td>Nombre(s)</td></tr></table></div>'
+       var html_tabla_sucursal ='<div id="'+ el_id_sucursal + '" class="lista_empleados_sucursal"><table class="tabla_empleados_sucursal" id="' + tabla_sucursal + '"><tr><td>Mat</td><td>Nombre(s)</td><td>Puesto</td></tr></table></div>'
       $("#" + el_id_empresa).append('<h4>' + this.model.get('id_sucursal__nombre') + '</h4> ' + html_tabla_sucursal );
       return this;
    }
@@ -42,7 +42,9 @@ module.exports = Backbone.View.extend({
   if ( ($("#" + el_id_empleado).length == 0 )  && ($("#" + tabla_sucursal).length > 0 ))  {
     var cve_empl= this.model.get('id_personal__matricula');
     var nombre =this.model.get('id_personal__paterno') + ' ' + this.model.get('id_personal__materno') +' '+ this.model.get('id_personal__nombre');
-      $("#" + tabla_sucursal).append('<tr id="' +  el_id_empleado +'"> <td contenteditable="true">' + cve_empl + '</td> <td contenteditable="true">' + nombre +'</td></tr>')
+    var puesto =this.model.get('cdu_puesto__descripcion1') + ' ' + this.model.get('cdu_rango__descripcion1') + ' ' + this.model.get('cdu_turno__descripcion1');
+
+      $("#" + tabla_sucursal).append('<tr id="' +  el_id_empleado +'"> <td contenteditable="true">' + cve_empl + '</td> <td contenteditable="true">' + nombre +'</td><td contenteditable="true">' + puesto +'</td> </tr>')
       return this; 
   }
 

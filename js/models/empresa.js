@@ -31,7 +31,7 @@ module.exports = Backbone.Model.extend({
      Backbone.app.navigate("Empresa/buscar/" + this.get('cve_empresa'), {trigger: true});
 //router.navigate(Backbone.history.fragment, true);
      Backbone.history.loadUrl( Backbone.history.fragment );
-     router.refresh(true);
+     //router.refresh(true);
 
   },
   defaults : function(){
