@@ -648,6 +648,36 @@ body
 							background-image -o-linear-gradient(verde_rgb,verde_rgb)
 							background-image -webkit-linear-gradient(verde_rgb,verde_rgb)
 							background-image linear-gradient(verde_rgb,verde_rgb)
+		.incide_empleado
+			margin-top 3.2em
+			background gris_claro
+			border-radius 0.5em 0.5em 0.5em 0.5em
+			a.lnk_empleado
+				text-decoration none
+			.div_empleado
+				color black
+				font-size 12px
+				text-align left
+				//margin-bottom 0.5em
+				padding 2px 20px
+				&:hover
+					text-shadow 4px 4px 2px rgba(120, 120, 120, 1)
+			.hr_empleado
+				//height 2px
+				border-style solid
+				border-color verde
+				border-width 1px 0 0 0
+				border-radius 20px
+				margin 0
+				&:before
+					display block
+					content ""
+					height 10px
+					margin-top -11px
+					border-style solid
+					border-color verde
+					border-width 0 0 1px 0
+					border-radius 20px
 	#quitafondo_lista_empleados_sucursal
 		background none
 	.redondear
@@ -779,20 +809,6 @@ body
 		color green
 	a.eliminar_renglon
 		color red
-	.tabla_titulo_empresa
-		color white
-		//border 1px solid rosa
-		//box-shadow 0 0 0 verde, 2px 1px 10px white inset
-		padding 0
-		text-align center
-		z-index 18
-		width 180%
-		h3,h4
-			margin 0
-		h4
-			color gris_claro
-			margin 0
-			padding-bottom 4px
 	.lista_empleados_sucursal
 		//margin-top 3.1em
 		-moz-border-radius-bottomleft 0px
@@ -807,13 +823,17 @@ body
 		-moz-border-radius-topleft 0px
 		-webkit-border-top-left-radius 0px
 		border-top-left-radius 0px
+		h3,h4
+			color white
+			text-align center
+			padding 0
+			margin 0
 		.tabla_empleados_sucursal
 			border-collapse collapse
 			border-spacing 0
-			width 180%
-			height 100%
-			//margin 10px
-			//padding 0px
+			width 100%
+	#en_top
+		margin-top 3.2em
 	.lista_empleados_sucursal tr:last-child td:last-child
 		-moz-border-radius-bottomright 0px
 		-webkit-border-bottom-right-radius 0px
@@ -858,10 +878,8 @@ body
 		opacity 0.5
 		text-align left
 		border-width 0px 0px 1px 1px
-		//font-size 14px
-		//font-family Arial
-		//font-weight bold
 		color white
+		//border-radius 0 0 0.4em 0.8em
 	.lista_empleados_sucursal tr:first-child td:first-child
 		border-width 0px 0px 1px 0px
 	.lista_empleados_sucursal tr:first-child td:last-child
