@@ -9,6 +9,7 @@ module.exports = Backbone.View.extend({
      "click .empresas": "opcion_empresa",
      "click .movimientos": "opcion_movimientos",
      "click .catalogosli": "opcion_catalogos",
+     "click .incidencias": "opcion_incidencias",
      "click .conempresapersona": "opcion_consulta_empresa_personas",     
      "click .cerrar_sesion": "opcion_cerrarsesion",
   },
@@ -31,6 +32,9 @@ module.exports = Backbone.View.extend({
    opcion_catalogos: function(){
       Backbone.app.navigate("Catalogo", {trigger: true,replace: false});
    },
+   opcion_incidencias: function(){
+      Backbone.app.navigate("Incidencias", {trigger: true,replace: false});
+   },
    opcion_consulta_empresa_personas: function(){
       Backbone.app.navigate("ConsultaEmpPerso", {trigger: true,replace: false});
    },
@@ -44,6 +48,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_personal').hide();
       $('.contenido_empresa').hide();
       $('.contenido_movimientos').hide();
+      $('.incidencias_personal').hide();
       $('.consulta_empresa_personal').hide();
    }
 }); 

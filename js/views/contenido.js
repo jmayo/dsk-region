@@ -20,6 +20,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
       $(".li_menu").css("visibility", "hidden");
       $('.caja_acciones').hide();
+      $('#incidencias_personal').hide();
       $('#consulta_empresa_personal').hide();
       $('#catalogo_movimientos').hide();
    },
@@ -37,6 +38,7 @@ module.exports = Backbone.View.extend({
           $('.contenido_empresa').hide();
           $('.contenido_movimientos').hide();
           $('.contenido_personal').show();
+          $('#incidencias_personal').hide();
           $('#consulta_empresa_personal').hide();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
@@ -56,6 +58,7 @@ module.exports = Backbone.View.extend({
           console.log("ruta empresa")
           $('.contenido_personal').hide();
           $('.contenido_movimientos').hide();
+          $('#incidencias_personal').hide();
           $('#consulta_empresa_personal').hide();
           $('.contenido_empresa').show();
           $('#busqueda_generico').show();
@@ -92,6 +95,7 @@ module.exports = Backbone.View.extend({
         console.log("ruta movimientos")
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
+        $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
         $('.contenido_movimientos').show();
         $('#busqueda_generico').hide();
@@ -115,11 +119,24 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
+        $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').show();
+   },
+   mostrarMenuIncidencias: function(){
+        Backbone.app.menu ='incidencias';
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+        $('#incidencias_personal').show();
+        $('#consulta_empresa_personal').hide();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').hide();
+        $('#catalogo_movimientos').hide();
    },
     mostrarMenuConsEmpPerso:function(){
           Backbone.app.menu = "consulta_empresaperso";
@@ -140,6 +157,7 @@ module.exports = Backbone.View.extend({
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();
+        $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').show();
    },
    mostrarCerrarSesion: function(){
@@ -151,6 +169,7 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
+        $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
    },
 });

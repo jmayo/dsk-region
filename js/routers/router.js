@@ -1,5 +1,6 @@
 var Backbone                = require('backbone'),
     $                       = require('jquery');
+    jQuery                  = require('jquery');      
     CatalogosLista          = require('../collections/catalogosLista'),
     CatalogosDetalleLista   =  require('../collections/catalogos'),
     Personas                = require('../collections/personas'),
@@ -35,12 +36,18 @@ var Backbone                = require('backbone'),
     
     PersonalSucursalVista   = require('../views/personalSucursal'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
+
+    PersonalIncidenciasVista = require('../views/personalIncidencias'),
+
     ContenidoVista          = require('../views/contenido'),
     funcionGenerica = require('../funcionesGenericas')
     MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body'),
     MenuOpcion = require('../models/menu'),
     popup                  = require('../popup');
+    CalendarPick = require('../jquery.calendarPicker')
+    jQueryMouseWheel = require('../jquery.mousewheel')
+    Calendario = require('../calendario')
  
 
 //Personal.Router
@@ -58,15 +65,16 @@ module.exports = Backbone.Router.extend({
     "Movimiento": "movimiento",
     "Personal/:valor_buscado/sucursal/activa": "sucursalActiva",
     "Catalogo": "catalogo",
+    "Incidencias": "incidencias",
     "ConsultaEmpPerso": "cons_empperso",
   //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
 initialize: function () {
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.15:8001/";
+    //window.ruta="http://192.168.0.13:8001/";
     //window.ruta="http://104.236.232.238:8080/";
-    //window.ruta ="http://localhost:8001/";
+    window.ruta ="http://localhost:8001/";
  
 
     this.Catalogos = new CatalogosLista()
@@ -144,6 +152,8 @@ initialize: function () {
     this.PersonalMovimientoModelo.set({"id":"-1"});
     this.PersonalMovimiento = new PersonalMovimientoVista({model: this.PersonalMovimientoModelo});
     
+    this.PersonalIncidencias = new PersonalIncidenciasVista();
+
     popup.initialize();
 
     this.Body = new BodyVista();
@@ -404,8 +414,11 @@ initialize: function () {
 
   
  },
-
-
+ incidencias: function(){
+    this.MenuModelo.Opcion ='incidencias';
+    console.log('incidencias');
+    this.PersonalIncidencias.render();
+ },
  cons_empperso: function () {
     this.MenuModelo.Opcion ='consulta_empresaperso';
     self = this;
