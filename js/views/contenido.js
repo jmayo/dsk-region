@@ -83,8 +83,6 @@ module.exports = Backbone.View.extend({
             this.CajaBusquedaSucursal.close();
           } 
 
-
-
         this.PersonalMBusquedasVista = new DatoBusquedasVista({collection: this.Perso,el: '#resultados_personal_movimiento',template:PlantillaPersonal});
         this.CajaBusquedaPersonal= new CajaBusquedaVista({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
 
@@ -127,6 +125,20 @@ module.exports = Backbone.View.extend({
         $('#catalogo_movimientos').show();
    },
    mostrarMenuIncidencias: function(){
+     Backbone.app.menu = "movimiento";
+      if (this.CajaBusquedaPersonal){
+            this.CajaBusquedaPersonal.close();
+          } 
+         if (this.CajaBusquedaSucursal){
+            this.CajaBusquedaSucursal.close();
+          } 
+
+
+
+       
+        this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
+        this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
+
         Backbone.app.menu ='incidencias';
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();

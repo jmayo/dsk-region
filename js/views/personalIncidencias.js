@@ -3,9 +3,11 @@ var Backbone                = require('backbone'),
    jQuery                  = require('jquery'),  
     Plantilla               = require('../templates/incidencias-personal.hbs'),
     app                     = Backbone.app,
-    CalendarPick = require('../jquery.calendarPicker'),
-    jQueryMouseWheel = require('../jquery.mousewheel'),
-    Calendario = require('../calendario');
+    Calendario              = require('../calendarioComp'); 
+   
+    // CalendarPick = require('../jquery.calendarPicker'),
+    // jQueryMouseWheel = require('../jquery.mousewheel'),
+    // Calendario = require('../calendario');
 
 //Personal.Views.EmpresaDetalle 
 module.exports = Backbone.View.extend({
@@ -19,6 +21,8 @@ module.exports = Backbone.View.extend({
    console.log("buscando en el render de incidencias");
    var html = this.template();
    this.$el.html(html);
+   Calendario.initialize();
+
   },
 
 });

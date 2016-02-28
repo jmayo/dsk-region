@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+	<link rel=stylesheet href="css/jquery.calendarPicker.css" type="text/css" media="screen"/>
 	<link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
 	<!--js-->
 
@@ -75,7 +76,7 @@
 				<!-- Template:	resultados-busqueda-template	 -->
 	    </div>
 	</div>
-		<a href="index_incidencias.hml#" onclick="calendarPicker1.changeDate(new Date())"></a>
+	
 		 <section class="contenido contenido_personal" id="personal_basicos" hidden>	
 				<!-- Template:	personal-detalle-template	 -->
 		 </section>	
@@ -187,8 +188,17 @@
 		</article><a href=""></a>
 	</section>
 	<section class="contenido" id="incidencias_personal">
-		<article class="bloque" id="bloque_incidencias">
-		
+		  <article class="bloque reducir">
+			<div class="caja_buscar" id="caja_buscar_sucursales_incidencias">
+				<ul class="lista_buscar">
+					<li><a class="empresa" href="#"><i class="fa fa-industry fa-1x"></i></a></li>
+					<li><input type="text" placeholder="Sucursal..." class="buscar"/></li>
+				</ul>
+				  <div hidden class="divResultados divResultados3" id="resultados_sucursal_incidencias" tabindex="0" >
+			 	     <!-- Template:	resultados-busqueda-template	 -->
+	  			  </div>
+			</div>
+			<br>		
 		</article>
 	</section>
 	<div class="cd-popup" role="alert">

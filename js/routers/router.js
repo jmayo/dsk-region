@@ -1,6 +1,8 @@
 var Backbone                = require('backbone'),
     $                       = require('jquery');
-    jQuery                  = require('jquery');      
+    jQuery                  = require('jquery'); 
+    JQueryMouseWheel        = require('../jquery.mousewheel')  
+    JQueryCalendarPicker    = require('../jquery.calendarPicker')  
     CatalogosLista          = require('../collections/catalogosLista'),
     CatalogosDetalleLista   =  require('../collections/catalogos'),
     Personas                = require('../collections/personas'),
@@ -45,9 +47,11 @@ var Backbone                = require('backbone'),
     BodyVista = require('../views/body'),
     MenuOpcion = require('../models/menu'),
     popup                  = require('../popup');
-    CalendarPick = require('../jquery.calendarPicker')
-    jQueryMouseWheel = require('../jquery.mousewheel')
-    Calendario = require('../calendario')
+    Calendario              = require('../calendarioComp')   
+   
+    // CalendarPick = require('../jquery.calendarPicker')
+    // jQueryMouseWheel = require('../jquery.mousewheel')
+    // Calendario = require('../calendario')
  
 
 //Personal.Router
@@ -155,6 +159,7 @@ initialize: function () {
     this.PersonalIncidencias = new PersonalIncidenciasVista();
 
     popup.initialize();
+    Calendario.initialize();
 
     this.Body = new BodyVista();
     
@@ -417,7 +422,7 @@ initialize: function () {
  incidencias: function(){
     this.MenuModelo.Opcion ='incidencias';
     console.log('incidencias');
-    this.PersonalIncidencias.render();
+    //this.PersonalIncidencias.render();
  },
  cons_empperso: function () {
     this.MenuModelo.Opcion ='consulta_empresaperso';

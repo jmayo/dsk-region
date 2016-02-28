@@ -1,32 +1,39 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-$(document).ready(function(){
-	var calendarPicker1 = $("#dsel1").calendarPicker({
-		monthNames:["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-		dayNames: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-		//useWheel:true,
-		//callbackDelay:500,
-		//years:1,
-		//months:3,
-		//days:4,
-		//showDayArrows:false,
-		callback:function(cal) {
-		  $("#wtf").html("Fecha: " + cal.currentDate.toLocaleDateString("es-ES", {weekday: "long", year: "numeric", month: "long", day: "numeric"}));
-	}});
-	var calendarPicker2 = $("#dsel2").calendarPicker({
-		monthNames:["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-		dayNames: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-		//useWheel:true,
-		//callbackDelay:500,
-		years:2,
-		months:4,
-		days:5,
-		showDayArrows:false,
-		callback:function(cal) {
-		  $("#wtf").html("Fecha: " + cal.currentDate);
-	}});
-});
+  $    = require('jquery');
+  
 
-},{}],2:[function(require,module,exports){
+var calendario ={
+
+
+initialize: function(){
+	$(document).ready(function(){
+	    
+		var calendarPicker1 = $("#dsel1").calendarPicker({
+			monthNames:["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+			dayNames: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+			callback:function(cal) {
+		 	 $("#wtf").html("Fecha: " + cal.currentDate.toLocaleDateString("es-ES", {weekday: "long", year: "numeric", month: "long", day: "numeric"}));
+			}
+		});
+	
+		var calendarPicker2 = $("#dsel2").calendarPicker({
+			monthNames:["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+			dayNames: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+			years:2,
+			months:4,
+			days:5,
+			showDayArrows:false,
+			callback:function(cal) {
+		  	$("#wtf").html("Fecha: " + cal.currentDate);
+			}
+		});
+	});
+}
+};
+
+module.exports = calendario;
+
+},{"jquery":113}],2:[function(require,module,exports){
 var Backbone      = require('backbone'),
     CatalogoModelo = require('../models/catalogo');
 
@@ -1474,7 +1481,9 @@ module.exports = popup;
 },{"jquery":113}],23:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery');
-    jQuery                  = require('jquery');      
+    jQuery                  = require('jquery'); 
+    JQueryMouseWheel        = require('../jquery.mousewheel')  
+    JQueryCalendarPicker    = require('../jquery.calendarPicker')  
     CatalogosLista          = require('../collections/catalogosLista'),
     CatalogosDetalleLista   =  require('../collections/catalogos'),
     Personas                = require('../collections/personas'),
@@ -1519,9 +1528,11 @@ var Backbone                = require('backbone'),
     BodyVista = require('../views/body'),
     MenuOpcion = require('../models/menu'),
     popup                  = require('../popup');
-    CalendarPick = require('../jquery.calendarPicker')
-    jQueryMouseWheel = require('../jquery.mousewheel')
-    Calendario = require('../calendario')
+    Calendario              = require('../calendarioComp')   
+   
+    // CalendarPick = require('../jquery.calendarPicker')
+    // jQueryMouseWheel = require('../jquery.mousewheel')
+    // Calendario = require('../calendario')
  
 
 //Personal.Router
@@ -1629,6 +1640,7 @@ initialize: function () {
     this.PersonalIncidencias = new PersonalIncidenciasVista();
 
     popup.initialize();
+    Calendario.initialize();
 
     this.Body = new BodyVista();
     
@@ -1891,7 +1903,7 @@ initialize: function () {
  incidencias: function(){
     this.MenuModelo.Opcion ='incidencias';
     console.log('incidencias');
-    this.PersonalIncidencias.render();
+    //this.PersonalIncidencias.render();
  },
  cons_empperso: function () {
     this.MenuModelo.Opcion ='consulta_empresaperso';
@@ -1943,7 +1955,7 @@ initialize: function () {
 
 });
 
-},{"../calendario":1,"../collections/catalogos":2,"../collections/catalogosLista":3,"../collections/empresas":4,"../collections/personal_activo_empresas":5,"../collections/personas":6,"../collections/sucursales":7,"../funcionesGenericas":8,"../jquery.calendarPicker":9,"../jquery.mousewheel":10,"../models/catalogoLista":13,"../models/empresa":14,"../models/menu":16,"../models/personal":17,"../models/personal_sucursal":18,"../models/sucursal":19,"../popup":22,"../views/body":43,"../views/cajaOperaciones":45,"../views/catalogoDescripcion":46,"../views/catalogoDetalleDescripcion":47,"../views/catalogosDetalleListado":48,"../views/catalogosListado":49,"../views/contenido":50,"../views/empresaBusqueda":53,"../views/empresaDetalle":56,"../views/empresaListaReportes":57,"../views/iniciarSesion":59,"../views/menu":60,"../views/personalBasicos":61,"../views/personalBusqueda":62,"../views/personalDetalle":67,"../views/personalIncidencias":68,"../views/personalListados":69,"../views/personalMovimiento":70,"../views/personalSucursal":71,"../views/personalXEmpresaReportes":73,"../views/sucursalBasicos":74,"../views/sucursalListados":77,"../views/sucursalMapa":78,"backbone":79,"jquery":113}],24:[function(require,module,exports){
+},{"../calendarioComp":1,"../collections/catalogos":2,"../collections/catalogosLista":3,"../collections/empresas":4,"../collections/personal_activo_empresas":5,"../collections/personas":6,"../collections/sucursales":7,"../funcionesGenericas":8,"../jquery.calendarPicker":9,"../jquery.mousewheel":10,"../models/catalogoLista":13,"../models/empresa":14,"../models/menu":16,"../models/personal":17,"../models/personal_sucursal":18,"../models/sucursal":19,"../popup":22,"../views/body":43,"../views/cajaOperaciones":45,"../views/catalogoDescripcion":46,"../views/catalogoDetalleDescripcion":47,"../views/catalogosDetalleListado":48,"../views/catalogosListado":49,"../views/contenido":50,"../views/empresaBusqueda":53,"../views/empresaDetalle":56,"../views/empresaListaReportes":57,"../views/iniciarSesion":59,"../views/menu":60,"../views/personalBasicos":61,"../views/personalBusqueda":62,"../views/personalDetalle":67,"../views/personalIncidencias":68,"../views/personalListados":69,"../views/personalMovimiento":70,"../views/personalSucursal":71,"../views/personalXEmpresaReportes":73,"../views/sucursalBasicos":74,"../views/sucursalListados":77,"../views/sucursalMapa":78,"backbone":79,"jquery":113}],24:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2899,8 +2911,6 @@ module.exports = Backbone.View.extend({
             this.CajaBusquedaSucursal.close();
           } 
 
-
-
         this.PersonalMBusquedasVista = new DatoBusquedasVista({collection: this.Perso,el: '#resultados_personal_movimiento',template:PlantillaPersonal});
         this.CajaBusquedaPersonal= new CajaBusquedaVista({collection: this.Perso,el: '#caja_buscar_personas',divResultados: '#resultados_personal_movimiento'});
 
@@ -2943,6 +2953,20 @@ module.exports = Backbone.View.extend({
         $('#catalogo_movimientos').show();
    },
    mostrarMenuIncidencias: function(){
+     Backbone.app.menu = "movimiento";
+      if (this.CajaBusquedaPersonal){
+            this.CajaBusquedaPersonal.close();
+          } 
+         if (this.CajaBusquedaSucursal){
+            this.CajaBusquedaSucursal.close();
+          } 
+
+
+
+       
+        this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
+        this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
+
         Backbone.app.menu ='incidencias';
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
@@ -3580,6 +3604,23 @@ module.exports = Backbone.View.extend({
             $('.login').css("visibility", "hidden");
             $(".li_menu").css("visibility", "visible");
             $('.caja_acciones').show();
+            gadministrador =["raul","carlos.oaxaca","oakland.magana"]
+            gencargado=["martin.cardona","monica.penilla","mirian.chavez"]
+            gsupervisor = ["rulo","heron.yanez","roman.osorio","ernesto.uruzieta","martin.martinez","jose.alvarado","felipe.gomez"]
+            visible = "hidden"
+            if(gadministrador.includes(self.usuario)){
+              visible = "visible"
+            }
+            if(gencargado.includes(self.usuario)){
+              visible = "visible"
+            }
+              $(".personal").css("visibility", visible);
+              $(".empresas").css("visibility", visible);
+              $(".movimientos").css("visibility", visible);
+              $(".catalogosli").css("visibility", visible);
+              $(".conempresapersona").css("visibility", visible);
+       
+
           },
         error: function(model,response, options) {
            $("#notify_error").text("El usuario o contraseña son incorrectos") 
@@ -4272,9 +4313,11 @@ var Backbone                = require('backbone'),
    jQuery                  = require('jquery'),  
     Plantilla               = require('../templates/incidencias-personal.hbs'),
     app                     = Backbone.app,
-    CalendarPick = require('../jquery.calendarPicker'),
-    jQueryMouseWheel = require('../jquery.mousewheel'),
-    Calendario = require('../calendario');
+    Calendario              = require('../calendarioComp'); 
+   
+    // CalendarPick = require('../jquery.calendarPicker'),
+    // jQueryMouseWheel = require('../jquery.mousewheel'),
+    // Calendario = require('../calendario');
 
 //Personal.Views.EmpresaDetalle 
 module.exports = Backbone.View.extend({
@@ -4288,12 +4331,14 @@ module.exports = Backbone.View.extend({
    console.log("buscando en el render de incidencias");
    var html = this.template();
    this.$el.html(html);
+   Calendario.initialize();
+
   },
 
 });
 
 
-},{"../calendario":1,"../jquery.calendarPicker":9,"../jquery.mousewheel":10,"../templates/incidencias-personal.hbs":28,"backbone":79,"jquery":113}],69:[function(require,module,exports){
+},{"../calendarioComp":1,"../templates/incidencias-personal.hbs":28,"backbone":79,"jquery":113}],69:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     PersonalDescripcionVista = require('../views/personalDescripcion');

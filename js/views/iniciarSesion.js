@@ -47,6 +47,23 @@ module.exports = Backbone.View.extend({
             $('.login').css("visibility", "hidden");
             $(".li_menu").css("visibility", "visible");
             $('.caja_acciones').show();
+            gadministrador =["raul","carlos.oaxaca","oakland.magana"]
+            gencargado=["martin.cardona","monica.penilla","mirian.chavez"]
+            gsupervisor = ["rulo","heron.yanez","roman.osorio","ernesto.uruzieta","martin.martinez","jose.alvarado","felipe.gomez"]
+            visible = "hidden"
+            if(gadministrador.includes(self.usuario)){
+              visible = "visible"
+            }
+            if(gencargado.includes(self.usuario)){
+              visible = "visible"
+            }
+              $(".personal").css("visibility", visible);
+              $(".empresas").css("visibility", visible);
+              $(".movimientos").css("visibility", visible);
+              $(".catalogosli").css("visibility", visible);
+              $(".conempresapersona").css("visibility", visible);
+       
+
           },
         error: function(model,response, options) {
            $("#notify_error").text("El usuario o contraseña son incorrectos") 

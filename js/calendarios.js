@@ -24,3 +24,5 @@ $(document).ready(function(){
 		  $("#wtf").html("Fecha: " + cal.currentDate);
 	}});
 });
+
+
