@@ -17,6 +17,7 @@ module.exports= Backbone.View.extend({
     if(this.model.get("id")!=="-1"){
       this.render();
     }
+    
   }, 
   render: function () {
    this.$el.empty();

@@ -1732,11 +1732,9 @@ initialize: function () {
       this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
      this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
         success: function(data){
-          debugger;
         },
         error: function(){
-          debugger;
-              this.PersonalIncidenciasBasico.limpiarTodo();
+         PersonalIncidenciasBasico.limpiarTodo();
         }
       });
     }
@@ -1916,16 +1914,19 @@ initialize: function () {
       var self= this;
       this.PersonalIncidenciasLista.id_sucursal = valor_buscado;
       this.PersonalIncidenciasLista.reset();
-     
       this.PersonalIncidenciasLista.fetch({headers: {'Authorization' :localStorage.token},cache: false,
         success: function(result){
+    
           if(result.length >0){
             var valor = result.at(0); 
             self.personalMatricula(valor.get('id_personal').matricula);
           }
+          else{
+              self.personalMatricula("-1");
+          }
         },
           error: function(model,response, options){
-            self.PersonalIncidenciasBasico.limpiarTodo();
+            self.personalMatricula("-1");
           }
    
        });
@@ -3800,6 +3801,7 @@ module.exports= Backbone.View.extend({
     if(this.model.get("id")!=="-1"){
       this.render();
     }
+    
   }, 
   render: function () {
    this.$el.empty();
