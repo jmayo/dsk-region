@@ -5,7 +5,7 @@ var Backbone                = require('backbone'),
 
 //Personal.Views.PersonalListados 
 module.exports = Backbone.View.extend({
-  el: $('#personal_listado'),
+  //el: $('#personal_listado'),
 
   initialize: function () {
     this.listenTo(this.collection, "add", this.addOne, this);

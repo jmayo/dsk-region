@@ -2,6 +2,7 @@ var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Personal              = require('../models/personal'),
     Plantilla             = require('../templates/personal-en-sucursal.hbs'),
+    Plantilla2            = require('../templates/personal-en-sucursal-incidencias.hbs'),
     app                   = Backbone.app;
 
 //Personal.Views.PersonalDescripcion
@@ -17,6 +18,9 @@ module.exports = Backbone.View.extend({
     "mousedown ": "seleccionado",
   },
   render: function () {
+    if(  Backbone.app.menu ==='incidencias'){
+      this.template = Plantilla2;
+    }
     var descripcion = this.model.toJSON();
     var html = "";
  
@@ -31,8 +35,11 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-  	console.log("personal seleccionado");
-  }
+    //this.model.attributes.id_personal.id
+     if(  Backbone.app.menu ==='incidencias'){
+        Backbone.app.navigate("Personal/buscar/"+ this.model.get('id_personal').matricula, {trigger: true});
+     }
+    }
 });
 
 

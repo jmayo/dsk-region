@@ -1,8 +1,11 @@
 var Backbone                = require('backbone'),
     $                       = require('jquery');
-    jQuery                  = require('jquery'); 
+    jQuery                  = require('jquery');
     JQueryMouseWheel        = require('../jquery.mousewheel')  
-    JQueryCalendarPicker    = require('../jquery.calendarPicker')  
+    JQueryCalendarPicker    = require('../jquery.calendarPicker') 
+    PlantillaSucursalBasico = require('../templates/sucursal-datos-basicos.hbs'),
+    PlantillaSucursalSimple = require('../templates/sucursal-datos-simple.hbs'),
+
     CatalogosLista          = require('../collections/catalogosLista'),
     CatalogosDetalleLista   =  require('../collections/catalogos'),
     Personas                = require('../collections/personas'),
@@ -40,6 +43,8 @@ var Backbone                = require('backbone'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
 
     PersonalIncidenciasVista = require('../views/personalIncidencias'),
+    PersonalIncidenciasListadosVista   = require('../views/personalListados')
+    
 
     ContenidoVista          = require('../views/contenido'),
     funcionGenerica = require('../funcionesGenericas')
@@ -92,6 +97,7 @@ initialize: function () {
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
     this.PersonalLista = new Personas();
+    this.PersonalIncidenciasLista = new Personas();
 
     this.MenuModelo = new MenuOpcion();
     this.MenuVista = new MenuVista({model: this.MenuModelo}); 
@@ -108,7 +114,7 @@ initialize: function () {
     
     this.SucursalListadoVista = new SucursalListadosVista({collection: this.SucursalLista});
 
-    this.PersonalListadoVista = new PersonalListadosVista({collection: this.PersonalLista});
+    this.PersonalListadoVista = new PersonalListadosVista({collection: this.PersonalLista, el:'#personal_listado'});
 
 
     this.IniciarSesion = new IniciarSesionVista();
@@ -138,7 +144,7 @@ initialize: function () {
 
    
 
-    this.PersonalBasico = new PersonalBasicoVista({model: this.PersoBasicoModelo});
+    this.PersonalBasico = new PersonalBasicoVista({model: this.PersoBasicoModelo, el:'#personal_datos_basicos'});
     
     this.PersoSucursalModelo = new PersonalSucursal();
     this.PersoSucursalModelo.set({"id":"-1"});
@@ -149,17 +155,30 @@ initialize: function () {
     
      
 
-    this.SucursalBasico = new SucursalBasicoVista({model: this.SucursalBasicoModelo});
+    this.SucursalBasico = new SucursalBasicoVista({model: this.SucursalBasicoModelo, el:'#sucursal_datos_basicos', template:PlantillaSucursalBasico});
     
 
     this.PersonalMovimientoModelo = new PersonalSucursal();
     this.PersonalMovimientoModelo.set({"id":"-1"});
     this.PersonalMovimiento = new PersonalMovimientoVista({model: this.PersonalMovimientoModelo});
     
+
+    this.SucursalIncidenciaBasicoModelo = new Sucursal();
+    this.SucursalIncidenciaBasicoModelo.set({"id":"-1"});
+    
+    this.SucursalIncidenciaBasico = new SucursalBasicoVista({model: this.SucursalIncidenciaBasicoModelo, el:'#sucursal_datos_basicos_incidencias', template:PlantillaSucursalSimple});
+    
+    this.PersonalIncidenciasListadoVista = new PersonalListadosVista({collection: this.PersonalIncidenciasLista, el:'#personal_incidencias_listado'});
+
+    this.PersoIncidenciasBasicoModelo = new Personal();
+    this.PersoIncidenciasBasicoModelo.set({"id":"-1"});
+    this.PersonalIncidenciasBasico = new PersonalBasicoVista({model: this.PersoIncidenciasBasicoModelo, el:'#personal_incidencias_datos_basicos'});
+   
     this.PersonalIncidencias = new PersonalIncidenciasVista();
 
+
     popup.initialize();
-    Calendario.initialize();
+    
 
     this.Body = new BodyVista();
     
@@ -223,6 +242,22 @@ initialize: function () {
             }
         });
        
+    }
+    if(  Backbone.app.menu ==='incidencias'){
+      console.log("voy a buscar a una persona");
+       $('#personal_incidencias_checks').show();
+       Calendario.initialize();
+
+      this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
+     this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
+        success: function(data){
+          debugger;
+        },
+        error: function(){
+          debugger;
+              this.PersonalIncidenciasBasico.limpiarTodo();
+        }
+      });
     }
   },
    //************
@@ -377,6 +412,12 @@ initialize: function () {
         }
     });
   }
+  if(Backbone.app.menu === "incidencias"){
+    console.log("buscas sucursales para las incidencias");
+    this.SucursalIncidenciaBasicoModelo.valor = valor_buscado;
+    this.SucursalIncidenciaBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
+    this.listadoPersonasIncidenciasEnSucursal(valor_buscado); 
+  }
  },
  listadoPersonasEnSucursal: function(valor_buscado){
       var self= this;
@@ -389,6 +430,24 @@ initialize: function () {
           }
         }
       });
+ },
+  listadoPersonasIncidenciasEnSucursal: function(valor_buscado){
+      var self= this;
+      this.PersonalIncidenciasLista.id_sucursal = valor_buscado;
+      this.PersonalIncidenciasLista.reset();
+     
+      this.PersonalIncidenciasLista.fetch({headers: {'Authorization' :localStorage.token},cache: false,
+        success: function(result){
+          if(result.length >0){
+            var valor = result.at(0); 
+            self.personalMatricula(valor.get('id_personal').matricula);
+          }
+        },
+          error: function(model,response, options){
+            self.PersonalIncidenciasBasico.limpiarTodo();
+          }
+   
+       });
  },
  catalogo: function(){
      Backbone.app.operacion="buscar";
@@ -422,7 +481,7 @@ initialize: function () {
  incidencias: function(){
     this.MenuModelo.Opcion ='incidencias';
     console.log('incidencias');
-    //this.PersonalIncidencias.render();
+   // this.PersonalIncidencias.render();
  },
  cons_empperso: function () {
     this.MenuModelo.Opcion ='consulta_empresaperso';

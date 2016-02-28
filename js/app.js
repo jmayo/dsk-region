@@ -33,7 +33,7 @@ initialize: function(){
 
 module.exports = calendario;
 
-},{"jquery":113}],2:[function(require,module,exports){
+},{"jquery":115}],2:[function(require,module,exports){
 var Backbone      = require('backbone'),
     CatalogoModelo = require('../models/catalogo');
 
@@ -114,7 +114,7 @@ module.exports = Backbone.Collection.extend({
   },
 });
 
-},{"../models/catalogo":12,"backbone":79}],3:[function(require,module,exports){
+},{"../models/catalogo":12,"backbone":81}],3:[function(require,module,exports){
 var Backbone      = require('backbone'),
     CatalogoModelo = require('../models/catalogoLista');
 
@@ -137,7 +137,7 @@ module.exports = Backbone.Collection.extend({
  
 });
 
-},{"../models/catalogoLista":13,"backbone":79}],4:[function(require,module,exports){
+},{"../models/catalogoLista":13,"backbone":81}],4:[function(require,module,exports){
 var Backbone      = require('backbone'),
     empresaModelo = require('../models/empresa');
        
@@ -169,7 +169,7 @@ module.exports = Backbone.Collection.extend({
   model: empresaModelo,
 });
 
-},{"../models/empresa":14,"backbone":79}],5:[function(require,module,exports){
+},{"../models/empresa":14,"backbone":81}],5:[function(require,module,exports){
 var Backbone      = require('backbone');
 //var PersoActEmpresaModelo = require('../models/personal_activo_empresa');
 
@@ -191,7 +191,7 @@ module.exports = Backbone.Collection.extend({
   //model: PersoActEmpresaModelo,
 });
 
-},{"backbone":79}],6:[function(require,module,exports){
+},{"backbone":81}],6:[function(require,module,exports){
 var Backbone      = require('backbone'),
   PersonalModelo = require('../models/personal');
 
@@ -233,7 +233,7 @@ module.exports = Backbone.Collection.extend({
   model: PersonalModelo,
 });
 
-},{"../models/personal":17,"backbone":79}],7:[function(require,module,exports){
+},{"../models/personal":17,"backbone":81}],7:[function(require,module,exports){
 var Backbone      = require('backbone'),
     SucursalModelo = require('../models/sucursal');
 
@@ -269,7 +269,7 @@ module.exports = Backbone.Collection.extend({
   model: SucursalModelo,
 });
 
-},{"../models/sucursal":19,"backbone":79}],8:[function(require,module,exports){
+},{"../models/sucursal":19,"backbone":81}],8:[function(require,module,exports){
 var moment = require('../node_modules/moment/moment');
 
 var funcionesGenericas = function() {  
@@ -313,7 +313,7 @@ var funcionesGenericas = function() {
 module.exports = funcionesGenericas;  
 
 
-},{"../node_modules/moment/moment":114}],9:[function(require,module,exports){
+},{"../node_modules/moment/moment":116}],9:[function(require,module,exports){
 jQuery.fn.calendarPicker = function(options) {
   // --------------------------  start default option values --------------------------
   if (!options.date) {
@@ -815,7 +815,7 @@ $(function() {
     Backbone.app.navigate('', true);
 });
 
-},{"./routers/router":23,"backbone":79,"hbsfy/runtime":111,"jquery":113}],12:[function(require,module,exports){
+},{"./routers/router":23,"backbone":81,"hbsfy/runtime":113,"jquery":115}],12:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -832,7 +832,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta +  'catalogos_detalle/' + this.claves + '/';
   },
 });
-},{"backbone":79}],13:[function(require,module,exports){
+},{"backbone":81}],13:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -844,7 +844,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta +  'catalogos/editables/';
   },
 });
-},{"backbone":79}],14:[function(require,module,exports){
+},{"backbone":81}],14:[function(require,module,exports){
 var Backbone        = require('backbone');
     ValidacionVista = require('./validacion')
     funcionGenerica = require('../funcionesGenericas')
@@ -926,7 +926,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"../funcionesGenericas":8,"./validacion":20,"backbone":79}],15:[function(require,module,exports){
+},{"../funcionesGenericas":8,"./validacion":20,"backbone":81}],15:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.login 
@@ -936,7 +936,7 @@ module.exports= Backbone.Model.extend({
   },
 });
 
-},{"backbone":79}],16:[function(require,module,exports){
+},{"backbone":81}],16:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.catalogo 
@@ -948,7 +948,7 @@ module.exports = Backbone.Model.extend({
     return  window.ruta + this.Opcion + '/menu/';
   },
 });
-},{"backbone":79}],17:[function(require,module,exports){
+},{"backbone":81}],17:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
  
@@ -1060,7 +1060,7 @@ module.exports= Backbone.Model.extend({
 
 
        
-},{"../models/validacion":20,"backbone":79}],18:[function(require,module,exports){
+},{"../models/validacion":20,"backbone":81}],18:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('./validacion');
  
@@ -1139,7 +1139,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./validacion":20,"backbone":79}],19:[function(require,module,exports){
+},{"./validacion":20,"backbone":81}],19:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('../models/validacion');
 
@@ -1223,7 +1223,7 @@ module.exports= Backbone.Model.extend({
       return this.listado;  
   }
 });
-},{"../models/validacion":20,"backbone":79}],20:[function(require,module,exports){
+},{"../models/validacion":20,"backbone":81}],20:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Models.validacion
@@ -1303,7 +1303,7 @@ return {
   }
 };
 
-},{"backbone":79}],21:[function(require,module,exports){
+},{"backbone":81}],21:[function(require,module,exports){
 var    $               = require('jquery');
 
 module.exports = $(function() {
@@ -1402,7 +1402,7 @@ module.exports = $(function() {
 	}
 });
 
-},{"jquery":113}],22:[function(require,module,exports){
+},{"jquery":115}],22:[function(require,module,exports){
 
 var    $               = require('jquery');
 
@@ -1478,12 +1478,15 @@ var popup ={
 
 module.exports = popup;
 
-},{"jquery":113}],23:[function(require,module,exports){
+},{"jquery":115}],23:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery');
-    jQuery                  = require('jquery'); 
+    jQuery                  = require('jquery');
     JQueryMouseWheel        = require('../jquery.mousewheel')  
-    JQueryCalendarPicker    = require('../jquery.calendarPicker')  
+    JQueryCalendarPicker    = require('../jquery.calendarPicker') 
+    PlantillaSucursalBasico = require('../templates/sucursal-datos-basicos.hbs'),
+    PlantillaSucursalSimple = require('../templates/sucursal-datos-simple.hbs'),
+
     CatalogosLista          = require('../collections/catalogosLista'),
     CatalogosDetalleLista   =  require('../collections/catalogos'),
     Personas                = require('../collections/personas'),
@@ -1521,6 +1524,8 @@ var Backbone                = require('backbone'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
 
     PersonalIncidenciasVista = require('../views/personalIncidencias'),
+    PersonalIncidenciasListadosVista   = require('../views/personalListados')
+    
 
     ContenidoVista          = require('../views/contenido'),
     funcionGenerica = require('../funcionesGenericas')
@@ -1573,6 +1578,7 @@ initialize: function () {
     this.Sucursal = new Sucursales();
     this.SucursalLista = new Sucursales(); 
     this.PersonalLista = new Personas();
+    this.PersonalIncidenciasLista = new Personas();
 
     this.MenuModelo = new MenuOpcion();
     this.MenuVista = new MenuVista({model: this.MenuModelo}); 
@@ -1589,7 +1595,7 @@ initialize: function () {
     
     this.SucursalListadoVista = new SucursalListadosVista({collection: this.SucursalLista});
 
-    this.PersonalListadoVista = new PersonalListadosVista({collection: this.PersonalLista});
+    this.PersonalListadoVista = new PersonalListadosVista({collection: this.PersonalLista, el:'#personal_listado'});
 
 
     this.IniciarSesion = new IniciarSesionVista();
@@ -1619,7 +1625,7 @@ initialize: function () {
 
    
 
-    this.PersonalBasico = new PersonalBasicoVista({model: this.PersoBasicoModelo});
+    this.PersonalBasico = new PersonalBasicoVista({model: this.PersoBasicoModelo, el:'#personal_datos_basicos'});
     
     this.PersoSucursalModelo = new PersonalSucursal();
     this.PersoSucursalModelo.set({"id":"-1"});
@@ -1630,17 +1636,30 @@ initialize: function () {
     
      
 
-    this.SucursalBasico = new SucursalBasicoVista({model: this.SucursalBasicoModelo});
+    this.SucursalBasico = new SucursalBasicoVista({model: this.SucursalBasicoModelo, el:'#sucursal_datos_basicos', template:PlantillaSucursalBasico});
     
 
     this.PersonalMovimientoModelo = new PersonalSucursal();
     this.PersonalMovimientoModelo.set({"id":"-1"});
     this.PersonalMovimiento = new PersonalMovimientoVista({model: this.PersonalMovimientoModelo});
     
+
+    this.SucursalIncidenciaBasicoModelo = new Sucursal();
+    this.SucursalIncidenciaBasicoModelo.set({"id":"-1"});
+    
+    this.SucursalIncidenciaBasico = new SucursalBasicoVista({model: this.SucursalIncidenciaBasicoModelo, el:'#sucursal_datos_basicos_incidencias', template:PlantillaSucursalSimple});
+    
+    this.PersonalIncidenciasListadoVista = new PersonalListadosVista({collection: this.PersonalIncidenciasLista, el:'#personal_incidencias_listado'});
+
+    this.PersoIncidenciasBasicoModelo = new Personal();
+    this.PersoIncidenciasBasicoModelo.set({"id":"-1"});
+    this.PersonalIncidenciasBasico = new PersonalBasicoVista({model: this.PersoIncidenciasBasicoModelo, el:'#personal_incidencias_datos_basicos'});
+   
     this.PersonalIncidencias = new PersonalIncidenciasVista();
 
+
     popup.initialize();
-    Calendario.initialize();
+    
 
     this.Body = new BodyVista();
     
@@ -1704,6 +1723,22 @@ initialize: function () {
             }
         });
        
+    }
+    if(  Backbone.app.menu ==='incidencias'){
+      console.log("voy a buscar a una persona");
+       $('#personal_incidencias_checks').show();
+       Calendario.initialize();
+
+      this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
+     this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
+        success: function(data){
+          debugger;
+        },
+        error: function(){
+          debugger;
+              this.PersonalIncidenciasBasico.limpiarTodo();
+        }
+      });
     }
   },
    //************
@@ -1858,6 +1893,12 @@ initialize: function () {
         }
     });
   }
+  if(Backbone.app.menu === "incidencias"){
+    console.log("buscas sucursales para las incidencias");
+    this.SucursalIncidenciaBasicoModelo.valor = valor_buscado;
+    this.SucursalIncidenciaBasicoModelo.fetch({headers: {'Authorization' :localStorage.token}});
+    this.listadoPersonasIncidenciasEnSucursal(valor_buscado); 
+  }
  },
  listadoPersonasEnSucursal: function(valor_buscado){
       var self= this;
@@ -1870,6 +1911,24 @@ initialize: function () {
           }
         }
       });
+ },
+  listadoPersonasIncidenciasEnSucursal: function(valor_buscado){
+      var self= this;
+      this.PersonalIncidenciasLista.id_sucursal = valor_buscado;
+      this.PersonalIncidenciasLista.reset();
+     
+      this.PersonalIncidenciasLista.fetch({headers: {'Authorization' :localStorage.token},cache: false,
+        success: function(result){
+          if(result.length >0){
+            var valor = result.at(0); 
+            self.personalMatricula(valor.get('id_personal').matricula);
+          }
+        },
+          error: function(model,response, options){
+            self.PersonalIncidenciasBasico.limpiarTodo();
+          }
+   
+       });
  },
  catalogo: function(){
      Backbone.app.operacion="buscar";
@@ -1903,7 +1962,7 @@ initialize: function () {
  incidencias: function(){
     this.MenuModelo.Opcion ='incidencias';
     console.log('incidencias');
-    //this.PersonalIncidencias.render();
+   // this.PersonalIncidencias.render();
  },
  cons_empperso: function () {
     this.MenuModelo.Opcion ='consulta_empresaperso';
@@ -1955,7 +2014,7 @@ initialize: function () {
 
 });
 
-},{"../calendarioComp":1,"../collections/catalogos":2,"../collections/catalogosLista":3,"../collections/empresas":4,"../collections/personal_activo_empresas":5,"../collections/personas":6,"../collections/sucursales":7,"../funcionesGenericas":8,"../jquery.calendarPicker":9,"../jquery.mousewheel":10,"../models/catalogoLista":13,"../models/empresa":14,"../models/menu":16,"../models/personal":17,"../models/personal_sucursal":18,"../models/sucursal":19,"../popup":22,"../views/body":43,"../views/cajaOperaciones":45,"../views/catalogoDescripcion":46,"../views/catalogoDetalleDescripcion":47,"../views/catalogosDetalleListado":48,"../views/catalogosListado":49,"../views/contenido":50,"../views/empresaBusqueda":53,"../views/empresaDetalle":56,"../views/empresaListaReportes":57,"../views/iniciarSesion":59,"../views/menu":60,"../views/personalBasicos":61,"../views/personalBusqueda":62,"../views/personalDetalle":67,"../views/personalIncidencias":68,"../views/personalListados":69,"../views/personalMovimiento":70,"../views/personalSucursal":71,"../views/personalXEmpresaReportes":73,"../views/sucursalBasicos":74,"../views/sucursalListados":77,"../views/sucursalMapa":78,"backbone":79,"jquery":113}],24:[function(require,module,exports){
+},{"../calendarioComp":1,"../collections/catalogos":2,"../collections/catalogosLista":3,"../collections/empresas":4,"../collections/personal_activo_empresas":5,"../collections/personas":6,"../collections/sucursales":7,"../funcionesGenericas":8,"../jquery.calendarPicker":9,"../jquery.mousewheel":10,"../models/catalogoLista":13,"../models/empresa":14,"../models/menu":16,"../models/personal":17,"../models/personal_sucursal":18,"../models/sucursal":19,"../popup":22,"../templates/sucursal-datos-basicos.hbs":42,"../templates/sucursal-datos-simple.hbs":43,"../views/body":45,"../views/cajaOperaciones":47,"../views/catalogoDescripcion":48,"../views/catalogoDetalleDescripcion":49,"../views/catalogosDetalleListado":50,"../views/catalogosListado":51,"../views/contenido":52,"../views/empresaBusqueda":55,"../views/empresaDetalle":58,"../views/empresaListaReportes":59,"../views/iniciarSesion":61,"../views/menu":62,"../views/personalBasicos":63,"../views/personalBusqueda":64,"../views/personalDetalle":69,"../views/personalIncidencias":70,"../views/personalListados":71,"../views/personalMovimiento":72,"../views/personalSucursal":73,"../views/personalXEmpresaReportes":75,"../views/sucursalBasicos":76,"../views/sucursalListados":79,"../views/sucursalMapa":80,"backbone":81,"jquery":115}],24:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1966,7 +2025,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " \n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],25:[function(require,module,exports){
+},{"hbsfy/runtime":113}],25:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -1997,7 +2056,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " fa-2x\"></i></a></td>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],26:[function(require,module,exports){
+},{"hbsfy/runtime":113}],26:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2038,7 +2097,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],27:[function(require,module,exports){
+},{"hbsfy/runtime":113}],27:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2049,14 +2108,14 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</div>\n   <div class=\"x_empresa\">\n	<a href=\"#\" title=\"Quitar\">\n		<i class=\"fa fa-close fa-1x\"></i>\n	</a>\n    </div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],28:[function(require,module,exports){
+},{"hbsfy/runtime":113}],28:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "   <article class=\"bloque reducir\">\n	<div class=\"caja_buscar\">\n				<ul class=\"lista_buscar\">\n					<li><a href=\"#\"><i class=\"fa fa-industry fa-1x\"></i></a></li>\n					<li><input type=\"text\" placeholder=\"Sucursal...\" class=\"buscar\"/></li>\n				</ul>\n				<div hidden class=\"divResultados divResultados3\">\n				  <div class=\"resultado_ind\">\n					<span class=\"name\">1, Empresa Coca-Cola S.A. de C.V.</span>\n				  </div>\n					<div class=\"resultado_ind\">\n					<span class=\"name\">2, Patito S. de R. L.</span>\n					</div>\n				 </div>\n			</div>\n			<br>\n    <div class=\"enterprise\">\n				<figure class=\"enterprise_foto\">\n					<p><img src=\"images/factory.png\" alt=\"foto\" />\n				</figure>\n				<div class=\"enterprise_datos\">\n					<h2>100</h2>\n					<h3>banco santa fe sucursal las monitas de la colonia de la narvarte en el merito centro</h3>\n					<h5>REASIGNACIÓN</h5>\n					<h5>Oficial, A, 1, 12x12, $150.35</h5>\n					<h5>15/03/2015</h5>					\n				</div>\n			</div>\n    		<a href=\"index_incidencias.html#\" onclick=\"calendarPicker1.changeDate(new Date())\"></a>\n			<div id=\"dsel1\" style=\"width:380px\"></div><br>\n			<div class=\"caja_bloque\" id=\"quitafondo_lista_empleados_sucursal\">\n				<div class=\"incide_empleado\">\n					<a href=\"#\" class=\"lnk_empleado\">\n						<div class=\"div_empleado\">Mondragón Mena Carlos Daniel</div>\n						<hr class=\"hr_empleado\">\n					</a>\n					<a href=\"#\" class=\"lnk_empleado\">\n						<div class=\"div_empleado\">Peña Sánchez Rutilio</div>\n						<hr class=\"hr_empleado\">\n					</a>\n					<a href=\"#\" class=\"lnk_empleado\">\n						<div class=\"div_empleado\">Pérez Pérez Juan Tomas</div>\n						<hr class=\"hr_empleado\">\n					</a>\n					<a href=\"#\" class=\"lnk_empleado\">\n						<div class=\"div_empleado\">Montaño Salinas Alberto Alejandro</div>\n						<hr class=\"hr_empleado\">\n					</a>\n				</div>\n			</div>\n		</article>\n		<article class=\"bloque reducir\">\n			<span id=\"wtf\"></span>\n			<div class=\"profiler\">\n				<figure class=\"profiler_foto\">\n					<p><img src=\"images/foto.png\" alt=\"foto\" />\n				</figure>\n				<div class=\"profiler_datos\">\n					<h2>37268</h2>\n					<h3>Peña Sánchez Rutilio alias el alacran de pungarabato</h3>\n					<h5>MOMJ7912054V8</h5>\n					<h5>MOMJ791205HDFNYN07</h5>\n				</div>\n			</div>\n			<div class=\"caja_incide\">\n				<ul class=\"menu_incide\">\n					<li>\n						<span>Falta</span>\n						<input id=\"cmn-toggle-1\" class=\"cmn-toggle cmn-toggle-round\" type=\"checkbox\">\n						<label for=\"cmn-toggle-1\"></label>\n					</li>\n					<li>\n						<span>Cubrefalta</span>\n						<input id=\"cmn-toggle-2\" class=\"cmn-toggle cmn-toggle-round\" type=\"checkbox\">\n						<label for=\"cmn-toggle-2\"></label>\n					</li>\n				</ul>\n			</div>\n		</article>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],29:[function(require,module,exports){
+},{"hbsfy/runtime":113}],29:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2079,7 +2138,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],30:[function(require,module,exports){
+},{"hbsfy/runtime":113}],30:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2089,7 +2148,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + " ";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],31:[function(require,module,exports){
+},{"hbsfy/runtime":113}],31:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2114,7 +2173,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</h5>\n</div>\n</div>\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],32:[function(require,module,exports){
+},{"hbsfy/runtime":113}],32:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2193,7 +2252,24 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],33:[function(require,module,exports){
+},{"hbsfy/runtime":113}],33:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda, alias2=this.escapeExpression;
+
+  return "<a href=\"#\" class=\"lnk_empleado\">\n	<div class=\"div_empleado\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_personal : depth0)) != null ? stack1.matricula : stack1), depth0))
+    + " - "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_personal : depth0)) != null ? stack1.nombre : stack1), depth0))
+    + " "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_personal : depth0)) != null ? stack1.paterno : stack1), depth0))
+    + " "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.id_personal : depth0)) != null ? stack1.materno : stack1), depth0))
+    + " </div>\n	<hr class=\"hr_empleado\">\n</a>";
+},"useData":true});
+
+},{"hbsfy/runtime":113}],34:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2210,7 +2286,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</td>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],34:[function(require,module,exports){
+},{"hbsfy/runtime":113}],35:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2241,7 +2317,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</h2>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],35:[function(require,module,exports){
+},{"hbsfy/runtime":113}],36:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2254,7 +2330,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],36:[function(require,module,exports){
+},{"hbsfy/runtime":113}],37:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2267,7 +2343,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],37:[function(require,module,exports){
+},{"hbsfy/runtime":113}],38:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2280,7 +2356,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],38:[function(require,module,exports){
+},{"hbsfy/runtime":113}],39:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2293,7 +2369,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n</div>\n<hr>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],39:[function(require,module,exports){
+},{"hbsfy/runtime":113}],40:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2312,7 +2388,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n  ";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],40:[function(require,module,exports){
+},{"hbsfy/runtime":113}],41:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2325,7 +2401,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "</p>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],41:[function(require,module,exports){
+},{"hbsfy/runtime":113}],42:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2337,10 +2413,23 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + alias3(((helper = (helper = helpers.cve_sucursal || (depth0 != null ? depth0.cve_sucursal : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"cve_sucursal","hash":{},"data":data}) : helper)))
     + " , "
     + alias3(((helper = (helper = helpers.nombre || (depth0 != null ? depth0.nombre : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"nombre","hash":{},"data":data}) : helper)))
-    + "\n</h2>";
+    + "\n</h2>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],42:[function(require,module,exports){
+},{"hbsfy/runtime":113}],43:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "<div class=\"enterprise\">\n		<figure class=\"enterprise_foto\">\n			<img src=\"images/factory.png\" alt=\"foto\" />\n		</figure>\n	<div class=\"enterprise_datos\">\n		<h2 >"
+    + alias3(((helper = (helper = helpers.cve_sucursal || (depth0 != null ? depth0.cve_sucursal : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"cve_sucursal","hash":{},"data":data}) : helper)))
+    + "</h2>\n		<h3>"
+    + alias3(((helper = (helper = helpers.nombre || (depth0 != null ? depth0.nombre : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"nombre","hash":{},"data":data}) : helper)))
+    + "</h3>\n	</div>\n</div>\n";
+},"useData":true});
+
+},{"hbsfy/runtime":113}],44:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -2381,7 +2470,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + "\n	</ul>\n</div>\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":111}],43:[function(require,module,exports){
+},{"hbsfy/runtime":113}],45:[function(require,module,exports){
 var Backbone = require('backbone'),
     $        = require('jquery');
      
@@ -2435,7 +2524,7 @@ module.exports = Backbone.View.extend({
       $('.caja_acciones').hide();
   }
 }); 
-},{"backbone":79,"jquery":113}],44:[function(require,module,exports){
+},{"backbone":81,"jquery":115}],46:[function(require,module,exports){
 var Backbone = require('backbone');
 
 //Personal.Views.CajaBusqueda 
@@ -2480,7 +2569,7 @@ events : {
 
 });
 
-},{"backbone":79}],45:[function(require,module,exports){
+},{"backbone":81}],47:[function(require,module,exports){
 var Backbone               = require('backbone'),
     _                       =require('underscore'),
     PersoActEmpresas       = require('../collections/personal_activo_empresas'),
@@ -2563,7 +2652,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../collections/personal_activo_empresas":5,"../popup":22,"../views/sucursalDetalle":76,"backbone":79,"jquery":113,"underscore":116}],46:[function(require,module,exports){
+},{"../collections/personal_activo_empresas":5,"../popup":22,"../views/sucursalDetalle":78,"backbone":81,"jquery":115,"underscore":118}],48:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Catalogo              = require('../models/catalogoLista'),
@@ -2602,7 +2691,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/catalogoLista":13,"../templates/catalogos-basico.hbs":24,"backbone":79,"jquery":113}],47:[function(require,module,exports){
+},{"../models/catalogoLista":13,"../templates/catalogos-basico.hbs":24,"backbone":81,"jquery":115}],49:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/catalogos-detalle.hbs'),
@@ -2711,7 +2800,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/catalogo":12,"../templates/catalogos-detalle.hbs":25,"backbone":79,"jquery":113}],48:[function(require,module,exports){
+},{"../models/catalogo":12,"../templates/catalogos-detalle.hbs":25,"backbone":81,"jquery":115}],50:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     CatalogoDetalleVista = require('../views/catalogoDetalleDescripcion'),
@@ -2789,7 +2878,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../models/catalogo":12,"../views/catalogoDetalleDescripcion":47,"backbone":79,"jquery":113}],49:[function(require,module,exports){
+},{"../models/catalogo":12,"../views/catalogoDetalleDescripcion":49,"backbone":81,"jquery":115}],51:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     CatalogoDescripcionVista = require('../views/catalogoDescripcion');
@@ -2825,7 +2914,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/catalogoDescripcion":46,"backbone":79,"jquery":113}],50:[function(require,module,exports){
+},{"../views/catalogoDescripcion":48,"backbone":81,"jquery":115}],52:[function(require,module,exports){
 var Backbone               = require('backbone'),
     $                      = require('jquery'),
     PersonalBusquedasVista = require('../views/personalBusquedas'),
@@ -2834,9 +2923,8 @@ var Backbone               = require('backbone'),
     CajaBusquedaVista      = require('../views/cajaBusqueda'),
     PlantillaPersonal      = require('../templates/resultados-personal-busqueda.hbs'),
     PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
-    PlantillaEmpresa       = require("../templates/resultados-empresa-busqueda.hbs");
-
-
+    PlantillaEmpresa       = require('../templates/resultados-empresa-busqueda.hbs');
+      
 
 //Personal.Views.Contenido
 module.exports = Backbone.View.extend({
@@ -2851,6 +2939,7 @@ module.exports = Backbone.View.extend({
       $('#incidencias_personal').hide();
       $('#consulta_empresa_personal').hide();
       $('#catalogo_movimientos').hide();
+      $('#personal_incidencias_checks').hide();
    },
    mostrarMenuPersonal: function(){
    			  Backbone.app.menu="personal";
@@ -2954,9 +3043,6 @@ module.exports = Backbone.View.extend({
    },
    mostrarMenuIncidencias: function(){
      Backbone.app.menu = "movimiento";
-      if (this.CajaBusquedaPersonal){
-            this.CajaBusquedaPersonal.close();
-          } 
          if (this.CajaBusquedaSucursal){
             this.CajaBusquedaSucursal.close();
           } 
@@ -2964,8 +3050,8 @@ module.exports = Backbone.View.extend({
 
 
        
-        this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
-        this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
+        this.SucursalIBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_incidencias',template:PlantillaSucursal});
+        this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales_incidencias',divResultados: '#resultados_sucursal_incidencias'});
 
         Backbone.app.menu ='incidencias';
         $('.contenido_personal').hide();
@@ -3014,7 +3100,7 @@ module.exports = Backbone.View.extend({
    },
 });
 
-},{"../templates/resultados-empresa-busqueda.hbs":36,"../templates/resultados-personal-busqueda.hbs":39,"../templates/resultados-sucursal-busqueda.hbs":40,"../views/cajaBusqueda":44,"../views/datoBusquedas":52,"../views/empresaBusquedas":54,"../views/personalBusquedas":63,"backbone":79,"jquery":113}],51:[function(require,module,exports){
+},{"../templates/resultados-empresa-busqueda.hbs":37,"../templates/resultados-personal-busqueda.hbs":40,"../templates/resultados-sucursal-busqueda.hbs":41,"../views/cajaBusqueda":46,"../views/datoBusquedas":54,"../views/empresaBusquedas":56,"../views/personalBusquedas":65,"backbone":81,"jquery":115}],53:[function(require,module,exports){
 var Backbone    = require('backbone');
 
 //Personal.Views.DatoBusqueda 
@@ -3051,7 +3137,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"backbone":79}],52:[function(require,module,exports){
+},{"backbone":81}],54:[function(require,module,exports){
 var Backbone          = require('backbone'),
     DatoBusquedaVista = require('../views/datoBusqueda');
     
@@ -3091,7 +3177,7 @@ module.exports = Backbone.View.extend({
 });
 
 //   $('#resultados_sucursal_movimiento').scrollTop($this.index() * $this.outerHeight());
-},{"../views/datoBusqueda":51,"backbone":79}],53:[function(require,module,exports){
+},{"../views/datoBusqueda":53,"backbone":81}],55:[function(require,module,exports){
 var Backbone          = require('backbone'),
     plantilla = require("../templates/resultados-empresa-busqueda.hbs");
 
@@ -3120,7 +3206,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/resultados-empresa-busqueda.hbs":36,"backbone":79}],54:[function(require,module,exports){
+},{"../templates/resultados-empresa-busqueda.hbs":37,"backbone":81}],56:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     EmpresaBusquedaVista  = require('../views/empresaBusqueda');
@@ -3152,7 +3238,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/resultados-personal-busqueda.hbs":39,"../views/empresaBusqueda":53,"backbone":79,"jquery":113}],55:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":40,"../views/empresaBusqueda":55,"backbone":81,"jquery":115}],57:[function(require,module,exports){
 var Backbone   = require('backbone'),
     Plantilla  = require('../templates/resultados-empresa-padre.hbs')       
     app        = Backbone.app;
@@ -3199,7 +3285,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../templates/resultados-empresa-padre.hbs":37,"backbone":79}],56:[function(require,module,exports){
+},{"../templates/resultados-empresa-padre.hbs":38,"backbone":81}],58:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Sucursal                = require('../models/sucursal'),
@@ -3460,7 +3546,7 @@ generarJSON: function(){
 });
 
 
-},{"../collections/catalogos":2,"../models/empresa":14,"../models/sucursal":19,"../templates/empresa-detalle.hbs":26,"../views/empresaDescripcion":55,"../views/personalCatalogos":65,"backbone":79,"jquery":113}],57:[function(require,module,exports){
+},{"../collections/catalogos":2,"../models/empresa":14,"../models/sucursal":19,"../templates/empresa-detalle.hbs":26,"../views/empresaDescripcion":57,"../views/personalCatalogos":67,"backbone":81,"jquery":115}],59:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     EmpresaDetalleLista   = require('../views/empresaListadoReporte'),
@@ -3496,7 +3582,7 @@ module.exports= Backbone.View.extend({
     }
 });
 
-},{"../templates/empresa-listado-reportes.hbs":27,"../views/empresaListadoReporte":58,"backbone":79,"jquery":113}],58:[function(require,module,exports){
+},{"../templates/empresa-listado-reportes.hbs":27,"../views/empresaListadoReporte":60,"backbone":81,"jquery":115}],60:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Plantilla               = require('../templates/empresa-listado-reportes.hbs'),
@@ -3554,7 +3640,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/empresa-listado-reportes.hbs":27,"backbone":79,"jquery":113}],59:[function(require,module,exports){
+},{"../templates/empresa-listado-reportes.hbs":27,"backbone":81,"jquery":115}],61:[function(require,module,exports){
 var Backbone    = require('backbone'),
     $                     = require('jquery'),
     Login       = require('../models/login');
@@ -3639,7 +3725,7 @@ module.exports = Backbone.View.extend({
 
   });
 
-},{"../models/login":15,"backbone":79,"jquery":113}],60:[function(require,module,exports){
+},{"../models/login":15,"backbone":81,"jquery":115}],62:[function(require,module,exports){
 var Backbone = require('backbone'),
     $           = require('jquery');
 
@@ -3694,14 +3780,14 @@ module.exports = Backbone.View.extend({
       $('.consulta_empresa_personal').hide();
    }
 }); 
-},{"backbone":79,"jquery":113}],61:[function(require,module,exports){
+},{"backbone":81,"jquery":115}],63:[function(require,module,exports){
 var Backbone  = require('backbone'),
     $         = require('jquery'),
     Plantilla = require('../templates/personal-datos_basicos.hbs');
 
 //Personal.Views.PersonalBasico 
 module.exports= Backbone.View.extend({
-  el: $('#personal_datos_basicos'),
+  //el: $('#personal_datos_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
   template: Plantilla,
@@ -3722,9 +3808,14 @@ module.exports= Backbone.View.extend({
    this.$el.html(html);
    $('#perso_foto_basica_wait').hide();
   },
+
+    limpiarTodo:function(){
+    console.log("limpiando resultados");
+     this.$el.empty();
+  }
   });
 
-},{"../templates/personal-datos_basicos.hbs":31,"backbone":79,"jquery":113}],62:[function(require,module,exports){
+},{"../templates/personal-datos_basicos.hbs":31,"backbone":81,"jquery":115}],64:[function(require,module,exports){
 var Backbone   = require('backbone'),
     $          = require('jquery'),
     Handlebars = require('handlebars'),
@@ -3759,7 +3850,7 @@ module.exports= Backbone.View.extend({
 
 
 
-},{"../templates/resultados-personal-busqueda.hbs":39,"backbone":79,"handlebars":98,"jquery":113}],63:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":40,"backbone":81,"handlebars":100,"jquery":115}],65:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalBusquedaVista = require('../views/personalBusqueda'),
@@ -3795,7 +3886,7 @@ module.exports= Backbone.View.extend({
     }
 });
 
-},{"../templates/resultados-personal-busqueda.hbs":39,"../views/personalBusqueda":62,"backbone":79,"jquery":113}],64:[function(require,module,exports){
+},{"../templates/resultados-personal-busqueda.hbs":40,"../views/personalBusqueda":64,"backbone":81,"jquery":115}],66:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Plantilla             = require('../templates/personal-catalogos.hbs');
@@ -3829,7 +3920,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../templates/personal-catalogos.hbs":30,"backbone":79,"jquery":113}],65:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":30,"backbone":81,"jquery":115}],67:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     PersonalCatalogoVista = require('../views/personalCatalogo'),
@@ -3863,11 +3954,12 @@ module.exports = Backbone.View.extend({
   },  
 });
 
-},{"../templates/personal-catalogos.hbs":30,"../views/personalCatalogo":64,"backbone":79,"jquery":113}],66:[function(require,module,exports){
+},{"../templates/personal-catalogos.hbs":30,"../views/personalCatalogo":66,"backbone":81,"jquery":115}],68:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Personal              = require('../models/personal'),
     Plantilla             = require('../templates/personal-en-sucursal.hbs'),
+    Plantilla2            = require('../templates/personal-en-sucursal-incidencias.hbs'),
     app                   = Backbone.app;
 
 //Personal.Views.PersonalDescripcion
@@ -3883,6 +3975,9 @@ module.exports = Backbone.View.extend({
     "mousedown ": "seleccionado",
   },
   render: function () {
+    if(  Backbone.app.menu ==='incidencias'){
+      this.template = Plantilla2;
+    }
     var descripcion = this.model.toJSON();
     var html = "";
  
@@ -3897,14 +3992,17 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-  	console.log("personal seleccionado");
-  }
+    //this.model.attributes.id_personal.id
+     if(  Backbone.app.menu ==='incidencias'){
+        Backbone.app.navigate("Personal/buscar/"+ this.model.get('id_personal').matricula, {trigger: true});
+     }
+    }
 });
 
 
 
 
-},{"../models/personal":17,"../templates/personal-en-sucursal.hbs":33,"backbone":79,"jquery":113}],67:[function(require,module,exports){
+},{"../models/personal":17,"../templates/personal-en-sucursal-incidencias.hbs":33,"../templates/personal-en-sucursal.hbs":34,"backbone":81,"jquery":115}],69:[function(require,module,exports){
 var Backbone                = require('backbone');
     $                       = require('jquery');
     $.ui                    = require('jquery-ui'),
@@ -4307,7 +4405,7 @@ uploadFile: function(event) {
     });
   }
 });
-},{"../collections/catalogos":2,"../collections/sucursales":7,"../models/personal":17,"../models/personal_sucursal":18,"../notificaciones":21,"../templates/personal-detalle.hbs":32,"../templates/resultados-sucursal-busqueda.hbs":40,"../views/cajaBusqueda":44,"../views/datoBusquedas":52,"../views/personalCatalogos":65,"backbone":79,"jquery":113,"jquery-ui":112}],68:[function(require,module,exports){
+},{"../collections/catalogos":2,"../collections/sucursales":7,"../models/personal":17,"../models/personal_sucursal":18,"../notificaciones":21,"../templates/personal-detalle.hbs":32,"../templates/resultados-sucursal-busqueda.hbs":41,"../views/cajaBusqueda":46,"../views/datoBusquedas":54,"../views/personalCatalogos":67,"backbone":81,"jquery":115,"jquery-ui":114}],70:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
    jQuery                  = require('jquery'),  
@@ -4338,7 +4436,7 @@ module.exports = Backbone.View.extend({
 });
 
 
-},{"../calendarioComp":1,"../templates/incidencias-personal.hbs":28,"backbone":79,"jquery":113}],69:[function(require,module,exports){
+},{"../calendarioComp":1,"../templates/incidencias-personal.hbs":28,"backbone":81,"jquery":115}],71:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     PersonalDescripcionVista = require('../views/personalDescripcion');
@@ -4346,7 +4444,7 @@ var Backbone                = require('backbone'),
 
 //Personal.Views.PersonalListados 
 module.exports = Backbone.View.extend({
-  el: $('#personal_listado'),
+  //el: $('#personal_listado'),
 
   initialize: function () {
     this.listenTo(this.collection, "add", this.addOne, this);
@@ -4373,7 +4471,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/personalDescripcion":66,"backbone":79,"jquery":113}],70:[function(require,module,exports){
+},{"../views/personalDescripcion":68,"backbone":81,"jquery":115}],72:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -4580,7 +4678,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":2,"../funcionesGenericas":8,"../models/personal_sucursal":18,"../templates/movimiento-personal-sucursal.hbs":29,"../views/personalCatalogos":65,"backbone":79,"jquery":113}],71:[function(require,module,exports){
+},{"../collections/catalogos":2,"../funcionesGenericas":8,"../models/personal_sucursal":18,"../templates/movimiento-personal-sucursal.hbs":29,"../views/personalCatalogos":67,"backbone":81,"jquery":115}],73:[function(require,module,exports){
 var Backbone  = require('backbone'),
     Plantilla = require('../templates/personal-sucursal-activa.hbs')
 
@@ -4644,7 +4742,7 @@ module.exports = Backbone.View.extend({
     },
   });
 
-},{"../templates/personal-sucursal-activa.hbs":34,"backbone":79}],72:[function(require,module,exports){
+},{"../templates/personal-sucursal-activa.hbs":35,"backbone":81}],74:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                       = require('jquery'),
     Plantilla               = require('../templates/personalXEmpresa_empresa.hbs'),
@@ -4702,7 +4800,7 @@ module.exports = Backbone.View.extend({
 	},
 });
 
-},{"../templates/personalXEmpresa_empresa.hbs":35,"backbone":79,"jquery":113}],73:[function(require,module,exports){
+},{"../templates/personalXEmpresa_empresa.hbs":36,"backbone":81,"jquery":115}],75:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery');
     EmpresaReporte        = require('../views/personalXEmpresaReporte'),
@@ -4752,18 +4850,20 @@ module.exports= Backbone.View.extend({
 });
 
 //id_sucursal__cve_empresa
-},{"../templates/personalXEmpresa_empresa.hbs":35,"../views/personalXEmpresaReporte":72,"backbone":79,"jquery":113}],74:[function(require,module,exports){
-var Backbone  = require('backbone'),
-    Plantilla = require('../templates/sucursal-datos_basicos.hbs');
+},{"../templates/personalXEmpresa_empresa.hbs":36,"../views/personalXEmpresaReporte":74,"backbone":81,"jquery":115}],76:[function(require,module,exports){
+var Backbone  = require('backbone');
+   // Plantilla = require('../templates/sucursal-datos_basicos.hbs');
   
 //Personal.Views.SucursalBasico
 module.exports = Backbone.View.extend({
-  el: $('#sucursal_datos_basicos'),
+  //el: $('#sucursal_datos_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Plantilla,
+  template:null,
+  //template: Plantilla,
   
-  initialize: function () {
+  initialize: function (opciones) {
+    this.template = opciones.template;
     this.listenTo(this.model, "change", this.llenado, this);
   },
   llenado: function(){
@@ -4780,7 +4880,7 @@ module.exports = Backbone.View.extend({
   },
   });
 
-},{"../templates/sucursal-datos_basicos.hbs":41,"backbone":79}],75:[function(require,module,exports){
+},{"backbone":81}],77:[function(require,module,exports){
 var Backbone              = require('backbone'),
     $                     = require('jquery'),
     Sucursal              = require('../models/sucursal'),
@@ -4850,7 +4950,7 @@ module.exports = Backbone.View.extend({
 
 
 
-},{"../models/personal_sucursal":18,"../models/sucursal":19,"../templates/resultados-empresa-sucursal-listado.hbs":38,"../views/sucursalDetalle":76,"backbone":79,"jquery":113}],76:[function(require,module,exports){
+},{"../models/personal_sucursal":18,"../models/sucursal":19,"../templates/resultados-empresa-sucursal-listado.hbs":39,"../views/sucursalDetalle":78,"backbone":81,"jquery":115}],78:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     Catalogos               = require('../collections/catalogos'),
@@ -5091,7 +5191,7 @@ agregarValidacion: function(){
 });
 
 
-},{"../collections/catalogos":2,"../models/personal":17,"../models/sucursal":19,"../templates/sucursal-detalle.hbs":42,"../views/personalCatalogos":65,"backbone":79,"jquery":113}],77:[function(require,module,exports){
+},{"../collections/catalogos":2,"../models/personal":17,"../models/sucursal":19,"../templates/sucursal-detalle.hbs":44,"../views/personalCatalogos":67,"backbone":81,"jquery":115}],79:[function(require,module,exports){
 var Backbone                = require('backbone'),
     $                     = require('jquery'),
     SucursalDescripcionVista = require('../views/sucursalDescripcion');
@@ -5126,7 +5226,7 @@ module.exports = Backbone.View.extend({
   
 });
 
-},{"../views/sucursalDescripcion":75,"backbone":79,"jquery":113}],78:[function(require,module,exports){
+},{"../views/sucursalDescripcion":77,"backbone":81,"jquery":115}],80:[function(require,module,exports){
 var Backbone                 = require('backbone'),
     $                        = require('jquery'),
     ol                       = require('openlayers'),
@@ -5271,7 +5371,7 @@ module.exports = Backbone.View.extend({
       },
 });
 
-},{"../views/sucursalDescripcion":75,"backbone":79,"jquery":113,"openlayers":115}],79:[function(require,module,exports){
+},{"../views/sucursalDescripcion":77,"backbone":81,"jquery":115,"openlayers":117}],81:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.1
 
@@ -7148,7 +7248,7 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":113,"underscore":116}],80:[function(require,module,exports){
+},{"jquery":115,"underscore":118}],82:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7212,7 +7312,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars.runtime":81,"./handlebars/compiler/ast":83,"./handlebars/compiler/base":84,"./handlebars/compiler/compiler":86,"./handlebars/compiler/javascript-compiler":88,"./handlebars/compiler/visitor":91,"./handlebars/no-conflict":94}],81:[function(require,module,exports){
+},{"./handlebars.runtime":83,"./handlebars/compiler/ast":85,"./handlebars/compiler/base":86,"./handlebars/compiler/compiler":88,"./handlebars/compiler/javascript-compiler":90,"./handlebars/compiler/visitor":93,"./handlebars/no-conflict":96}],83:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7273,7 +7373,7 @@ inst['default'] = inst;
 
 exports['default'] = inst;
 module.exports = exports['default'];
-},{"./handlebars/base":82,"./handlebars/exception":93,"./handlebars/no-conflict":94,"./handlebars/runtime":95,"./handlebars/safe-string":96,"./handlebars/utils":97}],82:[function(require,module,exports){
+},{"./handlebars/base":84,"./handlebars/exception":95,"./handlebars/no-conflict":96,"./handlebars/runtime":97,"./handlebars/safe-string":98,"./handlebars/utils":99}],84:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7547,7 +7647,7 @@ function createFrame(object) {
 }
 
 /* [args, ]options */
-},{"./exception":93,"./utils":97}],83:[function(require,module,exports){
+},{"./exception":95,"./utils":99}],85:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7700,7 +7800,7 @@ var AST = {
 // must modify the object to operate properly.
 exports['default'] = AST;
 module.exports = exports['default'];
-},{}],84:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -7747,7 +7847,7 @@ function parse(input, options) {
   var strip = new _WhitespaceControl2['default']();
   return strip.accept(_parser2['default'].parse(input));
 }
-},{"../utils":97,"./ast":83,"./helpers":87,"./parser":89,"./whitespace-control":92}],85:[function(require,module,exports){
+},{"../utils":99,"./ast":85,"./helpers":89,"./parser":91,"./whitespace-control":94}],87:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7912,7 +8012,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 /* NOP */
-},{"../utils":97,"source-map":99}],86:[function(require,module,exports){
+},{"../utils":99,"source-map":101}],88:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8440,7 +8540,7 @@ function transformLiteralToPath(sexpr) {
     sexpr.path = new _AST2['default'].PathExpression(false, 0, [literal.original + ''], literal.original + '', literal.loc);
   }
 }
-},{"../exception":93,"../utils":97,"./ast":83}],87:[function(require,module,exports){
+},{"../exception":95,"../utils":99,"./ast":85}],89:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -8572,7 +8672,7 @@ function prepareBlock(openBlock, program, inverseAndProgram, close, inverted, lo
 
   return new this.BlockStatement(openBlock.path, openBlock.params, openBlock.hash, program, inverse, openBlock.strip, inverseStrip, close && close.strip, this.locInfo(locInfo));
 }
-},{"../exception":93}],88:[function(require,module,exports){
+},{"../exception":95}],90:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -9635,7 +9735,7 @@ function strictLookup(requireTerminal, compiler, parts, type) {
 
 exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
-},{"../base":82,"../exception":93,"../utils":97,"./code-gen":85}],89:[function(require,module,exports){
+},{"../base":84,"../exception":95,"../utils":99,"./code-gen":87}],91:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -10314,7 +10414,7 @@ var handlebars = (function () {
     return new Parser();
 })();exports["default"] = handlebars;
 module.exports = exports["default"];
-},{}],90:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -10480,7 +10580,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
   return pair.key + '=' + this.accept(pair.value);
 };
 /*eslint-enable new-cap */
-},{"./visitor":91}],91:[function(require,module,exports){
+},{"./visitor":93}],93:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -10613,7 +10713,7 @@ Visitor.prototype = {
 exports['default'] = Visitor;
 module.exports = exports['default'];
 /* content */ /* comment */ /* path */ /* string */ /* number */ /* bool */ /* literal */ /* literal */
-},{"../exception":93,"./ast":83}],92:[function(require,module,exports){
+},{"../exception":95,"./ast":85}],94:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -10826,7 +10926,7 @@ function omitLeft(body, i, multiple) {
 
 exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
-},{"./visitor":91}],93:[function(require,module,exports){
+},{"./visitor":93}],95:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -10865,7 +10965,7 @@ Exception.prototype = new Error();
 
 exports['default'] = Exception;
 module.exports = exports['default'];
-},{}],94:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -10886,7 +10986,7 @@ exports['default'] = function (Handlebars) {
 
 module.exports = exports['default'];
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],95:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 'use strict';
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
@@ -11119,7 +11219,7 @@ function initData(context, data) {
   }
   return data;
 }
-},{"./base":82,"./exception":93,"./utils":97}],96:[function(require,module,exports){
+},{"./base":84,"./exception":95,"./utils":99}],98:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11134,7 +11234,7 @@ SafeString.prototype.toString = SafeString.prototype.toHTML = function () {
 
 exports['default'] = SafeString;
 module.exports = exports['default'];
-},{}],97:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11249,7 +11349,7 @@ function blockParams(params, ids) {
 function appendContextPath(contextPath, id) {
   return (contextPath ? contextPath + '.' : '') + id;
 }
-},{}],98:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -11276,7 +11376,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":80,"../dist/cjs/handlebars/compiler/printer":90,"fs":117}],99:[function(require,module,exports){
+},{"../dist/cjs/handlebars":82,"../dist/cjs/handlebars/compiler/printer":92,"fs":119}],101:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -11286,7 +11386,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":105,"./source-map/source-map-generator":106,"./source-map/source-node":107}],100:[function(require,module,exports){
+},{"./source-map/source-map-consumer":107,"./source-map/source-map-generator":108,"./source-map/source-node":109}],102:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11385,7 +11485,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":108,"amdefine":109}],101:[function(require,module,exports){
+},{"./util":110,"amdefine":111}],103:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11529,7 +11629,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":102,"amdefine":109}],102:[function(require,module,exports){
+},{"./base64":104,"amdefine":111}],104:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11573,7 +11673,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":109}],103:[function(require,module,exports){
+},{"amdefine":111}],105:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11655,7 +11755,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":109}],104:[function(require,module,exports){
+},{"amdefine":111}],106:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -11743,7 +11843,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":108,"amdefine":109}],105:[function(require,module,exports){
+},{"./util":110,"amdefine":111}],107:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -12320,7 +12420,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":100,"./base64-vlq":101,"./binary-search":103,"./util":108,"amdefine":109}],106:[function(require,module,exports){
+},{"./array-set":102,"./base64-vlq":103,"./binary-search":105,"./util":110,"amdefine":111}],108:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -12722,7 +12822,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":100,"./base64-vlq":101,"./mapping-list":104,"./util":108,"amdefine":109}],107:[function(require,module,exports){
+},{"./array-set":102,"./base64-vlq":103,"./mapping-list":106,"./util":110,"amdefine":111}],109:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -13138,7 +13238,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":106,"./util":108,"amdefine":109}],108:[function(require,module,exports){
+},{"./source-map-generator":108,"./util":110,"amdefine":111}],110:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -13459,7 +13559,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":109}],109:[function(require,module,exports){
+},{"amdefine":111}],111:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.0 Copyright (c) 2011-2015, The Dojo Foundation All Rights Reserved.
@@ -13764,15 +13864,15 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/handlebars/node_modules/source-map/node_modules/amdefine/amdefine.js")
-},{"_process":119,"path":118}],110:[function(require,module,exports){
+},{"_process":121,"path":120}],112:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime')['default'];
 
-},{"./dist/cjs/handlebars.runtime":81}],111:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":83}],113:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":110}],112:[function(require,module,exports){
+},{"handlebars/runtime":112}],114:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*! jQuery UI - v1.10.3 - 2013-05-03
@@ -28779,7 +28879,7 @@ $.widget( "ui.tooltip", {
 
 }( jQuery ) );
 
-},{"jquery":113}],113:[function(require,module,exports){
+},{"jquery":115}],115:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v1.11.3
  * http://jquery.com/
@@ -39132,7 +39232,7 @@ return jQuery;
 
 }));
 
-},{}],114:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -42328,7 +42428,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],115:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
 // Version: v3.7.0
@@ -43265,7 +43365,7 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
 }));
 
 
-},{}],116:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -44815,9 +44915,9 @@ Ar.prototype.set=Ar.prototype.set;Ar.prototype.setProperties=Ar.prototype.u;Ar.p
   }
 }.call(this));
 
-},{}],117:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 
-},{}],118:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -45045,7 +45145,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":119}],119:[function(require,module,exports){
+},{"_process":121}],121:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

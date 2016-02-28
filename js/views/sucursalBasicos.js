@@ -1,14 +1,16 @@
-var Backbone  = require('backbone'),
-    Plantilla = require('../templates/sucursal-datos_basicos.hbs');
+var Backbone  = require('backbone');
+   // Plantilla = require('../templates/sucursal-datos_basicos.hbs');
   
 //Personal.Views.SucursalBasico
 module.exports = Backbone.View.extend({
-  el: $('#sucursal_datos_basicos'),
+  //el: $('#sucursal_datos_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
-  template: Plantilla,
+  template:null,
+  //template: Plantilla,
   
-  initialize: function () {
+  initialize: function (opciones) {
+    this.template = opciones.template;
     this.listenTo(this.model, "change", this.llenado, this);
   },
   llenado: function(){

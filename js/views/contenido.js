@@ -6,9 +6,8 @@ var Backbone               = require('backbone'),
     CajaBusquedaVista      = require('../views/cajaBusqueda'),
     PlantillaPersonal      = require('../templates/resultados-personal-busqueda.hbs'),
     PlantillaSucursal      = require('../templates/resultados-sucursal-busqueda.hbs');
-    PlantillaEmpresa       = require("../templates/resultados-empresa-busqueda.hbs");
-
-
+    PlantillaEmpresa       = require('../templates/resultados-empresa-busqueda.hbs');
+      
 
 //Personal.Views.Contenido
 module.exports = Backbone.View.extend({
@@ -23,6 +22,7 @@ module.exports = Backbone.View.extend({
       $('#incidencias_personal').hide();
       $('#consulta_empresa_personal').hide();
       $('#catalogo_movimientos').hide();
+      $('#personal_incidencias_checks').hide();
    },
    mostrarMenuPersonal: function(){
    			  Backbone.app.menu="personal";
@@ -126,9 +126,6 @@ module.exports = Backbone.View.extend({
    },
    mostrarMenuIncidencias: function(){
      Backbone.app.menu = "movimiento";
-      if (this.CajaBusquedaPersonal){
-            this.CajaBusquedaPersonal.close();
-          } 
          if (this.CajaBusquedaSucursal){
             this.CajaBusquedaSucursal.close();
           } 
@@ -136,8 +133,8 @@ module.exports = Backbone.View.extend({
 
 
        
-        this.SucursalMBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_movimiento',template:PlantillaSucursal});
-        this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales',divResultados: '#resultados_sucursal_movimiento'});
+        this.SucursalIBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_incidencias',template:PlantillaSucursal});
+        this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales_incidencias',divResultados: '#resultados_sucursal_incidencias'});
 
         Backbone.app.menu ='incidencias';
         $('.contenido_personal').hide();

@@ -4,7 +4,7 @@ var Backbone  = require('backbone'),
 
 //Personal.Views.PersonalBasico 
 module.exports= Backbone.View.extend({
-  el: $('#personal_datos_basicos'),
+  //el: $('#personal_datos_basicos'),
   className: 'ul_bloque',
   tagName: 'ul',
   template: Plantilla,
@@ -25,4 +25,9 @@ module.exports= Backbone.View.extend({
    this.$el.html(html);
    $('#perso_foto_basica_wait').hide();
   },
+
+    limpiarTodo:function(){
+    console.log("limpiando resultados");
+     this.$el.empty();
+  }
   });
