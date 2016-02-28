@@ -1725,6 +1725,7 @@ initialize: function () {
        
     }
     if(  Backbone.app.menu ==='incidencias'){
+      var self = this;
       console.log("voy a buscar a una persona");
        $('#personal_incidencias_checks').show();
        Calendario.initialize();
@@ -1734,7 +1735,7 @@ initialize: function () {
         success: function(data){
         },
         error: function(){
-         PersonalIncidenciasBasico.limpiarTodo();
+         self.PersonalIncidenciasBasico.limpiarTodo();
         }
       });
     }
