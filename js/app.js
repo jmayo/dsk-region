@@ -1664,6 +1664,7 @@ initialize: function () {
     this.Body = new BodyVista();
     
     this.menu="root";
+    Calendario.initialize();
   },
 
   root: function () {
@@ -1728,14 +1729,15 @@ initialize: function () {
       var self = this;
       console.log("voy a buscar a una persona");
        $('#personal_incidencias_checks').show();
-       Calendario.initialize();
+     
 
       this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
      this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
         success: function(data){
+            Calendario.initialize();
         },
         error: function(){
-         self.PersonalIncidenciasBasico.limpiarTodo();
+         //self.PersonalIncidenciasBasico.limpiarTodo();
         }
       });
     }
@@ -4432,7 +4434,8 @@ module.exports = Backbone.View.extend({
    console.log("buscando en el render de incidencias");
    var html = this.template();
    this.$el.html(html);
-   Calendario.initialize();
+ 
+   
 
   },
 

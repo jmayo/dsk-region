@@ -21,7 +21,8 @@ module.exports = Backbone.View.extend({
    console.log("buscando en el render de incidencias");
    var html = this.template();
    this.$el.html(html);
-   Calendario.initialize();
+ 
+   
 
   },
 
