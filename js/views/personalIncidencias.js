@@ -39,19 +39,19 @@ module.exports = Backbone.View.extend({
         return;
       }
   },
-  eliminarIncidencia: function(){
-    
-    console.log("Eliminar incidencia" + this.model.attributes[0].id);
-     var incidencia = new Incidencia();
-     incidencia.eliminar = true;
-     incidencia.pk = this.model.attributes[0].id;
-     incidencia.destroy({
+  eliminarIncidencia: function(event){    
+     var incidencia_modelo = new Incidencia();
+     incidencia_modelo.eliminar = true;
+     incidencia_modelo.id = this.model.attributes[0].id;
+     incidencia_modelo.destroy({
           headers: {'Authorization' :localStorage.token},
           success: function(model,response) {
-             $("#notify_success").text("La incidencia se elimino correctamente");
+            console.log("se elimino");
+             $("#notify_success").text("La incidencsia se elimino correctamente");
           },
           error: function(model,response, options) {
             $("#notify_error").text(response.responseJSON); 
+            console.log("error");
           },
      });
    },  
@@ -59,7 +59,6 @@ module.exports = Backbone.View.extend({
    console.log("buscando incidencias para esa fecha");
     
    var detalle = this.model.toJSON();
-
    //detalle[0].cdu_concepto_incidencia
    //0300001
    if(Object.keys(detalle).length>0){
@@ -72,9 +71,8 @@ module.exports = Backbone.View.extend({
       this.template = PlantillaSeleccionar;
       var html = this.template();
       this.$el.html(html);
-      this.delegateEvents();
    }
-     this.template = PlantillaMostrar;
+     //this.template = PlantillaMostrar;
   },
    limpiarTodo:function(){
      this.$el.empty();

@@ -256,18 +256,23 @@ initialize: function () {
         success: function(data){
             //Calendario.initialize();
             //self.PersonalIncidenciasBasico.limpiarTodo();
-            //self.IncidenciaModelo.clear();
+            self.IncidenciaModelo.clear();
             self.IncidenciaModelo.id_personal = data.attributes.id;
             self.IncidenciaModelo.fecha = '08-03-2016';
-            self.IncidenciaModelo.fetch({headers: {'Authorization' :localStorage.token},reset: true});
-  //          this.IncidenciaModelo = new Incidencia();
-//    this.IncidenciasVista = new PersonalIncidenciasVista({model: this.});
-
-
+            self.IncidenciaModelo.fetch({headers: {'Authorization' :localStorage.token},
+              success: function(){
+                if( Object.keys(self.IncidenciaModelo.attributes).length === 0){
+                       self.IncidenciasVista.render();
+                }
+              },
+              error: function(){
+                console.log("hay un error al traer la incidencia");
+              }
+          });
         },
         error: function(){
-
-         
+          console.log("error");
+            
         }
       });
     }

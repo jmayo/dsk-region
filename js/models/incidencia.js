@@ -1,14 +1,14 @@
 var Backbone = require('backbone');
 
-//Personal.Models.catalogo 
 module.exports = Backbone.Model.extend({
  initialize: function(){
-  		this.pk = -1;
+  		this.id = -1;
       this.nuevo = false;   
       this.eliminar = false;
  },
- pk: function(pk){
-    this.pk = pk;
+
+ id: function(id){
+    this.id = id;
  },
  id_personal : function(id_personal){
       this.id_personal  = id_personal;
@@ -23,12 +23,16 @@ module.exports = Backbone.Model.extend({
     this.nuevo= eliminar;
   },
   url : function(){
-  	if(this.nuevo){
+
+    if(this.nuevo){
+      console.log("entro a incidencias");
   		return  window.ruta +  'incidencias/';
   	}
     if(this.eliminar){
-      return   window.ruta +  'incidencias/' + this.pk + '/';
+      console.log("entro a eliminar");
+      return   window.ruta +  'incidencias/' + this.id + '/';
     }
+    console.log("entro a otro");
     return  window.ruta +  'incidencias/personal/' + this.id_personal + '/fecha/' + this.fecha + '/';
   },
 });
