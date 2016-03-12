@@ -11,9 +11,9 @@ initialize: function(){
 		var calendarPicker1 = $("#dsel1").calendarPicker({
 			monthNames:["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
 			dayNames: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-			callback:function(cal) {
-		 	 $("#wtf").html("Fecha: " + cal.currentDate.toLocaleDateString("es-ES", {weekday: "long", year: "numeric", month: "long", day: "numeric"}));
-			}
+			//callback:function(cal) {
+		 	// $("#wtf").html("Fecha: " + cal.currentDate.toLocaleDateString("es-ES", {weekday: "long", year: "numeric", month: "long", day: "numeric"}));
+			//}
 		});
 	
 		var calendarPicker2 = $("#dsel2").calendarPicker({
@@ -23,9 +23,9 @@ initialize: function(){
 			months:4,
 			days:5,
 			showDayArrows:false,
-			callback:function(cal) {
-		  	$("#wtf").html("Fecha: " + cal.currentDate);
-			}
+		//	callback:function(cal) {
+		  //	$("#wtf").html("Fecha: " + cal.currentDate.toLocaleDateString("es-ES", {weekday: "long", year: "numeric", month: "long", day: "numeric"}));
+		//	}
 		});
 	});
 }
@@ -1728,8 +1728,23 @@ initialize: function () {
     
     this.menu="root";
     Calendario.initialize();
+    $('#dsel1').hide();
+    //Tomamos el evento cuando cambia el calendario
+    var self = this;
+    $("#dsel1").calendarPicker({callback: this.cambioCalendario});
   },
-
+  cambioCalendario: function(cal){
+      var fecha = cal.currentDate.toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric"});
+      fecha = fecha.replace(/[/]/g,'-');
+      $("#dsel1")[0].value = fecha;
+      console.log(fecha);
+      Backbone.app.cambioFechasPantallas(fecha);
+  },
+  cambioFechasPantallas: function(fecha){
+       if(  Backbone.app.menu ==='incidencias'){
+              this.personalMatricula(this.PersoIncidenciasBasicoModelo.valor);
+       }
+  },
   root: function () {
     console.log("Estas en el indice");
   },
@@ -1761,7 +1776,6 @@ initialize: function () {
 
   
   },
-
  personalMatricula: function (valor_buscado,callback) {
   if(Backbone.app.menu==="personal"){
       Backbone.app.operacion="buscar";
@@ -1793,7 +1807,8 @@ initialize: function () {
       console.log("voy a buscar a una persona");
        $('#personal_incidencias_checks').show();
      
-   
+    this.PersoIncidenciasBasicoModelo.clear();
+    self.IncidenciaModelo.clear();
     this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
      this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
         success: function(data){
@@ -1801,7 +1816,7 @@ initialize: function () {
             //self.PersonalIncidenciasBasico.limpiarTodo();
             self.IncidenciaModelo.clear();
             self.IncidenciaModelo.id_personal = data.attributes.id;
-            self.IncidenciaModelo.fecha = '08-03-2016';
+            self.IncidenciaModelo.fecha = $("#dsel1")[0].value;
             self.IncidenciaModelo.fetch({headers: {'Authorization' :localStorage.token},
               success: function(){
                 if( Object.keys(self.IncidenciaModelo.attributes).length === 0){
@@ -1980,7 +1995,7 @@ initialize: function () {
   }
  },
  listadoPersonasEnSucursal: function(valor_buscado){
-      var self= this;
+    
       this.PersonalLista.id_sucursal = valor_buscado;
       this.PersonalLista.reset();
       this.PersonalLista.fetch({headers: {'Authorization' :localStorage.token},
@@ -1992,6 +2007,7 @@ initialize: function () {
       });
  },
   listadoPersonasIncidenciasEnSucursal: function(valor_buscado){
+
       var self= this;
       this.PersonalIncidenciasLista.id_sucursal = valor_buscado;
       this.PersonalIncidenciasLista.reset();
@@ -2001,9 +2017,11 @@ initialize: function () {
           if(result.length >0){
             var valor = result.at(0); 
             self.personalMatricula(valor.get('id_personal').matricula);
+            $('#dsel1').show();
           }
           else{
               self.personalMatricula("-1");
+              $('#dsel1').hide();
           }
         },
           error: function(model,response, options){
@@ -4528,6 +4546,13 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.model, "add", this.render, this);
     this.listenTo(this.model, "change", this.render, this);
     this.listenTo(this.model, "reset", this.limpiar, this);
+
+    $("#dsel1").datepicker({
+        onSelect: function(dateText) {
+           console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+        }
+    });
+
   },
   nuevaIncidencia: function(){
       if($('#incidencia-seleccion-falta').is( ":checked" )){
@@ -4542,13 +4567,16 @@ module.exports = Backbone.View.extend({
       }
   },
   eliminarIncidencia: function(event){    
-     var incidencia_modelo = new Incidencia();
+     var self = this;
+     var incidencia_modelo = new Incidencia(Backbone.app.IncidenciaModelo);
      incidencia_modelo.eliminar = true;
      incidencia_modelo.id = this.model.attributes[0].id;
      incidencia_modelo.destroy({
           headers: {'Authorization' :localStorage.token},
           success: function(model,response) {
-            console.log("se elimino");
+            //self.actualizarModelo();
+            //self.render();
+             self.model.clear();
              $("#notify_success").text("La incidencsia se elimino correctamente");
           },
           error: function(model,response, options) {
@@ -4582,9 +4610,12 @@ module.exports = Backbone.View.extend({
   nuevo: function(cdu_incidencia){
       var nueva_incidenca = new Incidencia();
       var id_perso = this.model.id_personal;
+      var nueva_fecha = $("#dsel1")[0].value;
+      nueva_fecha = nueva_fecha.replace(/[-]/g,'/');
+
       nueva_incidenca.set({id_personal: id_perso,
                           cdu_concepto_incidencia: cdu_incidencia,
-                          fecha: "08/03/2016",
+                          fecha: nueva_fecha,
                           observaciones:""
                         });
       this.guardar(nueva_incidenca);
@@ -4598,7 +4629,7 @@ module.exports = Backbone.View.extend({
             headers: {'Authorization' :localStorage.token},
             type: 'POST',
             success: function(model,response) {
-               self.model.fetch({headers: {'Authorization' :localStorage.token},reset: true});
+               self.actualizarModelo();
                $("#notify_success").text("La asignación se guardo correctamente");
             },
              error: function(model,response, options) {
@@ -4606,6 +4637,16 @@ module.exports = Backbone.View.extend({
                  $("#notify_error").notify();
              },
           });
+  },
+  actualizarModelo: function(){
+    var self = this;
+    this.model.fetch({headers: {'Authorization' :localStorage.token},reset: true,
+                success: function(valor){
+                  if( Object.keys(self.model.attributes).length === 0){
+                        self.render();
+                    }
+                },
+  });
   },
 });
 },{"../calendarioComp":1,"../models/incidencia":15,"../templates/mostrar-caja-incidencia.hbs":29,"../templates/mostrar-seleccion-incidencia.hbs":30,"backbone":83,"jquery":117}],73:[function(require,module,exports){

@@ -185,8 +185,23 @@ initialize: function () {
     
     this.menu="root";
     Calendario.initialize();
+    $('#dsel1').hide();
+    //Tomamos el evento cuando cambia el calendario
+    var self = this;
+    $("#dsel1").calendarPicker({callback: this.cambioCalendario});
   },
-
+  cambioCalendario: function(cal){
+      var fecha = cal.currentDate.toLocaleDateString("es-ES", { year: "numeric", month: "numeric", day: "numeric"});
+      fecha = fecha.replace(/[/]/g,'-');
+      $("#dsel1")[0].value = fecha;
+      console.log(fecha);
+      Backbone.app.cambioFechasPantallas(fecha);
+  },
+  cambioFechasPantallas: function(fecha){
+       if(  Backbone.app.menu ==='incidencias'){
+              this.personalMatricula(this.PersoIncidenciasBasicoModelo.valor);
+       }
+  },
   root: function () {
     console.log("Estas en el indice");
   },
@@ -218,7 +233,6 @@ initialize: function () {
 
   
   },
-
  personalMatricula: function (valor_buscado,callback) {
   if(Backbone.app.menu==="personal"){
       Backbone.app.operacion="buscar";
@@ -250,7 +264,8 @@ initialize: function () {
       console.log("voy a buscar a una persona");
        $('#personal_incidencias_checks').show();
      
-   
+    this.PersoIncidenciasBasicoModelo.clear();
+    self.IncidenciaModelo.clear();
     this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
      this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
         success: function(data){
@@ -258,7 +273,7 @@ initialize: function () {
             //self.PersonalIncidenciasBasico.limpiarTodo();
             self.IncidenciaModelo.clear();
             self.IncidenciaModelo.id_personal = data.attributes.id;
-            self.IncidenciaModelo.fecha = '08-03-2016';
+            self.IncidenciaModelo.fecha = $("#dsel1")[0].value;
             self.IncidenciaModelo.fetch({headers: {'Authorization' :localStorage.token},
               success: function(){
                 if( Object.keys(self.IncidenciaModelo.attributes).length === 0){
@@ -437,7 +452,7 @@ initialize: function () {
   }
  },
  listadoPersonasEnSucursal: function(valor_buscado){
-      var self= this;
+    
       this.PersonalLista.id_sucursal = valor_buscado;
       this.PersonalLista.reset();
       this.PersonalLista.fetch({headers: {'Authorization' :localStorage.token},
@@ -449,6 +464,7 @@ initialize: function () {
       });
  },
   listadoPersonasIncidenciasEnSucursal: function(valor_buscado){
+
       var self= this;
       this.PersonalIncidenciasLista.id_sucursal = valor_buscado;
       this.PersonalIncidenciasLista.reset();
@@ -458,9 +474,11 @@ initialize: function () {
           if(result.length >0){
             var valor = result.at(0); 
             self.personalMatricula(valor.get('id_personal').matricula);
+            $('#dsel1').show();
           }
           else{
               self.personalMatricula("-1");
+              $('#dsel1').hide();
           }
         },
           error: function(model,response, options){

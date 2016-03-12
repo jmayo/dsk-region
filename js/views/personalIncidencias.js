@@ -26,6 +26,13 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.model, "add", this.render, this);
     this.listenTo(this.model, "change", this.render, this);
     this.listenTo(this.model, "reset", this.limpiar, this);
+
+    $("#dsel1").datepicker({
+        onSelect: function(dateText) {
+           console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+        }
+    });
+
   },
   nuevaIncidencia: function(){
       if($('#incidencia-seleccion-falta').is( ":checked" )){
@@ -40,13 +47,16 @@ module.exports = Backbone.View.extend({
       }
   },
   eliminarIncidencia: function(event){    
-     var incidencia_modelo = new Incidencia();
+     var self = this;
+     var incidencia_modelo = new Incidencia(Backbone.app.IncidenciaModelo);
      incidencia_modelo.eliminar = true;
      incidencia_modelo.id = this.model.attributes[0].id;
      incidencia_modelo.destroy({
           headers: {'Authorization' :localStorage.token},
           success: function(model,response) {
-            console.log("se elimino");
+            //self.actualizarModelo();
+            //self.render();
+             self.model.clear();
              $("#notify_success").text("La incidencsia se elimino correctamente");
           },
           error: function(model,response, options) {
@@ -80,9 +90,12 @@ module.exports = Backbone.View.extend({
   nuevo: function(cdu_incidencia){
       var nueva_incidenca = new Incidencia();
       var id_perso = this.model.id_personal;
+      var nueva_fecha = $("#dsel1")[0].value;
+      nueva_fecha = nueva_fecha.replace(/[-]/g,'/');
+
       nueva_incidenca.set({id_personal: id_perso,
                           cdu_concepto_incidencia: cdu_incidencia,
-                          fecha: "08/03/2016",
+                          fecha: nueva_fecha,
                           observaciones:""
                         });
       this.guardar(nueva_incidenca);
@@ -96,7 +109,7 @@ module.exports = Backbone.View.extend({
             headers: {'Authorization' :localStorage.token},
             type: 'POST',
             success: function(model,response) {
-               self.model.fetch({headers: {'Authorization' :localStorage.token},reset: true});
+               self.actualizarModelo();
                $("#notify_success").text("La asignación se guardo correctamente");
             },
              error: function(model,response, options) {
@@ -104,5 +117,15 @@ module.exports = Backbone.View.extend({
                  $("#notify_error").notify();
              },
           });
+  },
+  actualizarModelo: function(){
+    var self = this;
+    this.model.fetch({headers: {'Authorization' :localStorage.token},reset: true,
+                success: function(valor){
+                  if( Object.keys(self.model.attributes).length === 0){
+                        self.render();
+                    }
+                },
+  });
   },
 });
