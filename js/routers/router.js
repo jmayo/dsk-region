@@ -45,7 +45,7 @@ var Backbone                = require('backbone'),
     PersonalIncidenciasVista = require('../views/personalIncidencias'),
     PersonalIncidenciasListadosVista   = require('../views/personalListados')
     
-
+    Incidencia              = require('../models/incidencia'),     
     ContenidoVista          = require('../views/contenido'),
     funcionGenerica = require('../funcionesGenericas')
     MenuVista       = require('../views/menu'),
@@ -174,7 +174,8 @@ initialize: function () {
     this.PersoIncidenciasBasicoModelo.set({"id":"-1"});
     this.PersonalIncidenciasBasico = new PersonalBasicoVista({model: this.PersoIncidenciasBasicoModelo, el:'#personal_incidencias_datos_basicos'});
    
-    this.PersonalIncidencias = new PersonalIncidenciasVista();
+    this.IncidenciaModelo = new Incidencia();
+    this.IncidenciasVista = new PersonalIncidenciasVista({model: this.IncidenciaModelo});
 
 
     popup.initialize();
@@ -249,14 +250,24 @@ initialize: function () {
       console.log("voy a buscar a una persona");
        $('#personal_incidencias_checks').show();
      
-
-      this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
+   
+    this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
      this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
         success: function(data){
-            Calendario.initialize();
+            //Calendario.initialize();
+            //self.PersonalIncidenciasBasico.limpiarTodo();
+            //self.IncidenciaModelo.clear();
+            self.IncidenciaModelo.id_personal = data.attributes.id;
+            self.IncidenciaModelo.fecha = '08-03-2016';
+            self.IncidenciaModelo.fetch({headers: {'Authorization' :localStorage.token},reset: true});
+  //          this.IncidenciaModelo = new Incidencia();
+//    this.IncidenciasVista = new PersonalIncidenciasVista({model: this.});
+
+
         },
         error: function(){
-         //self.PersonalIncidenciasBasico.limpiarTodo();
+
+         
         }
       });
     }

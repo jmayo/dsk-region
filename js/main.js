@@ -233,6 +233,28 @@ var Backbone    = require('backbone'),
     return '<li class="li_bloque">' + res1 + res2 +  res3 + '</li>';
     }
     );
+    //Agrupacion de label como titulo y un combo
+  Handlebars.registerHelper('grp_muestra_incidencia',function(options){
+        console.log("hola mundo")
+        var cdu_incidencia = options.hash.cdu_incidencia; 
+        var incidencia = 'No especificada'
+        var titulo = ''
+        if(cdu_incidencia== '0300001'){
+          incidencia ="Falta"
+          titulo = "Quitar falta";
+        }     
+        if(cdu_incidencia== '0300002'){
+          incidencia ="Cubrefalta"
+          titulo = "Quitar cubrefalta";
+        }     
+     
+     var resultado = '<ul class="menu_incide_existe">' +
+      '<li><span>' +  incidencia + '</span></li>' +
+    '<li><a href="#" id="incidencia-eliminar" title="' + titulo + '"><i class="fa fa-times-circle fa-2x"></i></a></li>'
+       
+         return resultado;
+    }
+    );
 
     
   
