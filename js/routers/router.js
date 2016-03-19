@@ -43,11 +43,15 @@ var Backbone                = require('backbone'),
     PersonalMovimientoVista = require('../views/personalMovimiento'),
 
     PersonalIncidenciasVista = require('../views/personalIncidencias'),
-    PersonalIncidenciasListadosVista   = require('../views/personalListados')
+    PersonalIncidenciasListadosVista   = require('../views/personalListados'),
     
     Incidencia              = require('../models/incidencia'),     
     ContenidoVista          = require('../views/contenido'),
-    funcionGenerica = require('../funcionesGenericas')
+
+    Incidencias             = require('../collections/incidencias'),
+    IncidenciasListado      = require('../views/incidenciaListadoCons'),
+
+    funcionGenerica = require('../funcionesGenericas'),
     MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body'),
     MenuOpcion = require('../models/menu'),
@@ -76,6 +80,7 @@ module.exports = Backbone.Router.extend({
     "Catalogo": "catalogo",
     "Incidencias": "incidencias",
     "ConsultaEmpPerso": "cons_empperso",
+    "ConsultaIncidencias": "cons_incidencias"
   //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
@@ -178,6 +183,12 @@ initialize: function () {
     this.IncidenciasVista = new PersonalIncidenciasVista({model: this.IncidenciaModelo});
 
 
+    this.Incidencias    = new Incidencias();
+    this.IncidenciaListadoVista  = new IncidenciasListado({collection: this.Incidencias});
+    var today = new Date();
+    $("#incidencia_fecha_ini").val(today.toLocaleFormat('%d/%m/%Y'));
+    $("#incidencia_fecha_fin").val(today.toLocaleFormat('%d/%m/%Y'));
+
     popup.initialize();
     
 
@@ -198,7 +209,7 @@ initialize: function () {
       Backbone.app.cambioFechasPantallas(fecha);
   },
   cambioFechasPantallas: function(fecha){
-       if(  Backbone.app.menu ==='incidencias'){
+       if(Backbone.app.menu ==='incidencias'){
               this.personalMatricula(this.PersoIncidenciasBasicoModelo.valor);
        }
   },
@@ -290,8 +301,8 @@ initialize: function () {
             
         }
       });
-    }
-  },
+   }
+ },
    //************
    mostrarSucursal: function() {
               self = this
@@ -311,7 +322,8 @@ initialize: function () {
                   }
                 },
               });
-   },
+
+  },
 
    personalNuevo: function () {
     Backbone.app.operacion="nuevo";
@@ -548,7 +560,27 @@ initialize: function () {
 
   
   },
+ cons_incidencias: function () {
+    this.MenuModelo.Opcion ='consulta_incidencias';
+    //this.Incidencias.reset();
+    this.Incidencias.fecha_ini=$("#incidencia_fecha_ini").val();
+    this.Incidencias.fecha_fin=$("#incidencia_fecha_fin").val();
+    //this.Incidencias.comparator= function(item){ return  [item.get('fecha'),item.get('id_persona')] }
+    this.Incidencias.fetch(  { headers: {'Authorization' :localStorage.token},
+      success: function(datos){
+        
+      },
+      error: function(model, response,options){
+        console.log(response.responseText)
+      },
+    } );
+      
+   
 
+
+   
+    console.log("Estas en el modulo de consulta de incidencias de personal")
+  },
 
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
