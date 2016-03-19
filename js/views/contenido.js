@@ -200,15 +200,15 @@ module.exports = Backbone.View.extend({
         $('.contenido_personal').hide();
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
-        $('#busqueda_generico').show();
+        $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();
         $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
+        $('#personal_consulta_incidencias').show();   
         $('#incidencia_fecha_ini').show();
         $('#incidencia_fecha_fin').show();
-        $('#personal_consulta_incidencias').show();   
 
    },
    mostrarCerrarSesion: function(){

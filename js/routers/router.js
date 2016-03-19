@@ -50,7 +50,7 @@ var Backbone                = require('backbone'),
 
     Incidencias             = require('../collections/incidencias'),
     IncidenciasListado      = require('../views/incidenciaListadoCons'),
-
+   
     funcionGenerica = require('../funcionesGenericas'),
     MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body'),
@@ -562,7 +562,7 @@ initialize: function () {
   },
  cons_incidencias: function () {
     this.MenuModelo.Opcion ='consulta_incidencias';
-    //this.Incidencias.reset();
+    this.Incidencias.reset();
     this.Incidencias.fecha_ini=$("#incidencia_fecha_ini").val();
     this.Incidencias.fecha_fin=$("#incidencia_fecha_fin").val();
     //this.Incidencias.comparator= function(item){ return  [item.get('fecha'),item.get('id_persona')] }

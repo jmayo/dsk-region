@@ -22,7 +22,6 @@ module.exports = Backbone.View.extend({
    cambioFecha: function(){
     if(Backbone.app.menu==='consulta_incidencias'){
       Backbone.app.cons_incidencias();
-      debugger;
       console.log("cambio la fecha");
     }
    },
