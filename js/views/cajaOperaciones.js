@@ -10,12 +10,20 @@ module.exports = Backbone.View.extend({
      events: {
 	   "click .nuevo": "nuevo", 
       "click .guardar": "guardar",
-      "click .eliminar": "eliminar"
+      "click .eliminar": "eliminar",
+      "change #incidencia_fecha_ini": "cambioFecha",
+      "change #incidencia_fecha_fin": "cambioFecha",
    },
     el: $('.caja_acciones'),
 
     initialize: function (){
     
+   },
+   cambioFecha: function(){
+    if(Backbone.app.menu==='consulta_incidencias'){
+      Backbone.app.cons_incidencias();
+      console.log("cambio la fecha");
+    }
    },
    nuevo: function(){
       console.log("nuevo registro");

@@ -10,7 +10,8 @@ module.exports = Backbone.View.extend({
      "click .movimientos": "opcion_movimientos",
      "click .catalogosli": "opcion_catalogos",
      "click .incidencias": "opcion_incidencias",
-     "click .conempresapersona": "opcion_consulta_empresa_personas",     
+     "click .conempresapersona": "opcion_consulta_empresa_personas", 
+     "click .conincidencias": "opcion_consulta_incidencias",    
      "click .cerrar_sesion": "opcion_cerrarsesion",
   },
 
@@ -38,6 +39,9 @@ module.exports = Backbone.View.extend({
    opcion_consulta_empresa_personas: function(){
       Backbone.app.navigate("ConsultaEmpPerso", {trigger: true,replace: false});
    },
+   opcion_consulta_incidencias: function(){
+      Backbone.app.navigate("ConsultaIncidencias", {trigger: true,replace: false});
+   },
    
    opcion_cerrarsesion: function(){
      //alert('La sesion caduco');
@@ -50,5 +54,6 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
       $('.incidencias_personal').hide();
       $('.consulta_empresa_personal').hide();
+
    }
 }); 

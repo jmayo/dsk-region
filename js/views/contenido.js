@@ -21,8 +21,11 @@ module.exports = Backbone.View.extend({
       $('.caja_acciones').hide();
       $('#incidencias_personal').hide();
       $('#consulta_empresa_personal').hide();
+      $('#incidencia_fecha_ini').hide();
+      $('#incidencia_fecha_fin').hide();
       $('#catalogo_movimientos').hide();
       $('#personal_incidencias_checks').hide();
+      $('#personal_consulta_incidencias').hide();  
    },
    mostrarMenuPersonal: function(){
    			  Backbone.app.menu="personal";
@@ -40,11 +43,13 @@ module.exports = Backbone.View.extend({
           $('.contenido_personal').show();
           $('#incidencias_personal').hide();
           $('#consulta_empresa_personal').hide();
+          $('#incidencia_fecha_ini').hide();
+          $('#incidencia_fecha_fin').hide();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
           $('#eliminar_generico').hide();
           $('#catalogo_movimientos').hide();
-
+          $('#personal_consulta_incidencias').hide(); 
    },
    mostrarMenuEmpresas: function(){
         if(Backbone.app.menu!=="sucursal"){
@@ -60,12 +65,14 @@ module.exports = Backbone.View.extend({
           $('.contenido_movimientos').hide();
           $('#incidencias_personal').hide();
           $('#consulta_empresa_personal').hide();
+          $('#incidencia_fecha_ini').hide();
+          $('#incidencia_fecha_fin').hide();
           $('.contenido_empresa').show();
           $('#busqueda_generico').show();
           $('#nuevo_generico').show();
           $('#eliminar_generico').show();
           $('#catalogo_movimientos').hide();
-
+          $('#personal_consulta_incidencias').hide(); 
           if(Backbone.app.SucursalListadoVista.collection.length>0){
             $('#bloque_mapa_sucursal').show();
           }
@@ -95,12 +102,14 @@ module.exports = Backbone.View.extend({
         $('.contenido_empresa').hide();
         $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
+        $('#incidencia_fecha_ini').hide();
+        $('#incidencia_fecha_fin').hide();
         $('.contenido_movimientos').show();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#catalogo_movimientos').hide();
         $('#eliminar_generico').show();
-
+        $('#personal_consulta_incidencias').hide();  
 
    },
    mostrarMenuCatalogos:function(){
@@ -119,10 +128,14 @@ module.exports = Backbone.View.extend({
         $('.contenido_movimientos').hide();
         $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
+        $('#incidencia_fecha_ini').hide();
+        $('#incidencia_fecha_fin').hide();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').show();
+        $('#personal_consulta_incidencias').hide();  
+
    },
    mostrarMenuIncidencias: function(){
      Backbone.app.menu = "movimiento";
@@ -142,10 +155,14 @@ module.exports = Backbone.View.extend({
         $('.contenido_movimientos').hide();
         $('#incidencias_personal').show();
         $('#consulta_empresa_personal').hide();
+        $('#incidencia_fecha_ini').hide();
+        $('#incidencia_fecha_fin').hide();
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();
+        $('#personal_consulta_incidencias').hide();  
+
    },
     mostrarMenuConsEmpPerso:function(){
           Backbone.app.menu = "consulta_empresaperso";
@@ -163,11 +180,36 @@ module.exports = Backbone.View.extend({
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
         $('#busqueda_generico').show();
+        $('#incidencia_fecha_ini').hide();
+        $('#incidencia_fecha_fin').hide();  
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();
         $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').show();
+        $('#personal_consulta_incidencias').hide();  
+
+   },
+     mostrarMenuConsIncidencias:function(){
+          Backbone.app.menu = "consulta_incidencias";
+          if (this.CajaBusqueda){
+            this.CajaBusqueda.close();
+          } 
+       
+        console.log("ruta consulta incidencias")
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').hide();
+        $('#catalogo_movimientos').hide();
+        $('#incidencias_personal').hide();
+        $('#consulta_empresa_personal').hide();
+        $('#personal_consulta_incidencias').show();   
+        $('#incidencia_fecha_ini').show();
+        $('#incidencia_fecha_fin').show();
+
    },
    mostrarCerrarSesion: function(){
         alert('La sesion caduco');
@@ -179,6 +221,10 @@ module.exports = Backbone.View.extend({
         $('.contenido_empresa').hide();
         $('.contenido_movimientos').hide();
         $('#incidencias_personal').hide();
+        $('#catalogo_movimientos').hide();
+        $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
+        $('#personal_consulta_incidencias').hide();  
+
    },
 });
