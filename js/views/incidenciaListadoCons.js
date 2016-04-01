@@ -1,4 +1,5 @@
 var Backbone                = require('backbone'),
+    _                  = require('underscore'),
     $                     = require('jquery');
 
 module.exports = Backbone.View.extend({
@@ -7,38 +8,81 @@ module.exports = Backbone.View.extend({
   template     : null, 
   initialize: function () {
     $("#incidencia_fecha_ini, #incidencia_fecha_fin").datepicker({dateFormat:"dd/mm/yy"});
-   this.listenTo(this.collection, "add", this.render, this);
-    //this.listenTo(this.collection, "changed", this.render, this);
+   //this.listenTo(this.collection, "add", this.render, this);
+    // var rooms = _.groupBy(this.roomCollection.models,'hotel_id');
+    //     for (var hotelid in rooms)
+    //         rooms[hotelid] = _.groupBy(rooms[hotelid], 'level');
+
+    //     console.log(rooms);
+        
+    this.listenTo(this.collection, "sort", this.llenado, this);
     this.listenTo(this.collection, "reset", this.limpiarTodo, this);
   },
-  render: function (tarea) {    
-    console.log(tarea.toJSON())
-    var idFecha = tarea.get('fecha').replace(/[^\w\s]/gi, '');
-
-    var idTablaEmpleados = 'tabincideperso_fecha' + idFecha;
+  llenado: function(){
+    this.indice1 =0;
+    this.indice2 =0;
+    this.fecha_ant ="";
+    this.servicio_ant ="";
+    debugger;
+    this.collection.forEach(this.render, this);
+  },
+  render: function (tarea) {  
     var fecha =  new Date(tarea.get('fecha'));
-    fecha = fecha.toLocaleFormat('%d/%m/%Y');
-    var tituloFecha ="titulo_fecha_incide" + idFecha;
-    var tituloFechaServicio = tituloFecha + "_" + tarea.get('id_sucursal');
-    var tituloFechaServicioPersona = tituloFechaServicio + "_" + tarea.get('matricula');
+    fecha_act = fecha.toLocaleFormat('%d/%m/%Y');
+    servicio_act = "(" + tarea.get('id_sucursal') + ") " + tarea.get('sucursal');
+    
+    if(fecha_act !== this.fecha_ant){
+       this.indice1 = this.indice1 +1;
+       this.fecha_ant = fecha_act;
+    }
 
-    if($("#" + tituloFecha).length === 0){
-       var datosFecha  = '<tr id='+ tituloFecha +'><td>' + fecha + '</td><td></td><</tr>';
-        $(this.el).append(datosFecha);
+    if(servicio_act !== this.servicio_ant){
+       this.indice2 = this.indice2 +1;
+       this.servicio_ant = servicio_act;
     }
+
+    var idFecha = 'fecha_incide_' + this.indice1;
+     if($("#" + idFecha).length === 0){
+        var datosFecha  = '<tr id='+ idFecha +'><td>' + fecha_act + '</td><td></td><</tr>';
+         $(this.el).append(datosFecha);
+     }
+
+    var idSucursal = 'fecha_incide_' + this.indice1 + "_" + this.indice2;
+     if($("#" + idSucursal).length === 0){
+        var datosServicio  = '<tr id='+ idSucursal +'><td>' + servicio_act + '</td><td></td><</tr>';
+         this.$("#" + idFecha).append(datosServicio);
+     }
+
+
+    //this.indice =  this.indice +1;
+    //console.log(this.indice);  
+    
+    // var idFecha = tarea.get('fecha').replace(/[^\w\s]/gi, '');
+
+    // var idTablaEmpleados = 'tabincideperso_fecha' + idFecha;
+    // var fecha =  new Date(tarea.get('fecha'));
+    // fecha = fecha.toLocaleFormat('%d/%m/%Y');
+    // var tituloFecha ="titulo_fecha_incide" + idFecha;
+    // var tituloFechaServicio = tituloFecha + "_" + tarea.get('id_sucursal');
+    // var tituloFechaServicioPersona = tituloFechaServicio + "_" + tarea.get('matricula');
+
+    // if($("#" + tituloFecha).length === 0){
+    //    var datosFecha  = '<tr id='+ tituloFecha +'><td>' + fecha + '</td><td></td><</tr>';
+    //     $(this.el).append(datosFecha);
+    // }
   
-    if($("#" + tituloFechaServicio).length === 0){
-       var datosServicio  = '<tr id=' + tituloFechaServicio +'><td>'+ tarea.get('sucursal') +'</td><td></td></tr>';
+    // if($("#" + tituloFechaServicio).length === 0){
+    //    var datosServicio  = '<tr id=' + tituloFechaServicio +'><td>'+ tarea.get('sucursal') +'</td><td></td></tr>';
        
-        this.$("#" + tituloFecha).append(datosServicio);
-    }
+    //     this.$("#" + tituloFecha).append(datosServicio);
+    // }
     
 
-    var nombre = tarea.get('paterno') + ' ' + tarea.get('materno') + ' ' + tarea.get('nombre'); 
-    if($("#" + tituloFechaServicioPersona).length === 0){
-       var datosPersona  = '<tr id=' + tituloFechaServicioPersona +'><td>'+ nombre +'</td><td>'+ tarea.get('incidencia') + '</td></tr>';      
-       this.$("#" + tituloFechaServicio).append(datosPersona);
-    }
+    // var nombre = tarea.get('paterno') + ' ' + tarea.get('materno') + ' ' + tarea.get('nombre'); 
+    // if($("#" + tituloFechaServicioPersona).length === 0){
+    //    var datosPersona  = '<tr id=' + tituloFechaServicioPersona +'><td>'+ nombre +'</td><td>'+ tarea.get('incidencia') + '</td></tr>';      
+    //    this.$("#" + tituloFechaServicio).append(datosPersona);
+    // }
 
 
     // if($("#titulo_fecha_incide").length === 0){

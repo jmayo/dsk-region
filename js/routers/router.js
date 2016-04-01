@@ -561,6 +561,7 @@ initialize: function () {
   
   },
  cons_incidencias: function () {
+    var self = this;
     this.MenuModelo.Opcion ='consulta_incidencias';
     this.Incidencias.reset();
     this.Incidencias.fecha_ini=$("#incidencia_fecha_ini").val();
@@ -568,7 +569,7 @@ initialize: function () {
     //this.Incidencias.comparator= function(item){ return  [item.get('fecha'),item.get('id_persona')] }
     this.Incidencias.fetch(  { headers: {'Authorization' :localStorage.token},
       success: function(datos){
-        
+         // self.Incidencias.sort();
       },
       error: function(model, response,options){
         console.log(response.responseText)
