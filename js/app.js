@@ -2150,7 +2150,8 @@ initialize: function () {
     //this.Incidencias.comparator= function(item){ return  [item.get('fecha'),item.get('id_persona')] }
     this.Incidencias.fetch(  { headers: {'Authorization' :localStorage.token},
       success: function(datos){
-         // self.Incidencias.sort();
+
+          self.Incidencias.sort();
       },
       error: function(model, response,options){
         console.log(response.responseText)
@@ -3888,63 +3889,88 @@ module.exports = Backbone.View.extend({
   initialize: function () {
     $("#incidencia_fecha_ini, #incidencia_fecha_fin").datepicker({dateFormat:"dd/mm/yy"});
    //this.listenTo(this.collection, "add", this.render, this);
-    // var rooms = _.groupBy(this.roomCollection.models,'hotel_id');
-    //     for (var hotelid in rooms)
-    //         rooms[hotelid] = _.groupBy(rooms[hotelid], 'level');
-
-    //     console.log(rooms);
         
     this.listenTo(this.collection, "sort", this.llenado, this);
     this.listenTo(this.collection, "reset", this.limpiarTodo, this);
   },
   llenado: function(){
-    this.indice1 =0;
-    this.indice2 =0;
-    this.fecha_ant ="";
-    this.servicio_ant ="";
-    debugger;
+  
+    // var listado = _.groupBy(this.collection.models,'fecha');
+    // for (var listaid in listado)
+    //        listado[listaid] = _.groupBy(listado[listaid], 'id_sucursal');
+    // console.log(listado);
+    // debugger;
+  
+
+//    var rooms = _.groupBy(this.roomCollection.models,'hotel_id');
+ //   for (var hotelid in rooms)
+   //        rooms[hotelid] = _.groupBy(rooms[hotelid], 'level');
+     //    console.log(rooms);
+  
+
+    //this.indice1 =0;
+    //this.indice2 =0;
+    //this.fecha_ant ="";
+    //this.servicio_ant ="";
     this.collection.forEach(this.render, this);
   },
   render: function (tarea) {  
-    var fecha =  new Date(tarea.get('fecha'));
-    fecha_act = fecha.toLocaleFormat('%d/%m/%Y');
-    servicio_act = "(" + tarea.get('id_sucursal') + ") " + tarea.get('sucursal');
-    
-    if(fecha_act !== this.fecha_ant){
-       this.indice1 = this.indice1 +1;
-       this.fecha_ant = fecha_act;
-    }
-
-    if(servicio_act !== this.servicio_ant){
-       this.indice2 = this.indice2 +1;
-       this.servicio_ant = servicio_act;
-    }
-
-    var idFecha = 'fecha_incide_' + this.indice1;
-     if($("#" + idFecha).length === 0){
-        var datosFecha  = '<tr id='+ idFecha +'><td>' + fecha_act + '</td><td></td><</tr>';
-         $(this.el).append(datosFecha);
-     }
-
-    var idSucursal = 'fecha_incide_' + this.indice1 + "_" + this.indice2;
-     if($("#" + idSucursal).length === 0){
-        var datosServicio  = '<tr id='+ idSucursal +'><td>' + servicio_act + '</td><td></td><</tr>';
-         this.$("#" + idFecha).append(datosServicio);
-     }
-
-
-    //this.indice =  this.indice +1;
-    //console.log(this.indice);  
-    
-    // var idFecha = tarea.get('fecha').replace(/[^\w\s]/gi, '');
-
-    // var idTablaEmpleados = 'tabincideperso_fecha' + idFecha;
     // var fecha =  new Date(tarea.get('fecha'));
-    // fecha = fecha.toLocaleFormat('%d/%m/%Y');
-    // var tituloFecha ="titulo_fecha_incide" + idFecha;
-    // var tituloFechaServicio = tituloFecha + "_" + tarea.get('id_sucursal');
-    // var tituloFechaServicioPersona = tituloFechaServicio + "_" + tarea.get('matricula');
+    // fecha_act = fecha.toLocaleFormat('%d/%m/%Y');
+    // servicio_act = "(" + tarea.get('id_sucursal') + ") " + tarea.get('sucursal');
+    
+    // if(fecha_act !== this.fecha_ant){
+    //    this.indice1 = this.indice1 +1;
+    //    this.fecha_ant = fecha_act;
+    // }
 
+    // if(servicio_act !== this.servicio_ant){
+    //    this.indice2 = this.indice2 +1;
+    //    this.servicio_ant = servicio_act;
+    // }
+
+    // var idFecha = 'fecha_incide_' + this.indice1;
+    //  if($("#" + idFecha).length === 0){
+    //     var datosFecha  = '<tr id='+ idFecha +'><td>' + fecha_act + '</td><td></td><</tr>';
+    //      $(this.el).append(datosFecha);
+    //  }
+
+    // var idSucursal = 'fecha_incide_' + this.indice1 + "_" + this.indice2;
+    //  if($("#" + idSucursal).length === 0){
+    //     var datosServicio  = '<tr id='+ idSucursal +'><td>' + servicio_act + '</td><td></td><</tr>';
+    //      this.$("#" + idFecha).append(datosServicio);
+    //  }
+
+
+    // //this.indice =  this.indice +1;
+    // //console.log(this.indice);  
+    
+    var idFecha = tarea.get('fecha').replace(/[^\w\s]/gi, '');
+
+    var idTablaEmpleados = 'tabincideperso_fecha' + idFecha;
+    var fecha =  new Date(tarea.get('fecha'));
+    fecha = fecha.toLocaleFormat('%d/%m/%Y');
+    var tituloFecha ="titulo_fecha_incide" + idFecha;
+    var tituloFechaServicio = tituloFecha + "_" + tarea.get('id_sucursal');
+    var tituloFechaServicioPersona = tituloFechaServicio + "_" + tarea.get('matricula');
+
+//<table class="tabla_empleados_sucursal" id="personal_consulta_incidencias_lista">
+          
+          //</table>
+
+    if($("#" + tituloFecha).length === 0){
+       var datosFecha  = '<table class="tabla_empleados_sucursal"> <tr><td>' + fecha + '</td><td></td></tr><tr></tr><td></td><td id='+ tituloFecha +'></td></table>';
+        $(this.el).append(datosFecha);
+    }
+
+   if(this.$("#" + tituloFechaServicio).length === 0){ 
+       var datosServicio  = '<table class="tabla_empleados_sucursal"><tr><td>'+ tarea.get('sucursal') +'</td><td></td><td></td></tr><tr id=' + tituloFechaServicio +'></tr></table>';   
+         this.$("#" + tituloFecha).append(datosServicio);
+     }
+      
+
+
+//****************
     // if($("#" + tituloFecha).length === 0){
     //    var datosFecha  = '<tr id='+ tituloFecha +'><td>' + fecha + '</td><td></td><</tr>';
     //     $(this.el).append(datosFecha);
@@ -3963,7 +3989,7 @@ module.exports = Backbone.View.extend({
     //    this.$("#" + tituloFechaServicio).append(datosPersona);
     // }
 
-
+//******************
     // if($("#titulo_fecha_incide").length === 0){
     //     var tituloFecha  = '<tr id=titulo_fecha_incide><td>Fecha</td><td></td></tr>'
     //     $(this.el).append(tituloFecha);

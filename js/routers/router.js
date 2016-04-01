@@ -569,7 +569,8 @@ initialize: function () {
     //this.Incidencias.comparator= function(item){ return  [item.get('fecha'),item.get('id_persona')] }
     this.Incidencias.fetch(  { headers: {'Authorization' :localStorage.token},
       success: function(datos){
-         // self.Incidencias.sort();
+
+          self.Incidencias.sort();
       },
       error: function(model, response,options){
         console.log(response.responseText)
