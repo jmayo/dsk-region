@@ -3917,6 +3917,9 @@ module.exports = Backbone.View.extend({
        $(this.el).append('<div id='+ tituloFecha +'></div>')
        var datosFecha  = '<tr><td>' + fecha + '</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
         $("#" + tituloFecha).append(datosFecha);
+
+        //$("#" + tituloFecha).prepend('<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>');
+      
     }
 
     if(this.$("#" + tituloFechaServicio).length === 0){ 
