@@ -889,7 +889,7 @@ body
 		font-size 12px
 		font-family Arial
 		font-weight normal
-		color #000000 //color de letra tabla
+		//color #000000 //color de letra tabla
 	.bloque_catalogo tr:last-child td
 		border-width 0px 1px 0px 0px
 	.bloque_catalogo tr td:last-child
@@ -940,21 +940,25 @@ body
 			border-spacing 0
 			width 100%
 	#ampliar_tabla
-		width 210%
+		width 200%
 	#en_top
 		margin-top 3.2em
+	// última fila, última columna
 	.lista_empleados_sucursal tr:last-child td:last-child
 		-moz-border-radius-bottomright 0px
 		-webkit-border-bottom-right-radius 0px
 		border-bottom-right-radius 0px
+	// primer fila, primer columna
 	.lista_empleados_sucursal table tr:first-child td:first-child
 		-moz-border-radius-topleft 0px
 		-webkit-border-top-left-radius 0px
 		border-top-left-radius 0px
+	// primer fila, última columna
 	.lista_empleados_sucursal table tr:first-child td:last-child
 		-moz-border-radius-topright 0px
 		-webkit-border-top-right-radius 0px
 		border-top-right-radius 0px
+	// última fila, primer columna
 	.lista_empleados_sucursal tr:last-child td:first-child
 		-moz-border-radius-bottomleft 0px
 		-webkit-border-bottom-left-radius 0px
