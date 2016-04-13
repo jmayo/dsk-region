@@ -2843,6 +2843,7 @@ module.exports = Backbone.View.extend({
     }
     if(Backbone.app.menu =="consulta_incidencias"){
       console.log("vamos a pasar los datos a excell");
+      console.log(Backbone.app.Incidencias.toJSON());
       columnas =["fecha","sucursal","incidencia","matricula","paterno","materno","nombre","puesto"];
       this.JSONToCSVConvertor(Backbone.app.Incidencias.toJSON(), "Mi reporte", true,columnas);
     }
@@ -2862,7 +2863,7 @@ module.exports = Backbone.View.extend({
         
         //This loop will extract the label from 1st index of on array
         for(x=0; x<columnas.length; x++){
-           row += columnas[x] + ',';
+           row += columnas[x] + ';';
           //row += arrData[0][columnas[x]] + ',';
         }
         
@@ -2883,14 +2884,14 @@ module.exports = Backbone.View.extend({
         var row = "";
 
         for(col=0; col<columnas.length; col++){
-          row += arrData[i][columnas[col]] + ',';
+          row += arrData[i][columnas[col]] + ';';
         }
         
         //2nd loop will extract each column and convert it in string comma-seprated
         //for (var index in arrData[i]) {
           //  row += '"' + arrData[i][index] + '",';
        // }
-
+       console.log(row);
         row.slice(0, row.length - 1);
         
         //add a line break after each row
