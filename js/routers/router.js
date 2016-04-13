@@ -3,6 +3,7 @@ var Backbone                = require('backbone'),
     jQuery                  = require('jquery');
     JQueryMouseWheel        = require('../jquery.mousewheel')  
     JQueryCalendarPicker    = require('../jquery.calendarPicker') 
+    Moment                  = require('moment'),
     PlantillaSucursalBasico = require('../templates/sucursal-datos-basicos.hbs'),
     PlantillaSucursalSimple = require('../templates/sucursal-datos-simple.hbs'),
 
@@ -185,9 +186,10 @@ initialize: function () {
 
     this.Incidencias    = new Incidencias();
     this.IncidenciaListadoVista  = new IncidenciasListado({collection: this.Incidencias});
-    var today = new Date();
-    $("#incidencia_fecha_ini").val(today.toLocaleFormat('%d/%m/%Y'));
-    $("#incidencia_fecha_fin").val(today.toLocaleFormat('%d/%m/%Y'));
+    var today = Moment().format('DD/MM/YYYY');
+
+    $("#incidencia_fecha_ini").val(today);
+    $("#incidencia_fecha_fin").val(today);
 
     popup.initialize();
     
