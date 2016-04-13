@@ -2852,7 +2852,7 @@ module.exports = Backbone.View.extend({
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
     var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
     
-    var CSV = '';    
+    var CSV = 'sep=;\r\n';    
     //Set Report title in first row or line
     
     CSV += ReportTitle + '\r\n\n';
@@ -2873,7 +2873,7 @@ module.exports = Backbone.View.extend({
           //  row += index + ',';
         //}
 
-        row = row.slice(0, -1);
+       // row = row.slice(0, -1);
         
         //append Label row with line break
         CSV += row + '\r\n';
@@ -2892,7 +2892,7 @@ module.exports = Backbone.View.extend({
           //  row += '"' + arrData[i][index] + '",';
        // }
        console.log(row);
-        row.slice(0, row.length - 1);
+        //row.slice(0, row.length - 1);
         
         //add a line break after each row
         CSV += row + '\r\n';
