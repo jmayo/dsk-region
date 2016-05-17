@@ -1129,6 +1129,10 @@ module.exports= Backbone.Model.extend({
         "cdu_estado_dom": "0140015", 
         "cdu_municipio_dom": "0150737", 
         "imagen": "",
+        "sucursal": "",
+        "motivo": "",
+        "puesto": "",
+        "rango": "",
       };
   },
   camposValidar: function(){
@@ -2362,7 +2366,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    var stack1, alias1=helpers.helperMissing;
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "<article class=\"bloque\">\n	<div class=\"titulo_bloque\">\n		Básicos\n	</div>\n	<div class=\"caja_bloque\">\n	<div class=\"campos_bloque\" >\n		<ul class=\"ul_bloque\"> \n		"
     + ((stack1 = (helpers.titulos_caja || (depth0 && depth0.titulos_caja) || alias1).call(depth0,(depth0 != null ? depth0.id : depth0),{"name":"titulos_caja","hash":{"label_id":"persona_id","label_desc":"id_principal"},"data":data})) != null ? stack1 : "")
@@ -2414,7 +2418,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Estado",{"name":"grp_combo","hash":{"select_id":"perso_estado_dom","select_name":"estado_dom","label_desc":"calle_estado"},"data":data})) != null ? stack1 : "")
     + " \n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Municipio",{"name":"grp_combo","hash":{"select_id":"perso_municipio_dom","select_name":"municipio_dom","label_desc":"calle_municipio"},"data":data})) != null ? stack1 : "")
-    + "\n		</ul>\n	</div>\n	</div>\n</article>\n<article class=\"bloque\">\n<div class=\"titulo_bloque\">\n	Administración\n</div>\n<div class=\"caja_bloque\">\n	<div class=\"campos_bloque\" id=\"personal_administracion\">\n	<ul class=\"ul_bloque\"> \n	"
+    + "\n		</ul>\n	</div>\n	</div>\n</article>\n<article class=\"bloque\">\n<div class=\"titulo_bloque\">\n	Administración\n</div>\n<div class=\"caja_bloque\">\n\n\n	<div class=\"campos_bloque\" id=\"personal_administracion\">\n	<ul class=\"ul_bloque\"> \n\n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Tipo de Alta",{"name":"grp_combo","hash":{"select_id":"perso_tipo_de_alta","select_name":"tipo_de_alta","label_desc":"tipo_de_alta"},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Fecha de Alta",{"name":"grp_perdet","hash":{"input_desc":"Fecha de Alta","label_desc":"fecha_de_alta","input_id":"persona_fec_alta","valor":(depth0 != null ? depth0.fec_alta : depth0)},"data":data})) != null ? stack1 : "")
@@ -2424,7 +2428,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"",{"name":"grp_perdetTextArea","hash":{"textarea_desc":"Condición(es)","label_desc":"","valor":(depth0 != null ? depth0.condiciones_alta : depth0),"textarea_id":"persona_condicion_alta"},"data":data})) != null ? stack1 : "")
     + "\n	"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Tipo de Personal",{"name":"grp_combo","hash":{"select_id":"perso_tipo_de_empleado","select_name":"tipo_de_empleado","label_desc":"tipo_de_empleado"},"data":data})) != null ? stack1 : "")
-    + "	\n	</ul>\n	<div id=\"personal_primera_asignacion\">\n    <hr class=\"mi_hr\">\n	\n	<div class=\"caja_buscar_sola\" id=\"caja_buscar_sucursal_persona\">\n		<ul class=\"lista_buscar\">\n			<li><a href=\"#\" tabindex=\"-1\"><i class=\"fa fa-industry fa-1x\"></i></a></li>\n			<li><input type=\"text\" placeholder=\"Sucursal...\" class=\"buscar\"/></li>\n		</ul>\n	<div hidden class=\"divResultados divResultados3\" id='resultados_sucursal_persona'>\n	\n	 </div>\n	</div>\n		<div id=\"sucursal_datos_basicos\">\n		    <label id='id_sucursal_personal' hidden>0</label>\n			<h3 class=\"enterprise_buscar\"><label id=clave_sucursal_personal></label><strong><label id='nombre_sucursal_personal'></label></strong></h3>\n		</div>\n		<ul class=\"ul_bloque\">\n		"
+    + "	\n	</ul>\n\n	<div id=\"personal_primera_asignacion\">\n    <hr class=\"mi_hr\">\n	\n	<div class=\"caja_buscar_sola\" id=\"caja_buscar_sucursal_persona\">\n		<ul class=\"lista_buscar\">\n			<li><a href=\"#\" tabindex=\"-1\"><i class=\"fa fa-industry fa-1x\"></i></a></li>\n			<li><input type=\"text\" placeholder=\"Sucursal...\" class=\"buscar\"/></li>\n		</ul>\n	<div hidden class=\"divResultados divResultados3\" id='resultados_sucursal_persona'>\n	\n	 </div>\n	</div>\n		<div id=\"sucursal_datos_basicos\">\n		    <label id='id_sucursal_personal' hidden>0</label>\n			<h3 class=\"enterprise_buscar\"><label id=clave_sucursal_personal></label><strong><label id='nombre_sucursal_personal'></label></strong></h3>\n		</div>\n		<ul class=\"ul_bloque\">\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Puesto",{"name":"grp_combo","hash":{"select_id":"perso_asignacion_puesto","select_name":"puesto_de_empleado","label_desc":"puesto"},"data":data})) != null ? stack1 : "")
     + "	\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Rango",{"name":"grp_combo","hash":{"select_id":"perso_asignacion_rango","select_name":"rango_de_empleado","label_desc":"rango"},"data":data})) != null ? stack1 : "")
@@ -2432,7 +2436,15 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Turno",{"name":"grp_combo","hash":{"select_id":"perso_asignacion_turno","select_name":"turno_de_empleado","label_desc":"turno"},"data":data})) != null ? stack1 : "")
     + "	\n		"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Sueldo",{"name":"grp_perdet","hash":{"input_desc":"sueldo","label_desc":"sueldo","input_id":"perso_asignacion_sueldo","valor":(depth0 != null ? depth0.sueldo : depth0)},"data":data})) != null ? stack1 : "")
-    + "	\n		</ul>\n	   </div>\n	</div>\n</div>\n</article>\n<article class=\"bloque\" id=\"contenedor_foto\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
+    + "	\n		</ul>\n	   </div>\n	</div>\n	<div class=\"enterprise\">\n		<figure class=\"enterprise_foto\">\n			<img src=\"images/factory.png\" alt=\"foto\" />\n		</figure>\n	<div class=\"enterprise_datos\">\n		<h3>"
+    + alias3(((helper = (helper = helpers.sucursal || (depth0 != null ? depth0.sucursal : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"sucursal","hash":{},"data":data}) : helper)))
+    + "</h3>\n		<h2>"
+    + alias3(((helper = (helper = helpers.motivo || (depth0 != null ? depth0.motivo : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"motivo","hash":{},"data":data}) : helper)))
+    + "</h2>		\n		<h5>"
+    + alias3(((helper = (helper = helpers.puesto || (depth0 != null ? depth0.puesto : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"puesto","hash":{},"data":data}) : helper)))
+    + "</h5>\n		<h5>"
+    + alias3(((helper = (helper = helpers.rango || (depth0 != null ? depth0.rango : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"rango","hash":{},"data":data}) : helper)))
+    + "</h5>\n	</div>\n</div>\n</div>\n</article>\n<article class=\"bloque\" id=\"contenedor_foto\">\n	<div class=\"titulo_bloque\">\n		Foto\n	</div>		\n	"
     + ((stack1 = (helpers.caja_imagen || (depth0 && depth0.caja_imagen) || alias1).call(depth0,(depth0 != null ? depth0.imagen : depth0),{"name":"caja_imagen","hash":{"img_id":"perso_foto"},"data":data})) != null ? stack1 : "")
     + "\n	<form enctype=\"multipart/form-data\">\n				<ul class=\"menu_foto\">\n					<li>\n						<div class=\"examinar\">\n							<input name='file' type='file'  id=\"imagencontrol\" />\n						</div>\n					</li>\n					<li><input type=\"submit\" value=\"Subir foto\"></li>\n				</ul>\n			</form>	\n</article>";
 },"useData":true});
