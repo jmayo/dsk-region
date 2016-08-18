@@ -78,6 +78,10 @@ module.exports= Backbone.Model.extend({
         "cdu_estado_dom": "0140015", 
         "cdu_municipio_dom": "0150737", 
         "imagen": "",
+        "sucursal": "",
+        "motivo": "",
+        "puesto": "",
+        "rango": "",
       };
   },
   camposValidar: function(){

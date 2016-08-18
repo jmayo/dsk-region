@@ -1,4 +1,5 @@
 var Backbone                = require('backbone'),
+    _                  = require('underscore'),
     $                     = require('jquery');
 
 module.exports = Backbone.View.extend({
@@ -7,37 +8,61 @@ module.exports = Backbone.View.extend({
   template     : null, 
   initialize: function () {
     $("#incidencia_fecha_ini, #incidencia_fecha_fin").datepicker({dateFormat:"dd/mm/yy"});
-   this.listenTo(this.collection, "add", this.render, this);
-    //this.listenTo(this.collection, "changed", this.render, this);
+   //this.listenTo(this.collection, "add", this.render, this);
+        
+    this.listenTo(this.collection, "sort", this.llenado, this);
     this.listenTo(this.collection, "reset", this.limpiarTodo, this);
   },
-  render: function (tarea) {    
-    console.log(tarea.toJSON())
+  llenado: function(){
+    this.collection.forEach(this.render, this);
+  },
+  render: function (tarea) {  
     var idFecha = tarea.get('fecha').replace(/[^\w\s]/gi, '');
+
     var idTablaEmpleados = 'tabincideperso_fecha' + idFecha;
+    fecha = tarea.get('fecha');
+    //var fecha =  new Date(tarea.get('fecha'));
+    //fecha = fecha.toLocaleFormat('%d/%m/%Y');
+    
+    fecha = fecha.substring(8) + '/' +  fecha.substring(5,7) + '/' +  fecha.substring(0,4);
 
-    if($("#titulo_fecha_incide").length === 0){
-        var tituloFecha  = '<tr id=titulo_fecha_incide><td>Fecha</td><td></td></tr>'
-        $(this.el).append(tituloFecha);
+    var tituloFecha ="titulo_fecha_incide" + idFecha;
+    var tituloFechaServicio = tituloFecha + "_" + tarea.get('id_sucursal');
+    var tituloFechaServicioPersona = tituloFechaServicio + "_" + tarea.get('matricula');
+     if($("#cabecero_listado_incidencias").length === 0){
+        $(this.el).append('<tr id="cabecero_listado_incidencias"><td>Faltas/Cubrefaltas</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>');
     }
-     if( $("#incidencia" + idFecha).length === 0) {
-        var datosFecha   = '<tr id=incidencia' + idFecha + '><td contenteditable=false>'+ tarea.get('fecha')+ '</td></tr>';
-       this.$el.append(datosFecha);
-    }
-    if( $("#tabincideperso_fecha" + idFecha ).length === 0 && $("#incidencia" + idFecha).length>0) {
-        var tituloTablaEmpleados= '<td><table id=' + idTablaEmpleados + ' class="tabla_empleados_sucursal"><tr><td>Matricula</td><td>Nombre(s)</td><td>Incidencia</td></tr></table></td>';
-        this.$("#incidencia" + idFecha).append(tituloTablaEmpleados);
-    }
-     if( $("#" + idTablaEmpleados).length > 0) {
-         var datosPersona = tarea.get('id_personal');
-         var nombreCompleto =datosPersona.paterno + ' ' + datosPersona.materno + ' ' + datosPersona.nombre
-         var matricula = datosPersona.matricula
-         var incidencia =tarea.get('cdu_concepto_incidencia');
-         var tipo_incide = incidencia.descripcion1;
 
-         var datosPersonas = '<tr><td contenteditable=true>'+ matricula +'</td><td contenteditable=false>'+ nombreCompleto +'</td><td contenteditable=false>' + tipo_incide +'</td></tr>';
-         this.$("#"+ idTablaEmpleados).append(datosPersonas);
-     }  
+    if($("#" + tituloFecha).length === 0){
+       $(this.el).append('<div id='+ tituloFecha +'></div>')
+       var datosFecha  = '<tr><td>' + fecha + '</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+        $("#" + tituloFecha).append(datosFecha);
+
+        //$("#" + tituloFecha).prepend('<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>');
+      
+    }
+
+    if(this.$("#" + tituloFechaServicio).length === 0){ 
+        $("#" + tituloFecha).append('<div id='+ tituloFechaServicio +'></div>')
+        
+      //  var titulofaltacb ='<tr><td></td><td></td><td>Falta</td><td></td><td></td><td>Cubrefalta</td><td></td><td></td></tr>';
+        var datosServicio  = '<tr><td></td><td>'+ tarea.get('sucursal') +'</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';   
+        $("#" + tituloFechaServicio).append(datosServicio);
+     }
+    
+   if(this.$("#" + tituloFechaServicioPersona).length === 0){ 
+        
+      //  var titulofaltacb ='<tr><td></td><td></td><td>Falta</td><td></td><td></td><td>Cubrefalta</td><td></td><td></td></tr>';
+        var nombre = tarea.get('paterno') + ' ' + tarea.get('materno') + ' ' + tarea.get('nombre');
+        var matricula = "(" + tarea.get('matricula') + ") ";
+        var puesto = tarea.get('puesto');
+        var incidencia = tarea.get('incidencia') 
+        var datosPersona  = '<tr id='+tituloFechaServicioPersona+' ><td></td><td>'+ incidencia +'</td><td>'+  matricula +nombre+'</td><td>'+ puesto+'</td><td></td><td></td><td></td><td></td></tr>';   
+        $("#" + tituloFechaServicio).append(datosPersona);
+     }
+  
+
+
    },
   limpiarTodo:function(){
     console.log("limpiando resultados");

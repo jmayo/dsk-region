@@ -18,6 +18,9 @@ module.exports = Backbone.Collection.extend({
   pk : function(pk){
       this.pk  = pk;
   },
+  comparator: function(item) {
+    return [item.get("fecha"), item.get("sucursal"), item.get("incidencia")]
+  },
   url : function(){
     var direccion = window.ruta + 'incidencias/consulta/' 
     direccion = direccion + encodeURI('?fecha_ini=' + this.fecha_ini + '&' + 'fecha_fin=' + this.fecha_fin);

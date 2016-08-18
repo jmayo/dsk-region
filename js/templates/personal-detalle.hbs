@@ -49,14 +49,18 @@
 	Administración
 </div>
 <div class="caja_bloque">
+
+
 	<div class="campos_bloque" id="personal_administracion">
 	<ul class="ul_bloque"> 
+
 	{{{grp_combo "Tipo de Alta"   label_desc='tipo_de_alta' select_name='tipo_de_alta' select_id='perso_tipo_de_alta'}}}
 	{{{grp_perdet "Fecha de Alta" valor=fec_alta input_id="persona_fec_alta" label_desc='fecha_de_alta' input_desc='Fecha de Alta'}}}  
 	{{{grp_options "Alta Condicionada"  radio_id='persona_condicionada' label_desc='alta_condicionada' op1_titulo="Si" op2_titulo="No" op1_val=true op2_val=false  op1_checado=condicionada radio_name='persona_condicionada' input_booleano=condicionada}}}   
 	{{{grp_perdetTextArea "" textarea_id='persona_condicion_alta' valor=condiciones_alta   label_desc='' textarea_desc='Condición(es)'}}}
 	{{{grp_combo "Tipo de Personal"   label_desc='tipo_de_empleado' select_name='tipo_de_empleado' select_id='perso_tipo_de_empleado'}}}	
 	</ul>
+
 	<div id="personal_primera_asignacion">
     <hr class="mi_hr">
 	
@@ -81,6 +85,17 @@
 		</ul>
 	   </div>
 	</div>
+	<div class="enterprise">
+		<figure class="enterprise_foto">
+			<img src="images/factory.png" alt="foto" />
+		</figure>
+	<div class="enterprise_datos">
+		<h3>{{sucursal}}</h3>
+		<h2>{{motivo}}</h2>		
+		<h5>{{puesto}}</h5>
+		<h5>{{rango}}</h5>
+	</div>
+</div>
 </div>
 </article>
 <article class="bloque" id="contenedor_foto">
