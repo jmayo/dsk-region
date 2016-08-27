@@ -22,6 +22,8 @@ module.exports = Backbone.View.extend({
   },
   addOne: function (modelo) {
     this.id = this.id + 1;
+    modelo.otraConsulta = this.otraConsulta;
+
     var busquedaView = new DatoBusquedaVista({ model: modelo, template:  this.template, id: this.id}); 
     this.$el.append(busquedaView.render().el);
   },
@@ -33,7 +35,9 @@ module.exports = Backbone.View.extend({
    cambiar: function(){
     console.log("cambiar");
   },
-  
+   otraConsulta: function(valor){
+    this.otraConsulta = valor
+  },
 });
 
 //   $('#resultados_sucursal_movimiento').scrollTop($this.index() * $this.outerHeight());

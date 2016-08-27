@@ -34,6 +34,9 @@ module.exports= Backbone.Model.extend({
    	  direccion = direccion + 'buscar/' + this.valor + '/';
    } 
    return direccion;
+  },  
+  otraConsulta: function(valor){
+    this.otraConsulta = valor
   },
   busqueda: function(){
 //     var now = new Date();
@@ -41,9 +44,15 @@ module.exports= Backbone.Model.extend({
 // console.log(now.getFullYear())
 // month = "" + (now.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
 // day = "" + now.getDate(); if (day.length == 1) { day = "0" + day; }
-     Backbone.app.navigate("Personal/buscar/" + this.get('matricula'), {trigger: true});
-  },
+  if(this.otraConsulta === "busqueda_perso_cubre"){
+       Backbone.app.navigate("PersonalCubre/buscar/" + this.get('matricula'), {trigger: true});
 
+  }
+  else{
+     Backbone.app.navigate("Personal/buscar/" + this.get('matricula'), {trigger: true});
+  }
+
+  },
   defaults : function() {
       this.fecha_actual = new  funcionGenerica().fechaActual();
       this.fec_18 = new funcionGenerica().fecha18Years();

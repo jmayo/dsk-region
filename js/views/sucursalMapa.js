@@ -123,6 +123,7 @@ module.exports = Backbone.View.extend({
           target: 'mapa',
           layers: [
             new ol.layer.Tile({
+
               source: new ol.source.MapQuest({layer: 'osm'})
             })
           ],
@@ -131,6 +132,16 @@ module.exports = Backbone.View.extend({
             zoom: 12
           })
         });
+
+// var source = new ol.source.GeoJSON({
+//   url: 'features.json',
+//   projection: 'EPSG:3857'
+// });
+
+//         var source = new ol.source.Vector({
+//   url: 'features.json',
+//   format: new ol.format.GeoJSON()
+// });
 
         // this.map.on('click', function(evt) {
         //   console.log("click");

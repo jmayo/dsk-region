@@ -49,7 +49,7 @@ module.exports = Backbone.View.extend({
             $('.caja_acciones').show();
             gadministrador =["raul","carlos.oaxaca","oakland.magana"]
             gencargado=["martin.cardona","monica.penilla","mirian.chavez"]
-            gsupervisor = ["rulo","heron.yanez","roman.osorio","ernesto.uruzieta","martin.martinez","jose.alvarado","felipe.gomez"]
+            gsupervisor = ["raul.torres","rulo","heron.yanez","roman.osorio","ernesto.uruzieta","martin.martinez","jose.alvarado","felipe.gomez"]
             visible = "hidden"
             if(gadministrador.includes(self.usuario)){
               visible = "visible"
@@ -57,12 +57,12 @@ module.exports = Backbone.View.extend({
             if(gencargado.includes(self.usuario)){
               visible = "visible"
             }
-              $(".personal").css("visibility", visible);
+            /*  $(".personal").css("visibility", visible);
               $(".empresas").css("visibility", visible);
               $(".movimientos").css("visibility", visible);
               $(".catalogosli").css("visibility", visible);
               $(".conempresapersona").css("visibility", visible);
-       
+       */
 
           },
         error: function(model,response, options) {

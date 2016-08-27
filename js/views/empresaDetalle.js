@@ -1,5 +1,6 @@
 var Backbone                = require('backbone'),
-    $                       = require('jquery'),
+    $                       = require('jquery');
+    $.ui                    = require('jquery-ui'),
     Sucursal                = require('../models/sucursal'),
     Empresa                 = require('../models/empresa'),  
     Catalogos               = require('../collections/catalogos'),

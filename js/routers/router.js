@@ -71,6 +71,7 @@ module.exports = Backbone.Router.extend({
     "Personal": "personal",
     "Personas/nuevo/": "personalNuevo",
     "Personal/buscar/:valor_buscado": "personalMatricula",
+    "PersonalCubre/buscar/:valor_buscado": "personalMatriculaCubre",
     "Empresa": "empresa",
     "Empresas/nuevo/": "empresaNuevo",    
     "Empresa/buscar/:valor_buscado": "empresaClave",
@@ -86,15 +87,17 @@ module.exports = Backbone.Router.extend({
   },
 
 initialize: function () {
+    // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
     //window.ruta="http://192.168.0.13:8001/";
-    //window.ruta="http://104.236.232.238:8080/";
-    window.ruta ="http://localhost:8001/";
+    window.ruta="http://104.131.161.180/";
+    //window.ruta ="http://localhost:8000/";
  
 
     this.Catalogos = new CatalogosLista()
     this.CatalogosDet = new CatalogosDetalleLista()
-    this.Perso = new Personas();          
+    this.Perso = new Personas(); 
+    this.PersoCubre = new Personas();   
     this.Empresa = new Empresas();
     this.EmpresaConsulta = new Empresas();
     this.EmpresaReporte = new Empresas();
@@ -180,6 +183,14 @@ initialize: function () {
     this.PersoIncidenciasBasicoModelo.set({"id":"-1"});
     this.PersonalIncidenciasBasico = new PersonalBasicoVista({model: this.PersoIncidenciasBasicoModelo, el:'#personal_incidencias_datos_basicos'});
    
+
+    this.PersoCubreIncidenciasBasicoModelo = new Personal();
+    this.PersoCubreIncidenciasBasicoModelo.set({"id":"-1"});
+    this.PersonalCubreIncidenciasBasico = new PersonalBasicoVista({model: this.PersoCubreIncidenciasBasicoModelo, el:'#personal_cubre_incidencias_datos_basicos'});
+   
+
+//***personal_cubre_incidencias_datos_basicos
+
     this.IncidenciaModelo = new Incidencia();
     this.IncidenciasVista = new PersonalIncidenciasVista({model: this.IncidenciaModelo});
 
@@ -246,6 +257,27 @@ initialize: function () {
 
   
   },
+  personalMatriculaCubre: function(valor_buscado,callback){
+      var self = this;
+      console.log("En esta parte se busca");
+      $('#personal_cubre_incidencias_datos_basicos').hide();  
+      this.PersoCubreIncidenciasBasicoModelo.clear();
+      this.PersoCubreIncidenciasBasicoModelo.valor = valor_buscado;
+
+     this.PersoCubreIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
+        success: function(data){
+          console.log("exito persona que cubre") 
+              $('#personal_cubre_incidencias_datos_basicos').show();  
+              self.IncidenciasVista.render();
+        },
+        error: function(){
+          console.log("error");
+            
+        }
+      });
+
+
+  },
  personalMatricula: function (valor_buscado,callback) {
   if(Backbone.app.menu==="personal"){
       Backbone.app.operacion="buscar";
@@ -277,13 +309,21 @@ initialize: function () {
       console.log("voy a buscar a una persona");
        $('#personal_incidencias_checks').show();
      
+    this.PersoCubreIncidenciasBasicoModelo.clear();
+    $('#personal_cubre_incidencias_datos_basicos').hide();  
+    $('#caja_buscar_personal_cubre').hide(); 
+    
+
     this.PersoIncidenciasBasicoModelo.clear();
     self.IncidenciaModelo.clear();
     this.PersoIncidenciasBasicoModelo.valor = valor_buscado;
+
      this.PersoIncidenciasBasicoModelo.fetch(  { headers: {'Authorization' :localStorage.token},
         success: function(data){
+              $('#caja_buscar_personal_cubre').show(); 
             //Calendario.initialize();
             //self.PersonalIncidenciasBasico.limpiarTodo();
+            //********** Aqui busca si tiene incidencias para esa fecha *****
             self.IncidenciaModelo.clear();
             self.IncidenciaModelo.id_personal = data.attributes.id;
             self.IncidenciaModelo.fecha = $("#dsel1")[0].value;
@@ -294,6 +334,7 @@ initialize: function () {
                 }
               },
               error: function(){
+                 self.IncidenciasVista.render();
                 console.log("hay un error al traer la incidencia");
               }
           });

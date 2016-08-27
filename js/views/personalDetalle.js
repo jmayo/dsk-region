@@ -58,7 +58,7 @@ var Backbone                = require('backbone');
     var self = this;
     var mat =$(this.relacionColumnas()['personal'].matricula).val();
     var id =$(this.relacionColumnas()['personal'].id).text();
-    debugger;
+
     this.PersoBusqueda.valor = mat;
     $("#notify_warning").hide();
     this.PersoBusqueda.fetch({headers: {'Authorization' :localStorage.token}}).then(

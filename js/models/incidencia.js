@@ -20,13 +20,19 @@ module.exports = Backbone.Model.extend({
   	this.nuevo= nuevo;
   },
   eliminar : function(eliminar){
-    this.nuevo= eliminar;
+    this.eliminar= eliminar;
+  },
+  cubre: function(id_personal){
+    this.cubre = id_personal;
   },
   url : function(){
-
     if(this.nuevo){
       console.log("entro a incidencias");
-  		return  window.ruta +  'incidencias/';
+      var ruta =  window.ruta +  'incidencias/';
+      if(this.cubre>0){
+        ruta = ruta + "?cubrefalta=" + this.cubre;
+      }
+  		return ruta;
   	}
     if(this.eliminar){
       console.log("entro a eliminar");

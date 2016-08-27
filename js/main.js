@@ -237,18 +237,34 @@ var Backbone    = require('backbone'),
   Handlebars.registerHelper('grp_muestra_incidencia',function(options){
         console.log("hola mundo")
         var cdu_incidencia = options.hash.cdu_incidencia; 
-        var incidencia = 'No especificada'
+        var cubre_o_falta = options.hash.cubre_o_falta;
+        //var incidencia = 'No especificada'
+        var incidencia = options.hash.titulo;
         var titulo = ''
         if(cdu_incidencia== '0300001'){
-          incidencia ="Falta"
+          //incidencia ="Falta"
+          if(cubre_o_falta!==''){
+              incidencia = incidencia + ', Cubierta por: ' +  cubre_o_falta;
+          }
           titulo = "Quitar falta";
         }     
         if(cdu_incidencia== '0300002'){
-          incidencia ="Cubrefalta"
+          //incidencia ="Cubrefalta"
+          if(cubre_o_falta!==''){
+              incidencia = 'Cubrio a: ' +  cubre_o_falta;
+          }
+
           titulo = "Quitar cubrefalta";
         }     
      
-     var resultado = '<ul class="menu_incide_existe">' +
+    //    var resultado = 
+    //   '<span>' +  incidencia + '</span>' +
+    // '<a href="#" id="incidencia-eliminar" title="' + titulo + '"><i class="fa fa-times-circle fa-2x"></i></a>'
+       
+    //      return resultado;
+
+
+     var resultado = '<ul class="menu_incide_existe width="150%"">' +
       '<li><span>' +  incidencia + '</span></li>' +
     '<li><a href="#" id="incidencia-eliminar" title="' + titulo + '"><i class="fa fa-times-circle fa-2x"></i></a></li>'
        

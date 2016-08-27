@@ -20,7 +20,7 @@ module.exports = Backbone.View.extend({
     return this;
   },
   seleccionado: function(){
-    console.log(this.model.get('nombre'));
+    //console.log(this.model.get('nombre'));
     Backbone.app.navigate("Empresa/buscar/" + this.model.get('cve_empresa'), {trigger: true});
   }
 });

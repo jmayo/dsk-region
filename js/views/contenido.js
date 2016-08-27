@@ -111,6 +111,7 @@ module.exports = Backbone.View.extend({
         $('#eliminar_generico').show();
         $('#personal_consulta_incidencias').hide();  
 
+
    },
    mostrarMenuCatalogos:function(){
       Backbone.app.menu = "catalogo";
@@ -148,6 +149,14 @@ module.exports = Backbone.View.extend({
        
         this.SucursalIBusquedasVista = new DatoBusquedasVista({collection: this.Sucursal,el: '#resultados_sucursal_incidencias',template:PlantillaSucursal});
         this.CajaBusquedaSucursal= new CajaBusquedaVista({collection: this.Sucursal,el: '#caja_buscar_sucursales_incidencias',divResultados: '#resultados_sucursal_incidencias'});
+        
+
+
+
+        this.PersonalCubreBusquedasVista = new DatoBusquedasVista({collection: this.PersoCubre,el: '#resultados_personal_cubre',template:PlantillaPersonal});
+        this.CajaBusquedaPersonalCubre= new CajaBusquedaVista({collection: this.PersoCubre,el: '#caja_buscar_personal_cubre',divResultados: '#resultados_personal_cubre'});
+
+        this.PersonalCubreBusquedasVista.otraConsulta = "busqueda_perso_cubre";
 
         Backbone.app.menu ='incidencias';
         $('.contenido_personal').hide();
@@ -162,6 +171,7 @@ module.exports = Backbone.View.extend({
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();
         $('#personal_consulta_incidencias').hide();  
+        $('#caja_buscar_personal_cubre').hide(); 
 
    },
     mostrarMenuConsEmpPerso:function(){
@@ -174,6 +184,9 @@ module.exports = Backbone.View.extend({
         this.EmpresaConsultaBusquedasVista = new DatoBusquedasVista({collection: this.EmpresaConsulta,el: '#resultados_generales',template:PlantillaEmpresa});
         this.CajaBusqueda=  new CajaBusquedaVista({collection: this.EmpresaConsulta,el: '.caja_acciones',divResultados: '#resultados_generales'});
         
+
+      
+    
 
         console.log("ruta consulta empresa personal")
         $('.contenido_personal').hide();

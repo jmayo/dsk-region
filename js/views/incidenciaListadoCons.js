@@ -1,6 +1,7 @@
+var $ = require("jquery");
+require("jquery-ui-browserify");
 var Backbone                = require('backbone'),
-    _                  = require('underscore'),
-    $                     = require('jquery');
+    _                  = require('underscore');
 
 module.exports = Backbone.View.extend({
   el: $('#personal_consulta_incidencias_lista'),
