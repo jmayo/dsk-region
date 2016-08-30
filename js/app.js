@@ -1705,8 +1705,8 @@ module.exports = Backbone.Router.extend({
 initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
-    //window.ruta="http://192.168.0.13:8001/";
-    window.ruta="http://104.131.161.180/";
+    window.ruta="http://192.168.0.23:8000/";
+    //window.ruta="http://104.131.161.180/";
     //window.ruta ="http://localhost:8000/";
  
 
@@ -4132,7 +4132,12 @@ module.exports = Backbone.View.extend({
         var matricula = "(" + tarea.get('matricula') + ") ";
         var puesto = tarea.get('puesto');
         var incidencia = tarea.get('incidencia') 
-        var datosPersona  = '<tr id='+tituloFechaServicioPersona+' ><td></td><td>'+ incidencia +'</td><td>'+  matricula +nombre+'</td><td>'+ puesto+'</td><td></td><td></td><td></td><td></td></tr>';   
+        var datos_cubre = tarea.get('datos_cubre');
+        if(datos_cubre!==''){
+          datos_cubre = '[ Cubrio: ' + datos_cubre + ' ]';
+        }
+        
+        var datosPersona  = '<tr id='+tituloFechaServicioPersona+' ><td></td><td>'+ incidencia +'</td><td>'+  matricula +nombre+ '</td><td>'+ puesto+ '  ' + datos_cubre + '</td><td></td><td></td><td></td><td></td></tr>';   
         $("#" + tituloFechaServicio).append(datosPersona);
      }
   

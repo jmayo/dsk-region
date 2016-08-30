@@ -58,7 +58,12 @@ module.exports = Backbone.View.extend({
         var matricula = "(" + tarea.get('matricula') + ") ";
         var puesto = tarea.get('puesto');
         var incidencia = tarea.get('incidencia') 
-        var datosPersona  = '<tr id='+tituloFechaServicioPersona+' ><td></td><td>'+ incidencia +'</td><td>'+  matricula +nombre+'</td><td>'+ puesto+'</td><td></td><td></td><td></td><td></td></tr>';   
+        var datos_cubre = tarea.get('datos_cubre');
+        if(datos_cubre!==''){
+          datos_cubre = '[ Cubrio: ' + datos_cubre + ' ]';
+        }
+        
+        var datosPersona  = '<tr id='+tituloFechaServicioPersona+' ><td></td><td>'+ incidencia +'</td><td>'+  matricula +nombre+ '</td><td>'+ puesto+ '  ' + datos_cubre + '</td><td></td><td></td><td></td><td></td></tr>';   
         $("#" + tituloFechaServicio).append(datosPersona);
      }
   
