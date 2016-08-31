@@ -123,8 +123,8 @@ module.exports = Backbone.View.extend({
           target: 'mapa',
           layers: [
             new ol.layer.Tile({
-
-              source: new ol.source.MapQuest({layer: 'osm'})
+              source: new ol.source.OSM()
+              //source: new ol.source.MapQuest({layer: 'osm'})
             })
           ],
           view: new ol.View({
@@ -132,6 +132,10 @@ module.exports = Backbone.View.extend({
             zoom: 12
           })
         });
+
+
+
+
 
 // var source = new ol.source.GeoJSON({
 //   url: 'features.json',

@@ -1705,8 +1705,8 @@ module.exports = Backbone.Router.extend({
 initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
-    window.ruta="http://192.168.0.23:8000/";
-    //window.ruta="http://104.131.161.180/";
+    //window.ruta="http://192.168.0.23:8000/";
+    window.ruta="http://104.131.161.180/";
     //window.ruta ="http://localhost:8000/";
  
 
@@ -6008,8 +6008,8 @@ module.exports = Backbone.View.extend({
           target: 'mapa',
           layers: [
             new ol.layer.Tile({
-
-              source: new ol.source.MapQuest({layer: 'osm'})
+              source: new ol.source.OSM()
+              //source: new ol.source.MapQuest({layer: 'osm'})
             })
           ],
           view: new ol.View({
@@ -6017,6 +6017,10 @@ module.exports = Backbone.View.extend({
             zoom: 12
           })
         });
+
+
+
+
 
 // var source = new ol.source.GeoJSON({
 //   url: 'features.json',
