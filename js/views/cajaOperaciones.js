@@ -87,7 +87,7 @@ module.exports = Backbone.View.extend({
     if(Backbone.app.menu =="consulta_incidencias"){
       console.log("vamos a pasar los datos a excell");
       console.log(Backbone.app.Incidencias.toJSON());
-      columnas =["fecha","sucursal","incidencia","matricula","paterno","materno","nombre","puesto"];
+      columnas =["fecha","sucursal","incidencia","matricula","paterno","materno","nombre","puesto","datos_cubre"];
       this.JSONToCSVConvertor(Backbone.app.Incidencias.toJSON(), "Mi reporte", true,columnas);
     }
   },
@@ -109,7 +109,8 @@ module.exports = Backbone.View.extend({
            row += columnas[x] + ';';
           //row += arrData[0][columnas[x]] + ',';
         }
-        
+       
+
         //for (var index in arrData[0]) {
             
             //Now convert each value to string and comma-seprated
@@ -127,7 +128,13 @@ module.exports = Backbone.View.extend({
         var row = "";
 
         for(col=0; col<columnas.length; col++){
-          row += arrData[i][columnas[col]] + ';';
+          valor =  arrData[i][columnas[col]];
+          if(typeof valor === 'string'){
+             valor = valor.replace(/[\r\n]/g, '')
+          }
+           row += valor + ';';
+         // row += arrData[i][columnas[col]] + ';';
+          //row += arrData[i][columnas[col]].replace(/[\r\n]/g, '') + ';';
         }
         
         //2nd loop will extract each column and convert it in string comma-seprated
