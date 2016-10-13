@@ -52,6 +52,9 @@ var Backbone                = require('backbone'),
     Incidencias             = require('../collections/incidencias'),
     IncidenciasListado      = require('../views/incidenciaListadoCons'),
    
+    Uniforme               = require('../models/uniformes'),     
+    UniformeVista          = require('../views/uniformePeriodoDetalle'),
+
     funcionGenerica = require('../funcionesGenericas'),
     MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body'),
@@ -82,7 +85,8 @@ module.exports = Backbone.Router.extend({
     "Catalogo": "catalogo",
     "Incidencias": "incidencias",
     "ConsultaEmpPerso": "cons_empperso",
-    "ConsultaIncidencias": "cons_incidencias"
+    "ConsultaIncidencias": "cons_incidencias",
+    "Uniformes": "uniformes"
   //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
@@ -151,10 +155,17 @@ initialize: function () {
     this.PersoBasicoModelo = new Personal();
     this.PersoBasicoModelo.set({"id":"-1"});
 
-   
+    
 
     this.PersonalBasico = new PersonalBasicoVista({model: this.PersoBasicoModelo, el:'#personal_datos_basicos'});
     
+    
+    this.PersoUniformeBasicoModelo = new Personal();
+    this.PersoUniformeBasicoModelo.set({"id":"-1"});
+
+    this.PersonalUniformeBasico = new PersonalBasicoVista({model: this.PersoUniformeBasicoModelo, el:'#personal_uniforme_datos_basicos'});
+    
+
     this.PersoSucursalModelo = new PersonalSucursal();
     this.PersoSucursalModelo.set({"id":"-1"});
     this.PersonalSucursal = new PersonalSucursalVista({model: this.PersoSucursalModelo});
@@ -187,7 +198,12 @@ initialize: function () {
     this.PersoCubreIncidenciasBasicoModelo = new Personal();
     this.PersoCubreIncidenciasBasicoModelo.set({"id":"-1"});
     this.PersonalCubreIncidenciasBasico = new PersonalBasicoVista({model: this.PersoCubreIncidenciasBasicoModelo, el:'#personal_cubre_incidencias_datos_basicos'});
-   
+ 
+    this.UniformeBasicoModelo = new Uniforme();
+    this.UniformeBasicoModelo.set({"id":"-1","personal":"-1"});
+    this.UniformeBasico = new UniformeVista({model: this.UniformeBasicoModelo, el:'#uniforme_periodo_detalle_mostrar'});
+ 
+
 
 //***personal_cubre_incidencias_datos_basicos
 
@@ -304,6 +320,26 @@ initialize: function () {
         });
        
     }
+    if(Backbone.app.menu==="uniformes"){
+      console.log("refrescando uniformes");
+      Backbone.app.operacion="buscar";
+      $('#personal_uniforme_sucursal_sin_asignar').hide();
+      //Ponemos vacia la sucursal, asi solo si esta asignado a una, se llenaran los datos
+      //this.PersonalSucursal.limpiarTodo();
+      //this.PersoSucursalModelo.set({"id":"-1"});
+      this.PersoUniformeBasicoModelo.valor = valor_buscado;
+      var self = this; 
+
+      
+
+      this.PersoUniformeBasicoModelo.fetch({ headers: {'Authorization' :localStorage.token},async:false,
+          success: function(data){
+                 self.mostrarUniformePeriodo(data.id);
+            }
+        });
+       
+    }
+
     if(  Backbone.app.menu ==='incidencias'){
       var self = this;
       console.log("voy a buscar a una persona");
@@ -346,6 +382,27 @@ initialize: function () {
       });
    }
  },
+
+  mostrarUniformePeriodo: function(id_personal) {
+       // self = this
+        self.UniformeBasicoModelo.clear();
+        // this.UniformeBasicoModelo.personal = id_personal;
+        // this.UniformeBasicoModelo.anio = 2016;
+        // this.UniformeBasicoModelo.periodo = 2;
+         
+         this.UniformeBasicoModelo.set({"id":"-1","personal":"-1"});
+         this.UniformeBasicoModelo.set({"id":id_personal,"personal":id_personal});
+
+        // this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
+        //   success: function(data){
+  
+        //   } ,
+        //   error: function(a,err){
+        //   },
+        // });
+
+},
+
    //************
    mostrarSucursal: function() {
               self = this
@@ -627,6 +684,27 @@ initialize: function () {
     console.log("Estas en el modulo de consulta de incidencias de personal")
   },
 
+ uniformes: function(){
+    this.MenuModelo.Opcion ='uniformes';
+    self = this;
+    // this.MenuModelo.fetch({
+    //           headers: {'Authorization' :localStorage.token},
+    //           success: function(){                
+    //                 Backbone.app.operacion="buscar";
+                    
+    //                 Backbone.app.menu="uniformes";
+                   
+    //                 console.log("Estas en la lista de uniformes del personal");
+    //             },
+    //           error: function(model,response, options) {
+    //                  $("#notify_error").text("No estas registrado en el sistema"); 
+    //                  $("#notify_error").notify();
+    //                   console.log(response.responseText);
+    //             }
+    //         });
+    console.log('Menu uniformes');
+   // this.PersonalIncidencias.render();
+ },
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
       var self = this;

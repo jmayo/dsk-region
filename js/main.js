@@ -73,7 +73,6 @@ var Backbone    = require('backbone'),
    valor =((options.hash.simple === true) ? '' : '<div class="' + clase1 + '">') +
             '<figure class="' + clase2 + '">' +
              '<p><img ' + img_id + ' src=' + ruta + ' alt="foto" />' +
-             '<p><i ' + img_idWait + ' class="fa fa-spinner fa-pulse fa-5x"></i>' +
             '</figure>' +
           ((options.hash.simple === true) ? '' : '</div>');
     return valor;
@@ -286,6 +285,7 @@ $(function() {
   Backbone.app.on("route:cons_empperso",Backbone.app.ContenidoVista.mostrarMenuConsEmpPerso);  
   Backbone.app.on("route:incidencias",Backbone.app.ContenidoVista.mostrarMenuIncidencias);  
   Backbone.app.on("route:cons_incidencias",Backbone.app.ContenidoVista.mostrarMenuConsIncidencias);  
+  Backbone.app.on("route:uniformes",Backbone.app.ContenidoVista.mostrarMenuUniformes);  
   
   
   // Backbone.history.stop(); 

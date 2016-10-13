@@ -25,7 +25,8 @@ module.exports = Backbone.View.extend({
       $('#incidencia_fecha_fin').hide();
       $('#catalogo_movimientos').hide();
       $('#personal_incidencias_checks').hide();
-      $('#personal_consulta_incidencias').hide();  
+      $('#personal_consulta_incidencias').hide(); 
+      $('#personal_uniformes').hide(); 
    },
    mostrarMenuPersonal: function(){
    			  Backbone.app.menu="personal";
@@ -50,6 +51,7 @@ module.exports = Backbone.View.extend({
           $('#eliminar_generico').hide();
           $('#catalogo_movimientos').hide();
           $('#personal_consulta_incidencias').hide(); 
+          $('#personal_uniformes').hide(); 
    },
    mostrarMenuEmpresas: function(){
         if(Backbone.app.menu!=="sucursal"){
@@ -72,7 +74,8 @@ module.exports = Backbone.View.extend({
           $('#nuevo_generico').show();
           $('#eliminar_generico').show();
           $('#catalogo_movimientos').hide();
-          $('#personal_consulta_incidencias').hide(); 
+          $('#personal_consulta_incidencias').hide();
+          $('#personal_uniformes').hide();  
           if(Backbone.app.SucursalListadoVista.collection.length>0){
             $('#bloque_mapa_sucursal').show();
           }
@@ -108,6 +111,7 @@ module.exports = Backbone.View.extend({
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#catalogo_movimientos').hide();
+        $('#personal_uniformes').hide(); 
         $('#eliminar_generico').show();
         $('#personal_consulta_incidencias').hide();  
 
@@ -134,6 +138,7 @@ module.exports = Backbone.View.extend({
         $('#busqueda_generico').hide();
         $('#nuevo_generico').hide();
         $('#eliminar_generico').hide();
+        $('#personal_uniformes').hide(); 
         $('#catalogo_movimientos').show();
         $('#personal_consulta_incidencias').hide();  
 
@@ -172,7 +177,7 @@ module.exports = Backbone.View.extend({
         $('#catalogo_movimientos').hide();
         $('#personal_consulta_incidencias').hide();  
         $('#caja_buscar_personal_cubre').hide(); 
-
+        $('#personal_uniformes').hide(); 
    },
     mostrarMenuConsEmpPerso:function(){
           Backbone.app.menu = "consulta_empresaperso";
@@ -199,6 +204,7 @@ module.exports = Backbone.View.extend({
         $('#eliminar_generico').hide();
         $('#catalogo_movimientos').hide();
         $('#incidencias_personal').hide();
+        $('#personal_uniformes').hide(); 
         $('#consulta_empresa_personal').show();
         $('#personal_consulta_incidencias').hide();  
 
@@ -219,9 +225,36 @@ module.exports = Backbone.View.extend({
         $('#catalogo_movimientos').hide();
         $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
+        $('#personal_uniformes').hide(); 
         $('#personal_consulta_incidencias').show();   
         $('#incidencia_fecha_ini').show();
         $('#incidencia_fecha_fin').show();
+
+   },
+    mostrarMenuUniformes:function(){
+          Backbone.app.menu = "uniformes";
+          if (this.CajaBusquedaPersonal){
+            this.CajaBusquedaPersonal.close();
+          } 
+  
+        this.PersonalUBusquedasVista = new DatoBusquedasVista({collection: this.Perso,el: '#resultados_personal_uniformes',template:PlantillaPersonal});
+        this.CajaBusquedaPersonal= new CajaBusquedaVista({collection: this.Perso,el: '#caja_buscar_personas_uniforme',divResultados: '#resultados_personal_uniformes'});
+
+       
+        console.log("ruta uniformes")
+        $('.contenido_personal').hide();
+        $('.contenido_empresa').hide();
+        $('.contenido_movimientos').hide();
+        $('#busqueda_generico').hide();
+        $('#nuevo_generico').hide();
+        $('#eliminar_generico').hide();
+        $('#catalogo_movimientos').hide();
+        $('#incidencias_personal').hide();
+        $('#consulta_empresa_personal').hide();
+        $('#personal_uniformes').show(); 
+        $('#personal_consulta_incidencias').hide();   
+        $('#incidencia_fecha_ini').hide();
+        $('#incidencia_fecha_fin').hide();
 
    },
    mostrarCerrarSesion: function(){
@@ -238,6 +271,6 @@ module.exports = Backbone.View.extend({
         $('#incidencias_personal').hide();
         $('#consulta_empresa_personal').hide();
         $('#personal_consulta_incidencias').hide();  
-
+        $('#personal_uniformes').hide();  
    },
 });

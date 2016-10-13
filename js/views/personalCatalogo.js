@@ -22,7 +22,7 @@ module.exports = Backbone.View.extend({
     {
       $(this.el).attr("selected","selected");
     }
-
+  
     return this;
   },
   remover: function(){
