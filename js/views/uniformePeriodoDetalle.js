@@ -10,11 +10,21 @@ var Backbone                = require('backbone'),
 
 //Personal.Views.EmpresaDetalle 
 module.exports = Backbone.View.extend({
+  events : {
+     "change #uniforme_anio": function(){ this.cambioConsulta()},
+     "change #uniforme_periodo": function(){this.cambioPeriodo()},
+
+  },
   el: $('#uniforme_periodo_detalle_mostrar'),
   className: 'ul_bloque',
   tagName: 'ul',
   template: Plantilla,
-
+  cambioConsulta: function(){
+    console.log("Cambio el año")
+  },
+ cambioPeriodo: function(){
+    console.log("Cambio el periodo")
+  },
   initialize: function () { 
     this.listenTo(this.model, "change", this.llenado, this);
   },
@@ -31,6 +41,11 @@ module.exports = Backbone.View.extend({
    var html = this.template();
    this.$el.html(html);
     $("#uniforme_fecha_entrega").datepicker({dateFormat:"dd/mm/yy"});
+   
+    this.limpiarCajas();
+    this.llenarCatalogoUniformes();
+ },
+ limpiarCajas: function(){
     var fecha_actual = new Date();
     var anio = fecha_actual.getFullYear();
     var mes = fecha_actual.getMonth()
@@ -47,25 +62,73 @@ module.exports = Backbone.View.extend({
     var fecha_actual = new  funcionGenerica().fechaActual();
     $("#uniforme_fecha_entrega").val(fecha_actual);
     $("#uniformes_observaciones").text("");
-
-
+ },
+marcarUniformesDetalles: function(){
+      var personal = this.model.id;
+      var anio = $("#uniforme_anio").val();
+      var periodo = $("#uniforme_periodo").val();
       self = this
       this.UniformeBasicoModelo = new Uniforme();
-      this.UniformeBasicoModelo.personal = this.model.id;
+      this.UniformeBasicoModelo.clear({silent: true})
+      this.UniformeBasicoModelo.personal = personal;
       this.UniformeBasicoModelo.anio = anio;
       this.UniformeBasicoModelo.periodo = periodo;
-       
       this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
          success: function(data){
-            var obs = data.toJSON()[0].observaciones;
-             $("#uniformes_observaciones").text(obs);
+            if(Object.keys(data.toJSON()).length===0){
+                self.limpiarCajas();
+            }
+            else{
+                var obs = data.toJSON()[0].observaciones;
+                var fecha = data.toJSON()[0].fecha;
+                 $("#uniforme_fecha_entrega").val(fecha);
+                $("#uniformes_observaciones").text(obs);
+                self.marcarGenerico(data.toJSON()[0].detalle_uniforme,true,'cdu_concepto_uniforme');              
+            }
          } ,
          error: function(a,err){
 
          },
        });
+},
+ marcarGenerico: function(datos,checar,nom_columna){
+     for(indice in datos){
+       idCheck = "#" + datos[indice][nom_columna];
+       $(idCheck).prop('checked', checar);
+     }
+ },
+ llenarCatalogoUniformes: function(){
+    var self = this;
+    $("#uniforme_lista1").empty();
+    var EmpresaCatalogos = new Catalogos();
+    EmpresaCatalogos.claves ="31";
+  
+    EmpresaCatalogos.fetch(
+      {
+        headers: {'Authorization' :localStorage.token},
+        success: function(data){
+          $("#uniforme_lista1").empty();
+          $("#uniforme_lista2").empty();
+          var uniformes = data.models; 
+          var mitad = Math.round(uniformes.length/2)
 
+          var lista_unif = "#uniforme_lista1";
+          var i = 1;
+          for(unif in uniformes){
+            if(i>mitad){
+              lista_unif = "#uniforme_lista2";
+            }
+            i++;
+            var udc_catalogo = uniformes[unif].get("cdu_catalogo");
+            var descripcion1 = uniformes[unif].get("descripcion1");
+            var elemento ='<input class=inputs_checkbox type=checkbox name=' + udc_catalogo + ' id=' + udc_catalogo + ' value=' + udc_catalogo + '><span>' + descripcion1 + '</span>';
+            $(lista_unif).append(elemento);            
+          }
 
+          self.marcarUniformesDetalles()
+        }
+          
+    });
  },
  llenarLista: function(inicial,final){
         var datos_lista =[]
@@ -89,7 +152,7 @@ module.exports = Backbone.View.extend({
  },
  llenadoCatalogosCombo: function(catalogo,cdu_seleccion,id_selector){
       var cat = new Backbone.Collection(catalogo);
-     ;
+     
       var vis = new PersonalCatalogosVista({
         collection: cat,cdu_seleccionado:cdu_seleccion,id_select: id_selector });
       vis.render();

@@ -36,7 +36,6 @@ module.exports= Backbone.Model.extend({
 				delimitador = "&"
 			}
 		}
-	 console.log(key)
 	}
     if(param_ruta!==''){
     	param_ruta = 'personal/' + param_ruta;
@@ -46,6 +45,7 @@ module.exports= Backbone.Model.extend({
    	    direccion = direccion + param_ruta;
       //}
    } 
+
    return direccion;
   },  
 });
