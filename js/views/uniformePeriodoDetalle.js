@@ -12,7 +12,7 @@ var Backbone                = require('backbone'),
 module.exports = Backbone.View.extend({
   events : {
      "change #uniforme_anio": function(){ this.cambioConsulta()},
-     "change #uniforme_periodo": function(){this.cambioPeriodo()},
+     "change #uniforme_periodo": function(){this.cambioConsulta()},
 
   },
   el: $('#uniforme_periodo_detalle_mostrar'),
@@ -20,10 +20,9 @@ module.exports = Backbone.View.extend({
   tagName: 'ul',
   template: Plantilla,
   cambioConsulta: function(){
+    this.limpiarCajas();
+    this.marcarUniformesDetalles();
     console.log("Cambio el año")
-  },
- cambioPeriodo: function(){
-    console.log("Cambio el periodo")
   },
   initialize: function () { 
     this.listenTo(this.model, "change", this.llenado, this);
@@ -41,11 +40,14 @@ module.exports = Backbone.View.extend({
    var html = this.template();
    this.$el.html(html);
     $("#uniforme_fecha_entrega").datepicker({dateFormat:"dd/mm/yy"});
+   this.catalogoUniformes = [];
+   this.limpiarCajas(true);
+   this.llenarCatalogoUniformes();  
    
-    this.limpiarCajas();
-    this.llenarCatalogoUniformes();
+  
+   console.log("es el render");
  },
- limpiarCajas: function(){
+ comboPeriodoAnio: function(){
     var fecha_actual = new Date();
     var anio = fecha_actual.getFullYear();
     var mes = fecha_actual.getMonth()
@@ -55,15 +57,19 @@ module.exports = Backbone.View.extend({
 
     periodos_lista = this.llenarLista(1,2);
     this.crearColeccion("#uniforme_periodo",periodos_lista);
-     
-     
-    $("#uniforme_anio").val(anio).change();
+    $("#uniforme_anio").val(anio);
     $("#uniforme_periodo").val(periodo).change();
-    var fecha_actual = new  funcionGenerica().fechaActual();
+ },
+ limpiarCajas: function(resetear_periodo){     
+    var fecha_actual = new  funcionGenerica().fechaActual(); 
     $("#uniforme_fecha_entrega").val(fecha_actual);
     $("#uniformes_observaciones").text("");
  },
+ desmarcarUniformesDetalles:function(){     
+      this.marcarGenerico(this.catalogoUniformes,false,'cdu_catalogo',true);
+ },
 marcarUniformesDetalles: function(){
+      this.desmarcarUniformesDetalles();
       var personal = this.model.id;
       var anio = $("#uniforme_anio").val();
       var periodo = $("#uniforme_periodo").val();
@@ -76,7 +82,7 @@ marcarUniformesDetalles: function(){
       this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
          success: function(data){
             if(Object.keys(data.toJSON()).length===0){
-                self.limpiarCajas();
+                //self.limpiarCajas();
             }
             else{
                 var obs = data.toJSON()[0].observaciones;
@@ -87,22 +93,38 @@ marcarUniformesDetalles: function(){
             }
          } ,
          error: function(a,err){
-
+          
          },
        });
 },
- marcarGenerico: function(datos,checar,nom_columna){
+ marcarGenerico: function(datos,checar,nom_columna,formato_json){
      for(indice in datos){
-       idCheck = "#" + datos[indice][nom_columna];
-       $(idCheck).prop('checked', checar);
+       var columna =datos[indice];
+       if(formato_json === true){
+        columna = datos[indice].toJSON();
+       }
+      
+       idCheck = "#" + columna[nom_columna];
+      var periodo =$("#uniforme_periodo").val();
+        var periodo_catalogo = Math.round(columna["monto1"]);
+    
+        var deshabilitar =  ("monto1" in columna && periodo_catalogo!="0" && periodo_catalogo != periodo);
+       if("monto1" in columna){
+          var estilo = deshabilitar ? "line-through" : "none";
+          $('span#span' + columna[nom_columna]).css("text-decoration", estilo);  
+          
+          $(idCheck).prop('disabled', deshabilitar);  
+        }
+
+        $(idCheck).prop('checked', checar);
+        
      }
  },
  llenarCatalogoUniformes: function(){
     var self = this;
     $("#uniforme_lista1").empty();
     var EmpresaCatalogos = new Catalogos();
-    EmpresaCatalogos.claves ="31";
-  
+    EmpresaCatalogos.claves ="31";  
     EmpresaCatalogos.fetch(
       {
         headers: {'Authorization' :localStorage.token},
@@ -110,6 +132,7 @@ marcarUniformesDetalles: function(){
           $("#uniforme_lista1").empty();
           $("#uniforme_lista2").empty();
           var uniformes = data.models; 
+          self.catalogoUniformes =uniformes;
           var mitad = Math.round(uniformes.length/2)
 
           var lista_unif = "#uniforme_lista1";
@@ -121,13 +144,17 @@ marcarUniformesDetalles: function(){
             i++;
             var udc_catalogo = uniformes[unif].get("cdu_catalogo");
             var descripcion1 = uniformes[unif].get("descripcion1");
-            var elemento ='<input class=inputs_checkbox type=checkbox name=' + udc_catalogo + ' id=' + udc_catalogo + ' value=' + udc_catalogo + '><span>' + descripcion1 + '</span>';
+            var elemento ='<input class=inputs_checkbox type=checkbox name=' + udc_catalogo + ' id=' + udc_catalogo + ' value=' + udc_catalogo + '><span id=span' + udc_catalogo +  '>' + descripcion1 + '</span>';
             $(lista_unif).append(elemento);            
           }
-
-          self.marcarUniformesDetalles()
-        }
-          
+          self.comboPeriodoAnio();
+           //self.limpiarCajas();
+          //self.marcarUniformesDetalles()
+        },
+        error: function(a,err){
+            self.catalogoUniformes = []
+            self.limpiarCajas();
+         }
     });
  },
  llenarLista: function(inicial,final){
