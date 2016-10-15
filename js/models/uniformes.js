@@ -8,6 +8,7 @@ module.exports= Backbone.Model.extend({
   	this.personal = null;
   	this.anio = null;
   	this.periodo = null;   
+    this.operacion = null;
   },
   pk : function(pk){
       this.pk  = pk;
@@ -21,10 +22,15 @@ module.exports= Backbone.Model.extend({
   periodo : function(periodo){
       this.periodo  = periodo;
   },
+  operacion : function(operacion){
+    this.operacion = operacion;
+  },
   
   url : function(){
-   var direccion = window.ruta + 'unifore/';
-
+   var direccion = window.ruta + 'uniforme/';
+   if(this.operacion==="guardar"){
+    return  direccion;
+   }
    var parametros = {pk:this.pk,id_personal:this.personal,anio:this.anio,periodo:this.periodo};
 
     var delimitador ='?'

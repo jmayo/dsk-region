@@ -1369,6 +1369,7 @@ module.exports= Backbone.Model.extend({
   	this.personal = null;
   	this.anio = null;
   	this.periodo = null;   
+    this.operacion = null;
   },
   pk : function(pk){
       this.pk  = pk;
@@ -1382,10 +1383,15 @@ module.exports= Backbone.Model.extend({
   periodo : function(periodo){
       this.periodo  = periodo;
   },
+  operacion : function(operacion){
+    this.operacion = operacion;
+  },
   
   url : function(){
-   var direccion = window.ruta + 'unifore/';
-
+   var direccion = window.ruta + 'uniforme/';
+   if(this.operacion==="guardar"){
+    return  direccion;
+   }
    var parametros = {pk:this.pk,id_personal:this.personal,anio:this.anio,periodo:this.periodo};
 
     var delimitador ='?'
@@ -3085,6 +3091,10 @@ module.exports = Backbone.View.extend({
       columnas =["fecha","sucursal","incidencia","matricula","paterno","materno","nombre","puesto","datos_cubre"];
       this.JSONToCSVConvertor(Backbone.app.Incidencias.toJSON(), "Mi reporte", true,columnas);
     }
+    if(Backbone.app.menu =="uniformes"){
+      Backbone.app.UniformeBasico.guardar();
+      console.log("guardar uniformes");
+     }
   },
   JSONToCSVConvertor: function (JSONData, ReportTitle, ShowLabel,columnas) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
@@ -6303,7 +6313,7 @@ module.exports = Backbone.View.extend({
  limpiarCajas: function(resetear_periodo){     
     var fecha_actual = new  funcionGenerica().fechaActual(); 
     $("#uniforme_fecha_entrega").val(fecha_actual);
-    $("#uniformes_observaciones").text("");
+    $("#uniformes_observaciones").val("");
  },
  desmarcarUniformesDetalles:function(){     
       this.marcarGenerico(this.catalogoUniformes,false,'cdu_catalogo',true);
@@ -6328,7 +6338,8 @@ marcarUniformesDetalles: function(){
                 var obs = data.toJSON()[0].observaciones;
                 var fecha = data.toJSON()[0].fecha;
                  $("#uniforme_fecha_entrega").val(fecha);
-                $("#uniformes_observaciones").text(obs);
+               // $("#uniformes_observaciones").text(obs);
+                $("#uniformes_observaciones").val(obs);
                 self.marcarGenerico(data.toJSON()[0].detalle_uniforme,true,'cdu_concepto_uniforme');              
             }
          } ,
@@ -6425,6 +6436,47 @@ marcarUniformesDetalles: function(){
       vis.render();
 
 },
+guardar: function(){
+    var data =this.generarJSON();
+    var self = this;
+    var modelo = new Uniforme(data);
+    modelo.operacion ="guardar";
+
+    this.tipo='POST'
+   
+    modelo.save(null,{
+      headers: {'Authorization' :localStorage.token},
+        type: self.tipo,
+        success: function(modelo,response) {
+            $("#notify_success").notify();
+          },
+        error: function(model,response, options) {
+             $("#notify_error").text(response.responseText);
+             $("#notify_error").notify();
+              console.log(response.responseText);
+        }
+
+    });
+  },
+  
+generarJSON: function(){
+      var data ={};
+      data["id_personal"] = this.model.id;
+      data["fecha"] =  $("#uniforme_fecha_entrega").val();
+      data["anio"] =  $("#uniforme_anio").val();
+      data["periodo"] = $("#uniforme_periodo").val();
+      data["observaciones"] = $("#uniformes_observaciones").val();
+      data["detalle_uniforme"] = [];
+      for(det_uniforme in this.catalogoUniformes)
+      {
+        var cat= this.catalogoUniformes[det_uniforme].toJSON()["cdu_catalogo"]
+        if($("#" + cat).prop("checked")){
+          var det = {"cdu_concepto_uniforme": cat}
+          data["detalle_uniforme"].push(det);
+        }
+      }
+      return data;
+   },
  });
 
 

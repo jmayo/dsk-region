@@ -90,6 +90,10 @@ module.exports = Backbone.View.extend({
       columnas =["fecha","sucursal","incidencia","matricula","paterno","materno","nombre","puesto","datos_cubre"];
       this.JSONToCSVConvertor(Backbone.app.Incidencias.toJSON(), "Mi reporte", true,columnas);
     }
+    if(Backbone.app.menu =="uniformes"){
+      Backbone.app.UniformeBasico.guardar();
+      console.log("guardar uniformes");
+     }
   },
   JSONToCSVConvertor: function (JSONData, ReportTitle, ShowLabel,columnas) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
