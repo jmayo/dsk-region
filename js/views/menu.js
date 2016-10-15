@@ -58,7 +58,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
       $('.incidencias_personal').hide();
       $('.consulta_empresa_personal').hide();
-      $('.uniformes').hide();
+      $('#personal_uniformes').hide();
 
    }
 }); 

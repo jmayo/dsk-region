@@ -1771,8 +1771,8 @@ initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
     //window.ruta="http://192.168.0.23:8000/";
-    //window.ruta="http://104.131.161.180/";
-    window.ruta ="http://localhost:8000/";
+    window.ruta="http://104.131.161.180/";
+    //window.ruta ="http://localhost:8000/";
  
 
     this.Catalogos = new CatalogosLista()
@@ -4496,7 +4496,7 @@ module.exports = Backbone.View.extend({
       $('.contenido_movimientos').hide();
       $('.incidencias_personal').hide();
       $('.consulta_empresa_personal').hide();
-      $('.uniformes').hide();
+      $('#personal_uniformes').hide();
 
    }
 }); 
