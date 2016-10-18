@@ -6,6 +6,7 @@ var Backbone                = require('backbone'),
     Catalogos               = require('../collections/catalogos'),
     Plantilla               = require('../templates/uniformes-detalle-periodo.hbs'),
     Uniforme                = require('../models/uniformes'),
+    generarPDF              = require('../librerias/generarPDF.js'),
     app                     = Backbone.app;
 
 //Personal.Views.EmpresaDetalle 
@@ -13,7 +14,11 @@ module.exports = Backbone.View.extend({
   events : {
      "change #uniforme_anio": function(){ this.cambioConsulta()},
      "change #uniforme_periodo": function(){this.cambioConsulta()},
-
+     "click #imprimir_uniformes": function(){this.imprimirReporte()}
+  },
+  imprimirReporte: function(){
+    console.log("imprimir reporte de uniforme");
+    this.generarPDF();
   },
   el: $('#uniforme_periodo_detalle_mostrar'),
   className: 'ul_bloque',
@@ -228,5 +233,10 @@ generarJSON: function(){
       }
       return data;
    },
+  generarPDF: function(){
+      var generar = new generarPDF();
+      generar.generaPDF();
+      console.log("generando pdf");
+  },   
  });
 
