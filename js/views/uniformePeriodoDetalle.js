@@ -52,7 +52,7 @@ module.exports = Backbone.View.extend({
     var anio = fecha_actual.getFullYear();
     var mes = fecha_actual.getMonth()
     var periodo = mes <6 ? 1 : 2; 
-    anios_lista = this.llenarLista(2010,anio);
+    anios_lista = this.llenarLista(2016,anio + 1);
     this.crearColeccion("#uniforme_anio",anios_lista);
 
     periodos_lista = this.llenarLista(1,2);
@@ -198,6 +198,7 @@ guardar: function(){
       headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(modelo,response) {
+            $("#notify_success").text("La asignacion del uniforme fue guardada correctamente");
             $("#notify_success").notify();
           },
         error: function(model,response, options) {

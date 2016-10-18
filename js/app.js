@@ -1771,8 +1771,8 @@ initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
     //window.ruta="http://192.168.0.23:8000/";
-    window.ruta="http://104.131.161.180/";
-    //window.ruta ="http://localhost:8000/";
+    //window.ruta="http://104.131.161.180/";
+    window.ruta ="http://localhost:8000/";
  
 
     this.Catalogos = new CatalogosLista()
@@ -6302,7 +6302,7 @@ module.exports = Backbone.View.extend({
     var anio = fecha_actual.getFullYear();
     var mes = fecha_actual.getMonth()
     var periodo = mes <6 ? 1 : 2; 
-    anios_lista = this.llenarLista(2010,anio);
+    anios_lista = this.llenarLista(2016,anio + 1);
     this.crearColeccion("#uniforme_anio",anios_lista);
 
     periodos_lista = this.llenarLista(1,2);
@@ -6448,6 +6448,7 @@ guardar: function(){
       headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(modelo,response) {
+            $("#notify_success").text("La asignacion del uniforme fue guardada correctamente");
             $("#notify_success").notify();
           },
         error: function(model,response, options) {
