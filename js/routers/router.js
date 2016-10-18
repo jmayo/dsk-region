@@ -94,8 +94,8 @@ initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
     //window.ruta="http://192.168.0.23:8000/";
-    //window.ruta="http://104.131.161.180/";
-    window.ruta ="http://localhost:8000/";
+    window.ruta="http://104.131.161.180/";
+    //window.ruta ="http://localhost:8000/";
  
 
     this.Catalogos = new CatalogosLista()
@@ -334,7 +334,9 @@ initialize: function () {
 
       this.PersoUniformeBasicoModelo.fetch({ headers: {'Authorization' :localStorage.token},async:false,
           success: function(data){
-                 self.mostrarUniformePeriodo(data.id);
+                var nombre = data.get('paterno') + ' ' + data.get('materno') + ' ' + data.get('nombre');
+                var matricula = data.get('matricula')
+                self.mostrarUniformePeriodo(data.id,nombre,matricula);
             }
         });
        
@@ -383,15 +385,15 @@ initialize: function () {
    }
  },
 
-  mostrarUniformePeriodo: function(id_personal) {
+  mostrarUniformePeriodo: function(id_personal,nombre,matricula) {
        // self = this
         self.UniformeBasicoModelo.clear();
         // this.UniformeBasicoModelo.personal = id_personal;
         // this.UniformeBasicoModelo.anio = 2016;
         // this.UniformeBasicoModelo.periodo = 2;
          
-         this.UniformeBasicoModelo.set({"id":"-1","personal":"-1"});
-         this.UniformeBasicoModelo.set({"id":id_personal,"personal":id_personal});
+         this.UniformeBasicoModelo.set({"id":"-1","personal":"-1","matricula":"-1","nombre":""});
+         this.UniformeBasicoModelo.set({"id":id_personal,"personal":id_personal,"matricula":matricula,"nombre": nombre});
 
         // this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
         //   success: function(data){

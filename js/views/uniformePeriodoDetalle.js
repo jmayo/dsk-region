@@ -66,6 +66,7 @@ module.exports = Backbone.View.extend({
     $("#uniforme_periodo").val(periodo).change();
  },
  limpiarCajas: function(resetear_periodo){     
+    $("#impresion_registro").attr('src', '');
     var fecha_actual = new  funcionGenerica().fechaActual(); 
     $("#uniforme_fecha_entrega").val(fecha_actual);
     $("#uniformes_observaciones").val("");
@@ -234,9 +235,19 @@ generarJSON: function(){
       return data;
    },
   generarPDF: function(){
-      var generar = new generarPDF();
-      generar.generaPDF();
-      console.log("generando pdf");
+      if (Object.keys(this.UniformeBasicoModelo.toJSON()).length>0){
+        var generar = new generarPDF();
+        generar.matricula = this.model.get('matricula');
+        generar.nombre =this.model.get('nombre');
+        generar.datos_uniforme = this.UniformeBasicoModelo.toJSON()[0];
+        generar.catalogos_uniformes = this.catalogoUniformes;
+        generar.generaPDF();
+      }
+      else{
+         $("#notify_info").text("No hay asignacion de uniformes guardada aun para ese periodo");
+         $("#notify_info").notify()
+      }
+        console.log("generando pdf");
   },   
  });
 
