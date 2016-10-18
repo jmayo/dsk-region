@@ -32,8 +32,8 @@ function generaPDF(){
 	doc.line(133, 41, 176, 41);
 	doc.line(190, 41, 208, 41);
 
-	doc.text(10, 46, 'AUTORIZO:');
-	doc.line(32, 47, 208, 47);
+	//doc.text(10, 46, 'AUTORIZO:');
+	//doc.line(32, 47, 208, 47);
 
 	doc.text(90, 54, 'DATOS PERSONALES');
 
@@ -96,134 +96,11 @@ function generaPDF(){
 	doc.text(12, 105, 'ENDO INFORMAR A ESTA OFICNA EN CASO DE EXTRAVIO, ROBO O DETERIORO.');
 
 
+	doc.line(14, 122, 86, 122);
+	doc.text(42, 125, 'AUTORIZO');
+
 	doc.line(132, 122, 204, 122);
 	doc.text(136, 125, 'NOMBRE, FIRMA Y MATRICULA DEL ELEMENTO');
-
-/*
-	// LINEA
-	doc.setLineWidth(0.1);
-	doc.text(80, 40, 'CLIENTE');
-	doc.line(10, 41, 160, 41);
-	doc.text(12, 46, 'NOMBRE:');
-	doc.line(10, 47, 160, 47);
-	doc.text(12, 52, 'DIRECCION:');
-	doc.line(10, 53, 160, 53);
-	doc.text(12, 58, 'CIUDAD:  ');
-    doc.text(115, 58, 'R.F.C.: ');
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(162, 37, 40, 10, 2, 2, 'FD');
-	doc.text(176, 40, 'PEDIDO');
-	doc.line(162, 41, 202, 41);
-	doc.setTextColor(255, 0, 0);
-	doc.text(176, 45, 'No. 256');
-	doc.setTextColor(0, 0, 0);
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(162, 49, 40, 10, 2, 2, 'FD');
-	doc.text(177, 52, 'FECHA');
-	doc.line(162, 53, 202, 53);
-	// CUADRO GRANDE
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(10, 62, 192, 186, 2, 2, 'FD');
-	doc.line(10, 68, 202, 68);
-	doc.line(10, 74, 202, 74);
-	doc.line(10, 80, 202, 80);
-	doc.line(10, 86, 202, 86);
-	doc.line(10, 92, 202, 92);
-	doc.line(10, 98, 202, 98);
-	doc.line(10, 104, 202, 104);
-	doc.line(10, 110, 202, 110);
-	doc.line(10, 116, 202, 116);
-	doc.line(10, 122, 202, 122);
-	doc.line(10, 128, 202, 128);
-	doc.line(10, 134, 202, 134);
-	doc.line(10, 140, 202, 140);
-	doc.line(10, 146, 202, 146);
-	doc.line(10, 152, 202, 152);
-	doc.line(10, 158, 202, 158);
-	doc.line(10, 164, 202, 164);
-	doc.line(10, 170, 202, 170);
-	doc.line(10, 176, 202, 176);
-	doc.line(10, 182, 202, 182);
-	doc.line(10, 188, 202, 188);
-	doc.line(10, 194, 202, 194);
-	doc.line(10, 200, 202, 200);
-	doc.line(10, 206, 202, 206);
-	doc.line(10, 212, 202, 212);
-	doc.line(10, 218, 202, 218);
-	doc.line(10, 224, 202, 224);
-	doc.line(10, 230, 202, 230);
-	doc.line(10, 236, 202, 236);
-	doc.line(10, 242, 202, 242);
-	
-	doc.text(21, 67, 'CANTIDAD');
-	doc.text(80, 67, 'DESCRIPCION');
-	doc.setFontSize(6);
-	doc.text(156, 65, 'PRECIO');
-	doc.text(155, 67, 'UNITARIO');
-	doc.setFontSize(10);
-	doc.text(178, 67, 'IMPORTE');
-    
-	doc.text(13, 73, '1');	
-	doc.text(13, 79, '2');
-	doc.text(13, 85, '3');
-	doc.text(13, 91, '4');
-	doc.text(13, 97, '5');
-	doc.text(13, 103, '6');
-	doc.text(13, 109, '7');
-	doc.text(13, 115, '8');
-	doc.text(13, 121, '9');
-	doc.text(13, 127, '10');
-	doc.text(13, 133, '11');
-	doc.text(13, 139, '12');
-	doc.text(13, 145, '13');
-	doc.text(13, 151, '14');
-	doc.text(13, 157, '15');
-	doc.text(13, 163, '16');
-	doc.text(13, 169, '17');
-	doc.text(13, 175, '18');
-	doc.text(13, 181, '19');
-	doc.text(13, 187, '20');
-	doc.text(13, 193, '21');
-	doc.text(13, 199, '22');
-	doc.text(13, 205, '23');
-	doc.text(13, 211, '24');
-	doc.text(13, 217, '25');
-	doc.text(13, 223, '26');
-	doc.text(13, 229, '27');
-	doc.text(13, 235, '28');
-	doc.text(13, 241, '29');
-	doc.text(13, 247, '30');
-
-	// LINEAS VERTICALES
-	doc.line(20, 62, 20, 248);
-	doc.line(40, 62, 40, 248);
-	doc.line(150, 62, 150, 248);
-	doc.line(170, 62, 170, 248);
-	// CUADROS BAJOS
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(10, 249, 192, 6, 2, 2, 'FD');
-	doc.setFontSize(6);
-	doc.text(13, 253, 'NOTA: A ESTOS PRECIOS SE LES INCLUIRA EL I.V.A CORRESPONDIENTE');
-
-	// BLOQUE HERLE
-	// doc.setFillColor(255, 255, 255);
-	// doc.roundedRect(10, 258, 192, 23, 0, 0, 'FD');
-	// doc.text(13, 262, 'POR ESTE PAGARE ME (NOS) OBLIGO (AMOS) A PAGAR INCONDICIONALMENTE EL DIA _____ DE _____________________ DEL 20 ____ EN LA CIUDAD DE _______________________');
-	// doc.text(13, 266, 'A LA ORDEN DE LAMINAS Y MAQUILAS HERLE S.A. DE C.V., LA CANTIDAD DE $ _____________________  ( __________________________________________________________________');
-	// doc.text(13, 270, '_____________________________ ) QUE HE (MOS) RECIBIDO A MI (NUESTRA) ENTERA SATISFACCION EN MERCANCIA. LA FALTA DE PAGO A SU VENCIMIENTO CAUSARA INTERESES');
-	// doc.text(13, 274, 'AL ______ % MENSUAL SIN QUE POR ESTO SE CONSIDERE PRORROGADO EL PLAZO FIJADO PARA EL CUMPLIMIENTO DE ESTA OBLIGACION.');
-	// doc.text(140, 278, 'DEUDOR __________________________________________');
-
-	// BLOQUE CENTAURO
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(10, 256, 192, 23, 0, 0, 'FD');
-	doc.text(13, 262, 'POR ESTE PAGARE ME (NOS) OBLIGO (AMOS) A PAGAR INCONDICIONALMENTE EL DIA _____ DE _____________________ DEL 20 ____ EN LA CIUDAD DE _______________________');
-	doc.text(13, 266, 'A LA ORDEN DE CENTAURO STEEL S.A. DE C.V., LA CANTIDAD DE $ _____________________  ( ___________________________________________________________________________');
-	doc.text(13, 270, '_____________________________ ) QUE HE (MOS) RECIBIDO A MI (NUESTRA) ENTERA SATISFACCION EN MERCANCIA. LA FALTA DE PAGO A SU VENCIMIENTO CAUSARA INTERESES');
-	doc.text(13, 274, 'AL ______ % MENSUAL SIN QUE POR ESTO SE CONSIDERE PRORROGADO EL PLAZO FIJADO PARA EL CUMPLIMIENTO DE ESTA OBLIGACION.');
-	doc.text(140, 278, 'DEUDOR __________________________________________');
-
-*/
 
 	// Esto lo visualiza en el iFrame
 	var string = doc.output('datauristring');
