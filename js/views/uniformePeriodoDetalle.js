@@ -6,6 +6,8 @@ var Backbone                = require('backbone'),
     Catalogos               = require('../collections/catalogos'),
     Plantilla               = require('../templates/uniformes-detalle-periodo.hbs'),
     Uniforme                = require('../models/uniformes'),
+    PersonalAsignacion      = require('../models/personal_sucursal'),
+    
     generarPDF              = require('../librerias/generarPDF.js'),
     app                     = Backbone.app;
 
@@ -14,7 +16,36 @@ module.exports = Backbone.View.extend({
   events : {
      "change #uniforme_anio": function(){ this.cambioConsulta()},
      "change #uniforme_periodo": function(){this.cambioConsulta()},
+     "change #uniforme_fecha_servicio": function(){this.cambioFechaServicio()},
+     
      "click #imprimir_uniformes": function(){this.imprimirReporte()}
+  },
+  cambioFechaServicio: function(){
+    console.log("Cambio la fecha de servicio");
+    self = this
+    $("#impresion_registro").attr('src', '');
+    this.sucursalAsignado();
+  },
+  sucursalAsignado: function(){
+    this.PersoSucursal = new PersonalAsignacion();
+    this.PersoSucursal.clear({silent: true})
+    this.PersoSucursal.id_personal = this.model.id;
+    var partes_fecha_sucursal = $("#uniforme_fecha_servicio").val().split('/');
+    this.PersoSucursal.fechaAsignacion = partes_fecha_sucursal[0] + '-' + partes_fecha_sucursal[1] + '-' + partes_fecha_sucursal[2]
+    var sucursal_asignado="SIN ASIGNACION"
+
+    this.PersoSucursal.fetch({headers: {'Authorization' :localStorage.token},
+       success: function(data){
+        if(Object.keys(data.toJSON()).length>0){
+           var asig = data.toJSON()[0];
+           sucursal_asignado ="(" + asig.id_sucursal.cve_sucursal + ") " + asig.id_sucursal.nombre;
+        }
+        $("#uniforme_servicio").text(sucursal_asignado);  
+       },
+       error: function(a,err){
+           $("#uniforme_servicio").text(sucursal_asignado)
+       },
+     });
   },
   imprimirReporte: function(){
     console.log("imprimir reporte de uniforme");
@@ -45,6 +76,7 @@ module.exports = Backbone.View.extend({
    var html = this.template();
    this.$el.html(html);
     $("#uniforme_fecha_entrega").datepicker({dateFormat:"dd/mm/yy"});
+    $("#uniforme_fecha_servicio").datepicker({dateFormat:"dd/mm/yy"});
    this.catalogoUniformes = [];
    this.limpiarCajas(true);
    this.llenarCatalogoUniformes();  
@@ -69,7 +101,10 @@ module.exports = Backbone.View.extend({
     $("#impresion_registro").attr('src', '');
     var fecha_actual = new  funcionGenerica().fechaActual(); 
     $("#uniforme_fecha_entrega").val(fecha_actual);
+     $("#uniforme_fecha_servicio").val(fecha_actual);
     $("#uniformes_observaciones").val("");
+    this.sucursalAsignado();
+
  },
  desmarcarUniformesDetalles:function(){     
       this.marcarGenerico(this.catalogoUniformes,false,'cdu_catalogo',true);
@@ -136,6 +171,7 @@ marcarUniformesDetalles: function(){
       {
         headers: {'Authorization' :localStorage.token},
         success: function(data){
+
           $("#uniforme_lista1").empty();
           $("#uniforme_lista2").empty();
           var uniformes = data.models; 
@@ -204,6 +240,7 @@ guardar: function(){
       headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(modelo,response) {
+          self.UniformeBasicoModelo.set(modelo.attributes)
             $("#notify_success").text("La asignacion del uniforme fue guardada correctamente");
             $("#notify_success").notify();
           },
@@ -220,6 +257,7 @@ generarJSON: function(){
       var data ={};
       data["id_personal"] = this.model.id;
       data["fecha"] =  $("#uniforme_fecha_entrega").val();
+      data["fecha_servicio"] = $("#uniforme_fecha_servicio").val();
       data["anio"] =  $("#uniforme_anio").val();
       data["periodo"] = $("#uniforme_periodo").val();
       data["observaciones"] = $("#uniformes_observaciones").val();
@@ -241,6 +279,7 @@ generarJSON: function(){
         generar.nombre =this.model.get('nombre');
         generar.datos_uniforme = this.UniformeBasicoModelo.toJSON()[0];
         generar.catalogos_uniformes = this.catalogoUniformes;
+        generar.servicioActual = $("#uniforme_servicio").text();
         generar.generaPDF();
       }
       else{

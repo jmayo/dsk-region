@@ -336,7 +336,9 @@ initialize: function () {
           success: function(data){
                 var nombre = data.get('paterno') + ' ' + data.get('materno') + ' ' + data.get('nombre');
                 var matricula = data.get('matricula')
-                self.mostrarUniformePeriodo(data.id,nombre,matricula);
+                var fec_alta = data.get('fec_alta');
+                
+                self.mostrarUniformePeriodo(data.id,nombre,matricula,fec_alta);
             }
         });
        
@@ -385,15 +387,15 @@ initialize: function () {
    }
  },
 
-  mostrarUniformePeriodo: function(id_personal,nombre,matricula) {
+  mostrarUniformePeriodo: function(id_personal,nombre,matricula,fec_alta) {
        // self = this
         self.UniformeBasicoModelo.clear();
         // this.UniformeBasicoModelo.personal = id_personal;
         // this.UniformeBasicoModelo.anio = 2016;
         // this.UniformeBasicoModelo.periodo = 2;
          
-         this.UniformeBasicoModelo.set({"id":"-1","personal":"-1","matricula":"-1","nombre":""});
-         this.UniformeBasicoModelo.set({"id":id_personal,"personal":id_personal,"matricula":matricula,"nombre": nombre});
+         this.UniformeBasicoModelo.set({"id":"-1","personal":"-1","matricula":"-1","nombre":"","fec_alta":""});
+         this.UniformeBasicoModelo.set({"id":id_personal,"personal":id_personal,"matricula":matricula,"nombre": nombre,"fec_alta":fec_alta});
 
         // this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
         //   success: function(data){

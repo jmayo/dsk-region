@@ -1404,7 +1404,7 @@ return {
 	
 	doc.line(58, 63, 204, 63);
 
-	doc.text(12, 68, 'SERVICIO:');
+	doc.text(12, 68, 'SERVICIO:  ' + this.servicioActual);
 	doc.line(32, 69, 148, 69);
 
 	doc.text(154, 68, 'MATRICULA:    ' + this.matricula);
@@ -4196,6 +4196,7 @@ module.exports= Backbone.Model.extend({
 },{"../models/validacion":26,"backbone":92}],23:[function(require,module,exports){
 var Backbone = require('backbone'),
     ValidacionModelo = require('./validacion');
+
  
 module.exports = Backbone.Model.extend({
   initialize: function(){
@@ -4204,6 +4205,7 @@ module.exports = Backbone.Model.extend({
   	  this.pk = null;
       this.camposValidar();
       this.eliminar = false;
+      this.fechaAsignacion = null;
   },
  id_personal : function(id_personal){
       this.id_personal  = id_personal;
@@ -4216,6 +4218,10 @@ module.exports = Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'personal/';
+   if(this.fechaAsignacion!== undefined && this.fechaAsignacion!== null){
+      return direccion = window.ruta  + 'personal_sucursales/' + this.id_personal + '/fecha/' +this.fechaAsignacion + '/';
+   }
+
    if(this.eliminar === false ){
      if(this.pk!== undefined && this.pk!== null){
         if(this.pk!=="-1"){
@@ -5011,7 +5017,9 @@ initialize: function () {
           success: function(data){
                 var nombre = data.get('paterno') + ' ' + data.get('materno') + ' ' + data.get('nombre');
                 var matricula = data.get('matricula')
-                self.mostrarUniformePeriodo(data.id,nombre,matricula);
+                var fec_alta = data.get('fec_alta');
+                
+                self.mostrarUniformePeriodo(data.id,nombre,matricula,fec_alta);
             }
         });
        
@@ -5060,15 +5068,15 @@ initialize: function () {
    }
  },
 
-  mostrarUniformePeriodo: function(id_personal,nombre,matricula) {
+  mostrarUniformePeriodo: function(id_personal,nombre,matricula,fec_alta) {
        // self = this
         self.UniformeBasicoModelo.clear();
         // this.UniformeBasicoModelo.personal = id_personal;
         // this.UniformeBasicoModelo.anio = 2016;
         // this.UniformeBasicoModelo.periodo = 2;
          
-         this.UniformeBasicoModelo.set({"id":"-1","personal":"-1","matricula":"-1","nombre":""});
-         this.UniformeBasicoModelo.set({"id":id_personal,"personal":id_personal,"matricula":matricula,"nombre": nombre});
+         this.UniformeBasicoModelo.set({"id":"-1","personal":"-1","matricula":"-1","nombre":"","fec_alta":""});
+         this.UniformeBasicoModelo.set({"id":id_personal,"personal":id_personal,"matricula":matricula,"nombre": nombre,"fec_alta":fec_alta});
 
         // this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
         //   success: function(data){
@@ -5892,9 +5900,11 @@ module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Año",{"name":"grp_combo","hash":{"select_id":"uniforme_anio","select_name":"anio_uniforme","label_desc":"anio_uniforme"},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Periodo",{"name":"grp_combo","hash":{"select_id":"uniforme_periodo","select_name":"periodo_uniforme","label_desc":"periodo_uniforme"},"data":data})) != null ? stack1 : "")
-    + "\n		"
+    + "		\n		"
     + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Fec.de Entrega",{"name":"grp_perdet","hash":{"input_desc":"Fecha de Entrega","label_desc":"fecha_entrega","input_id":"uniforme_fecha_entrega","valor":(depth0 != null ? depth0.fecha_entrega : depth0)},"data":data})) != null ? stack1 : "")
     + "\n		"
+    + ((stack1 = (helpers.grp_perdet || (depth0 && depth0.grp_perdet) || alias1).call(depth0,"Fec.Servicio",{"name":"grp_perdet","hash":{"input_desc":"Fecha Servicio","label_desc":"fecha_servicio","input_id":"uniforme_fecha_servicio","valor":(depth0 != null ? depth0.fecha_servicio : depth0)},"data":data})) != null ? stack1 : "")
+    + "\n		<h4 id=\"uniforme_servicio\"></h4>\n		"
     + ((stack1 = (helpers.grp_perdetTextArea || (depth0 && depth0.grp_perdetTextArea) || alias1).call(depth0,"Observaciones",{"name":"grp_perdetTextArea","hash":{"titulo":"reducido","textarea_desc":"Observaciones","label_desc":"","valor":(depth0 != null ? depth0.observaciones : depth0),"textarea_id":"uniformes_observaciones"},"data":data})) != null ? stack1 : "")
     + "\n	</ul>\n</div>\n</div>\n<br>\n<div class=\"titulo_bloque\">\n	Uniforme\n</div>\n<div class=\"caja_bloque\">\n	<div class=\"campos_bloque\">\n		<ul class=\"ul_bloque\">\n			<li class=\"li_bloque\" id=\"uniforme_lista1\">\n\n			</li>\n			<li class=\"li_bloque\" id=\"uniforme_lista2\">\n\n			</li>						\n		</ul>\n	</div>\n   <div id=\"imprimir_uniformes\" >Imprimir</div>\n\n</div>";
 },"useData":true});
@@ -9256,6 +9266,8 @@ var Backbone                = require('backbone'),
     Catalogos               = require('../collections/catalogos'),
     Plantilla               = require('../templates/uniformes-detalle-periodo.hbs'),
     Uniforme                = require('../models/uniformes'),
+    PersonalAsignacion      = require('../models/personal_sucursal'),
+    
     generarPDF              = require('../librerias/generarPDF.js'),
     app                     = Backbone.app;
 
@@ -9264,7 +9276,36 @@ module.exports = Backbone.View.extend({
   events : {
      "change #uniforme_anio": function(){ this.cambioConsulta()},
      "change #uniforme_periodo": function(){this.cambioConsulta()},
+     "change #uniforme_fecha_servicio": function(){this.cambioFechaServicio()},
+     
      "click #imprimir_uniformes": function(){this.imprimirReporte()}
+  },
+  cambioFechaServicio: function(){
+    console.log("Cambio la fecha de servicio");
+    self = this
+    $("#impresion_registro").attr('src', '');
+    this.sucursalAsignado();
+  },
+  sucursalAsignado: function(){
+    this.PersoSucursal = new PersonalAsignacion();
+    this.PersoSucursal.clear({silent: true})
+    this.PersoSucursal.id_personal = this.model.id;
+    var partes_fecha_sucursal = $("#uniforme_fecha_servicio").val().split('/');
+    this.PersoSucursal.fechaAsignacion = partes_fecha_sucursal[0] + '-' + partes_fecha_sucursal[1] + '-' + partes_fecha_sucursal[2]
+    var sucursal_asignado="SIN ASIGNACION"
+
+    this.PersoSucursal.fetch({headers: {'Authorization' :localStorage.token},
+       success: function(data){
+        if(Object.keys(data.toJSON()).length>0){
+           var asig = data.toJSON()[0];
+           sucursal_asignado ="(" + asig.id_sucursal.cve_sucursal + ") " + asig.id_sucursal.nombre;
+        }
+        $("#uniforme_servicio").text(sucursal_asignado);  
+       },
+       error: function(a,err){
+           $("#uniforme_servicio").text(sucursal_asignado)
+       },
+     });
   },
   imprimirReporte: function(){
     console.log("imprimir reporte de uniforme");
@@ -9295,6 +9336,7 @@ module.exports = Backbone.View.extend({
    var html = this.template();
    this.$el.html(html);
     $("#uniforme_fecha_entrega").datepicker({dateFormat:"dd/mm/yy"});
+    $("#uniforme_fecha_servicio").datepicker({dateFormat:"dd/mm/yy"});
    this.catalogoUniformes = [];
    this.limpiarCajas(true);
    this.llenarCatalogoUniformes();  
@@ -9319,7 +9361,10 @@ module.exports = Backbone.View.extend({
     $("#impresion_registro").attr('src', '');
     var fecha_actual = new  funcionGenerica().fechaActual(); 
     $("#uniforme_fecha_entrega").val(fecha_actual);
+     $("#uniforme_fecha_servicio").val(fecha_actual);
     $("#uniformes_observaciones").val("");
+    this.sucursalAsignado();
+
  },
  desmarcarUniformesDetalles:function(){     
       this.marcarGenerico(this.catalogoUniformes,false,'cdu_catalogo',true);
@@ -9386,6 +9431,7 @@ marcarUniformesDetalles: function(){
       {
         headers: {'Authorization' :localStorage.token},
         success: function(data){
+
           $("#uniforme_lista1").empty();
           $("#uniforme_lista2").empty();
           var uniformes = data.models; 
@@ -9454,6 +9500,7 @@ guardar: function(){
       headers: {'Authorization' :localStorage.token},
         type: self.tipo,
         success: function(modelo,response) {
+          self.UniformeBasicoModelo.set(modelo.attributes)
             $("#notify_success").text("La asignacion del uniforme fue guardada correctamente");
             $("#notify_success").notify();
           },
@@ -9470,6 +9517,7 @@ generarJSON: function(){
       var data ={};
       data["id_personal"] = this.model.id;
       data["fecha"] =  $("#uniforme_fecha_entrega").val();
+      data["fecha_servicio"] = $("#uniforme_fecha_servicio").val();
       data["anio"] =  $("#uniforme_anio").val();
       data["periodo"] = $("#uniforme_periodo").val();
       data["observaciones"] = $("#uniformes_observaciones").val();
@@ -9491,6 +9539,7 @@ generarJSON: function(){
         generar.nombre =this.model.get('nombre');
         generar.datos_uniforme = this.UniformeBasicoModelo.toJSON()[0];
         generar.catalogos_uniformes = this.catalogoUniformes;
+        generar.servicioActual = $("#uniforme_servicio").text();
         generar.generaPDF();
       }
       else{
@@ -9502,7 +9551,7 @@ generarJSON: function(){
  });
 
 
-},{"../collections/catalogos":2,"../funcionesGenericas":9,"../librerias/generarPDF.js":13,"../models/uniformes":25,"../templates/uniformes-detalle-periodo.hbs":52,"../views/personalCatalogos":76,"backbone":92,"jquery":127,"jquery-ui":126}],91:[function(require,module,exports){
+},{"../collections/catalogos":2,"../funcionesGenericas":9,"../librerias/generarPDF.js":13,"../models/personal_sucursal":23,"../models/uniformes":25,"../templates/uniformes-detalle-periodo.hbs":52,"../views/personalCatalogos":76,"backbone":92,"jquery":127,"jquery-ui":126}],91:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.0 Copyright (c) 2011-2015, The Dojo Foundation All Rights Reserved.

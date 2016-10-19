@@ -1,5 +1,6 @@
 var Backbone = require('backbone'),
     ValidacionModelo = require('./validacion');
+
  
 module.exports = Backbone.Model.extend({
   initialize: function(){
@@ -8,6 +9,7 @@ module.exports = Backbone.Model.extend({
   	  this.pk = null;
       this.camposValidar();
       this.eliminar = false;
+      this.fechaAsignacion = null;
   },
  id_personal : function(id_personal){
       this.id_personal  = id_personal;
@@ -20,6 +22,10 @@ module.exports = Backbone.Model.extend({
   },
   url : function(){
    var direccion = window.ruta + 'personal/';
+   if(this.fechaAsignacion!== undefined && this.fechaAsignacion!== null){
+      return direccion = window.ruta  + 'personal_sucursales/' + this.id_personal + '/fecha/' +this.fechaAsignacion + '/';
+   }
+
    if(this.eliminar === false ){
      if(this.pk!== undefined && this.pk!== null){
         if(this.pk!=="-1"){

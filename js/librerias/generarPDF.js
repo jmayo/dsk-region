@@ -77,7 +77,7 @@ return {
 	
 	doc.line(58, 63, 204, 63);
 
-	doc.text(12, 68, 'SERVICIO:');
+	doc.text(12, 68, 'SERVICIO:  ' + this.servicioActual);
 	doc.line(32, 69, 148, 69);
 
 	doc.text(154, 68, 'MATRICULA:    ' + this.matricula);
