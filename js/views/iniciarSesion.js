@@ -29,7 +29,9 @@ module.exports = Backbone.View.extend({
       } 
   },
   mostrar_menu: function(menu,icono,clase2){
-      if (this.menu_permisos === "*" || this.menu_permisos.split(',').indexOf(menu)>=0){
+       var list_permisos = this.menu_permisos.split(',');
+     
+      if (this.menu_permisos === "*" || list_permisos.indexOf(menu)>=0){
          var elemento ='<li class="li_menu" hidden><a class="' + menu + ' ico_nav" href="#"><i class="fa ' + icono +' fa-3x"></i></a></li>';
          $("#menu_principal").append(elemento); 
       }
@@ -38,10 +40,26 @@ module.exports = Backbone.View.extend({
      $("#menu_principal").empty();
     var permiso = new Permisos()
     self = this;
+
     permiso.fetch({
             headers: {'Authorization' :localStorage.token},
             success: function(data){
-              self.menu_permisos = data.toJSON().Permiso;
+              var administrador ='*';
+              var supervisor ='incidencias';
+              var uniformes ='uniformes';
+              self.menu_permisos = '';
+
+              if(data.toJSON().Permiso === "Administrador"){
+                  self.menu_permisos = administrador; 
+              }
+              if(data.toJSON().Permiso === "Supervisor"){
+                self.menu_permisos = supervisor;
+              }
+              if(data.toJSON().Permiso === "Uniformes"){
+                self.menu_permisos = uniformes;
+              }
+             
+              //self.menu_permisos = data.toJSON().Permiso;
               self.mostrar_menu('personal','fa-group')
               self.mostrar_menu('empresas','fa-industry')
               self.mostrar_menu('movimientos','fa-user-plus')
