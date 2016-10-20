@@ -59,9 +59,9 @@ var Backbone                = require('backbone'),
     MenuVista       = require('../views/menu'),
     BodyVista = require('../views/body'),
     MenuOpcion = require('../models/menu'),
-    popup                  = require('../popup');
-    Calendario              = require('../calendarioComp')   
-   
+    popup                  = require('../popup'),
+    Calendario              = require('../calendarioComp'),  
+
     // CalendarPick = require('../jquery.calendarPicker')
     // jQueryMouseWheel = require('../jquery.mousewheel')
     // Calendario = require('../calendario')
@@ -96,7 +96,6 @@ initialize: function () {
     //window.ruta="http://192.168.0.23:8000/";
     window.ruta="http://104.131.161.180/";
     //window.ruta ="http://localhost:8000/";
- 
 
     this.Catalogos = new CatalogosLista()
     this.CatalogosDet = new CatalogosDetalleLista()
