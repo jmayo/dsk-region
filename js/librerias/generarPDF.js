@@ -142,6 +142,8 @@ return {
 
 
 	doc.line(14, 122, 86, 122);
+   doc.text(20, 120, this.nombre_usuario);
+
 	doc.text(42, 125, 'AUTORIZO');
 
 	doc.line(132, 122, 204, 122);

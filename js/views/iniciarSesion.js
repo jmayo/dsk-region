@@ -2,6 +2,7 @@ var Backbone    = require('backbone'),
     $           = require('jquery'),
     Login       = require('../models/login'),
     Permisos    = require('../models/permisos');
+    Usuario     = require('../models/usuario')
    
 //Personal.Views.IniciarSesion 
 module.exports = Backbone.View.extend({
@@ -35,6 +36,21 @@ module.exports = Backbone.View.extend({
          var elemento ='<li class="li_menu" hidden><a class="' + menu + ' ico_nav" href="#"><i class="fa ' + icono +' fa-3x"></i></a></li>';
          $("#menu_principal").append(elemento); 
       }
+  },
+  datosUsuario: function(){
+    var usuario = new Usuario()
+    self = this;
+
+    usuario.fetch({
+            headers: {'Authorization' :localStorage.token},
+            success: function(data){
+                Backbone.app.usuario_logueado = data.toJSON();
+              },
+            error: function(model,response, options) {
+
+              }
+          });
+
   },
   permisosMenu: function(){
      $("#menu_principal").empty();
@@ -80,7 +96,8 @@ module.exports = Backbone.View.extend({
   guardar: function(){
     console.log(this.usuario)
     console.log(this.pass)
-    
+    Backbone.app.usuario_logueado ={};
+
     var data ={"username": this.usuario, "password": this.pass};
 
     var self = this;
@@ -98,6 +115,7 @@ module.exports = Backbone.View.extend({
             $(".li_menu").css("visibility", "visible");
             $('.caja_acciones').show();
 
+            self.datosUsuario();
             self.permisosMenu();
 
 

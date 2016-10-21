@@ -280,6 +280,8 @@ generarJSON: function(){
         generar.datos_uniforme = this.UniformeBasicoModelo.toJSON()[0];
         generar.catalogos_uniformes = this.catalogoUniformes;
         generar.servicioActual = $("#uniforme_servicio").text();
+        var datos_usuario = Backbone.app.usuario_logueado;
+        generar.nombre_usuario =datos_usuario.first_name + ' ' + datos_usuario.last_name;
         generar.generaPDF();
       }
       else{
