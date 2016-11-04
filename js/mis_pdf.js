@@ -32,6 +32,15 @@ function generaPDF(){
 	doc.line(133, 41, 176, 41);
 	doc.line(190, 41, 208, 41);
 
+	doc.text(10, 45, 'SIGUIENTE ENTREGA DE UNIFORME, EL DIA:');
+	doc.text(125, 45, 'DE');
+	doc.text(180, 45, 'DEL');
+
+	doc.setLineWidth(0.1);
+	doc.line(96, 46, 120, 46);
+	doc.line(133, 46, 176, 46);
+	doc.line(190, 46, 208, 46);
+
 	//doc.text(10, 46, 'AUTORIZO:');
 	//doc.line(32, 47, 208, 47);
 
