@@ -8,11 +8,20 @@ return {
    	 this.fecha = fecha;
    },
    datosAsignacionUniformes: function(){
-   	 var partes = this.datos_uniforme.fecha.split("/");
-   	 this.anio = partes[2];
-   	 this.dia = partes[0];
-   	 var f = new Date(partes[2],partes[1]-1,partes[0]);
    	 var meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+      
+       var partes = this.datos_uniforme.fecha.split("/");
+       
+       var proximaFecha = new Date(partes[1] +"/" + partes[0] + "/" + partes[2]);
+       proximaFecha.setMonth(proximaFecha.getMonth()+6);
+
+       this.anio_prox = proximaFecha.getFullYear();
+       this.dia_prox = proximaFecha.getDate();
+       this.mes_prox = meses[proximaFecha.getMonth()];
+      
+       this.anio = partes[2];
+       this.dia = partes[0];
+       var f = new Date(partes[2],partes[1]-1,partes[0]);
    	 this.mes = meses[partes[1]-1];
 
    	 this.asig_anio = this.datos_uniforme.anio;
@@ -57,6 +66,15 @@ return {
 	doc.text(125, 40, 'DE    ' + this.mes);
 	doc.text(180, 40, 'DEL    ' + this.anio);
 		
+   doc.text(10, 45, 'SIGUIENTE ENTREGA DE UNIFORME, EL DIA:         ' +  this.dia_prox);
+   doc.text(125, 45, 'DE    ' + this.mes_prox);
+   doc.text(180, 45, 'DEL    ' + this.anio_prox);
+
+   doc.setLineWidth(0.1);
+   doc.line(96, 46, 120, 46);
+   doc.line(133, 46, 176, 46);
+   doc.line(190, 46, 208, 46);
+
 	doc.setLineWidth(0.1);
 	doc.line(96, 41, 120, 41);
 	doc.line(133, 41, 176, 41);
