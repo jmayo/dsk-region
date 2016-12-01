@@ -286,6 +286,8 @@ $(function() {
   Backbone.app.on("route:incidencias",Backbone.app.ContenidoVista.mostrarMenuIncidencias);  
   Backbone.app.on("route:cons_incidencias",Backbone.app.ContenidoVista.mostrarMenuConsIncidencias);  
   Backbone.app.on("route:uniformes",Backbone.app.ContenidoVista.mostrarMenuUniformes);  
+  Backbone.app.on("route:uniformes_reporte",Backbone.app.ContenidoVista.mostrarMenuUniformesReporte);  
+  
   
   
   // Backbone.history.stop(); 

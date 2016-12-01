@@ -81,6 +81,7 @@ module.exports = Backbone.View.extend({
               self.mostrar_menu('movimientos','fa-user-plus')
               self.mostrar_menu('catalogosli','fa-th')
               self.mostrar_menu('uniformes','fa-user-secret')
+              self.mostrar_menu('uniformesreporte','fa-user-secret')
               self.mostrar_menu('incidencias','fa-check-square-o')
               self.mostrar_menu('conempresapersona','fa-indent')
               self.mostrar_menu('conincidencias','fa-calendar')

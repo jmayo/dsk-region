@@ -54,6 +54,8 @@ var Backbone                = require('backbone'),
    
     Uniforme               = require('../models/uniformes'),     
     UniformeVista          = require('../views/uniformePeriodoDetalle'),
+    UniformeReporteVista   = require('../views/uniformePeriodoReporte'),
+
 
     funcionGenerica = require('../funcionesGenericas'),
     MenuVista       = require('../views/menu'),
@@ -86,7 +88,9 @@ module.exports = Backbone.Router.extend({
     "Incidencias": "incidencias",
     "ConsultaEmpPerso": "cons_empperso",
     "ConsultaIncidencias": "cons_incidencias",
-    "Uniformes": "uniformes"
+    "Uniformes": "uniformes",
+    "UniformesReporte": "uniformes_reporte"
+    
   //  http://localhost:8080/personal/1/sucursal/activa/
   },
 
@@ -202,7 +206,7 @@ initialize: function () {
     this.UniformeBasicoModelo.set({"id":"-1","personal":"-1"});
     this.UniformeBasico = new UniformeVista({model: this.UniformeBasicoModelo, el:'#uniforme_periodo_detalle_mostrar'});
  
-
+    this.UniformeReportePer = new UniformeReporteVista({});
 
 //***personal_cubre_incidencias_datos_basicos
 
@@ -707,6 +711,10 @@ initialize: function () {
     //         });
     console.log('Menu uniformes');
    // this.PersonalIncidencias.render();
+ },
+ uniformes_reporte: function(){
+  this.UniformeReportePer.render();
+  console.log("menu de uniformes reporte");
  },
 //***** FUNCIONES GENERICAS ****************
   fetchData:function(ruta_json,funcion_llenado,clave){
