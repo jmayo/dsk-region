@@ -15,101 +15,65 @@ function generaPDFVacaciones(){
 
 	doc.setFontSize(12);
 	doc.setTextColor(0, 0, 0);
-	doc.text(72, 12, 'GOBIERNO DEL ESTADO DE MEXICO MICHOACAN');
+	doc.text(72, 12, 'GOBIERNO DEL ESTADO DE MEXICO');
 	doc.text(60, 17, 'COMISION ESTATAL DE SEGURIDAD CIUDADANA');
 	doc.setFontSize(10);
 	doc.text(54, 22, 'CUERPOS DE SEGURIDAD AUXILIARES DEL ESTADO DE MEXICO');
 	doc.text(48, 25, 'CUERPO DE VIGILANCIA AUXILIAR Y URBANA DEL ESTADO DE MEXICO');
-	doc.text(96, 31, 'REGION XII');
-	doc.text(78, 35, 'ENTREGA DE UNIFORME NUEVO');
 
-	doc.text(10, 40, 'TLALNEPANTLA DE BAZ, ESTADO DE MEXICO A:');
-	doc.text(125, 40, 'DE');
-	doc.text(180, 40, 'DEL');
-
+	doc.text(125, 40, 'FECHA:');
 	doc.setLineWidth(0.1);
-	doc.line(96, 41, 120, 41);
-	doc.line(133, 41, 176, 41);
-	doc.line(190, 41, 208, 41);
+	doc.line(142, 41, 207, 41);
 
-	doc.text(10, 45, 'SIGUIENTE ENTREGA DE UNIFORME, EL DIA:');
-	doc.text(125, 45, 'DE');
-	doc.text(180, 45, 'DEL');
-
+	doc.text(125, 46, 'ASUNTO:');
+	doc.text(149, 46, 'SOLICITUD DE VACACIONES');
 	doc.setLineWidth(0.1);
-	doc.line(96, 46, 120, 46);
-	doc.line(133, 46, 176, 46);
-	doc.line(190, 46, 208, 46);
+	doc.line(142, 47, 207, 47);
 
-	//doc.text(10, 46, 'AUTORIZO:');
-	//doc.line(32, 47, 208, 47);
-
-	doc.text(90, 54, 'DATOS PERSONALES');
 
 	// RECTANGULO
 	doc.setDrawColor(0);
 	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(10, 56, 198, 51, 2, 2, 'FD');
+	doc.roundedRect(10, 56, 198, 40, 2, 2, 'FD');
 
-	doc.text(12, 62, 'NOMBRE DEL ELEMENTO:');
-	doc.line(58, 63, 204, 63);
+	doc.text(16, 62, 'POR MEDIO DE LA PRESENTE, ME PERMITO SOLICITAR ATENTAMENTE Y DE NO EXISTIR INCONVENIENTE,');
+	doc.text(16, 68, 'ME SEAN AUTORIZADAS MIS VACACIONES CORRESPONDIENTES AL');	
+	doc.line(136, 69, 150, 69);
+	doc.text(152, 68, 'PERIODO DE');	
+	doc.line(176, 69, 199, 69);
+	doc.text(200, 68, '.');
+	doc.text(16, 74, 'DE LA FECHA');
+	doc.line(41, 75, 55, 75);
+	doc.text(57, 74, 'DE');
+	doc.line(63, 75, 86, 75);
+	doc.text(88, 74, 'AL');
+	doc.line(95, 75, 107, 75);
+	doc.text(110, 74, 'DE');
+	doc.line(117, 75, 140, 75);
+	doc.text(143, 74, 'DE');
+	doc.line(150, 75, 173, 75);
+	doc.text(174, 74, ', PRESENTAN -');
+	doc.text(16, 80, 'DOME DE NUEVO EN MI SERVICIO EL DIA');
+	doc.line(90, 81, 102, 81);
+	doc.text(105, 80, 'DE');
+	doc.line(112, 81, 135, 81);
+	doc.text(138, 80, 'DE');
+	doc.line(145, 81, 168, 81);
+	doc.text(169, 80, '.');
 
-	doc.text(12, 68, 'SERVICIO:');
-	doc.line(32, 69, 148, 69);
+	doc.text(16, 92, 'SIN MAS POR EL MOMENTO Y AGRADECIENDO LA ATENCION PRESTADA A LA PRESENTE, QUEDO DE USTED.');
 
-	doc.text(154, 68, 'MATRICULA:');
-	doc.line(178, 69, 204, 69);
+	
+	doc.text(42, 105, 'RESPETUOSAMENTE');
+	doc.line(14, 115, 104, 115);
+	doc.text(30, 120, 'NOMBRE Y FIRMA DEL ELEMENTO');
+	doc.text(36, 126, 'MATRICULA:');
+	doc.line(60, 127, 82, 127);
 
-	doc.setDrawColor(0);
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(12, 72, 6, 6, 1, 1, 'FD');
-	doc.text(20, 76, 'GORRA');
-
-	doc.setDrawColor(0);
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(38, 72, 6, 6, 1, 1, 'FD');
-	doc.text(46, 76, 'CAMISOLA');
-
-	doc.setDrawColor(0);
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(69, 72, 6, 6, 1, 1, 'FD');
-	doc.text(77, 76, 'PANTALON');
-
-	doc.setDrawColor(0);
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(100, 72, 6, 6, 1, 1, 'FD');
-	doc.text(108, 76, 'BOTAS');
-
-	doc.setDrawColor(0);
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(125, 72, 6, 6, 1, 1, 'FD');
-	doc.text(133, 76, 'FORNITURA');
-
-	doc.setDrawColor(0);
-	doc.setFillColor(255, 255, 255);
-	doc.roundedRect(158, 72, 6, 6, 1, 1, 'FD');
-	doc.text(166, 76, 'CHAMARRA');
-
-	doc.text(12, 84, 'OBSERVACIONES:');
-	doc.line(46, 85, 204, 85);
-	doc.line(12, 92, 204, 92);
-
-	doc.setFontSize(8);
-	doc.setTextColor(0, 0, 0);
-	doc.text(12, 97, 'SE HACE ENTREGA DEL UNIFORME CORRESPONDIENTE AL');
-	doc.line(96, 98, 134, 98);
-	doc.text(136, 97, 'PERIODO DE');
-	doc.line(156, 98, 194, 98);
-	doc.text(196, 97, ';QUE');
-	doc.text(12, 101, 'A CONTINUACION SE DESCRIBE, RESPONSABILIZANDOSELE A PARTIR DE LA FECHA DEL BUEN USO Y CONSERVACION DEL MISMO, DEBI-');
-	doc.text(12, 105, 'ENDO INFORMAR A ESTA OFICNA EN CASO DE EXTRAVIO, ROBO O DETERIORO.');
-
-
-	doc.line(14, 122, 86, 122);
-	doc.text(42, 125, 'AUTORIZO');
-
-	doc.line(132, 122, 204, 122);
-	doc.text(136, 125, 'NOMBRE, FIRMA Y MATRICULA DEL ELEMENTO');
+	doc.text(152, 105, 'Vo. Bo.');
+	doc.line(115, 115, 205, 115);
+	doc.text(124, 120, 'CARLOS OAXACA ROLDAN, C.P.P., D.S.E.');
+	doc.text(132, 126, '1ER. CMDTE. DE LA REGION XII');
 
 	// Esto lo visualiza en el iFrame
 	var string = doc.output('datauristring');
