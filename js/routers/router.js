@@ -98,8 +98,8 @@ initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
     //window.ruta="http://192.168.0.23:8000/";
-    window.ruta="http://104.131.161.180/";
-    //window.ruta ="http://localhost:8000/";
+    //window.ruta="http://104.131.161.180/";
+    window.ruta ="http://localhost:8000/";
 
     this.Catalogos = new CatalogosLista()
     this.CatalogosDet = new CatalogosDetalleLista()
@@ -736,3 +736,5 @@ initialize: function () {
     }
 
 });
+
+//ssh -p 2234 miregion@104.131.161.180

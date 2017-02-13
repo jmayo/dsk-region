@@ -17,8 +17,48 @@ module.exports = Backbone.View.extend({
      "change #uniforme_anio": function(){ this.cambioConsulta()},
      "change #uniforme_periodo": function(){this.cambioConsulta()},
      "change #uniforme_fecha_servicio": function(){this.cambioFechaServicio()},
+     "change #uniforme_fecha_entrega": function(){this.cambioFechaEntrega()},
      
      "click #imprimir_uniformes": function(){this.imprimirReporte()}
+  },
+  cambioFechaEntrega: function(){
+      console.log("Cambio fecha de entrega");
+      var partes_fecha_entrega = $("#uniforme_fecha_entrega").val().split('/');
+      var dia = partes_fecha_entrega[0];
+      var mes = partes_fecha_entrega[1];
+      var anio = partes_fecha_entrega[2];
+
+      var fecha_entrega = new Date(anio,mes,dia);
+      console.log(fecha_entrega);
+      //var anio = fecha_actual.getFullYear();
+  
+      this.BuscarPeriodoUniforme = new Uniforme();
+      this.BuscarPeriodoUniforme.clear({silent: true})
+      this.UniformeBasicoModelo.mes = mes; 
+      this.UniformeBasicoModelo.anio = anio;
+      this.UniformeBasicoModelo.buscarPeriodo = true;
+    
+      this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
+         success: function(data){
+            if(Object.keys(data.toJSON()).length===0){
+               //$("#esta_entregado").text("");
+              // var a=data.toJSON()[0].detalle_uniforme
+              // a.length
+                //self.limpiarCajas();
+            }
+            else{
+              console.log(data.toJSON());
+              var valores = data.toJSON();
+              $("#uniforme_anio").val(valores.anio);
+              $("#uniforme_periodo").val(valores.periodo).change();
+                //var obs = data.toJSON()[0].observaciones;
+               
+            }
+         } ,
+         error: function(a,err){
+          
+         },
+       });
   },
   cambioFechaServicio: function(){
     console.log("Cambio la fecha de servicio");
@@ -123,6 +163,9 @@ marcarUniformesDetalles: function(){
       this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
          success: function(data){
             if(Object.keys(data.toJSON()).length===0){
+               $("#esta_entregado").text("");
+              // var a=data.toJSON()[0].detalle_uniforme
+              // a.length
                 //self.limpiarCajas();
             }
             else{
@@ -131,6 +174,7 @@ marcarUniformesDetalles: function(){
                  $("#uniforme_fecha_entrega").val(fecha);
                // $("#uniformes_observaciones").text(obs);
                 $("#uniformes_observaciones").val(obs);
+                $("#esta_entregado").text("ENTREGADO");
                 self.marcarGenerico(data.toJSON()[0].detalle_uniforme,true,'cdu_concepto_uniforme');              
             }
          } ,

@@ -4434,6 +4434,8 @@ module.exports= Backbone.Model.extend({
   	this.anio = null;
   	this.periodo = null;   
     this.operacion = null;
+    this.mes = null;
+    this.buscarPeriodo = null;
   },
   pk : function(pk){
       this.pk  = pk;
@@ -4444,11 +4446,17 @@ module.exports= Backbone.Model.extend({
   anio : function(anio){
       this.anio  = anio;
   },
+   mes : function(mes){
+      this.mes  = mes;
+  },
   periodo : function(periodo){
       this.periodo  = periodo;
   },
   operacion : function(operacion){
     this.operacion = operacion;
+  },
+  buscarPeriodo : function(buscarPeriodo){
+    this.buscarPeriodo = buscarPeriodo;
   },
   
   url : function(){
@@ -4456,7 +4464,7 @@ module.exports= Backbone.Model.extend({
    if(this.operacion==="guardar"){
     return  direccion;
    }
-   var parametros = {pk:this.pk,id_personal:this.personal,anio:this.anio,periodo:this.periodo};
+   var parametros = {pk:this.pk,id_personal:this.personal,anio:this.anio,mes:this.mes,periodo:this.periodo};
 
     var delimitador ='?'
     var param_ruta =''
@@ -4465,12 +4473,16 @@ module.exports= Backbone.Model.extend({
 			param_ruta =  param_ruta + delimitador + key + "=" + parametros[key]
 			if(delimitador==='?'){
 				delimitador = "&"
-			}
+			}   
 		}
 	}
-    if(param_ruta!==''){
+    if(this.buscarPeriodo === true){
+      param_ruta = 'periodo/' + param_ruta;
+    }
+    if(param_ruta!=='' && this.buscarPeriodo != true){
     	param_ruta = 'personal/' + param_ruta;
     }
+
    if(delimitador==='&'){
      // if(Backbone.app.operacion==='buscar' && this.pk!==""){
    	    direccion = direccion + param_ruta;
@@ -4848,8 +4860,8 @@ initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
     //window.ruta="http://192.168.0.23:8000/";
-    window.ruta="http://104.131.161.180/";
-    //window.ruta ="http://localhost:8000/";
+    //window.ruta="http://104.131.161.180/";
+    window.ruta ="http://localhost:8000/";
 
     this.Catalogos = new CatalogosLista()
     this.CatalogosDet = new CatalogosDetalleLista()
@@ -5487,6 +5499,7 @@ initialize: function () {
 
 });
 
+//ssh -p 2234 miregion@104.131.161.180
 },{"../calendarioComp":1,"../collections/catalogos":2,"../collections/catalogosLista":3,"../collections/empresas":4,"../collections/incidencias":5,"../collections/personal_activo_empresas":6,"../collections/personas":7,"../collections/sucursales":8,"../funcionesGenericas":10,"../jquery.calendarPicker":11,"../jquery.mousewheel":12,"../models/catalogoLista":18,"../models/empresa":19,"../models/incidencia":20,"../models/menu":22,"../models/personal":24,"../models/personal_sucursal":25,"../models/sucursal":26,"../models/uniformes":27,"../popup":31,"../templates/sucursal-datos-basicos.hbs":52,"../templates/sucursal-datos-simple.hbs":53,"../views/body":57,"../views/cajaOperaciones":59,"../views/catalogoDescripcion":60,"../views/catalogoDetalleDescripcion":61,"../views/catalogosDetalleListado":62,"../views/catalogosListado":63,"../views/contenido":64,"../views/empresaBusqueda":67,"../views/empresaDetalle":70,"../views/empresaListaReportes":71,"../views/incidenciaListadoCons":73,"../views/iniciarSesion":74,"../views/menu":75,"../views/personalBasicos":76,"../views/personalBusqueda":77,"../views/personalDetalle":82,"../views/personalIncidencias":83,"../views/personalListados":84,"../views/personalMovimiento":85,"../views/personalSucursal":86,"../views/personalXEmpresaReportes":88,"../views/sucursalBasicos":89,"../views/sucursalListados":92,"../views/sucursalMapa":93,"../views/uniformePeriodoDetalle":94,"../views/uniformePeriodoReporte":95,"backbone":97,"jquery":132,"moment":133}],33:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
@@ -5974,7 +5987,7 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=helpers.helperMissing;
 
-  return "<div class=\"titulo_bloque\">\n	Año/Periodo\n</div>\n<div class=\"caja_bloque\">\n<div class=\"campos_bloque\">\n	<ul class=\"ul_bloque\">\n		"
+  return "<div class=\"titulo_bloque\">\n	Año/Periodo\n</div>\n<div class=\"caja_bloque\">\n<div class=\"campos_bloque\">\n	<ul class=\"ul_bloque\">\n	    <label id='esta_entregado'>Entrega</label>\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Año",{"name":"grp_combo","hash":{"select_id":"uniforme_anio","select_name":"anio_uniforme","label_desc":"anio_uniforme"},"data":data})) != null ? stack1 : "")
     + "\n		"
     + ((stack1 = (helpers.grp_combo || (depth0 && depth0.grp_combo) || alias1).call(depth0,"Periodo",{"name":"grp_combo","hash":{"select_id":"uniforme_periodo","select_name":"periodo_uniforme","label_desc":"periodo_uniforme"},"data":data})) != null ? stack1 : "")
@@ -9485,8 +9498,48 @@ module.exports = Backbone.View.extend({
      "change #uniforme_anio": function(){ this.cambioConsulta()},
      "change #uniforme_periodo": function(){this.cambioConsulta()},
      "change #uniforme_fecha_servicio": function(){this.cambioFechaServicio()},
+     "change #uniforme_fecha_entrega": function(){this.cambioFechaEntrega()},
      
      "click #imprimir_uniformes": function(){this.imprimirReporte()}
+  },
+  cambioFechaEntrega: function(){
+      console.log("Cambio fecha de entrega");
+      var partes_fecha_entrega = $("#uniforme_fecha_entrega").val().split('/');
+      var dia = partes_fecha_entrega[0];
+      var mes = partes_fecha_entrega[1];
+      var anio = partes_fecha_entrega[2];
+
+      var fecha_entrega = new Date(anio,mes,dia);
+      console.log(fecha_entrega);
+      //var anio = fecha_actual.getFullYear();
+  
+      this.BuscarPeriodoUniforme = new Uniforme();
+      this.BuscarPeriodoUniforme.clear({silent: true})
+      this.UniformeBasicoModelo.mes = mes; 
+      this.UniformeBasicoModelo.anio = anio;
+      this.UniformeBasicoModelo.buscarPeriodo = true;
+    
+      this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
+         success: function(data){
+            if(Object.keys(data.toJSON()).length===0){
+               //$("#esta_entregado").text("");
+              // var a=data.toJSON()[0].detalle_uniforme
+              // a.length
+                //self.limpiarCajas();
+            }
+            else{
+              console.log(data.toJSON());
+              var valores = data.toJSON();
+              $("#uniforme_anio").val(valores.anio);
+              $("#uniforme_periodo").val(valores.periodo).change();
+                //var obs = data.toJSON()[0].observaciones;
+               
+            }
+         } ,
+         error: function(a,err){
+          
+         },
+       });
   },
   cambioFechaServicio: function(){
     console.log("Cambio la fecha de servicio");
@@ -9591,6 +9644,9 @@ marcarUniformesDetalles: function(){
       this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
          success: function(data){
             if(Object.keys(data.toJSON()).length===0){
+               $("#esta_entregado").text("");
+              // var a=data.toJSON()[0].detalle_uniforme
+              // a.length
                 //self.limpiarCajas();
             }
             else{
@@ -9599,6 +9655,7 @@ marcarUniformesDetalles: function(){
                  $("#uniforme_fecha_entrega").val(fecha);
                // $("#uniformes_observaciones").text(obs);
                 $("#uniformes_observaciones").val(obs);
+                $("#esta_entregado").text("ENTREGADO");
                 self.marcarGenerico(data.toJSON()[0].detalle_uniforme,true,'cdu_concepto_uniforme');              
             }
          } ,
