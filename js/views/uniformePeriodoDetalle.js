@@ -14,15 +14,19 @@ var Backbone                = require('backbone'),
 //Personal.Views.EmpresaDetalle 
 module.exports = Backbone.View.extend({
   events : {
-     "change #uniforme_anio": function(){ this.cambioConsulta()},
-     "change #uniforme_periodo": function(){this.cambioConsulta()},
-     "change #uniforme_fecha_servicio": function(){this.cambioFechaServicio()},
+     //"change #uniforme_anio": function(){ this.cambioConsulta()},
+     //"change #uniforme_periodo": function(){this.cambioConsulta()},
+     //"change #uniforme_fecha_servicio": function(){this.cambioFechaServicio()},
      "change #uniforme_fecha_entrega": function(){this.cambioFechaEntrega()},
      
      "click #imprimir_uniformes": function(){this.imprimirReporte()}
   },
   cambioFechaEntrega: function(){
       console.log("Cambio fecha de entrega");
+      var self = this;
+      this.limpiarCajas(false);
+      this.anio = 0;
+      this.periodo =0;
       var partes_fecha_entrega = $("#uniforme_fecha_entrega").val().split('/');
       var dia = partes_fecha_entrega[0];
       var mes = partes_fecha_entrega[1];
@@ -34,43 +38,52 @@ module.exports = Backbone.View.extend({
   
       this.BuscarPeriodoUniforme = new Uniforme();
       this.BuscarPeriodoUniforme.clear({silent: true})
-      this.UniformeBasicoModelo.mes = mes; 
-      this.UniformeBasicoModelo.anio = anio;
-      this.UniformeBasicoModelo.buscarPeriodo = true;
+
+      this.BuscarPeriodoUniforme = new Uniforme();
+      this.BuscarPeriodoUniforme.mes = mes; 
+      this.BuscarPeriodoUniforme.anio = anio;
+      this.BuscarPeriodoUniforme.buscarPeriodo = true;
     
-      this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
+      this.BuscarPeriodoUniforme.fetch({headers: {'Authorization' :localStorage.token},
          success: function(data){
             if(Object.keys(data.toJSON()).length===0){
-               //$("#esta_entregado").text("");
-              // var a=data.toJSON()[0].detalle_uniforme
-              // a.length
-                //self.limpiarCajas();
+              $("#uniforme_anio_periodo").text('');  
             }
             else{
               console.log(data.toJSON());
               var valores = data.toJSON();
-              $("#uniforme_anio").val(valores.anio);
-              $("#uniforme_periodo").val(valores.periodo).change();
-                //var obs = data.toJSON()[0].observaciones;
-               
+              var nombre_periodo = "periodo" + valores.periodo;
+              var rango_periodo = " Del " + valores[nombre_periodo+"_ini"] + " al " +  valores[nombre_periodo+"_fin"];
+              var titulo ="Periodo " + valores.periodo + rango_periodo;
+              self.anio = valores.anio;
+              self.periodo =valores.periodo;
+              //$("#uniforme_anio").val(valores.periodo1_fin);
+              //$("#uniforme_periodo").val(valores.periodo).change();
+              $("#uniforme_anio_periodo").text(titulo);   
+              self.sucursalAsignado();       
+              self.marcarUniformesDetalles(valores.anio, valores.periodo);
             }
          } ,
          error: function(a,err){
-          
+              $("#uniforme_anio_periodo").text("Error vuelva a seleccionar la fecha"); 
+              self.anio = 0;
+              self.periodo =0;
+              self.sucursalAsignado();       
+              self.marcarUniformesDetalles(valores.anio, valores.periodo);
          },
        });
   },
-  cambioFechaServicio: function(){
-    console.log("Cambio la fecha de servicio");
-    self = this
-    $("#impresion_registro").attr('src', '');
-    this.sucursalAsignado();
-  },
+  // cambioFechaServicio: function(){
+  //   console.log("Cambio la fecha de servicio");
+  //   self = this
+  //   $("#impresion_registro").attr('src', '');
+  //   this.sucursalAsignado();
+  // },
   sucursalAsignado: function(){
     this.PersoSucursal = new PersonalAsignacion();
     this.PersoSucursal.clear({silent: true})
     this.PersoSucursal.id_personal = this.model.id;
-    var partes_fecha_sucursal = $("#uniforme_fecha_servicio").val().split('/');
+    var partes_fecha_sucursal = $("#uniforme_fecha_entrega").val().split('/');
     this.PersoSucursal.fechaAsignacion = partes_fecha_sucursal[0] + '-' + partes_fecha_sucursal[1] + '-' + partes_fecha_sucursal[2]
     var sucursal_asignado="SIN ASIGNACION"
 
@@ -95,11 +108,11 @@ module.exports = Backbone.View.extend({
   className: 'ul_bloque',
   tagName: 'ul',
   template: Plantilla,
-  cambioConsulta: function(){
-    this.limpiarCajas();
-    this.marcarUniformesDetalles();
-    console.log("Cambio el año")
-  },
+  // cambioConsulta: function(){
+  //   this.limpiarCajas();
+  //   this.marcarUniformesDetalles();
+  //   console.log("Cambio el año")
+  // },
   initialize: function () { 
     this.listenTo(this.model, "change", this.llenado, this);
   },
@@ -116,7 +129,7 @@ module.exports = Backbone.View.extend({
    var html = this.template();
    this.$el.html(html);
     $("#uniforme_fecha_entrega").datepicker({dateFormat:"dd/mm/yy"});
-    $("#uniforme_fecha_servicio").datepicker({dateFormat:"dd/mm/yy"});
+   // $("#uniforme_fecha_servicio").datepicker({dateFormat:"dd/mm/yy"});
    this.catalogoUniformes = [];
    this.limpiarCajas(true);
    this.llenarCatalogoUniformes();  
@@ -124,26 +137,32 @@ module.exports = Backbone.View.extend({
   
    console.log("es el render");
  },
- comboPeriodoAnio: function(){
-    var fecha_actual = new Date();
-    var anio = fecha_actual.getFullYear();
-    var mes = fecha_actual.getMonth()
-    var periodo = mes <6 ? 1 : 2; 
-    anios_lista = this.llenarLista(2016,anio + 1);
-    this.crearColeccion("#uniforme_anio",anios_lista);
+ //comboPeriodoAnio: function(){
+    // var fecha_actual = new Date();
+    // var anio = fecha_actual.getFullYear();
+    // var mes = fecha_actual.getMonth()
+    // var periodo = mes <6 ? 1 : 2; 
+    // anios_lista = this.llenarLista(2016,anio + 1);
+    // this.crearColeccion("#uniforme_anio",anios_lista);
 
-    periodos_lista = this.llenarLista(1,2);
-    this.crearColeccion("#uniforme_periodo",periodos_lista);
-    $("#uniforme_anio").val(anio);
-    $("#uniforme_periodo").val(periodo).change();
- },
- limpiarCajas: function(resetear_periodo){     
+    // periodos_lista = this.llenarLista(1,2);
+    // this.crearColeccion("#uniforme_periodo",periodos_lista);
+    // $("#uniforme_anio").val(anio);
+    // $("#uniforme_periodo").val(periodo).change();
+ //},
+ limpiarCajas: function(actualizar){   
+    $("#uniforme_anio_periodo").text('');  
     $("#impresion_registro").attr('src', '');
     var fecha_actual = new  funcionGenerica().fechaActual(); 
-    $("#uniforme_fecha_entrega").val(fecha_actual);
-     $("#uniforme_fecha_servicio").val(fecha_actual);
+    
+    if(actualizar){
+      $("#uniforme_fecha_entrega").val(fecha_actual);
+      this.cambioFechaEntrega();
+    }
+
+    // $("#uniforme_fecha_servicio").val(fecha_actual);
     $("#uniformes_observaciones").val("");
-    this.sucursalAsignado();
+  //  this.sucursalAsignado();
 
  },
  desmarcarUniformesDetalles:function(){     
@@ -152,14 +171,14 @@ module.exports = Backbone.View.extend({
 marcarUniformesDetalles: function(){
       this.desmarcarUniformesDetalles();
       var personal = this.model.id;
-      var anio = $("#uniforme_anio").val();
-      var periodo = $("#uniforme_periodo").val();
+      //var anio = $("#uniforme_anio").val();
+      //var periodo = $("#uniforme_periodo").val();
       self = this
       this.UniformeBasicoModelo = new Uniforme();
       this.UniformeBasicoModelo.clear({silent: true})
       this.UniformeBasicoModelo.personal = personal;
-      this.UniformeBasicoModelo.anio = anio;
-      this.UniformeBasicoModelo.periodo = periodo;
+      this.UniformeBasicoModelo.anio = this.anio;
+      this.UniformeBasicoModelo.periodo = this.periodo;
       this.UniformeBasicoModelo.fetch({headers: {'Authorization' :localStorage.token},
          success: function(data){
             if(Object.keys(data.toJSON()).length===0){
@@ -191,10 +210,10 @@ marcarUniformesDetalles: function(){
        }
       
        idCheck = "#" + columna[nom_columna];
-      var periodo =$("#uniforme_periodo").val();
+     // var periodo =$("#uniforme_periodo").val();
         var periodo_catalogo = Math.round(columna["monto1"]);
     
-        var deshabilitar =  ("monto1" in columna && periodo_catalogo!="0" && periodo_catalogo != periodo);
+        var deshabilitar =  ("monto1" in columna && periodo_catalogo!="0" && periodo_catalogo != this.periodo);
        if("monto1" in columna){
           var estilo = deshabilitar ? "line-through" : "none";
           $('span#span' + columna[nom_columna]).css("text-decoration", estilo);  
@@ -234,13 +253,13 @@ marcarUniformesDetalles: function(){
             var elemento ='<input class=inputs_checkbox type=checkbox name=' + udc_catalogo + ' id=' + udc_catalogo + ' value=' + udc_catalogo + '><span id=span' + udc_catalogo +  '>' + descripcion1 + '</span>';
             $(lista_unif).append(elemento);            
           }
-          self.comboPeriodoAnio();
+         // self.comboPeriodoAnio();
            //self.limpiarCajas();
           //self.marcarUniformesDetalles()
         },
         error: function(a,err){
             self.catalogoUniformes = []
-            self.limpiarCajas();
+            self.limpiarCajas(true);
          }
     });
  },
@@ -301,9 +320,9 @@ generarJSON: function(){
       var data ={};
       data["id_personal"] = this.model.id;
       data["fecha"] =  $("#uniforme_fecha_entrega").val();
-      data["fecha_servicio"] = $("#uniforme_fecha_servicio").val();
-      data["anio"] =  $("#uniforme_anio").val();
-      data["periodo"] = $("#uniforme_periodo").val();
+      data["fecha_servicio"] = $("#uniforme_fecha_entrega").val();
+      data["anio"] =  this.anio;
+      data["periodo"] = this.periodo;
       data["observaciones"] = $("#uniformes_observaciones").val();
       data["detalle_uniforme"] = [];
       for(det_uniforme in this.catalogoUniformes)
