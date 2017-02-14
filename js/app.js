@@ -4860,8 +4860,8 @@ initialize: function () {
     // python -m SimpleHTTPServer 7001
     //104.236.232.238:8000
     //window.ruta="http://192.168.0.23:8000/";
-    //window.ruta="http://104.131.161.180/";
-    window.ruta ="http://localhost:8000/";
+    window.ruta="http://104.131.161.180/";
+    //window.ruta ="http://localhost:8000/";
 
     this.Catalogos = new CatalogosLista()
     this.CatalogosDet = new CatalogosDetalleLista()
@@ -9507,8 +9507,23 @@ module.exports = Backbone.View.extend({
       var mes = partes_fecha_entrega[1];
       var anio = partes_fecha_entrega[2];
 
-      var fecha_entrega = new Date(anio,mes,dia);
-      console.log(fecha_entrega);
+      var fecha_entrega = new Date(anio,mes-1,dia);
+
+
+
+       var hoy = new Date();
+       hoy.setHours(0,0,0,0);
+     if (fecha_entrega.getTime() > hoy.getTime()){
+        var fecha_actual = new  funcionGenerica().fechaActual(); 
+         $("#uniforme_fecha_entrega").val(fecha_actual).change();
+         return;
+        // partes_fecha_entrega = $("#uniforme_fecha_entrega").val().split('/');
+        // dia = partes_fecha_entrega[0];
+        // mes = partes_fecha_entrega[1];
+        // anio = partes_fecha_entrega[2];
+     }
+
+      //console.log(fecha_entrega);
       //var anio = fecha_actual.getFullYear();
   
       this.BuscarPeriodoUniforme = new Uniforme();
