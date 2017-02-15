@@ -9621,8 +9621,8 @@ module.exports = Backbone.View.extend({
     $("#uniforme_fecha_entrega").datepicker({dateFormat:"dd/mm/yy"});
    // $("#uniforme_fecha_servicio").datepicker({dateFormat:"dd/mm/yy"});
    this.catalogoUniformes = [];
-   this.limpiarCajas(true);
    this.llenarCatalogoUniformes();  
+
    
   
    console.log("es el render");
@@ -9702,8 +9702,9 @@ marcarUniformesDetalles: function(){
        idCheck = "#" + columna[nom_columna];
      // var periodo =$("#uniforme_periodo").val();
         var periodo_catalogo = Math.round(columna["monto1"]);
-    
+        
         var deshabilitar =  ("monto1" in columna && periodo_catalogo!="0" && periodo_catalogo != this.periodo);
+
        if("monto1" in columna){
           var estilo = deshabilitar ? "line-through" : "none";
           $('span#span' + columna[nom_columna]).css("text-decoration", estilo);  
@@ -9724,7 +9725,6 @@ marcarUniformesDetalles: function(){
       {
         headers: {'Authorization' :localStorage.token},
         success: function(data){
-
           $("#uniforme_lista1").empty();
           $("#uniforme_lista2").empty();
           var uniformes = data.models; 
@@ -9741,8 +9741,10 @@ marcarUniformesDetalles: function(){
             var udc_catalogo = uniformes[unif].get("cdu_catalogo");
             var descripcion1 = uniformes[unif].get("descripcion1");
             var elemento ='<input class=inputs_checkbox type=checkbox name=' + udc_catalogo + ' id=' + udc_catalogo + ' value=' + udc_catalogo + '><span id=span' + udc_catalogo +  '>' + descripcion1 + '</span>';
-            $(lista_unif).append(elemento);            
+            $(lista_unif).append(elemento);  
+
           }
+          self.limpiarCajas(true);
          // self.comboPeriodoAnio();
            //self.limpiarCajas();
           //self.marcarUniformesDetalles()
